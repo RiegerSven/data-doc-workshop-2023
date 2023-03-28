@@ -1,0 +1,291 @@
+---
+title: "template-scale-manual"
+subtitle: "name of study: time-point"
+author:
+  - "John Doe"
+  - "Jane Roe"
+  - "Norah Jones"
+date: today
+toc: true
+toc-title: "Table of Contents"
+number-sections: true
+
+lang: en
+tbl-cap-location: top
+
+format:
+  html:
+    self-contained: true
+    toc: true
+    number-sections: true
+    smooth-scroll: true
+    theme: cosmo
+  #pdf: default
+    
+bibliography: ["r-refs-scaleManual.bib", "references.bib"]
+csl: apa7.csl
+
+# note if you use the citation key, please speak to your supervisor!
+citation:
+  type: dataset 
+  #url:
+  #doi:
+
+execute: 
+  echo: false
+---
+
+# Information about the study
+
+```{=html}
+<style type="text/css">
+caption, .table-caption {
+  text-align: left;
+}
+</style>
+```
+
+```{r}
+#| label: load-functiopns
+
+load("scaleManualFunctions.Rdata")
+
+varOverview <-  scaleManualFunctions$varOverview
+catVar <-  scaleManualFunctions$catVar
+contVar <-  scaleManualFunctions$contVar
+scaleScore <-  scaleManualFunctions$scaleScore
+```
+
+
+```{r}
+#| label: load-example-data
+exDat <- readRDS("exampleDat.RDS")
+```
+
+
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
+# Information about the scale manual
+
+This scale manual is built with `R` [@R-base] and `Quarto` [@R-quarto].
+
+## Idenfier variable
+
+The Identifier (ID) variable is 
+
+## Logic of variable names
+
+...
+
+
+
+## Variable presentation 
+
+The variables are presented with two different table format. Variable presentation start with an overview table.
+
+```{r}
+#| label: overview
+#| tbl-cap: "Overview table"
+#| results: asis
+
+
+varOverview(name = "edu",
+            prompt = "Welchen Schulabschluss haben Ihre Eltern?",
+            cross = "TOSCA-R",
+            source = "@Kunter2002",
+            note = "Here is room for some notes.")
+```
+
+This is followed by a second table which depend on the variable type:
+
+- Categorical variables (see @tbl-catvar)
+
+```{r}
+#| label: tbl-catvar
+#| tbl-cap: "Table structure for categorical variables"
+#| results: asis
+
+catVar(variable = "edu",
+       data = exDat)
+```
+
+- Continuous variables
+
+```{r}
+#| label: tbl-contvar
+#| tbl-cap: "Table structure for continuous variables"
+#| results: asis
+
+contVar(variable = "age",
+        data = exDat)
+```
+
+
+
+\newpage
+
+## Information about the R session
+
+```{r}
+#| label: rsession
+
+sessionInfo()
+```
+
+
+## Used R packages
+
+<!-- if you use other/further packages, add them here -->
+
+```{r}
+#| label: pkgs
+#| echo: false
+pkgList <- c("knitr", # tables
+             "kableExtra", # tables
+             "car", # recoding
+             "psych") # descriptive statistics
+```
+
+```{r}
+#| label: write-r-refs
+#| eval: true
+#| echo: false
+
+otherPkgs <- c("base", "quarto")
+
+knitr::write_bib(x = c(otherPkgs, pkgList),
+                 file = "r-refs-scaleManual.bib")
+```
+
+The following `R` packages were used: 
+
+```{r}
+#| label: write-pkgs
+#| echo: false
+#| results: asis
+cat(paste0(pkgList,  " [@R-", pkgList, "]", collapse = "; "))
+```
+
+# Information about the data set
+
+## Where to find?
+
+The final data set can be found here: [add Link here](). 
+
+The corresponding codebook is here: [add Link here](). 
+
+## Sample size and number of variables
+
+<!-- replace exDat with the name of the data set -->
+
+```{r}
+#| label: sampleSize
+sampSize <- nrow(exDat) 
+numCol <- ncol(exDat)
+```
+
+The sample size of the data set is $N=$ `r sampSize` and it contains `r numCol` columns.
+
+## Additional information
+
+There is no additional information.
+
+
+# Socio-demographic variables
+
+## Gender
+
+```{r}
+#| label: tbl-sex
+#| eval: true
+#| tbl-cap: "Variable: Gender"
+#| tbl-subcap:
+#|   - "Overview"
+#|   - "Calculated statistics"
+#| results: asis
+
+varOverview(name = "sex",
+            prompt = "Welches Geschlecht haben Sie?")
+  
+catVar(variable = "sex",
+       data = exDat)
+  
+
+
+```
+
+
+## Age
+
+```{r}
+#| label: tbl-age
+#| tbl-cap: "Variable: age"
+#| tbl-subcap: ["Overview", "Calculated statistics"]
+#| output: asis
+
+
+varOverview(name = "age",
+            type = "variable",
+            questionaire = "Student",
+            prompt = "How old are you?",
+            response = "open",
+            cross = "not applicable",
+            source = "not applicable",
+            note = "")
+
+contVar(variable = "age", data = exDat)
+
+
+
+```
+
+
+
+# Psycho-social measures
+
+## Self-concept
+
+
+```{r}
+#| label: tbl-msc
+#| eval: true
+#| tbl-cap: "Variable Math Self-concept"
+#| tbl-subcap: ["Overview", "Calculated statistics"]
+
+
+mscItems <- list("msc1" = c("Ich bin gut in Mathematik."),
+                 "msc2" = c("Ich war in Mathematik immer gut."),
+                 "msc3" = c("Ich habe Verständnisschwierigkeiten bei allem, für das man Mathematik braucht."),
+                 "msc4" = c("Ich bin bei Aufgaben, die mathematisches Denken
+erfordern, nie gut."))
+
+
+varOverview(name = "Math Self-concept",
+            type = "scale",
+            itemword = mscItems,
+            prompt = "Wie sehr treffen die folgenden Aussagen auf Sie zu?",
+            response = c("1 = trifft überhaupt nicht zu",
+                        "2 = trifft eher nicht zu",
+                        "3 = trifft eher zu",
+                        "4 = trifft völlig zu"),
+           cross = "TOSCA-R",
+           source = "")
+
+scaleScore(items = mscItems,
+           scaleNameShort = "msc",
+           recItems = c(3,4),
+           recode = TRUE,
+           data = exDat,
+           table = T)
+
+```
+
+## ...
+
+# Citation
+
+
+# References
+
+::: {#refs}
+:::

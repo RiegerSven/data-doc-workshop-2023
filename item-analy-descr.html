@@ -1,0 +1,2116 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.287">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Data documentation with R and Quarto - 5&nbsp; Descriptive statistics and item analysis</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./references.html" rel="next">
+<link href="./data-cleaning.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script><script src="site_libs/kePrint-0.0.1/kePrint.js"></script><link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+</head>
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./item-analy-descr.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Descriptive statistics and item analysis</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Data documentation with R and Quarto</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/RiegerSven/data-documentation-workshop-2023" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface &amp; Preperation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./gen-info.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">General information on data documentation</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro-r-rstudio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introduction to R &amp; RStudio</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro-quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">A not so short introduction to Quarto</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data-cleaning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data cleaning</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./item-analy-descr.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Descriptive statistics and item analysis</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li><a href="#descriptive-statistics" id="toc-descriptive-statistics" class="nav-link active" data-scroll-target="#descriptive-statistics"><span class="header-section-number">5.1</span> Descriptive statistics</a></li>
+  <li><a href="#cronbachs-alpha-and-item-statistics" id="toc-cronbachs-alpha-and-item-statistics" class="nav-link" data-scroll-target="#cronbachs-alpha-and-item-statistics"><span class="header-section-number">5.2</span> Cronbachs <span class="math inline">\(\alpha\)</span> and item statistics</a></li>
+  <li>
+<a href="#calculating-scale-scores" id="toc-calculating-scale-scores" class="nav-link" data-scroll-target="#calculating-scale-scores"><span class="header-section-number">5.3</span> Calculating scale scores</a>
+  <ul>
+<li><a href="#calculating-many-scale-scores" id="toc-calculating-many-scale-scores" class="nav-link" data-scroll-target="#calculating-many-scale-scores"><span class="header-section-number">5.3.1</span> Calculating many scale scores</a></li>
+  </ul>
+</li>
+  </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/RiegerSven/data-documentation-workshop-2023/edit/main/item-analy-descr.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title"><span id="item-analy-descr" class="quarto-section-identifier"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Descriptive statistics and item analysis</span></span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header><p>In this part you will learn how to calculate descriptive statistics, item statistics and calculate scale scores.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In <code>R</code> there are many different ways to get things done. Also, recall we provided functions (see <a href="./gen-info.html#functions">here</a>) which are ready to use.</p>
+</div>
+</div>
+<section id="descriptive-statistics" class="level2" data-number="5.1"><h2 data-number="5.1" class="anchored" data-anchor-id="descriptive-statistics">
+<span class="header-section-number">5.1</span> Descriptive statistics</h2>
+<p>Typical descriptive statistics are:</p>
+<ul>
+<li>mean</li>
+<li>standard deviation</li>
+<li>minimum and maximum</li>
+<li>absolute and relative frequencies</li>
+</ul>
+<p><code>R</code> provides functions to calculate the statistics: <code>mean</code>, <code>sd</code>, <code>min</code>, <code>max</code>, <code>table</code>, …</p>
+<p>In addition, there are packages such as the <code>psych</code> package <span class="citation" data-cites="R-psych">(<a href="references.html#ref-R-psych" role="doc-biblioref">Revelle 2023</a>)</span> that offer additional functionality.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Base R</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">psych package</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<p>For example, if we want to calculate the mean and the standard deviation of the variable age, we can use the respective functions (i.e., <code>mean</code> &amp; <code>sd</code>):</p>
+<div class="columns">
+<div class="column" style="width:40%;">
+<div class="cell">
+<details open=""><summary>Show/hide code</summary><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">exDat</span><span class="op">$</span><span class="va">age</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] 10.00921</code></pre>
+</div>
+</div>
+</div><div class="column" style="width:10%;">
+<!-- empty column to create gap -->
+</div><div class="column" style="width:40%;">
+<div class="cell">
+<details open=""><summary>Show/hide code</summary><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">exDat</span><span class="op">$</span><span class="va">age</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.581207</code></pre>
+</div>
+</div>
+</div>
+</div>
+<p>Or, if you are interested in absolute and/or relative frequencies, we can use the <code>table</code> function:</p>
+<div class="columns">
+<div class="column" style="width:40%;">
+<div class="cell">
+<details open=""><summary>Show/hide code</summary><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">exDat</span><span class="op">$</span><span class="va">sex</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>
+  0   1 
+357 354 </code></pre>
+</div>
+</div>
+</div><div class="column" style="width:10%;">
+<!-- empty column to create gap -->
+</div><div class="column" style="width:40%;">
+<div class="cell">
+<details open=""><summary>Show/hide code</summary><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">exDat</span><span class="op">$</span><span class="va">sex</span>,</span>
+<span>      useNA <span class="op">=</span> <span class="st">"always"</span><span class="op">)</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">exDat</span><span class="op">$</span><span class="va">sex</span><span class="op">)</span><span class="op">*</span><span class="fl">100</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>
+   0    1 &lt;NA&gt; 
+47.6 47.2  5.2 </code></pre>
+</div>
+</div>
+</div>
+</div>
+<p>However, often you need to calculate the descriptive statistics not only for a single variable, but for many variables. Again, in <code>R</code> this can be done in many different ways. Here we depict a base <code>R</code> solution using the <code>apply</code> function.</p>
+<p>The <code>apply</code> function needs the following arguments (copied from the function description):</p>
+<ul>
+<li>
+<code>X</code>: an array, including a matrix.</li>
+<li>
+<code>MARGIN</code>: a vector giving the subscripts which the function will be applied over. E.g., for a matrix 1 indicates rows, <strong>2 indicates columns</strong>, c(1, 2) indicates rows and columns. Where X has named dimnames, it can be a character vector selecting dimension names.</li>
+<li>
+<code>FUN</code>: the function to be applied: see ‘Details’.</li>
+</ul>
+<p>In order to better retrace the calculation procedure, we present it in a two-step<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> approach:</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Two-step approach</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">One-step approach</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<ol type="1">
+<li>Using the <code>apply</code> function and save the output in an object (here: <code>exDescr</code>):
+<ul>
+<li>Input <code>X</code> is the example data set: <code>exDat</code>
+</li>
+<li>Set <code>MARGIN</code> value to 2, because we want to apply the function over columns of <code>exDat</code>
+</li>
+<li>
+<code>FUN</code>: Here we define a function<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> that calculates the mean, standard deviation, minimum and maximum (combined through the <code>c</code> function). Within the braces <code>{</code> you can state several (consecutive) arguments. Finally, we return the object (<code>fOut</code>) of the function. Note the <code>fOut</code> object is not saved in the workspace.</li>
+</ul>
+</li>
+</ol>
+<div class="cell">
+<details open=""><summary>Show/hide code</summary><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">exDescr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span><span class="op">(</span>X <span class="op">=</span> <span class="va">exDat</span>,</span>
+<span>                 MARGIN <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>                 FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
+<span>                   <span class="va">fOut</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
+<span>                     <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">x</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>,</span>
+<span>                     <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">x</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>,</span>
+<span>                     <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">x</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>,</span>
+<span>                     <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">x</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
+<span>                     <span class="op">)</span></span>
+<span>                   <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">fOut</span><span class="op">)</span></span>
+<span>                   <span class="op">}</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<ol start="2" type="1">
+<li>In the second step, we first transpose (<code>t</code> function) the returned <code>matrix</code>, transform it then to a <code>data.frame</code><a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> object and provide the column names.</li>
+</ol>
+<div class="cell">
+<details open=""><summary>Show/hide code</summary><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">exDescr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="va">exDescr</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">exDescr</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Mean"</span>, <span class="st">"SD"</span>, <span class="st">"Min"</span>, <span class="st">"Max"</span><span class="op">)</span></span>
+<span><span class="va">exDescr</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>            Mean        SD     Min      Max
+msc1   2.5186667 0.7373668 1.00000  4.00000
+msc2   2.5441176 0.7186516 1.00000  4.00000
+msc3   2.4880000 0.7482887 1.00000  4.00000
+msc4   2.4800000 0.7463306 1.00000  4.00000
+age   10.0092114 1.5812066 5.43976 14.84008
+sex    0.4978903 0.5003475 0.00000  1.00000
+edu    2.6666667 1.2480514 0.00000  4.00000
+msc3r  2.5120000 0.7482887 1.00000  4.00000
+msc4r  2.5200000 0.7463306 1.00000  4.00000
+msc    2.5275735 0.6106209 1.00000  4.00000</code></pre>
+</div>
+</div>
+<p>(3. Finally, if you need an formatted table, the <code>kbl</code> function from the <code>kableExtra</code> package <span class="citation" data-cites="R-kableExtra">(<a href="references.html#ref-R-kableExtra" role="doc-biblioref">Zhu 2021</a>)</span> transforms matrices or data frames into nice tables.)</p>
+<div class="cell">
+<details open=""><summary>Show/hide code</summary><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">kableExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kbl.html">kbl</a></span><span class="op">(</span><span class="va">exDescr</span>,</span>
+<span>                digits <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>                caption <span class="op">=</span> <span class="st">"Descriptive Statistics of the example data set"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">kableExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kable_classic.html">kable_classic</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">kableExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/footnote.html">footnote</a></span><span class="op">(</span>general <span class="op">=</span> <span class="st">"This is a nice formatted table using the kableExtra package [@R-kableExtra]."</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<table class="lightable-classic table table-sm table-striped small" data-quarto-postprocess="true">
+<caption>Descriptive Statistics of the example data set</caption>
+<thead><tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Mean</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">SD</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Min</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Max</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">msc1</td>
+<td style="text-align: right;">2.52</td>
+<td style="text-align: right;">0.74</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">4.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">msc2</td>
+<td style="text-align: right;">2.54</td>
+<td style="text-align: right;">0.72</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">4.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">msc3</td>
+<td style="text-align: right;">2.49</td>
+<td style="text-align: right;">0.75</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">4.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">msc4</td>
+<td style="text-align: right;">2.48</td>
+<td style="text-align: right;">0.75</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">4.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">age</td>
+<td style="text-align: right;">10.01</td>
+<td style="text-align: right;">1.58</td>
+<td style="text-align: right;">5.44</td>
+<td style="text-align: right;">14.84</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">sex</td>
+<td style="text-align: right;">0.50</td>
+<td style="text-align: right;">0.50</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">1.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">edu</td>
+<td style="text-align: right;">2.67</td>
+<td style="text-align: right;">1.25</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">4.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">msc3r</td>
+<td style="text-align: right;">2.51</td>
+<td style="text-align: right;">0.75</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">4.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">msc4r</td>
+<td style="text-align: right;">2.52</td>
+<td style="text-align: right;">0.75</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">4.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">msc</td>
+<td style="text-align: right;">2.53</td>
+<td style="text-align: right;">0.61</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">4.00</td>
+</tr>
+</tbody>
+<tfoot>
+<tr class="odd">
+<td style="text-align: left; padding: 0;"><span style="font-style: italic;">Note: </span></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0;">
+<sup></sup> This is a nice formatted table using the kableExtra package [@R-kableExtra].</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+</tfoot>
+</table>
+</div>
+</div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Although it is probably a matter of coding taste, we do not recommend such a approach. We like it neat.</p>
+</div>
+</div>
+<div class="cell">
+<details open=""><summary>Show/hide code</summary><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">kableExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kbl.html">kbl</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span><span class="op">(</span><span class="va">exDat</span>,</span>
+<span>        MARGIN <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>        FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
+<span>          <span class="va">fOut</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
+<span>            <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">x</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>,</span>
+<span>            <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">x</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>,</span>
+<span>            <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">x</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>,</span>
+<span>            <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">x</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
+<span>            <span class="op">)</span></span>
+<span>          <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">fOut</span><span class="op">)</span></span>
+<span>          <span class="op">}</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  digits <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>  col.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Mean"</span>, <span class="st">"SD"</span>, <span class="st">"Min"</span>, <span class="st">"Max"</span><span class="op">)</span>,</span>
+<span>  caption <span class="op">=</span> <span class="st">"Descriptive Statistics of the example data set"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">kableExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kable_classic.html">kable_classic</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">kableExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/footnote.html">footnote</a></span><span class="op">(</span>general <span class="op">=</span> <span class="st">"This is a nice formated table using the kableExtra package [@R-kableExtra]."</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<table class="lightable-classic table table-sm table-striped small" data-quarto-postprocess="true">
+<caption>Descriptive Statistics of the example data set</caption>
+<thead><tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Mean</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">SD</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Min</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Max</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">msc1</td>
+<td style="text-align: right;">2.52</td>
+<td style="text-align: right;">0.74</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">4.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">msc2</td>
+<td style="text-align: right;">2.54</td>
+<td style="text-align: right;">0.72</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">4.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">msc3</td>
+<td style="text-align: right;">2.49</td>
+<td style="text-align: right;">0.75</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">4.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">msc4</td>
+<td style="text-align: right;">2.48</td>
+<td style="text-align: right;">0.75</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">4.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">age</td>
+<td style="text-align: right;">10.01</td>
+<td style="text-align: right;">1.58</td>
+<td style="text-align: right;">5.44</td>
+<td style="text-align: right;">14.84</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">sex</td>
+<td style="text-align: right;">0.50</td>
+<td style="text-align: right;">0.50</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">1.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">edu</td>
+<td style="text-align: right;">2.67</td>
+<td style="text-align: right;">1.25</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">4.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">msc3r</td>
+<td style="text-align: right;">2.51</td>
+<td style="text-align: right;">0.75</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">4.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">msc4r</td>
+<td style="text-align: right;">2.52</td>
+<td style="text-align: right;">0.75</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">4.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">msc</td>
+<td style="text-align: right;">2.53</td>
+<td style="text-align: right;">0.61</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">4.00</td>
+</tr>
+</tbody>
+<tfoot>
+<tr class="odd">
+<td style="text-align: left; padding: 0;"><span style="font-style: italic;">Note: </span></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0;">
+<sup></sup> This is a nice formated table using the kableExtra package [@R-kableExtra].</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+</tfoot>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<p>From the function description (see <code><a href="https://rdrr.io/pkg/psych/man/describe.html">?psych::describe</a></code>):</p>
+<blockquote class="blockquote">
+<p>The <code>describe</code> function in the <code>psych</code> package is meant to produce the most frequently requested stats in psychometric and psychology studies, and to produce them in an easy to read data.frame. If a grouping variable is called for in formula mode, it will also call <code>describeBy</code> to the processing.</p>
+</blockquote>
+<p>The function has many input argument (see again <code><a href="https://rdrr.io/pkg/psych/man/describe.html">?psych::describe</a></code>), but requires only <code>x</code>: A data frame or matrix</p>
+<div class="cell">
+<details open=""><summary>Show/hide code</summary><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">psych</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/psych/man/describe.html">describe</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">exDat</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>      vars   n  mean   sd median trimmed  mad  min   max range  skew kurtosis
+msc1     1 750  2.52 0.74   3.00    2.52 1.48 1.00  4.00   3.0 -0.02    -0.31
+msc2     2 680  2.54 0.72   3.00    2.53 1.48 1.00  4.00   3.0 -0.02    -0.27
+msc3     3 750  2.49 0.75   2.00    2.49 1.48 1.00  4.00   3.0  0.00    -0.34
+msc4     4 750  2.48 0.75   2.00    2.48 1.48 1.00  4.00   3.0  0.06    -0.33
+age      5 670 10.01 1.58  10.03   10.02 1.46 5.44 14.84   9.4 -0.06     0.07
+sex      6 711  0.50 0.50   0.00    0.50 0.00 0.00  1.00   1.0  0.01    -2.00
+edu      7 750  2.67 1.25   3.00    2.79 1.48 0.00  4.00   4.0 -0.59    -0.73
+msc3r    8 750  2.51 0.75   3.00    2.51 1.48 1.00  4.00   3.0  0.00    -0.34
+msc4r    9 750  2.52 0.75   3.00    2.52 1.48 1.00  4.00   3.0 -0.06    -0.33
+msc     10 680  2.53 0.61   2.50    2.53 0.74 1.00  4.00   3.0 -0.07    -0.35
+        se
+msc1  0.03
+msc2  0.03
+msc3  0.03
+msc4  0.03
+age   0.06
+sex   0.02
+edu   0.05
+msc3r 0.03
+msc4r 0.03
+msc   0.02</code></pre>
+</div>
+</div>
+<p>The <code>describe</code> output is easily transformed into a <code>data.frame</code> which then can be passed to the <code>kbl</code> function from the <code>kableExtra</code> package <span class="citation" data-cites="R-kableExtra">(<a href="references.html#ref-R-kableExtra" role="doc-biblioref">Zhu 2021</a>)</span>.</p>
+<div class="cell">
+<details open=""><summary>Show/hide code</summary><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">kableExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kbl.html">kbl</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu">psych</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/psych/man/describe.html">describe</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">exDat</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"n"</span>, <span class="st">"mean"</span>, <span class="st">"sd"</span><span class="op">)</span><span class="op">]</span>,</span>
+<span>                caption <span class="op">=</span> <span class="st">"Descriptive Statistics of the example data set calculated by the psych package [@R-psych]"</span>,</span>
+<span>                digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">kableExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kable_classic.html">kable_paper</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<table class="lightable-paper table table-sm table-striped small" data-quarto-postprocess="true">
+<caption>Descriptive Statistics of the example data set calculated by the psych package [@R-psych]</caption>
+<thead><tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">n</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">mean</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">sd</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">msc1</td>
+<td style="text-align: right;">750</td>
+<td style="text-align: right;">2.52</td>
+<td style="text-align: right;">0.74</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">msc2</td>
+<td style="text-align: right;">680</td>
+<td style="text-align: right;">2.54</td>
+<td style="text-align: right;">0.72</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">msc3</td>
+<td style="text-align: right;">750</td>
+<td style="text-align: right;">2.49</td>
+<td style="text-align: right;">0.75</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">msc4</td>
+<td style="text-align: right;">750</td>
+<td style="text-align: right;">2.48</td>
+<td style="text-align: right;">0.75</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">age</td>
+<td style="text-align: right;">670</td>
+<td style="text-align: right;">10.01</td>
+<td style="text-align: right;">1.58</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">sex</td>
+<td style="text-align: right;">711</td>
+<td style="text-align: right;">0.50</td>
+<td style="text-align: right;">0.50</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">edu</td>
+<td style="text-align: right;">750</td>
+<td style="text-align: right;">2.67</td>
+<td style="text-align: right;">1.25</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">msc3r</td>
+<td style="text-align: right;">750</td>
+<td style="text-align: right;">2.51</td>
+<td style="text-align: right;">0.75</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">msc4r</td>
+<td style="text-align: right;">750</td>
+<td style="text-align: right;">2.52</td>
+<td style="text-align: right;">0.75</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">msc</td>
+<td style="text-align: right;">680</td>
+<td style="text-align: right;">2.53</td>
+<td style="text-align: right;">0.61</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>If you need to calculate the descriptive statistics separate for groups, there is the <code>describeBy</code> function. Use the <code>group</code> argument.</p>
+<div class="cell">
+<details open=""><summary>Show/hide code</summary><div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">psych</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/psych/man/describe.by.html">describeBy</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">exDat</span>, group <span class="op">=</span><span class="st">"sex"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>
+ Descriptive statistics by group 
+sex: 0
+      vars   n  mean   sd median trimmed  mad  min   max range  skew kurtosis
+msc1     1 357  2.48 0.72   2.00    2.48 1.48 1.00  4.00   3.0  0.01    -0.28
+msc2     2 323  2.53 0.71   3.00    2.54 1.48 1.00  4.00   3.0 -0.10    -0.25
+msc3     3 357  2.52 0.71   3.00    2.53 1.48 1.00  4.00   3.0 -0.10    -0.26
+msc4     4 357  2.50 0.73   2.00    2.47 1.48 1.00  4.00   3.0  0.18    -0.30
+age      5 320 10.08 1.62  10.07   10.11 1.51 5.44 14.84   9.4 -0.14     0.00
+sex      6 357  0.00 0.00   0.00    0.00 0.00 0.00  0.00   0.0   NaN      NaN
+edu      7 357  2.71 1.26   3.00    2.85 1.48 0.00  4.00   4.0 -0.65    -0.67
+msc3r    8 357  2.48 0.71   2.00    2.47 1.48 1.00  4.00   3.0  0.10    -0.26
+msc4r    9 357  2.50 0.73   3.00    2.53 1.48 1.00  4.00   3.0 -0.18    -0.30
+msc     10 323  2.50 0.59   2.50    2.50 0.74 1.00  4.00   3.0 -0.04    -0.20
+        se
+msc1  0.04
+msc2  0.04
+msc3  0.04
+msc4  0.04
+age   0.09
+sex   0.00
+edu   0.07
+msc3r 0.04
+msc4r 0.04
+msc   0.03
+------------------------------------------------------------ 
+sex: 1
+      vars   n mean   sd median trimmed  mad min   max range  skew kurtosis
+msc1     1 354 2.55 0.76   3.00    2.54 1.48 1.0  4.00  3.00 -0.06    -0.36
+msc2     2 321 2.56 0.73   3.00    2.54 1.48 1.0  4.00  3.00 -0.01    -0.31
+msc3     3 354 2.46 0.79   2.00    2.46 1.48 1.0  4.00  3.00  0.08    -0.43
+msc4     4 354 2.47 0.76   2.00    2.49 1.48 1.0  4.00  3.00 -0.02    -0.38
+age      5 313 9.94 1.53  10.02    9.94 1.45 5.7 14.76  9.06  0.03     0.16
+sex      6 354 1.00 0.00   1.00    1.00 0.00 1.0  1.00  0.00   NaN      NaN
+edu      7 354 2.62 1.25   3.00    2.73 1.48 0.0  4.00  4.00 -0.51    -0.85
+msc3r    8 354 2.54 0.79   3.00    2.54 1.48 1.0  4.00  3.00 -0.08    -0.43
+msc4r    9 354 2.53 0.76   3.00    2.51 1.48 1.0  4.00  3.00  0.02    -0.38
+msc     10 321 2.55 0.63   2.50    2.57 0.74 1.0  4.00  3.00 -0.13    -0.42
+        se
+msc1  0.04
+msc2  0.04
+msc3  0.04
+msc4  0.04
+age   0.09
+sex   0.00
+edu   0.07
+msc3r 0.04
+msc4r 0.04
+msc   0.04</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section><section id="cronbachs-alpha-and-item-statistics" class="level2" data-number="5.2"><h2 data-number="5.2" class="anchored" data-anchor-id="cronbachs-alpha-and-item-statistics">
+<span class="header-section-number">5.2</span> Cronbachs <span class="math inline">\(\alpha\)</span> and item statistics</h2>
+<blockquote class="blockquote">
+<p>Coefficient <span class="math inline">\(\alpha\)</span> is often called an internal consistency reliability coefficient, as it is based on covariances among scale items and thus internal consistency among items. But internal consistency should not be conflated with homogeneity, where homogeneity implies that a single dimension underlies the set of items <span class="citation" data-cites="Widaman2022">(<a href="references.html#ref-Widaman2022" role="doc-biblioref">Widaman and Revelle 2022</a>)</span>.</p>
+</blockquote>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Coefficient <span class="math inline">\(\alpha\)</span> debate
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Some interesting reads: <span class="citation" data-cites="Cronbach1951">Cronbach (<a href="references.html#ref-Cronbach1951" role="doc-biblioref">1951</a>)</span>;<span class="citation" data-cites="Revelle2009b">Revelle and Zinbarg (<a href="references.html#ref-Revelle2009b" role="doc-biblioref">2009</a>)</span>; <span class="citation" data-cites="Sijtsma2009">Sijtsma (<a href="references.html#ref-Sijtsma2009" role="doc-biblioref">2009</a>)</span>; <span class="citation" data-cites="McNeish2017">McNeish (<a href="references.html#ref-McNeish2017" role="doc-biblioref">2017</a>)</span>; <span class="citation" data-cites="Savalei2019">Savalei and Reise (<a href="references.html#ref-Savalei2019" role="doc-biblioref">2019</a>)</span></p>
+</div>
+</div>
+<p>Following again the description and notation of <span class="citation" data-cites="Widaman2022">Widaman and Revelle (<a href="references.html#ref-Widaman2022" role="doc-biblioref">2022</a>)</span>:</p>
+<p>Coefficient alpha, or <span class="math inline">\(\alpha\)</span> can be written as</p>
+<p><span id="eq-alpha"><span class="math display">\[
+\alpha = (\frac{p}{p-1})\left(\frac{\sigma_Y^2-\sum\limits_{j=1}^p\sigma_j^2}{\sigma_Y^2}\right) = (\frac{p}{p-1})\left(1- \frac{\sum\limits_{j=1}^p\sigma_j^2}{\sigma_Y^2}\right)
+\tag{5.1}\]</span></span></p>
+<p>where <span class="math inline">\(p\)</span> is the number of items on the scale, <span class="math inline">\(\sigma_j^2\)</span> (<span class="math inline">\(j=1,...,p\)</span>) is the variance of item <span class="math inline">\(j\)</span>, […]. <span class="math inline">\(\sigma_Y^2\)</span> is the variance of the sum score.</p>
+<p>Now lets calculate Cronbachs <span class="math inline">\(\alpha\)</span>. We use the variables <code>msc1</code>,<code>msc2</code>,<code>msc3r</code>, &amp; <code>msc4r</code> from the example data set (<code>exDat</code>).</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Missing values and Cronbachs <span class="math inline">\(\alpha\)</span>
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>There are many different packages which implemented the calculation of Cronbachs <span class="math inline">\(\alpha\)</span>. For example:</p>
+<ul>
+<li><p><code>alpha</code> function from the <code>psych</code> package <span class="citation" data-cites="R-psych">(<a href="references.html#ref-R-psych" role="doc-biblioref">Revelle 2023</a>)</span></p></li>
+<li><p><code>itemstats</code> function from the <code>mirt</code> package <span class="citation" data-cites="R-mirt">(<a href="references.html#ref-R-mirt" role="doc-biblioref">Chalmers 2022</a>)</span></p></li>
+<li><p><code>cronbach</code> function from the <code>psy</code> package <span class="citation" data-cites="R-psy">(<a href="references.html#ref-R-psy" role="doc-biblioref">Falissard 2022</a>)</span></p></li>
+<li><p><code>cronbach.alpha</code> function from the <code>ltm</code> package <span class="citation" data-cites="R-ltm">(<a href="references.html#ref-R-ltm" role="doc-biblioref">Rizopoulos 2022</a>)</span></p></li>
+</ul>
+<p>Interestingly, these package implemented different approaches (and options) in how they deal with missing values which (may) lead to (slightly) different results.</p>
+<div class="cell">
+<details><summary>Show/hide code</summary><div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">exDatmiss</span> <span class="op">&lt;-</span> <span class="va">exDat</span></span>
+<span></span>
+<span><span class="co"># add some more missing data, this adds up when calculating the sum score</span></span>
+<span></span>
+<span><span class="va">exDatmiss</span><span class="op">$</span><span class="va">msc3r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span> <span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html">rbinom</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">exDatmiss</span><span class="op">)</span>,</span>
+<span>    size <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>    <span class="fl">.25</span><span class="op">)</span> <span class="op">==</span> <span class="fl">1</span>,</span>
+<span>  <span class="cn">NA</span>,</span>
+<span>  <span class="va">exDatmiss</span><span class="op">$</span><span class="va">msc3r</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="va">exDatmiss</span><span class="op">$</span><span class="va">msc1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span> <span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html">rbinom</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">exDatmiss</span><span class="op">)</span>,</span>
+<span>    size <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>    <span class="fl">.15</span><span class="op">)</span> <span class="op">==</span> <span class="fl">1</span>,</span>
+<span>  <span class="cn">NA</span>,</span>
+<span>  <span class="va">exDatmiss</span><span class="op">$</span><span class="va">msc1</span></span>
+<span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details><summary>Show/hide code</summary><div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">alphaOver</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
+<span>  <span class="st">"alpha"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span></span>
+<span>    <span class="fu">psych</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/psych/man/alpha.html">alpha</a></span><span class="op">(</span><span class="va">exDatmiss</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">mscItems</span><span class="op">)</span><span class="op">]</span><span class="op">)</span><span class="op">$</span><span class="va">total</span><span class="op">$</span><span class="va">raw_alpha</span>,</span>
+<span>    <span class="fu">psy</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/psy/man/cronbach.html">cronbach</a></span><span class="op">(</span><span class="va">exDatmiss</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">mscItems</span><span class="op">)</span><span class="op">]</span><span class="op">)</span><span class="op">$</span><span class="va">alpha</span>,</span>
+<span>    <span class="fu">mirt</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/mirt/man/itemstats.html">itemstats</a></span><span class="op">(</span><span class="va">exDatmiss</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">mscItems</span><span class="op">)</span><span class="op">]</span><span class="op">)</span><span class="op">$</span><span class="va">overall</span><span class="op">$</span><span class="va">alpha</span>,</span>
+<span>    <span class="fu">ltm</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ltm/man/cronbach.alpha.html">cronbach.alpha</a></span><span class="op">(</span><span class="va">exDatmiss</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">mscItems</span><span class="op">)</span><span class="op">]</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span><span class="op">$</span><span class="va">alpha</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span>    </span>
+<span><span class="va">alphaOver</span><span class="op">$</span><span class="va">Package</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"psych"</span>, <span class="st">"psy"</span>, <span class="st">"mirt"</span>, <span class="st">"ltm"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">kableExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kbl.html">kbl</a></span><span class="op">(</span><span class="va">alphaOver</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Package"</span>, <span class="st">"alpha"</span><span class="op">)</span><span class="op">]</span>,</span>
+<span>                col.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Package"</span>, <span class="st">"Cronbachs $\\alpha$"</span><span class="op">)</span>,</span>
+<span>                digits <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>                centering <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">kableExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kable_styling.html">kable_styling</a></span><span class="op">(</span>full_width <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>                            bootstrap_options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"hover"</span>, <span class="st">"responsive"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output-display">
+<div class="table-responsive">
+<table class="table table-hover table-sm table-striped small" data-quarto-postprocess="true">
+<caption>Overview of different Cronbach <span class="math inline">\(\alpha\)</span> calculations {#tbl-alpha-over}</caption>
+<thead><tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Package</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Cronbachs $\alpha$</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">psych</td>
+<td style="text-align: right;">0.85450</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">psy</td>
+<td style="text-align: right;">0.85385</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">mirt</td>
+<td style="text-align: right;">0.85385</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ltm</td>
+<td style="text-align: right;">0.84913</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">Cronbachs <span class="math inline">\(\alpha\)</span> and item statistics with base R</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Cronbachs <span class="math inline">\(\alpha\)</span> and item statistics with psych</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
+<ol start="0" type="1">
+<li>Before we calculate Cronbachs <span class="math inline">\(\alpha\)</span>, we remove (using the <code>na.omit</code> function) all incomplete cases from the data set.</li>
+</ol>
+<div class="cell">
+<details open=""><summary>Show/hide code</summary><div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">itemDF</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html">na.omit</a></span><span class="op">(</span><span class="va">exDat</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">mscItems</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<ol type="1">
+<li>Get the number of items (<span class="math inline">\(p\)</span>)</li>
+</ol>
+<div class="cell">
+<details open=""><summary>Show/hide code</summary><div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">mscItems</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<ol start="2" type="1">
+<li>Calculate the sum (i.e., <code>sum</code> function) of <span class="math inline">\(\sigma_j^2\)</span> of all items using the <code>apply</code> function (see also <a href="#two-step-apply">above</a>) and <span class="math inline">\(\sigma_Y^2\)</span> of the total score (that is calculated by the <code>rowSums</code> function; see <a href="#app1-rowsums">below</a> for a detailed description of the function).</li>
+</ol>
+<div class="cell">
+<details open=""><summary>Show/hide code</summary><div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sigmaInd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span><span class="op">(</span><span class="va">itemDF</span>, <span class="fl">2</span>, <span class="va">sd</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span>
+<span><span class="va">sigmaTot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">var</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html">rowSums</a></span><span class="op">(</span><span class="va">itemDF</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<ol start="3" type="1">
+<li>Apply <a href="#eq-alpha">Equation&nbsp;<span>5.1</span></a>
+</li>
+</ol>
+<div class="cell">
+<details open=""><summary>Show/hide code</summary><div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">alpha</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">p</span><span class="op">/</span><span class="op">(</span><span class="va">p</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">*</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">sigmaInd</span><span class="op">/</span> <span class="va">sigmaTot</span> <span class="op">)</span></span>
+<span><span class="va">alpha</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8496289</code></pre>
+</div>
+</div>
+<p>An important item statistics is the so-called <em>Item whole correlation for this item against the scale without this item</em> (in the <code>alpha</code> function from the <code>psych</code> package <span class="citation" data-cites="R-psych">(<a href="references.html#ref-R-psych" role="doc-biblioref">Revelle 2023</a>)</span> this is called: <code>r.drop</code>).</p>
+<ol start="0" type="1">
+<li>Recall, the names of the items are stored in the <code>named list</code> object (i.e., <code>mscItems</code>).</li>
+</ol>
+<div class="cell">
+<details open=""><summary>Show/hide code</summary><div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">mscItems</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] "msc1"  "msc2"  "msc3r" "msc4r"</code></pre>
+</div>
+</div>
+<ol type="1">
+<li>To correlate the first item with the sum score, we use the <code>cor</code> function. To ignore the item when calculating the sum score, we state <code>[-1]</code> after the <code>names</code> call of the <code>named list</code>.</li>
+</ol>
+<div class="cell">
+<details open=""><summary>Show/hide code</summary><div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">exDat</span><span class="op">[</span>,<span class="st">"msc1"</span><span class="op">]</span>,</span>
+<span>    y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html">rowSums</a></span><span class="op">(</span><span class="va">exDat</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">mscItems</span><span class="op">)</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>    use <span class="op">=</span> <span class="st">"pairwise.complete.obs"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.6657391</code></pre>
+</div>
+</div>
+<ol start="2" type="1">
+<li>Now, we do it for all items. Therefore, we may use the <code>sapply</code> function. More specifically, we iterate through the item names (or to be precise, through the length of the item names)<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>. In the input argument <code>x</code> we (only) use the respective item <code>[itemNr]</code>, while we ignore it <code>[-itemNr]</code> when calculating the sum score in the second input argument <code>y</code>.</li>
+</ol>
+<div class="cell">
+<details open=""><summary>Show/hide code</summary><div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">mscItems</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>       <span class="kw">function</span><span class="op">(</span><span class="va">itemNr</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">exDat</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">mscItems</span><span class="op">)</span><span class="op">[</span><span class="va">itemNr</span><span class="op">]</span><span class="op">]</span>,</span>
+<span>                            y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html">rowSums</a></span><span class="op">(</span><span class="va">exDat</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">mscItems</span><span class="op">)</span><span class="op">[</span><span class="op">-</span><span class="va">itemNr</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>                            use <span class="op">=</span> <span class="st">"pairwise.complete.obs"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.6657391 0.6269790 0.7422577 0.7205174</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+<p>In the <code>psych</code> package <span class="citation" data-cites="R-psych">(<a href="references.html#ref-R-psych" role="doc-biblioref">Revelle 2023</a>)</span>, the <code>alpha</code> function is designed to calculate Cronbachs <span class="math inline">\(\alpha\)</span>. The function has several input arguments (see <code><a href="https://rdrr.io/pkg/psych/man/alpha.html">?psych::alpha</a></code>), but requires only <code>x</code>: A data.frame or matrix of data, or a covariance or correlation matrix.</p>
+<p>The function returns a couple of lists, including:</p>
+<ul>
+<li><p>different <span class="math inline">\(\alpha\)</span> estimates (i.e., <code>raw_alpha</code>, <code>std.alpha</code>)</p></li>
+<li><p>item statistics (e.g., item whole correlation corrected for item overlap and scale reliability, item whole correlation for this item against the scale without this item, …)</p></li>
+<li><p>response frequencies</p></li>
+<li><p>calculated mean- or sum score (depending on the <code>cumulative</code> argument)</p></li>
+<li><p>…</p></li>
+</ul>
+<div class="cell">
+<details open=""><summary>Show/hide code</summary><div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">psych</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/psych/man/alpha.html">alpha</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">exDat</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">mscItems</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stdout">
+<pre><code>
+Reliability analysis   
+Call: psych::alpha(x = exDat[names(mscItems)])
+
+  raw_alpha std.alpha G6(smc) average_r S/N    ase mean   sd median_r
+      0.85      0.85    0.82      0.59 5.7 0.0089  2.5 0.62     0.57
+
+    95% confidence boundaries 
+         lower alpha upper
+Feldt     0.83  0.85  0.87
+Duhachek  0.83  0.85  0.87
+
+ Reliability if an item is dropped:
+      raw_alpha std.alpha G6(smc) average_r S/N alpha se   var.r med.r
+msc1       0.82      0.82    0.76      0.60 4.5    0.012 0.01145  0.55
+msc2       0.84      0.84    0.78      0.63 5.2    0.010 0.00617  0.59
+msc3r      0.79      0.79    0.71      0.55 3.7    0.013 0.00080  0.55
+msc4r      0.79      0.79    0.72      0.56 3.9    0.013 0.00063  0.55
+
+ Item statistics 
+        n raw.r std.r r.cor r.drop mean   sd
+msc1  750  0.82  0.82  0.72   0.67  2.5 0.74
+msc2  680  0.79  0.79  0.67   0.62  2.5 0.72
+msc3r 750  0.87  0.86  0.82   0.74  2.5 0.75
+msc4r 750  0.86  0.85  0.80   0.73  2.5 0.75
+
+Non missing response frequency for each item
+         1    2    3    4 miss
+msc1  0.07 0.42 0.44 0.08 0.00
+msc2  0.06 0.41 0.45 0.07 0.09
+msc3r 0.07 0.42 0.43 0.08 0.00
+msc4r 0.08 0.41 0.44 0.08 0.00</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section><section id="calculating-scale-scores" class="level2" data-number="5.3"><h2 data-number="5.3" class="anchored" data-anchor-id="calculating-scale-scores">
+<span class="header-section-number">5.3</span> Calculating scale scores</h2>
+<p>Now, we calculate scale scores (i.e., <span class="math inline">\(msc_{sum}\)</span>, <span class="math inline">\(msc_{avg}\)</span>) of the items <span class="math inline">\(msc_1,msc_2,msc_3r,msc_{4r}\)</span>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Scale scores
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Some interesting reads: <span class="citation" data-cites="Widaman2022">Widaman and Revelle (<a href="references.html#ref-Widaman2022" role="doc-biblioref">2022</a>)</span>; <span class="citation" data-cites="McNeish2020b">McNeish and Wolf (<a href="references.html#ref-McNeish2020b" role="doc-biblioref">2020</a>)</span>; <span class="citation" data-cites="Rose2019">Rose et al. (<a href="references.html#ref-Rose2019" role="doc-biblioref">2019</a>)</span></p>
+</div>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist">
+<li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">rowSums from base R</a></li>
+<li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">scoreItems from psych</a></li>
+</ul>
+<div class="tab-content">
+<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
+<p>The <code>rowSums</code> function needs one input (copied from the function description):</p>
+<ul>
+<li>
+<code>x</code>: an array of two or more dimensions, containing numeric, complex, integer or logical values, or a numeric data frame.</li>
+</ul>
+<p>But the <code>na.rm</code> argument needs special attention:</p>
+<ul>
+<li>
+<code>na.rm</code>: logical. Should missing values (including NaN) be omitted from the calculations?</li>
+</ul>
+<p>This argument is important when some items have missing data. The question is: Should the scores be build based on the available items (this procedure is called person mean imputation) or discarded?</p>
+<p><span class="citation" data-cites="Enders2010">Enders (<a href="references.html#ref-Enders2010" role="doc-biblioref">2010</a>)</span> summarizes it as follows (p.51):</p>
+<blockquote class="blockquote">
+<p>Until more research accumulates, you should use person mean imputation with caution and should perhaps avoid it altogether, particularly if there are high rates of item nonresponse.</p>
+</blockquote>
+<p>This means, we set <code>na.rm = FALSE</code>. It is important to note, that there are options to circumvent this issue, such as a model-based estimation of composite scores <span class="citation" data-cites="Rose2019">(<a href="references.html#ref-Rose2019" role="doc-biblioref">Rose et al. 2019</a>)</span> or multiple imputation <span class="citation" data-cites="Schafer2002 Enders2010">(see e.g., <a href="references.html#ref-Schafer2002" role="doc-biblioref">Schafer and Graham 2002</a>; <a href="references.html#ref-Enders2010" role="doc-biblioref">Enders 2010</a>)</span></p>
+<ol type="1">
+<li>Calculation of the sum score</li>
+</ol>
+<div class="cell">
+<details open=""><summary>Show/hide code</summary><div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">exDat</span><span class="op">$</span><span class="va">mscsum</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html">rowSums</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">exDat</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">mscItems</span><span class="op">)</span><span class="op">]</span>,</span>
+<span>                        na.rm <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<ol start="2" type="1">
+<li>Calculation of the average score</li>
+</ol>
+<div class="cell">
+<details open=""><summary>Show/hide code</summary><div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">exDat</span><span class="op">$</span><span class="va">mscavg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html">rowSums</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">exDat</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">mscItems</span><span class="op">)</span><span class="op">]</span>,</span>
+<span>                        na.rm <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">mscItems</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</div>
+<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
+<p>To calculate scale scores, you can also use the <code>scoreItems</code> function from the <code>psych</code> package <span class="citation" data-cites="R-psych">(<a href="references.html#ref-R-psych" role="doc-biblioref">Revelle 2023</a>)</span>.</p>
+<p>The <code>scoreItems</code> function needs at least two inputs (copied from the package description):</p>
+<ul>
+<li>
+<code>keys</code>: list of scoring keys or a <code>matrix</code> or <code>data.frame</code> of -1, 0, or 1 weights for each item on each scale which may be created by hand […]. Here we assign an equal weight (=1) for all items</li>
+<li>
+<code>items</code>: <code>Matrix</code> or <code>data.frame</code> of raw item scores</li>
+</ul>
+<p>However, there a more input arguments that are important:</p>
+<ul>
+<li>
+<code>totals</code>: if <code>TRUE</code> find total scores (!aka sum scores), if <code>FALSE</code> (default), find average scores</li>
+<li>
+<code>missing</code>: <code>missing = TRUE</code> is the normal case and data are imputed according to the impute option. <code>missing = FALSE</code>, only complete cases are scored.</li>
+</ul>
+<p>It is recommended to use <code>missing = FALSE</code> (see <a href="#app1-rowsums">Approach 1: rowSums</a>).</p>
+<p>Because the function calculates several other statistics (e.g., Cronbachs <span class="math inline">\(\alpha\)</span>, average correlation within a scale, …), we do it in two-step approach. Executing the function and save the information in an object, and then extracting (with the <code>$</code> operator) the scores from the object (i.e., <code>MscsumPsych$scores</code>) while merging the scores with the example data set (i.e., by rownames via <code>by = 0</code>) . Merging is necessary because of <code>missing = FALSE</code>.</p>
+<ol type="1">
+<li>Calculation of the sum score</li>
+</ol>
+<div class="cell">
+<details open=""><summary>Show/hide code</summary><div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">MscsumPsych</span> <span class="op">&lt;-</span> <span class="fu">psych</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/psych/man/score.items.html">scoreItems</a></span><span class="op">(</span>keys <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">mscItems</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>                                 items <span class="op">=</span> <span class="va">exDat</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">mscItems</span><span class="op">)</span><span class="op">]</span>,</span>
+<span>                                 totals <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>                                 missing <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>                                 min <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>                                 max <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">MscsumPsych</span><span class="op">$</span><span class="va">scores</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"mscsum2"</span></span>
+<span></span>
+<span><span class="va">exDat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/merge.html">merge</a></span><span class="op">(</span><span class="va">exDat</span>, <span class="va">MscsumPsych</span><span class="op">$</span><span class="va">scores</span>,</span>
+<span>               by <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>               all.x <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
+<span><span class="va">exDat</span><span class="op">$</span><span class="va">Row.names</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<ol start="2" type="1">
+<li>Calculation of the average score</li>
+</ol>
+<div class="cell">
+<details open=""><summary>Show/hide code</summary><div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">MscavgPsych</span> <span class="op">&lt;-</span> <span class="fu">psych</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/psych/man/score.items.html">scoreItems</a></span><span class="op">(</span>keys <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">mscItems</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>                                 items <span class="op">=</span> <span class="va">exDat</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">mscItems</span><span class="op">)</span><span class="op">]</span>,</span>
+<span>                                 totals <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>                                 missing <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>                                 min <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>                                 max <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">MscavgPsych</span><span class="op">$</span><span class="va">scores</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"mscavg2"</span></span>
+<span></span>
+<span><span class="va">exDat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/merge.html">merge</a></span><span class="op">(</span><span class="va">exDat</span>, <span class="va">MscavgPsych</span><span class="op">$</span><span class="va">scores</span>,</span>
+<span>               by <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>               all.x <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
+<span><span class="va">exDat</span><span class="op">$</span><span class="va">Row.names</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</div>
+</div>
+</div>
+<section id="calculating-many-scale-scores" class="level3" data-number="5.3.1"><h3 data-number="5.3.1" class="anchored" data-anchor-id="calculating-many-scale-scores">
+<span class="header-section-number">5.3.1</span> Calculating many scale scores</h3>
+<!-- add -->
+<div class="cell">
+<details open=""><summary>Show/hide code</summary><div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#names(scaleList)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Then using the <code>sapply</code> function to iterate through the list elements and applying the <code>rowSums</code> function. Note we calculate average scores, because we divide through the total score through the number of items.</p>
+<div class="cell">
+<details open=""><summary>Show/hide code</summary><div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">exDat</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">scaleList</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span><span class="op">(</span><span class="va">scaleList</span>,</span>
+<span>                                     <span class="kw">function</span><span class="op">(</span><span class="va">s</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html">rowSums</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">exDat</span><span class="op">[</span>,<span class="va">s</span><span class="op">]</span>,</span>
+<span>                                                         na.rm <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">s</span><span class="op">)</span>,</span>
+<span>                                     simplify <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+
+
+<!-- -->
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-R-mirt" class="csl-entry" role="listitem">
+Chalmers, Phil. 2022. <em>Mirt: Multidimensional Item Response Theory</em>. <a href="https://CRAN.R-project.org/package=mirt">https://CRAN.R-project.org/package=mirt</a>.
+</div>
+<div id="ref-Cronbach1951" class="csl-entry" role="listitem">
+Cronbach, Lee J. 1951. <span>“Coefficient Alpha and the Internal Structure of Tests.”</span> <em>Psychometrika</em> 16 (3): 297–334. <a href="https://doi.org/10.1007/BF02310555">https://doi.org/10.1007/BF02310555</a>.
+</div>
+<div id="ref-Enders2010" class="csl-entry" role="listitem">
+Enders, Craig K. 2010. <em>Applied Missing Data Analysis</em>. Methodology in the Social Sciences. New York: <span>Guilford Press</span>.
+</div>
+<div id="ref-R-psy" class="csl-entry" role="listitem">
+Falissard, Bruno. 2022. <em>Psy: Various Procedures Used in Psychometrics</em>. <a href="https://CRAN.R-project.org/package=psy">https://CRAN.R-project.org/package=psy</a>.
+</div>
+<div id="ref-McNeish2017" class="csl-entry" role="listitem">
+McNeish, Daniel. 2017. <span>“Thanks Coefficient Alpha, We’ll Take It from Here.”</span> <em>Psychological Methods</em>. <a href="https://doi.org/10.1037/met0000144">https://doi.org/10.1037/met0000144</a>.
+</div>
+<div id="ref-McNeish2020b" class="csl-entry" role="listitem">
+McNeish, Daniel, and Melissa Gordon Wolf. 2020. <span>“Thinking Twice about Sum Scores.”</span> <em>Behavior Research Methods</em> 52 (6): 2287–2305. <a href="https://doi.org/10.3758/s13428-020-01398-0">https://doi.org/10.3758/s13428-020-01398-0</a>.
+</div>
+<div id="ref-R-psych" class="csl-entry" role="listitem">
+Revelle, William. 2023. <em>Psych: Procedures for Psychological, Psychometric, and Personality Research</em>. <a href="https://personality-project.org/r/psych/%0D%0Ahttps://personality-project.org/r/psych-manual.pdf">https://personality-project.org/r/psych/ https://personality-project.org/r/psych-manual.pdf</a>.
+</div>
+<div id="ref-Revelle2009b" class="csl-entry" role="listitem">
+Revelle, William, and Richard E. Zinbarg. 2009. <span>“Coefficients Alpha, Beta, Omega, and the Glb: Comments on Sijtsma.”</span> <em>Psychometrika</em> 74 (1): 145–54. <a href="https://doi.org/10.1007/s11336-008-9102-z">https://doi.org/10.1007/s11336-008-9102-z</a>.
+</div>
+<div id="ref-R-ltm" class="csl-entry" role="listitem">
+Rizopoulos, Dimitris. 2022. <em>Ltm: Latent Trait Models Under IRT</em>. <a href="https://github.com/drizopoulos/ltm">https://github.com/drizopoulos/ltm</a>.
+</div>
+<div id="ref-Rose2019" class="csl-entry" role="listitem">
+Rose, Norman, Wolfgang Wagner, Axel Mayer, and Benjamin Nagengast. 2019. <span>“Model-Based Manifest and Latent Composite Scores in Structural Equation Models.”</span> <em>Collabra: Psychology</em> 5 (1): 243. <a href="https://doi.org/10.1525/collabra.143">https://doi.org/10.1525/collabra.143</a>.
+</div>
+<div id="ref-Savalei2019" class="csl-entry" role="listitem">
+Savalei, Victoria, and Steven P. Reise. 2019. <span>“Don’t Forget the Model in Your Model-Based Reliability Coefficients: A Reply to McNeish (2018).”</span> <em>Collabra: Psychology</em> 5 (1): 36. <a href="https://doi.org/10.1525/collabra.247">https://doi.org/10.1525/collabra.247</a>.
+</div>
+<div id="ref-Schafer2002" class="csl-entry" role="listitem">
+Schafer, Joseph L., and John W. Graham. 2002. <span>“Missing Data: Our View of the State of the Art.”</span> <em>Psychological Methods</em> 7 (2): 147–77. <a href="https://doi.org/10.1037/1082-989X.7.2.147">https://doi.org/10.1037/1082-989X.7.2.147</a>.
+</div>
+<div id="ref-Sijtsma2009" class="csl-entry" role="listitem">
+Sijtsma, Klaas. 2009. <span>“On the Use, the Misuse, and the Very Limited Usefulness of Cronbach’s Alpha.”</span> <em>Psychometrika</em> 74 (1): 107–20. <a href="https://doi.org/10.1007/s11336-008-9101-0">https://doi.org/10.1007/s11336-008-9101-0</a>.
+</div>
+<div id="ref-Widaman2022" class="csl-entry" role="listitem">
+Widaman, Keith F., and William Revelle. 2022. <span>“Thinking Thrice about Sum Scores, and Then Some More about Measurement and Analysis.”</span> <em>Behavior Research Methods</em>. <a href="https://doi.org/10.3758/s13428-022-01849-w">https://doi.org/10.3758/s13428-022-01849-w</a>.
+</div>
+<div id="ref-R-kableExtra" class="csl-entry" role="listitem">
+Zhu, Hao. 2021. <em>kableExtra: Construct Complex Table with Kable and Pipe Syntax</em>. <a href="https://CRAN.R-project.org/package=kableExtra">https://CRAN.R-project.org/package=kableExtra</a>.
+</div>
+</div>
+</section></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
+<ol>
+<li id="fn1"><p>That is actually a three-step approach.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>It is also possible to write a function in advance and use them in this argument. A short introduction how to write function can be found <a href="https://riegersven.github.io/method-website/data-proc-func-loops.html#writing-functions" target="_blank">here</a>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Note that this is actually not necessary.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>Check it by writing: <code>1:length(names(mscItems))</code><a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+      }
+    }
+});
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./data-cleaning.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data cleaning</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./references.html" class="pagination-link">
+        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb40" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Descriptive statistics and item analysis  {#item-analy-descr}</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>In this part you will learn how to calculate descriptive statistics, item statistics and calculate scale scores. </span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>::: {.callout-note }</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>In <span class="in">`R`</span> there are many different ways to get things done. Also, recall we provided functions (see <span class="co">[</span><span class="ot">here</span><span class="co">](gen-info.qmd#functions)</span>) which are ready to use.</span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: prep-exDat</span></span>
+<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb40-18"><a href="#cb40-18" aria-hidden="true" tabindex="-1"></a><span class="co">#| output: false</span></span>
+<span id="cb40-19"><a href="#cb40-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-20"><a href="#cb40-20" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"scaleManualFunctions.Rdata"</span>)</span>
+<span id="cb40-21"><a href="#cb40-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-22"><a href="#cb40-22" aria-hidden="true" tabindex="-1"></a>varOverview <span class="ot">&lt;-</span>  scaleManualFunctions<span class="sc">$</span>varOverview</span>
+<span id="cb40-23"><a href="#cb40-23" aria-hidden="true" tabindex="-1"></a>catVar <span class="ot">&lt;-</span>  scaleManualFunctions<span class="sc">$</span>catVar</span>
+<span id="cb40-24"><a href="#cb40-24" aria-hidden="true" tabindex="-1"></a>contVar <span class="ot">&lt;-</span>  scaleManualFunctions<span class="sc">$</span>contVar</span>
+<span id="cb40-25"><a href="#cb40-25" aria-hidden="true" tabindex="-1"></a>scaleScore <span class="ot">&lt;-</span>  scaleManualFunctions<span class="sc">$</span>scaleScore</span>
+<span id="cb40-26"><a href="#cb40-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-27"><a href="#cb40-27" aria-hidden="true" tabindex="-1"></a>exDat <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"exampleDat.RDS"</span>)</span>
+<span id="cb40-28"><a href="#cb40-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-29"><a href="#cb40-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-30"><a href="#cb40-30" aria-hidden="true" tabindex="-1"></a>mscItems <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="st">"msc1"</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"Ich bin gut in Mathematik."</span>),</span>
+<span id="cb40-31"><a href="#cb40-31" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"msc2"</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"Ich war in Mathematik immer gut."</span>),</span>
+<span id="cb40-32"><a href="#cb40-32" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"msc3"</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"Ich habe Verständnisschwierigkeiten bei allem, für das man Mathematik braucht."</span>),</span>
+<span id="cb40-33"><a href="#cb40-33" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"msc4"</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"Ich bin bei Aufgaben, die mathematisches Denken</span></span>
+<span id="cb40-34"><a href="#cb40-34" aria-hidden="true" tabindex="-1"></a><span class="st">erfordern, nie gut."</span>))</span>
+<span id="cb40-35"><a href="#cb40-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-36"><a href="#cb40-36" aria-hidden="true" tabindex="-1"></a>exDat[,<span class="fu">c</span>(<span class="st">"msc3r"</span>, <span class="st">"msc4r"</span>, <span class="st">"msc"</span>)] <span class="ot">&lt;-</span> <span class="fu">scaleScore</span>(<span class="at">items =</span> <span class="fu">names</span>(mscItems),</span>
+<span id="cb40-37"><a href="#cb40-37" aria-hidden="true" tabindex="-1"></a>                                                 <span class="at">scaleNameShort =</span> <span class="st">"msc"</span>,</span>
+<span id="cb40-38"><a href="#cb40-38" aria-hidden="true" tabindex="-1"></a>                                                 <span class="at">recItems =</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">4</span>),</span>
+<span id="cb40-39"><a href="#cb40-39" aria-hidden="true" tabindex="-1"></a>                                                 <span class="at">recode =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb40-40"><a href="#cb40-40" aria-hidden="true" tabindex="-1"></a>                                                 <span class="at">data =</span> exDat,</span>
+<span id="cb40-41"><a href="#cb40-41" aria-hidden="true" tabindex="-1"></a>                                                 <span class="at">table =</span> F)</span>
+<span id="cb40-42"><a href="#cb40-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-43"><a href="#cb40-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-44"><a href="#cb40-44" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(mscItems)[<span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">4</span>)] <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="fu">names</span>(mscItems)[<span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">4</span>)], <span class="st">"r"</span>)</span>
+<span id="cb40-45"><a href="#cb40-45" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-46"><a href="#cb40-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-47"><a href="#cb40-47" aria-hidden="true" tabindex="-1"></a><span class="fu">## Descriptive statistics</span></span>
+<span id="cb40-48"><a href="#cb40-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-49"><a href="#cb40-49" aria-hidden="true" tabindex="-1"></a>Typical descriptive statistics are: </span>
+<span id="cb40-50"><a href="#cb40-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-51"><a href="#cb40-51" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>mean</span>
+<span id="cb40-52"><a href="#cb40-52" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>standard deviation</span>
+<span id="cb40-53"><a href="#cb40-53" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>minimum and maximum</span>
+<span id="cb40-54"><a href="#cb40-54" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>absolute and relative frequencies</span>
+<span id="cb40-55"><a href="#cb40-55" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb40-56"><a href="#cb40-56" aria-hidden="true" tabindex="-1"></a><span class="in">`R`</span> provides functions to calculate the statistics: <span class="in">`mean`</span>, <span class="in">`sd`</span>, <span class="in">`min`</span>, <span class="in">`max`</span>, <span class="in">`table`</span>, ...</span>
+<span id="cb40-57"><a href="#cb40-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-58"><a href="#cb40-58" aria-hidden="true" tabindex="-1"></a>In addition, there are packages such as the <span class="in">`psych`</span> package <span class="co">[</span><span class="ot">@R-psych</span><span class="co">]</span> that offer additional functionality.</span>
+<span id="cb40-59"><a href="#cb40-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-60"><a href="#cb40-60" aria-hidden="true" tabindex="-1"></a>::: {.panel-tabset}</span>
+<span id="cb40-61"><a href="#cb40-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-62"><a href="#cb40-62" aria-hidden="true" tabindex="-1"></a><span class="fu">### Base R</span></span>
+<span id="cb40-63"><a href="#cb40-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-64"><a href="#cb40-64" aria-hidden="true" tabindex="-1"></a>For example, if we want to calculate the mean and the standard deviation of the variable age, we can use the respective functions (i.e., <span class="in">`mean`</span> &amp; <span class="in">`sd`</span>):</span>
+<span id="cb40-65"><a href="#cb40-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-66"><a href="#cb40-66" aria-hidden="true" tabindex="-1"></a>:::: {.columns}</span>
+<span id="cb40-67"><a href="#cb40-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-68"><a href="#cb40-68" aria-hidden="true" tabindex="-1"></a>::: {.column width="40%"}</span>
+<span id="cb40-69"><a href="#cb40-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-72"><a href="#cb40-72" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-73"><a href="#cb40-73" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: base-r-mean</span></span>
+<span id="cb40-74"><a href="#cb40-74" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(exDat<span class="sc">$</span>age, <span class="at">na.rm =</span> T)</span>
+<span id="cb40-75"><a href="#cb40-75" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-76"><a href="#cb40-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-77"><a href="#cb40-77" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb40-78"><a href="#cb40-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-79"><a href="#cb40-79" aria-hidden="true" tabindex="-1"></a>::: {.column width="10%"}</span>
+<span id="cb40-80"><a href="#cb40-80" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- empty column to create gap --&gt;</span></span>
+<span id="cb40-81"><a href="#cb40-81" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb40-82"><a href="#cb40-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-83"><a href="#cb40-83" aria-hidden="true" tabindex="-1"></a>::: {.column width="40%"}</span>
+<span id="cb40-84"><a href="#cb40-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-87"><a href="#cb40-87" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-88"><a href="#cb40-88" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: sd-r-mean</span></span>
+<span id="cb40-89"><a href="#cb40-89" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(exDat<span class="sc">$</span>age, <span class="at">na.rm =</span> T)</span>
+<span id="cb40-90"><a href="#cb40-90" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-91"><a href="#cb40-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-92"><a href="#cb40-92" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb40-93"><a href="#cb40-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-94"><a href="#cb40-94" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb40-95"><a href="#cb40-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-96"><a href="#cb40-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-97"><a href="#cb40-97" aria-hidden="true" tabindex="-1"></a>Or, if you are interested in absolute and/or relative frequencies, we can use the <span class="in">`table`</span> function:</span>
+<span id="cb40-98"><a href="#cb40-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-99"><a href="#cb40-99" aria-hidden="true" tabindex="-1"></a>:::: {.columns}</span>
+<span id="cb40-100"><a href="#cb40-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-101"><a href="#cb40-101" aria-hidden="true" tabindex="-1"></a>::: {.column width="40%"}</span>
+<span id="cb40-102"><a href="#cb40-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-105"><a href="#cb40-105" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-106"><a href="#cb40-106" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: base-r-table-abs</span></span>
+<span id="cb40-107"><a href="#cb40-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-108"><a href="#cb40-108" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(exDat<span class="sc">$</span>sex)</span>
+<span id="cb40-109"><a href="#cb40-109" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-110"><a href="#cb40-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-111"><a href="#cb40-111" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb40-112"><a href="#cb40-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-113"><a href="#cb40-113" aria-hidden="true" tabindex="-1"></a>::: {.column width="10%"}</span>
+<span id="cb40-114"><a href="#cb40-114" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- empty column to create gap --&gt;</span></span>
+<span id="cb40-115"><a href="#cb40-115" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb40-116"><a href="#cb40-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-117"><a href="#cb40-117" aria-hidden="true" tabindex="-1"></a>::: {.column width="40%"}</span>
+<span id="cb40-118"><a href="#cb40-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-121"><a href="#cb40-121" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-122"><a href="#cb40-122" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: base-r-table-rel</span></span>
+<span id="cb40-123"><a href="#cb40-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-124"><a href="#cb40-124" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(exDat<span class="sc">$</span>sex,</span>
+<span id="cb40-125"><a href="#cb40-125" aria-hidden="true" tabindex="-1"></a>      <span class="at">useNA =</span> <span class="st">"always"</span>)<span class="sc">/</span><span class="fu">length</span>(exDat<span class="sc">$</span>sex)<span class="sc">*</span><span class="dv">100</span></span>
+<span id="cb40-126"><a href="#cb40-126" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-127"><a href="#cb40-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-128"><a href="#cb40-128" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb40-129"><a href="#cb40-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-130"><a href="#cb40-130" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb40-131"><a href="#cb40-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-132"><a href="#cb40-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-133"><a href="#cb40-133" aria-hidden="true" tabindex="-1"></a>However, often you need to calculate the descriptive statistics not only for a single variable, but for many variables. Again, in <span class="in">`R`</span> this can be done in many different ways. Here we depict a base <span class="in">`R`</span> solution using the <span class="in">`apply`</span> function.</span>
+<span id="cb40-134"><a href="#cb40-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-135"><a href="#cb40-135" aria-hidden="true" tabindex="-1"></a>The <span class="in">`apply`</span> function needs the following arguments (copied from the function description):</span>
+<span id="cb40-136"><a href="#cb40-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-137"><a href="#cb40-137" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`X`</span>: an array, including a matrix.</span>
+<span id="cb40-138"><a href="#cb40-138" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`MARGIN`</span>: a vector giving the subscripts which the function will be applied over. E.g., for a matrix 1 indicates rows, **2 indicates columns**, c(1, 2) indicates rows and columns. Where X has named dimnames, it can be a character vector selecting dimension names.</span>
+<span id="cb40-139"><a href="#cb40-139" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`FUN`</span>: the function to be applied: see ‘Details’.</span>
+<span id="cb40-140"><a href="#cb40-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-141"><a href="#cb40-141" aria-hidden="true" tabindex="-1"></a>In order to better retrace the calculation procedure, we present it in a two-step^<span class="co">[</span><span class="ot">That is actually a three-step approach.</span><span class="co">]</span> approach:</span>
+<span id="cb40-142"><a href="#cb40-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-143"><a href="#cb40-143" aria-hidden="true" tabindex="-1"></a>::: {.panel-tabset}</span>
+<span id="cb40-144"><a href="#cb40-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-145"><a href="#cb40-145" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Two-step approach {#two-step-apply}</span></span>
+<span id="cb40-146"><a href="#cb40-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-147"><a href="#cb40-147" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Using the <span class="in">`apply`</span> function and save the output in an object (here: <span class="in">`exDescr`</span>):</span>
+<span id="cb40-148"><a href="#cb40-148" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>Input <span class="in">`X`</span> is the example data set: <span class="in">`exDat`</span></span>
+<span id="cb40-149"><a href="#cb40-149" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>Set <span class="in">`MARGIN`</span> value to 2, because we want to apply the function over columns of <span class="in">`exDat`</span></span>
+<span id="cb40-150"><a href="#cb40-150" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span><span class="in">`FUN`</span>: Here we define a function^<span class="co">[</span><span class="ot">It is also possible to write a function in advance and use them in this argument. A short introduction how to write function can be found [here](https://riegersven.github.io/method-website/data-proc-func-loops.html#writing-functions){target="_blank"}.</span><span class="co">]</span> that calculates the mean, standard deviation, minimum and maximum (combined through the <span class="in">`c`</span> function). Within the braces <span class="in">`{`</span> you can state several (consecutive) arguments. Finally, we return the object (<span class="in">`fOut`</span>) of the function. Note the <span class="in">`fOut`</span> object is not saved in the workspace.</span>
+<span id="cb40-151"><a href="#cb40-151" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb40-154"><a href="#cb40-154" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-155"><a href="#cb40-155" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-descr-apply-two-1</span></span>
+<span id="cb40-156"><a href="#cb40-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-157"><a href="#cb40-157" aria-hidden="true" tabindex="-1"></a>exDescr <span class="ot">&lt;-</span> <span class="fu">apply</span>(<span class="at">X =</span> exDat,</span>
+<span id="cb40-158"><a href="#cb40-158" aria-hidden="true" tabindex="-1"></a>                 <span class="at">MARGIN =</span> <span class="dv">2</span>,</span>
+<span id="cb40-159"><a href="#cb40-159" aria-hidden="true" tabindex="-1"></a>                 <span class="at">FUN =</span> <span class="cf">function</span>(x) {</span>
+<span id="cb40-160"><a href="#cb40-160" aria-hidden="true" tabindex="-1"></a>                   fOut <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb40-161"><a href="#cb40-161" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">mean</span>(x, <span class="at">na.rm =</span> T),</span>
+<span id="cb40-162"><a href="#cb40-162" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">sd</span>(x, <span class="at">na.rm =</span> T),</span>
+<span id="cb40-163"><a href="#cb40-163" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">min</span>(x, <span class="at">na.rm =</span> T),</span>
+<span id="cb40-164"><a href="#cb40-164" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">max</span>(x, <span class="at">na.rm =</span> T)</span>
+<span id="cb40-165"><a href="#cb40-165" aria-hidden="true" tabindex="-1"></a>                     )</span>
+<span id="cb40-166"><a href="#cb40-166" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">return</span>(fOut)</span>
+<span id="cb40-167"><a href="#cb40-167" aria-hidden="true" tabindex="-1"></a>                   })</span>
+<span id="cb40-168"><a href="#cb40-168" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-169"><a href="#cb40-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-170"><a href="#cb40-170" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>In the second step, we first transpose (<span class="in">`t`</span> function) the returned <span class="in">`matrix`</span>, transform it then to a <span class="in">`data.frame`</span>^<span class="co">[</span><span class="ot">Note that this is actually not necessary.</span><span class="co">]</span> object and provide the column names. </span>
+<span id="cb40-171"><a href="#cb40-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-174"><a href="#cb40-174" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-175"><a href="#cb40-175" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-descr-apply-two-2</span></span>
+<span id="cb40-176"><a href="#cb40-176" aria-hidden="true" tabindex="-1"></a>exDescr <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(</span>
+<span id="cb40-177"><a href="#cb40-177" aria-hidden="true" tabindex="-1"></a>  <span class="fu">t</span>(exDescr)</span>
+<span id="cb40-178"><a href="#cb40-178" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb40-179"><a href="#cb40-179" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(exDescr) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Mean"</span>, <span class="st">"SD"</span>, <span class="st">"Min"</span>, <span class="st">"Max"</span>)</span>
+<span id="cb40-180"><a href="#cb40-180" aria-hidden="true" tabindex="-1"></a>exDescr</span>
+<span id="cb40-181"><a href="#cb40-181" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-182"><a href="#cb40-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-183"><a href="#cb40-183" aria-hidden="true" tabindex="-1"></a>(3. Finally, if you need an formatted table, the <span class="in">`kbl`</span> function from the <span class="in">`kableExtra`</span> package <span class="co">[</span><span class="ot">@R-kableExtra</span><span class="co">]</span> transforms matrices or data frames into nice tables.)</span>
+<span id="cb40-184"><a href="#cb40-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-187"><a href="#cb40-187" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-188"><a href="#cb40-188" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-descr-apply-two-3</span></span>
+<span id="cb40-189"><a href="#cb40-189" aria-hidden="true" tabindex="-1"></a>kableExtra<span class="sc">::</span><span class="fu">kbl</span>(exDescr,</span>
+<span id="cb40-190"><a href="#cb40-190" aria-hidden="true" tabindex="-1"></a>                <span class="at">digits =</span> <span class="dv">2</span>,</span>
+<span id="cb40-191"><a href="#cb40-191" aria-hidden="true" tabindex="-1"></a>                <span class="at">caption =</span> <span class="st">"Descriptive Statistics of the example data set"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb40-192"><a href="#cb40-192" aria-hidden="true" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">kable_classic</span>() <span class="sc">|&gt;</span></span>
+<span id="cb40-193"><a href="#cb40-193" aria-hidden="true" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">footnote</span>(<span class="at">general =</span> <span class="st">"This is a nice formatted table using the kableExtra package [@R-kableExtra]."</span>)</span>
+<span id="cb40-194"><a href="#cb40-194" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-195"><a href="#cb40-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-196"><a href="#cb40-196" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-197"><a href="#cb40-197" aria-hidden="true" tabindex="-1"></a><span class="fu">#### One-step approach</span></span>
+<span id="cb40-198"><a href="#cb40-198" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-199"><a href="#cb40-199" aria-hidden="true" tabindex="-1"></a>::: {.callout-note }</span>
+<span id="cb40-200"><a href="#cb40-200" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-201"><a href="#cb40-201" aria-hidden="true" tabindex="-1"></a>Although it is probably a matter of coding taste, we do not recommend such a approach. We like it neat.</span>
+<span id="cb40-202"><a href="#cb40-202" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-203"><a href="#cb40-203" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb40-204"><a href="#cb40-204" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-207"><a href="#cb40-207" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-208"><a href="#cb40-208" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-descr-apply-one</span></span>
+<span id="cb40-209"><a href="#cb40-209" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-210"><a href="#cb40-210" aria-hidden="true" tabindex="-1"></a>kableExtra<span class="sc">::</span><span class="fu">kbl</span>(<span class="at">x =</span> <span class="fu">t</span>(</span>
+<span id="cb40-211"><a href="#cb40-211" aria-hidden="true" tabindex="-1"></a>  <span class="fu">apply</span>(exDat,</span>
+<span id="cb40-212"><a href="#cb40-212" aria-hidden="true" tabindex="-1"></a>        <span class="at">MARGIN =</span> <span class="dv">2</span>,</span>
+<span id="cb40-213"><a href="#cb40-213" aria-hidden="true" tabindex="-1"></a>        <span class="at">FUN =</span> <span class="cf">function</span>(x) {</span>
+<span id="cb40-214"><a href="#cb40-214" aria-hidden="true" tabindex="-1"></a>          fOut <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb40-215"><a href="#cb40-215" aria-hidden="true" tabindex="-1"></a>            <span class="fu">mean</span>(x, <span class="at">na.rm =</span> T),</span>
+<span id="cb40-216"><a href="#cb40-216" aria-hidden="true" tabindex="-1"></a>            <span class="fu">sd</span>(x, <span class="at">na.rm =</span> T),</span>
+<span id="cb40-217"><a href="#cb40-217" aria-hidden="true" tabindex="-1"></a>            <span class="fu">min</span>(x, <span class="at">na.rm =</span> T),</span>
+<span id="cb40-218"><a href="#cb40-218" aria-hidden="true" tabindex="-1"></a>            <span class="fu">max</span>(x, <span class="at">na.rm =</span> T)</span>
+<span id="cb40-219"><a href="#cb40-219" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="cb40-220"><a href="#cb40-220" aria-hidden="true" tabindex="-1"></a>          <span class="fu">return</span>(fOut)</span>
+<span id="cb40-221"><a href="#cb40-221" aria-hidden="true" tabindex="-1"></a>          })</span>
+<span id="cb40-222"><a href="#cb40-222" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb40-223"><a href="#cb40-223" aria-hidden="true" tabindex="-1"></a>  <span class="at">digits =</span> <span class="dv">2</span>,</span>
+<span id="cb40-224"><a href="#cb40-224" aria-hidden="true" tabindex="-1"></a>  <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Mean"</span>, <span class="st">"SD"</span>, <span class="st">"Min"</span>, <span class="st">"Max"</span>),</span>
+<span id="cb40-225"><a href="#cb40-225" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">"Descriptive Statistics of the example data set"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb40-226"><a href="#cb40-226" aria-hidden="true" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">kable_classic</span>() <span class="sc">|&gt;</span></span>
+<span id="cb40-227"><a href="#cb40-227" aria-hidden="true" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">footnote</span>(<span class="at">general =</span> <span class="st">"This is a nice formated table using the kableExtra package [@R-kableExtra]."</span>)</span>
+<span id="cb40-228"><a href="#cb40-228" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-229"><a href="#cb40-229" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-230"><a href="#cb40-230" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-231"><a href="#cb40-231" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb40-232"><a href="#cb40-232" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-233"><a href="#cb40-233" aria-hidden="true" tabindex="-1"></a><span class="fu">### psych package</span></span>
+<span id="cb40-234"><a href="#cb40-234" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-235"><a href="#cb40-235" aria-hidden="true" tabindex="-1"></a>From the function description (see <span class="in">`?psych::describe`</span>): </span>
+<span id="cb40-236"><a href="#cb40-236" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-237"><a href="#cb40-237" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; The </span><span class="in">`describe`</span><span class="at"> function in the </span><span class="in">`psych`</span><span class="at"> package is meant to produce the most frequently requested stats in psychometric and psychology studies, and to produce them in an easy to read data.frame. If a grouping variable is called for in formula mode, it will also call </span><span class="in">`describeBy`</span><span class="at"> to the processing. </span></span>
+<span id="cb40-238"><a href="#cb40-238" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-239"><a href="#cb40-239" aria-hidden="true" tabindex="-1"></a>The function has many input argument (see again <span class="in">`?psych::describe`</span>), but requires only <span class="in">`x`</span>: A data frame or matrix</span>
+<span id="cb40-240"><a href="#cb40-240" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-243"><a href="#cb40-243" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-244"><a href="#cb40-244" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: psych-descr</span></span>
+<span id="cb40-245"><a href="#cb40-245" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-246"><a href="#cb40-246" aria-hidden="true" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">describe</span>(<span class="at">x =</span> exDat)</span>
+<span id="cb40-247"><a href="#cb40-247" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-248"><a href="#cb40-248" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-249"><a href="#cb40-249" aria-hidden="true" tabindex="-1"></a>The <span class="in">`describe`</span> output is easily transformed into a <span class="in">`data.frame`</span> which then can be passed to the <span class="in">`kbl`</span> function from the <span class="in">`kableExtra`</span> package <span class="co">[</span><span class="ot">@R-kableExtra</span><span class="co">]</span>.</span>
+<span id="cb40-250"><a href="#cb40-250" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-253"><a href="#cb40-253" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-254"><a href="#cb40-254" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: psych-kbl</span></span>
+<span id="cb40-255"><a href="#cb40-255" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-256"><a href="#cb40-256" aria-hidden="true" tabindex="-1"></a>kableExtra<span class="sc">::</span><span class="fu">kbl</span>(<span class="at">x =</span> <span class="fu">as.data.frame</span>(psych<span class="sc">::</span><span class="fu">describe</span>(<span class="at">x =</span> exDat))[<span class="fu">c</span>(<span class="st">"n"</span>, <span class="st">"mean"</span>, <span class="st">"sd"</span>)],</span>
+<span id="cb40-257"><a href="#cb40-257" aria-hidden="true" tabindex="-1"></a>                <span class="at">caption =</span> <span class="st">"Descriptive Statistics of the example data set calculated by the psych package [@R-psych]"</span>,</span>
+<span id="cb40-258"><a href="#cb40-258" aria-hidden="true" tabindex="-1"></a>                <span class="at">digits =</span> <span class="dv">2</span>) <span class="sc">|&gt;</span></span>
+<span id="cb40-259"><a href="#cb40-259" aria-hidden="true" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">kable_paper</span>()</span>
+<span id="cb40-260"><a href="#cb40-260" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-261"><a href="#cb40-261" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-262"><a href="#cb40-262" aria-hidden="true" tabindex="-1"></a>If you need to calculate the descriptive statistics separate for groups, there is the <span class="in">`describeBy`</span> function. Use the <span class="in">`group`</span> argument.</span>
+<span id="cb40-263"><a href="#cb40-263" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-266"><a href="#cb40-266" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-267"><a href="#cb40-267" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: psych-descr-by</span></span>
+<span id="cb40-268"><a href="#cb40-268" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-269"><a href="#cb40-269" aria-hidden="true" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">describeBy</span>(<span class="at">x =</span> exDat, <span class="at">group =</span><span class="st">"sex"</span>)</span>
+<span id="cb40-270"><a href="#cb40-270" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-271"><a href="#cb40-271" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-272"><a href="#cb40-272" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb40-273"><a href="#cb40-273" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-274"><a href="#cb40-274" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-275"><a href="#cb40-275" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-276"><a href="#cb40-276" aria-hidden="true" tabindex="-1"></a><span class="fu">## Cronbachs $\alpha$ and item statistics</span></span>
+<span id="cb40-277"><a href="#cb40-277" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-278"><a href="#cb40-278" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Coefficient $\alpha$ is often called an internal consistency reliability coefficient, as it is based on covariances among scale items and thus internal consistency among items. But internal consistency should not be conflated with homogeneity, where homogeneity implies that a single dimension underlies the set of items </span><span class="co">[</span><span class="ot">@Widaman2022</span><span class="co">]</span><span class="at">.</span></span>
+<span id="cb40-279"><a href="#cb40-279" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-280"><a href="#cb40-280" aria-hidden="true" tabindex="-1"></a>::: {.callout-note }</span>
+<span id="cb40-281"><a href="#cb40-281" aria-hidden="true" tabindex="-1"></a><span class="fu">## Coefficient $\alpha$ debate</span></span>
+<span id="cb40-282"><a href="#cb40-282" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-283"><a href="#cb40-283" aria-hidden="true" tabindex="-1"></a>Some interesting reads: @Cronbach1951;@Revelle2009b; @Sijtsma2009; @McNeish2017; @Savalei2019</span>
+<span id="cb40-284"><a href="#cb40-284" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-285"><a href="#cb40-285" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb40-286"><a href="#cb40-286" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-287"><a href="#cb40-287" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-288"><a href="#cb40-288" aria-hidden="true" tabindex="-1"></a>Following again the description and notation of @Widaman2022:</span>
+<span id="cb40-289"><a href="#cb40-289" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-290"><a href="#cb40-290" aria-hidden="true" tabindex="-1"></a>Coefficient alpha, or $\alpha$ can be written as</span>
+<span id="cb40-291"><a href="#cb40-291" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-292"><a href="#cb40-292" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb40-293"><a href="#cb40-293" aria-hidden="true" tabindex="-1"></a>\alpha = (\frac{p}{p-1})\left(\frac{\sigma_Y^2-\sum\limits_{j=1}^p\sigma_j^2}{\sigma_Y^2}\right) = (\frac{p}{p-1})\left(1- \frac{\sum\limits_{j=1}^p\sigma_j^2}{\sigma_Y^2}\right)</span>
+<span id="cb40-294"><a href="#cb40-294" aria-hidden="true" tabindex="-1"></a>$${#eq-alpha}</span>
+<span id="cb40-295"><a href="#cb40-295" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-296"><a href="#cb40-296" aria-hidden="true" tabindex="-1"></a>where $p$ is the number of items on the scale, $\sigma_j^2$ ($j=1,...,p$) is the variance of item $j$, <span class="co">[</span><span class="ot">...</span><span class="co">]</span>. $\sigma_Y^2$ is the variance of the sum score.</span>
+<span id="cb40-297"><a href="#cb40-297" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-298"><a href="#cb40-298" aria-hidden="true" tabindex="-1"></a>Now lets calculate Cronbachs $\alpha$. We use the variables <span class="in">`msc1`</span>,<span class="in">`msc2`</span>,<span class="in">`msc3r`</span>, &amp; <span class="in">`msc4r`</span> from the example data set (<span class="in">`exDat`</span>).</span>
+<span id="cb40-299"><a href="#cb40-299" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-300"><a href="#cb40-300" aria-hidden="true" tabindex="-1"></a>::: {.callout-important collapse="true"}</span>
+<span id="cb40-301"><a href="#cb40-301" aria-hidden="true" tabindex="-1"></a><span class="fu">## Missing values and Cronbachs $\alpha$</span></span>
+<span id="cb40-302"><a href="#cb40-302" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-303"><a href="#cb40-303" aria-hidden="true" tabindex="-1"></a>There are many different packages which implemented the calculation of Cronbachs $\alpha$. For example:</span>
+<span id="cb40-304"><a href="#cb40-304" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-305"><a href="#cb40-305" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`alpha`</span> function from the <span class="in">`psych`</span> package <span class="co">[</span><span class="ot">@R-psych</span><span class="co">]</span></span>
+<span id="cb40-306"><a href="#cb40-306" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-307"><a href="#cb40-307" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`itemstats`</span> function from the <span class="in">`mirt`</span> package <span class="co">[</span><span class="ot">@R-mirt</span><span class="co">]</span> </span>
+<span id="cb40-308"><a href="#cb40-308" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-309"><a href="#cb40-309" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`cronbach`</span> function from the <span class="in">`psy`</span> package <span class="co">[</span><span class="ot">@R-psy</span><span class="co">]</span></span>
+<span id="cb40-310"><a href="#cb40-310" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-311"><a href="#cb40-311" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`cronbach.alpha`</span> function from the <span class="in">`ltm`</span> package <span class="co">[</span><span class="ot">@R-ltm</span><span class="co">]</span></span>
+<span id="cb40-312"><a href="#cb40-312" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-313"><a href="#cb40-313" aria-hidden="true" tabindex="-1"></a>Interestingly, these package implemented different approaches (and options) in how they deal with missing values which (may) lead to (slightly) different results.</span>
+<span id="cb40-314"><a href="#cb40-314" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-317"><a href="#cb40-317" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-318"><a href="#cb40-318" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: add-more-miss</span></span>
+<span id="cb40-319"><a href="#cb40-319" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb40-320"><a href="#cb40-320" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-321"><a href="#cb40-321" aria-hidden="true" tabindex="-1"></a>exDatmiss <span class="ot">&lt;-</span> exDat</span>
+<span id="cb40-322"><a href="#cb40-322" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-323"><a href="#cb40-323" aria-hidden="true" tabindex="-1"></a><span class="co"># add some more missing data, this adds up when calculating the sum score</span></span>
+<span id="cb40-324"><a href="#cb40-324" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-325"><a href="#cb40-325" aria-hidden="true" tabindex="-1"></a>exDatmiss<span class="sc">$</span>msc3r <span class="ot">&lt;-</span> <span class="fu">ifelse</span> (</span>
+<span id="cb40-326"><a href="#cb40-326" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rbinom</span>(</span>
+<span id="cb40-327"><a href="#cb40-327" aria-hidden="true" tabindex="-1"></a>    <span class="fu">nrow</span>(exDatmiss),</span>
+<span id="cb40-328"><a href="#cb40-328" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">1</span>,</span>
+<span id="cb40-329"><a href="#cb40-329" aria-hidden="true" tabindex="-1"></a>    .<span class="dv">25</span>) <span class="sc">==</span> <span class="dv">1</span>,</span>
+<span id="cb40-330"><a href="#cb40-330" aria-hidden="true" tabindex="-1"></a>  <span class="cn">NA</span>,</span>
+<span id="cb40-331"><a href="#cb40-331" aria-hidden="true" tabindex="-1"></a>  exDatmiss<span class="sc">$</span>msc3r</span>
+<span id="cb40-332"><a href="#cb40-332" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb40-333"><a href="#cb40-333" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-334"><a href="#cb40-334" aria-hidden="true" tabindex="-1"></a>exDatmiss<span class="sc">$</span>msc1 <span class="ot">&lt;-</span> <span class="fu">ifelse</span> (</span>
+<span id="cb40-335"><a href="#cb40-335" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rbinom</span>(</span>
+<span id="cb40-336"><a href="#cb40-336" aria-hidden="true" tabindex="-1"></a>    <span class="fu">nrow</span>(exDatmiss),</span>
+<span id="cb40-337"><a href="#cb40-337" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">1</span>,</span>
+<span id="cb40-338"><a href="#cb40-338" aria-hidden="true" tabindex="-1"></a>    .<span class="dv">15</span>) <span class="sc">==</span> <span class="dv">1</span>,</span>
+<span id="cb40-339"><a href="#cb40-339" aria-hidden="true" tabindex="-1"></a>  <span class="cn">NA</span>,</span>
+<span id="cb40-340"><a href="#cb40-340" aria-hidden="true" tabindex="-1"></a>  exDatmiss<span class="sc">$</span>msc1</span>
+<span id="cb40-341"><a href="#cb40-341" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb40-342"><a href="#cb40-342" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-343"><a href="#cb40-343" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-344"><a href="#cb40-344" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-347"><a href="#cb40-347" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-348"><a href="#cb40-348" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: tbl-alpha-over</span></span>
+<span id="cb40-349"><a href="#cb40-349" aria-hidden="true" tabindex="-1"></a><span class="co">#| tbl-cap: Overview of different Cronbach $\alpha$ calculations</span></span>
+<span id="cb40-350"><a href="#cb40-350" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb40-351"><a href="#cb40-351" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-352"><a href="#cb40-352" aria-hidden="true" tabindex="-1"></a>alphaOver <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb40-353"><a href="#cb40-353" aria-hidden="true" tabindex="-1"></a>  <span class="st">"alpha"</span> <span class="ot">=</span> <span class="fu">rbind</span>(</span>
+<span id="cb40-354"><a href="#cb40-354" aria-hidden="true" tabindex="-1"></a>    psych<span class="sc">::</span><span class="fu">alpha</span>(exDatmiss[,<span class="fu">names</span>(mscItems)])<span class="sc">$</span>total<span class="sc">$</span>raw_alpha,</span>
+<span id="cb40-355"><a href="#cb40-355" aria-hidden="true" tabindex="-1"></a>    psy<span class="sc">::</span><span class="fu">cronbach</span>(exDatmiss[,<span class="fu">names</span>(mscItems)])<span class="sc">$</span>alpha,</span>
+<span id="cb40-356"><a href="#cb40-356" aria-hidden="true" tabindex="-1"></a>    mirt<span class="sc">::</span><span class="fu">itemstats</span>(exDatmiss[,<span class="fu">names</span>(mscItems)])<span class="sc">$</span>overall<span class="sc">$</span>alpha,</span>
+<span id="cb40-357"><a href="#cb40-357" aria-hidden="true" tabindex="-1"></a>    ltm<span class="sc">::</span><span class="fu">cronbach.alpha</span>(exDatmiss[,<span class="fu">names</span>(mscItems)], <span class="at">na.rm =</span> T)<span class="sc">$</span>alpha</span>
+<span id="cb40-358"><a href="#cb40-358" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb40-359"><a href="#cb40-359" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb40-360"><a href="#cb40-360" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb40-361"><a href="#cb40-361" aria-hidden="true" tabindex="-1"></a>alphaOver<span class="sc">$</span>Package <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"psych"</span>, <span class="st">"psy"</span>, <span class="st">"mirt"</span>, <span class="st">"ltm"</span>)</span>
+<span id="cb40-362"><a href="#cb40-362" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-363"><a href="#cb40-363" aria-hidden="true" tabindex="-1"></a>kableExtra<span class="sc">::</span><span class="fu">kbl</span>(alphaOver[,<span class="fu">c</span>(<span class="st">"Package"</span>, <span class="st">"alpha"</span>)],</span>
+<span id="cb40-364"><a href="#cb40-364" aria-hidden="true" tabindex="-1"></a>                <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Package"</span>, <span class="st">"Cronbachs $</span><span class="sc">\\</span><span class="st">alpha$"</span>),</span>
+<span id="cb40-365"><a href="#cb40-365" aria-hidden="true" tabindex="-1"></a>                <span class="at">digits =</span> <span class="dv">5</span>,</span>
+<span id="cb40-366"><a href="#cb40-366" aria-hidden="true" tabindex="-1"></a>                <span class="at">centering =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb40-367"><a href="#cb40-367" aria-hidden="true" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">kable_styling</span>(<span class="at">full_width =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb40-368"><a href="#cb40-368" aria-hidden="true" tabindex="-1"></a>                            <span class="at">bootstrap_options =</span> <span class="fu">c</span>(<span class="st">"hover"</span>, <span class="st">"responsive"</span>))</span>
+<span id="cb40-369"><a href="#cb40-369" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-370"><a href="#cb40-370" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-371"><a href="#cb40-371" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-372"><a href="#cb40-372" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb40-373"><a href="#cb40-373" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-374"><a href="#cb40-374" aria-hidden="true" tabindex="-1"></a>::: {.panel-tabset}</span>
+<span id="cb40-375"><a href="#cb40-375" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-376"><a href="#cb40-376" aria-hidden="true" tabindex="-1"></a><span class="fu">### Cronbachs $\alpha$ and item statistics with base R</span></span>
+<span id="cb40-377"><a href="#cb40-377" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-378"><a href="#cb40-378" aria-hidden="true" tabindex="-1"></a><span class="ss">0. </span>Before we calculate Cronbachs $\alpha$, we remove (using the <span class="in">`na.omit`</span> function) all incomplete cases from the data set.</span>
+<span id="cb40-379"><a href="#cb40-379" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-382"><a href="#cb40-382" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-383"><a href="#cb40-383" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: alpha-hand-0</span></span>
+<span id="cb40-384"><a href="#cb40-384" aria-hidden="true" tabindex="-1"></a>itemDF <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(exDat[<span class="fu">names</span>(mscItems)])</span>
+<span id="cb40-385"><a href="#cb40-385" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-386"><a href="#cb40-386" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-387"><a href="#cb40-387" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Get the number of items ($p$)</span>
+<span id="cb40-388"><a href="#cb40-388" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-391"><a href="#cb40-391" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-392"><a href="#cb40-392" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: alpha-hand-1</span></span>
+<span id="cb40-393"><a href="#cb40-393" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">length</span>(mscItems)</span>
+<span id="cb40-394"><a href="#cb40-394" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-395"><a href="#cb40-395" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-396"><a href="#cb40-396" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Calculate the sum (i.e., <span class="in">`sum`</span> function) of $\sigma_j^2$ of all items using the <span class="in">`apply`</span> function (see also <span class="co">[</span><span class="ot">above</span><span class="co">](#two-step-apply)</span>) and $\sigma_Y^2$ of the total score (that is calculated by the <span class="in">`rowSums`</span> function; see <span class="co">[</span><span class="ot">below</span><span class="co">](#app1-rowsums)</span> for a detailed description of the function).</span>
+<span id="cb40-397"><a href="#cb40-397" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-400"><a href="#cb40-400" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-401"><a href="#cb40-401" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: alpha-hand-2</span></span>
+<span id="cb40-402"><a href="#cb40-402" aria-hidden="true" tabindex="-1"></a>sigmaInd <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">apply</span>(itemDF, <span class="dv">2</span>, sd)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb40-403"><a href="#cb40-403" aria-hidden="true" tabindex="-1"></a>sigmaTot <span class="ot">&lt;-</span> <span class="fu">var</span>(<span class="fu">rowSums</span>(itemDF))</span>
+<span id="cb40-404"><a href="#cb40-404" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-405"><a href="#cb40-405" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-406"><a href="#cb40-406" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Apply @eq-alpha</span>
+<span id="cb40-407"><a href="#cb40-407" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-410"><a href="#cb40-410" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-411"><a href="#cb40-411" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: alpha-hand-3</span></span>
+<span id="cb40-412"><a href="#cb40-412" aria-hidden="true" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> (p<span class="sc">/</span>(p <span class="sc">-</span> <span class="dv">1</span>)) <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> sigmaInd<span class="sc">/</span> sigmaTot )</span>
+<span id="cb40-413"><a href="#cb40-413" aria-hidden="true" tabindex="-1"></a>alpha</span>
+<span id="cb40-414"><a href="#cb40-414" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-415"><a href="#cb40-415" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-416"><a href="#cb40-416" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-417"><a href="#cb40-417" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-418"><a href="#cb40-418" aria-hidden="true" tabindex="-1"></a>An important item statistics is the so-called *Item whole correlation for this item against the scale without this item* (in the <span class="in">`alpha`</span> function from the <span class="in">`psych`</span> package <span class="co">[</span><span class="ot">@R-psych</span><span class="co">]</span> this is called: <span class="in">`r.drop`</span>). </span>
+<span id="cb40-419"><a href="#cb40-419" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-420"><a href="#cb40-420" aria-hidden="true" tabindex="-1"></a><span class="ss">0. </span>Recall, the names of the items are stored in the <span class="in">`named list`</span> object (i.e., <span class="in">`mscItems`</span>).</span>
+<span id="cb40-421"><a href="#cb40-421" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-424"><a href="#cb40-424" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-425"><a href="#cb40-425" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: base-r-rdrop-0</span></span>
+<span id="cb40-426"><a href="#cb40-426" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(mscItems)</span>
+<span id="cb40-427"><a href="#cb40-427" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-428"><a href="#cb40-428" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-429"><a href="#cb40-429" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>To correlate the first item with the sum score, we use the <span class="in">`cor`</span> function. To ignore the item when calculating the sum score, we state <span class="in">`[-1]`</span> after the <span class="in">`names`</span> call of the <span class="in">`named list`</span>.</span>
+<span id="cb40-430"><a href="#cb40-430" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-433"><a href="#cb40-433" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-434"><a href="#cb40-434" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: base-r-rdrop-1</span></span>
+<span id="cb40-435"><a href="#cb40-435" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-436"><a href="#cb40-436" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(<span class="at">x =</span> exDat[,<span class="st">"msc1"</span>],</span>
+<span id="cb40-437"><a href="#cb40-437" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">rowSums</span>(exDat[<span class="fu">names</span>(mscItems)[<span class="sc">-</span><span class="dv">1</span>]]),</span>
+<span id="cb40-438"><a href="#cb40-438" aria-hidden="true" tabindex="-1"></a>    <span class="at">use =</span> <span class="st">"pairwise.complete.obs"</span>)</span>
+<span id="cb40-439"><a href="#cb40-439" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-440"><a href="#cb40-440" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-441"><a href="#cb40-441" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-442"><a href="#cb40-442" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Now, we do it for all items. Therefore, we may use the <span class="in">`sapply`</span> function. More specifically, we iterate through the item names (or to be precise, through the length of the item names)^<span class="co">[</span><span class="ot">Check it by writing: `1:length(names(mscItems))`</span><span class="co">]</span>. In the input argument <span class="in">`x`</span> we (only) use the respective item <span class="in">`[itemNr]`</span>, while we ignore  it <span class="in">`[-itemNr]`</span> when calculating the sum score in the second input argument <span class="in">`y`</span>.</span>
+<span id="cb40-443"><a href="#cb40-443" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-446"><a href="#cb40-446" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-447"><a href="#cb40-447" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: base-r-rdrop-2</span></span>
+<span id="cb40-448"><a href="#cb40-448" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(<span class="fu">names</span>(mscItems)),</span>
+<span id="cb40-449"><a href="#cb40-449" aria-hidden="true" tabindex="-1"></a>       <span class="cf">function</span>(itemNr) <span class="fu">cor</span>(<span class="at">x =</span> exDat[,<span class="fu">names</span>(mscItems)[itemNr]],</span>
+<span id="cb40-450"><a href="#cb40-450" aria-hidden="true" tabindex="-1"></a>                            <span class="at">y =</span> <span class="fu">rowSums</span>(exDat[<span class="fu">names</span>(mscItems)[<span class="sc">-</span>itemNr]]),</span>
+<span id="cb40-451"><a href="#cb40-451" aria-hidden="true" tabindex="-1"></a>                            <span class="at">use =</span> <span class="st">"pairwise.complete.obs"</span>))</span>
+<span id="cb40-452"><a href="#cb40-452" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-453"><a href="#cb40-453" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-454"><a href="#cb40-454" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-455"><a href="#cb40-455" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-456"><a href="#cb40-456" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-457"><a href="#cb40-457" aria-hidden="true" tabindex="-1"></a><span class="fu">### Cronbachs $\alpha$ and item statistics with psych</span></span>
+<span id="cb40-458"><a href="#cb40-458" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-459"><a href="#cb40-459" aria-hidden="true" tabindex="-1"></a>In the <span class="in">`psych`</span> package <span class="co">[</span><span class="ot">@R-psych</span><span class="co">]</span>, the <span class="in">`alpha`</span> function is designed to calculate Cronbachs $\alpha$. The function has several input arguments (see <span class="in">`?psych::alpha`</span>), but requires only <span class="in">`x`</span>: A data.frame or matrix of data, or a covariance or correlation matrix.</span>
+<span id="cb40-460"><a href="#cb40-460" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-461"><a href="#cb40-461" aria-hidden="true" tabindex="-1"></a>The function returns a couple of lists, including:</span>
+<span id="cb40-462"><a href="#cb40-462" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-463"><a href="#cb40-463" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>different $\alpha$ estimates (i.e., <span class="in">`raw_alpha`</span>, <span class="in">`std.alpha`</span>)</span>
+<span id="cb40-464"><a href="#cb40-464" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-465"><a href="#cb40-465" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>item statistics (e.g., item whole correlation corrected for item overlap and scale reliability, item whole correlation for this item against the scale without this item, ...)</span>
+<span id="cb40-466"><a href="#cb40-466" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-467"><a href="#cb40-467" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>response frequencies</span>
+<span id="cb40-468"><a href="#cb40-468" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-469"><a href="#cb40-469" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>calculated mean- or sum score (depending on the <span class="in">`cumulative`</span> argument)</span>
+<span id="cb40-470"><a href="#cb40-470" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-471"><a href="#cb40-471" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>...</span>
+<span id="cb40-472"><a href="#cb40-472" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-475"><a href="#cb40-475" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-476"><a href="#cb40-476" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: alpha-psych</span></span>
+<span id="cb40-477"><a href="#cb40-477" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-478"><a href="#cb40-478" aria-hidden="true" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">alpha</span>(<span class="at">x =</span> exDat[<span class="fu">names</span>(mscItems)])</span>
+<span id="cb40-479"><a href="#cb40-479" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-480"><a href="#cb40-480" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-481"><a href="#cb40-481" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-482"><a href="#cb40-482" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-483"><a href="#cb40-483" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb40-484"><a href="#cb40-484" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-485"><a href="#cb40-485" aria-hidden="true" tabindex="-1"></a><span class="fu">## Calculating scale scores</span></span>
+<span id="cb40-486"><a href="#cb40-486" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-487"><a href="#cb40-487" aria-hidden="true" tabindex="-1"></a>Now, we calculate scale scores (i.e., $msc_{sum}$, $msc_{avg}$) of the items $msc_1,msc_2,msc_3r,msc_{4r}$.</span>
+<span id="cb40-488"><a href="#cb40-488" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-489"><a href="#cb40-489" aria-hidden="true" tabindex="-1"></a>::: {.callout-note }</span>
+<span id="cb40-490"><a href="#cb40-490" aria-hidden="true" tabindex="-1"></a><span class="fu">## Scale scores</span></span>
+<span id="cb40-491"><a href="#cb40-491" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-492"><a href="#cb40-492" aria-hidden="true" tabindex="-1"></a>Some interesting reads: @Widaman2022; @McNeish2020b; @Rose2019</span>
+<span id="cb40-493"><a href="#cb40-493" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-494"><a href="#cb40-494" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb40-495"><a href="#cb40-495" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-496"><a href="#cb40-496" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-497"><a href="#cb40-497" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-498"><a href="#cb40-498" aria-hidden="true" tabindex="-1"></a>::: {.panel-tabset}</span>
+<span id="cb40-499"><a href="#cb40-499" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-500"><a href="#cb40-500" aria-hidden="true" tabindex="-1"></a><span class="fu">### rowSums from base R {#app1-rowsums}</span></span>
+<span id="cb40-501"><a href="#cb40-501" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-502"><a href="#cb40-502" aria-hidden="true" tabindex="-1"></a>The <span class="in">`rowSums`</span> function needs one input (copied from the function description):</span>
+<span id="cb40-503"><a href="#cb40-503" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-504"><a href="#cb40-504" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`x`</span>: an array of two or more dimensions, containing numeric, complex, integer or logical values, or a numeric data frame.</span>
+<span id="cb40-505"><a href="#cb40-505" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-506"><a href="#cb40-506" aria-hidden="true" tabindex="-1"></a>But the <span class="in">`na.rm`</span> argument needs special attention:</span>
+<span id="cb40-507"><a href="#cb40-507" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-508"><a href="#cb40-508" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`na.rm`</span>: logical. Should missing values (including NaN) be omitted from the calculations?</span>
+<span id="cb40-509"><a href="#cb40-509" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-510"><a href="#cb40-510" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-511"><a href="#cb40-511" aria-hidden="true" tabindex="-1"></a>This argument is important when some items have missing data. The question is: Should the scores be build based on the available items (this procedure is called person mean imputation) or discarded? </span>
+<span id="cb40-512"><a href="#cb40-512" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-513"><a href="#cb40-513" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-514"><a href="#cb40-514" aria-hidden="true" tabindex="-1"></a>@Enders2010 summarizes it as follows (p.51): </span>
+<span id="cb40-515"><a href="#cb40-515" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-516"><a href="#cb40-516" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Until more research accumulates, you should use person mean imputation with caution and should perhaps avoid it altogether, particularly if there are high rates of item nonresponse.</span></span>
+<span id="cb40-517"><a href="#cb40-517" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-518"><a href="#cb40-518" aria-hidden="true" tabindex="-1"></a>This means, we set <span class="in">`na.rm = FALSE`</span>. It is important to note, that there are options to circumvent this issue, such as a model-based estimation of composite scores <span class="co">[</span><span class="ot">@Rose2019</span><span class="co">]</span> or multiple imputation <span class="co">[</span><span class="ot">see e.g., @Schafer2002; @Enders2010</span><span class="co">]</span></span>
+<span id="cb40-519"><a href="#cb40-519" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-520"><a href="#cb40-520" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Calculation of the sum score</span>
+<span id="cb40-521"><a href="#cb40-521" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-524"><a href="#cb40-524" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-525"><a href="#cb40-525" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: rowsum-sumscore</span></span>
+<span id="cb40-526"><a href="#cb40-526" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-527"><a href="#cb40-527" aria-hidden="true" tabindex="-1"></a>exDat<span class="sc">$</span>mscsum <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(<span class="at">x =</span> exDat[,<span class="fu">names</span>(mscItems)],</span>
+<span id="cb40-528"><a href="#cb40-528" aria-hidden="true" tabindex="-1"></a>                        <span class="at">na.rm =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb40-529"><a href="#cb40-529" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-530"><a href="#cb40-530" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-531"><a href="#cb40-531" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-532"><a href="#cb40-532" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Calculation of the average score</span>
+<span id="cb40-533"><a href="#cb40-533" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-536"><a href="#cb40-536" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-537"><a href="#cb40-537" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: rowsum-avgcore</span></span>
+<span id="cb40-538"><a href="#cb40-538" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-539"><a href="#cb40-539" aria-hidden="true" tabindex="-1"></a>exDat<span class="sc">$</span>mscavg <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(<span class="at">x =</span> exDat[,<span class="fu">names</span>(mscItems)],</span>
+<span id="cb40-540"><a href="#cb40-540" aria-hidden="true" tabindex="-1"></a>                        <span class="at">na.rm =</span> <span class="cn">FALSE</span>)<span class="sc">/</span><span class="fu">length</span>(<span class="fu">names</span>(mscItems))</span>
+<span id="cb40-541"><a href="#cb40-541" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-542"><a href="#cb40-542" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-543"><a href="#cb40-543" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-544"><a href="#cb40-544" aria-hidden="true" tabindex="-1"></a><span class="fu">### scoreItems from psych</span></span>
+<span id="cb40-545"><a href="#cb40-545" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-546"><a href="#cb40-546" aria-hidden="true" tabindex="-1"></a>To calculate scale scores, you can also use the <span class="in">`scoreItems`</span> function from the <span class="in">`psych`</span> package <span class="co">[</span><span class="ot">@R-psych</span><span class="co">]</span>.</span>
+<span id="cb40-547"><a href="#cb40-547" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-548"><a href="#cb40-548" aria-hidden="true" tabindex="-1"></a>The <span class="in">`scoreItems`</span> function needs at least two inputs (copied from the package description):</span>
+<span id="cb40-549"><a href="#cb40-549" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-550"><a href="#cb40-550" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`keys`</span>:  list of scoring keys or a <span class="in">`matrix`</span> or <span class="in">`data.frame`</span> of -1, 0, or 1 weights for each item on each scale which may be created by hand <span class="co">[</span><span class="ot">...</span><span class="co">]</span>. Here we assign an equal weight (=1) for all items </span>
+<span id="cb40-551"><a href="#cb40-551" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`items`</span>: <span class="in">`Matrix`</span> or <span class="in">`data.frame`</span> of raw item scores</span>
+<span id="cb40-552"><a href="#cb40-552" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-553"><a href="#cb40-553" aria-hidden="true" tabindex="-1"></a>However, there a more input arguments that are important:</span>
+<span id="cb40-554"><a href="#cb40-554" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-555"><a href="#cb40-555" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`totals`</span>: if <span class="in">`TRUE`</span> find total scores (!aka sum scores), if <span class="in">`FALSE`</span> (default), find average scores</span>
+<span id="cb40-556"><a href="#cb40-556" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`missing`</span>: <span class="in">`missing = TRUE`</span> is the normal case and data are imputed according to the impute option. <span class="in">`missing = FALSE`</span>, only complete cases are scored. </span>
+<span id="cb40-557"><a href="#cb40-557" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-558"><a href="#cb40-558" aria-hidden="true" tabindex="-1"></a>It is recommended to use <span class="in">`missing = FALSE`</span> (see <span class="co">[</span><span class="ot">Approach 1: rowSums</span><span class="co">](#app1-rowsums)</span>).</span>
+<span id="cb40-559"><a href="#cb40-559" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-560"><a href="#cb40-560" aria-hidden="true" tabindex="-1"></a>Because the function calculates several other statistics (e.g., Cronbachs $\alpha$, average correlation within a scale, ...), we do it in two-step approach. Executing the function and save the information in an object, and then extracting (with the <span class="in">`$`</span> operator) the scores from the object (i.e., <span class="in">`MscsumPsych$scores`</span>) while merging the scores with the example data set (i.e., by rownames via <span class="in">`by = 0`</span>) . Merging is necessary because of <span class="in">`missing = FALSE`</span>.</span>
+<span id="cb40-561"><a href="#cb40-561" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-562"><a href="#cb40-562" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Calculation of the sum score</span>
+<span id="cb40-563"><a href="#cb40-563" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-566"><a href="#cb40-566" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-567"><a href="#cb40-567" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: psych-sumscore</span></span>
+<span id="cb40-568"><a href="#cb40-568" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-569"><a href="#cb40-569" aria-hidden="true" tabindex="-1"></a>MscsumPsych <span class="ot">&lt;-</span> psych<span class="sc">::</span><span class="fu">scoreItems</span>(<span class="at">keys =</span> <span class="fu">rep</span>(<span class="dv">1</span>, <span class="fu">length</span>(<span class="fu">names</span>(mscItems))),</span>
+<span id="cb40-570"><a href="#cb40-570" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">items =</span> exDat[,<span class="fu">names</span>(mscItems)],</span>
+<span id="cb40-571"><a href="#cb40-571" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">totals =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb40-572"><a href="#cb40-572" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">missing =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb40-573"><a href="#cb40-573" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">min =</span> <span class="dv">1</span>,</span>
+<span id="cb40-574"><a href="#cb40-574" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">max =</span> <span class="dv">4</span>)</span>
+<span id="cb40-575"><a href="#cb40-575" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-576"><a href="#cb40-576" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-577"><a href="#cb40-577" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(MscsumPsych<span class="sc">$</span>scores) <span class="ot">&lt;-</span> <span class="st">"mscsum2"</span></span>
+<span id="cb40-578"><a href="#cb40-578" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-579"><a href="#cb40-579" aria-hidden="true" tabindex="-1"></a>exDat <span class="ot">&lt;-</span> <span class="fu">merge</span>(exDat, MscsumPsych<span class="sc">$</span>scores,</span>
+<span id="cb40-580"><a href="#cb40-580" aria-hidden="true" tabindex="-1"></a>               <span class="at">by =</span> <span class="dv">0</span>,</span>
+<span id="cb40-581"><a href="#cb40-581" aria-hidden="true" tabindex="-1"></a>               <span class="at">all.x =</span> T)</span>
+<span id="cb40-582"><a href="#cb40-582" aria-hidden="true" tabindex="-1"></a>exDat<span class="sc">$</span>Row.names <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb40-583"><a href="#cb40-583" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-584"><a href="#cb40-584" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-585"><a href="#cb40-585" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Calculation of the average score</span>
+<span id="cb40-586"><a href="#cb40-586" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-589"><a href="#cb40-589" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-590"><a href="#cb40-590" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: psych-avgcore</span></span>
+<span id="cb40-591"><a href="#cb40-591" aria-hidden="true" tabindex="-1"></a>MscavgPsych <span class="ot">&lt;-</span> psych<span class="sc">::</span><span class="fu">scoreItems</span>(<span class="at">keys =</span> <span class="fu">rep</span>(<span class="dv">1</span>, <span class="fu">length</span>(<span class="fu">names</span>(mscItems))),</span>
+<span id="cb40-592"><a href="#cb40-592" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">items =</span> exDat[,<span class="fu">names</span>(mscItems)],</span>
+<span id="cb40-593"><a href="#cb40-593" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">totals =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb40-594"><a href="#cb40-594" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">missing =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb40-595"><a href="#cb40-595" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">min =</span> <span class="dv">1</span>,</span>
+<span id="cb40-596"><a href="#cb40-596" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">max =</span> <span class="dv">4</span>)</span>
+<span id="cb40-597"><a href="#cb40-597" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-598"><a href="#cb40-598" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-599"><a href="#cb40-599" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(MscavgPsych<span class="sc">$</span>scores) <span class="ot">&lt;-</span> <span class="st">"mscavg2"</span></span>
+<span id="cb40-600"><a href="#cb40-600" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-601"><a href="#cb40-601" aria-hidden="true" tabindex="-1"></a>exDat <span class="ot">&lt;-</span> <span class="fu">merge</span>(exDat, MscavgPsych<span class="sc">$</span>scores,</span>
+<span id="cb40-602"><a href="#cb40-602" aria-hidden="true" tabindex="-1"></a>               <span class="at">by =</span> <span class="dv">0</span>,</span>
+<span id="cb40-603"><a href="#cb40-603" aria-hidden="true" tabindex="-1"></a>               <span class="at">all.x =</span> T)</span>
+<span id="cb40-604"><a href="#cb40-604" aria-hidden="true" tabindex="-1"></a>exDat<span class="sc">$</span>Row.names <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb40-605"><a href="#cb40-605" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-606"><a href="#cb40-606" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-607"><a href="#cb40-607" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb40-608"><a href="#cb40-608" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-609"><a href="#cb40-609" aria-hidden="true" tabindex="-1"></a><span class="fu">### Calculating many scale scores</span></span>
+<span id="cb40-610"><a href="#cb40-610" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-611"><a href="#cb40-611" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- add --&gt;</span></span>
+<span id="cb40-612"><a href="#cb40-612" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-615"><a href="#cb40-615" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-616"><a href="#cb40-616" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: nam-list-scalescore-1</span></span>
+<span id="cb40-617"><a href="#cb40-617" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-618"><a href="#cb40-618" aria-hidden="true" tabindex="-1"></a><span class="co">#names(scaleList)</span></span>
+<span id="cb40-619"><a href="#cb40-619" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-620"><a href="#cb40-620" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-621"><a href="#cb40-621" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-622"><a href="#cb40-622" aria-hidden="true" tabindex="-1"></a>Then using the <span class="in">`sapply`</span> function to iterate through the list elements and applying the <span class="in">`rowSums`</span> function. Note we calculate average scores, because we divide through the total score through the number of items.</span>
+<span id="cb40-623"><a href="#cb40-623" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-626"><a href="#cb40-626" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-627"><a href="#cb40-627" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: calc-many-scale-scores</span></span>
+<span id="cb40-628"><a href="#cb40-628" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb40-629"><a href="#cb40-629" aria-hidden="true" tabindex="-1"></a>exDat[,<span class="fu">names</span>(scaleList)] <span class="ot">&lt;-</span> <span class="fu">sapply</span>(scaleList,</span>
+<span id="cb40-630"><a href="#cb40-630" aria-hidden="true" tabindex="-1"></a>                                     <span class="cf">function</span>(s) <span class="fu">rowSums</span>(<span class="at">x =</span> exDat[,s],</span>
+<span id="cb40-631"><a href="#cb40-631" aria-hidden="true" tabindex="-1"></a>                                                         <span class="at">na.rm =</span> <span class="cn">FALSE</span>)<span class="sc">/</span><span class="fu">length</span>(s),</span>
+<span id="cb40-632"><a href="#cb40-632" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">simplify =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb40-633"><a href="#cb40-633" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-634"><a href="#cb40-634" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+</body></html>
