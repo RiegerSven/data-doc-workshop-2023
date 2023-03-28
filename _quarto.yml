@@ -1,0 +1,50 @@
+project:
+  type: book
+  output-dir: _book
+  #output-file: "Data-documentation-R-Quarto"
+
+book:
+  title: "Data documentation with R and Quarto"
+  author:
+    - "Noel Wytopil"
+    - "Sonja Gelzenleuchter"
+    - "Sven Rieger"
+  date: "tba"
+  page-navigation: true
+  search: true
+  reader-mode: false
+  repo-url: https://github.com/RiegerSven/data-documentation-workshop-2023
+  repo-actions: [edit]
+  #downloads: [pdf, epub]
+  sidebar:
+    style: docked
+    background: light
+  chapters:
+    - index.qmd
+    - intro.qmd
+    - gen-info.qmd
+    - intro-r-rstudio.qmd
+    - intro-quarto.qmd
+    - data-cleaning.qmd
+    - item-analy-descr.qmd
+    - references.qmd
+
+bibliography: ["r-refs.bib", "references.bib"]
+
+format:
+  html:
+    theme: cosmo
+    toc-depth: 4
+    linestretch: 1.7
+    code-copy: true
+    code-link: true
+    code-tools: true
+    code-line-numbers: false
+    code-fold: show
+    code-summary: "Show/hide code"
+    link-external-newwindow: true
+ # pdf:
+  #  documentclass: scrreprt
+
+
+

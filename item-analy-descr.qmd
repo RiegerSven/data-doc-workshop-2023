@@ -1,0 +1,579 @@
+
+# Descriptive statistics and item analysis  {#item-analy-descr}
+
+In this part you will learn how to calculate descriptive statistics, item statistics and calculate scale scores. 
+
+::: {.callout-note }
+
+In `R` there are many different ways to get things done. Also, recall we provided functions (see [here](gen-info.qmd#functions)) which are ready to use.
+
+:::
+
+
+
+```{r}
+#| label: prep-exDat
+#| echo: false
+#| output: false
+
+load("scaleManualFunctions.Rdata")
+
+varOverview <-  scaleManualFunctions$varOverview
+catVar <-  scaleManualFunctions$catVar
+contVar <-  scaleManualFunctions$contVar
+scaleScore <-  scaleManualFunctions$scaleScore
+
+exDat <- readRDS("exampleDat.RDS")
+
+
+mscItems <- list("msc1" = c("Ich bin gut in Mathematik."),
+                 "msc2" = c("Ich war in Mathematik immer gut."),
+                 "msc3" = c("Ich habe Verständnisschwierigkeiten bei allem, für das man Mathematik braucht."),
+                 "msc4" = c("Ich bin bei Aufgaben, die mathematisches Denken
+erfordern, nie gut."))
+
+exDat[,c("msc3r", "msc4r", "msc")] <- scaleScore(items = names(mscItems),
+                                                 scaleNameShort = "msc",
+                                                 recItems = c(3,4),
+                                                 recode = TRUE,
+                                                 data = exDat,
+                                                 table = F)
+
+
+names(mscItems)[c(3,4)] <- paste0(names(mscItems)[c(3,4)], "r")
+```
+
+## Descriptive statistics
+
+Typical descriptive statistics are: 
+
+  - mean
+  - standard deviation
+  - minimum and maximum
+  - absolute and relative frequencies
+  
+`R` provides functions to calculate the statistics: `mean`, `sd`, `min`, `max`, `table`, ...
+
+In addition, there are packages such as the `psych` package [@R-psych] that offer additional functionality.
+
+::: {.panel-tabset}
+
+### Base R
+
+For example, if we want to calculate the mean and the standard deviation of the variable age, we can use the respective functions (i.e., `mean` & `sd`):
+
+:::: {.columns}
+
+::: {.column width="40%"}
+
+```{r}
+#| label: base-r-mean
+mean(exDat$age, na.rm = T)
+```
+
+:::
+
+::: {.column width="10%"}
+<!-- empty column to create gap -->
+:::
+
+::: {.column width="40%"}
+
+```{r}
+#| label: sd-r-mean
+sd(exDat$age, na.rm = T)
+```
+
+:::
+
+::::
+
+
+Or, if you are interested in absolute and/or relative frequencies, we can use the `table` function:
+
+:::: {.columns}
+
+::: {.column width="40%"}
+
+```{r}
+#| label: base-r-table-abs
+
+table(exDat$sex)
+```
+
+:::
+
+::: {.column width="10%"}
+<!-- empty column to create gap -->
+:::
+
+::: {.column width="40%"}
+
+```{r}
+#| label: base-r-table-rel
+
+table(exDat$sex,
+      useNA = "always")/length(exDat$sex)*100
+```
+
+:::
+
+::::
+
+
+However, often you need to calculate the descriptive statistics not only for a single variable, but for many variables. Again, in `R` this can be done in many different ways. Here we depict a base `R` solution using the `apply` function.
+
+The `apply` function needs the following arguments (copied from the function description):
+
+- `X`: an array, including a matrix.
+- `MARGIN`: a vector giving the subscripts which the function will be applied over. E.g., for a matrix 1 indicates rows, **2 indicates columns**, c(1, 2) indicates rows and columns. Where X has named dimnames, it can be a character vector selecting dimension names.
+- `FUN`: the function to be applied: see ‘Details’.
+
+In order to better retrace the calculation procedure, we present it in a two-step^[That is actually a three-step approach.] approach:
+
+::: {.panel-tabset}
+
+#### Two-step approach {#two-step-apply}
+
+1. Using the `apply` function and save the output in an object (here: `exDescr`):
+    - Input `X` is the example data set: `exDat`
+    - Set `MARGIN` value to 2, because we want to apply the function over columns of `exDat`
+    - `FUN`: Here we define a function^[It is also possible to write a function in advance and use them in this argument. A short introduction how to write function can be found [here](https://riegersven.github.io/method-website/data-proc-func-loops.html#writing-functions){target="_blank"}.] that calculates the mean, standard deviation, minimum and maximum (combined through the `c` function). Within the braces `{` you can state several (consecutive) arguments. Finally, we return the object (`fOut`) of the function. Note the `fOut` object is not saved in the workspace.
+    
+```{r}
+#| label: demo-descr-apply-two-1
+
+exDescr <- apply(X = exDat,
+                 MARGIN = 2,
+                 FUN = function(x) {
+                   fOut <- c(
+                     mean(x, na.rm = T),
+                     sd(x, na.rm = T),
+                     min(x, na.rm = T),
+                     max(x, na.rm = T)
+                     )
+                   return(fOut)
+                   })
+```
+
+2. In the second step, we first transpose (`t` function) the returned `matrix`, transform it then to a `data.frame`^[Note that this is actually not necessary.] object and provide the column names. 
+
+```{r}
+#| label: demo-descr-apply-two-2
+exDescr <- as.data.frame(
+  t(exDescr)
+  )
+colnames(exDescr) <- c("Mean", "SD", "Min", "Max")
+exDescr
+```
+
+(3. Finally, if you need an formatted table, the `kbl` function from the `kableExtra` package [@R-kableExtra] transforms matrices or data frames into nice tables.)
+
+```{r}
+#| label: demo-descr-apply-two-3
+kableExtra::kbl(exDescr,
+                digits = 2,
+                caption = "Descriptive Statistics of the example data set") |>
+  kableExtra::kable_classic() |>
+  kableExtra::footnote(general = "This is a nice formatted table using the kableExtra package [@R-kableExtra].")
+```
+
+
+#### One-step approach
+
+::: {.callout-note }
+
+Although it is probably a matter of coding taste, we do not recommend such a approach. We like it neat.
+
+:::
+
+```{r}
+#| label: demo-descr-apply-one
+
+kableExtra::kbl(x = t(
+  apply(exDat,
+        MARGIN = 2,
+        FUN = function(x) {
+          fOut <- c(
+            mean(x, na.rm = T),
+            sd(x, na.rm = T),
+            min(x, na.rm = T),
+            max(x, na.rm = T)
+            )
+          return(fOut)
+          })
+  ),
+  digits = 2,
+  col.names = c("Mean", "SD", "Min", "Max"),
+  caption = "Descriptive Statistics of the example data set") |>
+  kableExtra::kable_classic() |>
+  kableExtra::footnote(general = "This is a nice formated table using the kableExtra package [@R-kableExtra].")
+```
+
+
+:::
+
+### psych package
+
+From the function description (see `?psych::describe`): 
+
+> The `describe` function in the `psych` package is meant to produce the most frequently requested stats in psychometric and psychology studies, and to produce them in an easy to read data.frame. If a grouping variable is called for in formula mode, it will also call `describeBy` to the processing. 
+
+The function has many input argument (see again `?psych::describe`), but requires only `x`: A data frame or matrix
+
+```{r}
+#| label: psych-descr
+
+psych::describe(x = exDat)
+```
+
+The `describe` output is easily transformed into a `data.frame` which then can be passed to the `kbl` function from the `kableExtra` package [@R-kableExtra].
+
+```{r}
+#| label: psych-kbl
+
+kableExtra::kbl(x = as.data.frame(psych::describe(x = exDat))[c("n", "mean", "sd")],
+                caption = "Descriptive Statistics of the example data set calculated by the psych package [@R-psych]",
+                digits = 2) |>
+  kableExtra::kable_paper()
+```
+
+If you need to calculate the descriptive statistics separate for groups, there is the `describeBy` function. Use the `group` argument.
+
+```{r}
+#| label: psych-descr-by
+
+psych::describeBy(x = exDat, group ="sex")
+```
+
+:::
+
+
+
+## Cronbachs $\alpha$ and item statistics
+
+> Coefficient $\alpha$ is often called an internal consistency reliability coefficient, as it is based on covariances among scale items and thus internal consistency among items. But internal consistency should not be conflated with homogeneity, where homogeneity implies that a single dimension underlies the set of items [@Widaman2022].
+
+::: {.callout-note }
+## Coefficient $\alpha$ debate
+
+Some interesting reads: @Cronbach1951;@Revelle2009b; @Sijtsma2009; @McNeish2017; @Savalei2019
+
+:::
+
+
+Following again the description and notation of @Widaman2022:
+
+Coefficient alpha, or $\alpha$ can be written as
+
+$$
+\alpha = (\frac{p}{p-1})\left(\frac{\sigma_Y^2-\sum\limits_{j=1}^p\sigma_j^2}{\sigma_Y^2}\right) = (\frac{p}{p-1})\left(1- \frac{\sum\limits_{j=1}^p\sigma_j^2}{\sigma_Y^2}\right)
+$${#eq-alpha}
+
+where $p$ is the number of items on the scale, $\sigma_j^2$ ($j=1,...,p$) is the variance of item $j$, [...]. $\sigma_Y^2$ is the variance of the sum score.
+
+Now lets calculate Cronbachs $\alpha$. We use the variables `msc1`,`msc2`,`msc3r`, & `msc4r` from the example data set (`exDat`).
+
+::: {.callout-important collapse="true"}
+## Missing values and Cronbachs $\alpha$
+
+There are many different packages which implemented the calculation of Cronbachs $\alpha$. For example:
+
+- `alpha` function from the `psych` package [@R-psych]
+
+- `itemstats` function from the `mirt` package [@R-mirt] 
+
+- `cronbach` function from the `psy` package [@R-psy]
+
+- `cronbach.alpha` function from the `ltm` package [@R-ltm]
+
+Interestingly, these package implemented different approaches (and options) in how they deal with missing values which (may) lead to (slightly) different results.
+
+```{r}
+#| label: add-more-miss
+#| code-fold: true
+
+exDatmiss <- exDat
+
+# add some more missing data, this adds up when calculating the sum score
+
+exDatmiss$msc3r <- ifelse (
+  rbinom(
+    nrow(exDatmiss),
+    size = 1,
+    .25) == 1,
+  NA,
+  exDatmiss$msc3r
+  )
+
+exDatmiss$msc1 <- ifelse (
+  rbinom(
+    nrow(exDatmiss),
+    size = 1,
+    .15) == 1,
+  NA,
+  exDatmiss$msc1
+  )
+```
+
+
+```{r}
+#| label: tbl-alpha-over
+#| tbl-cap: Overview of different Cronbach $\alpha$ calculations
+#| code-fold: true
+
+alphaOver <- data.frame(
+  "alpha" = rbind(
+    psych::alpha(exDatmiss[,names(mscItems)])$total$raw_alpha,
+    psy::cronbach(exDatmiss[,names(mscItems)])$alpha,
+    mirt::itemstats(exDatmiss[,names(mscItems)])$overall$alpha,
+    ltm::cronbach.alpha(exDatmiss[,names(mscItems)], na.rm = T)$alpha
+    )
+  )
+    
+alphaOver$Package <- c("psych", "psy", "mirt", "ltm")
+
+kableExtra::kbl(alphaOver[,c("Package", "alpha")],
+                col.names = c("Package", "Cronbachs $\\alpha$"),
+                digits = 5,
+                centering = TRUE) |>
+  kableExtra::kable_styling(full_width = FALSE,
+                            bootstrap_options = c("hover", "responsive"))
+```
+
+
+:::
+
+::: {.panel-tabset}
+
+### Cronbachs $\alpha$ and item statistics with base R
+
+0. Before we calculate Cronbachs $\alpha$, we remove (using the `na.omit` function) all incomplete cases from the data set.
+
+```{r}
+#| label: alpha-hand-0
+itemDF <- na.omit(exDat[names(mscItems)])
+```
+
+1. Get the number of items ($p$)
+
+```{r}
+#| label: alpha-hand-1
+p <- length(mscItems)
+```
+
+2. Calculate the sum (i.e., `sum` function) of $\sigma_j^2$ of all items using the `apply` function (see also [above](#two-step-apply)) and $\sigma_Y^2$ of the total score (that is calculated by the `rowSums` function; see [below](#app1-rowsums) for a detailed description of the function).
+
+```{r}
+#| label: alpha-hand-2
+sigmaInd <- sum(apply(itemDF, 2, sd)^2)
+sigmaTot <- var(rowSums(itemDF))
+```
+
+3. Apply @eq-alpha
+
+```{r}
+#| label: alpha-hand-3
+alpha <- (p/(p - 1)) * (1 - sigmaInd/ sigmaTot )
+alpha
+
+```
+
+
+An important item statistics is the so-called *Item whole correlation for this item against the scale without this item* (in the `alpha` function from the `psych` package [@R-psych] this is called: `r.drop`). 
+
+0. Recall, the names of the items are stored in the `named list` object (i.e., `mscItems`).
+
+```{r}
+#| label: base-r-rdrop-0
+names(mscItems)
+```
+
+1. To correlate the first item with the sum score, we use the `cor` function. To ignore the item when calculating the sum score, we state `[-1]` after the `names` call of the `named list`.
+
+```{r}
+#| label: base-r-rdrop-1
+
+cor(x = exDat[,"msc1"],
+    y = rowSums(exDat[names(mscItems)[-1]]),
+    use = "pairwise.complete.obs")
+
+```
+
+2. Now, we do it for all items. Therefore, we may use the `sapply` function. More specifically, we iterate through the item names (or to be precise, through the length of the item names)^[Check it by writing: `1:length(names(mscItems))`]. In the input argument `x` we (only) use the respective item `[itemNr]`, while we ignore  it `[-itemNr]` when calculating the sum score in the second input argument `y`.
+
+```{r}
+#| label: base-r-rdrop-2
+sapply(1:length(names(mscItems)),
+       function(itemNr) cor(x = exDat[,names(mscItems)[itemNr]],
+                            y = rowSums(exDat[names(mscItems)[-itemNr]]),
+                            use = "pairwise.complete.obs"))
+
+```
+
+
+
+### Cronbachs $\alpha$ and item statistics with psych
+
+In the `psych` package [@R-psych], the `alpha` function is designed to calculate Cronbachs $\alpha$. The function has several input arguments (see `?psych::alpha`), but requires only `x`: A data.frame or matrix of data, or a covariance or correlation matrix.
+
+The function returns a couple of lists, including:
+
+  - different $\alpha$ estimates (i.e., `raw_alpha`, `std.alpha`)
+
+  - item statistics (e.g., item whole correlation corrected for item overlap and scale reliability, item whole correlation for this item against the scale without this item, ...)
+
+  - response frequencies
+
+  - calculated mean- or sum score (depending on the `cumulative` argument)
+
+  - ...
+
+```{r}
+#| label: alpha-psych
+
+psych::alpha(x = exDat[names(mscItems)])
+
+```
+
+
+:::
+
+## Calculating scale scores
+
+Now, we calculate scale scores (i.e., $msc_{sum}$, $msc_{avg}$) of the items $msc_1,msc_2,msc_3r,msc_{4r}$.
+
+::: {.callout-note }
+## Scale scores
+
+Some interesting reads: @Widaman2022; @McNeish2020b; @Rose2019
+
+:::
+
+
+
+::: {.panel-tabset}
+
+### rowSums from base R {#app1-rowsums}
+
+The `rowSums` function needs one input (copied from the function description):
+
+- `x`: an array of two or more dimensions, containing numeric, complex, integer or logical values, or a numeric data frame.
+
+But the `na.rm` argument needs special attention:
+
+- `na.rm`: logical. Should missing values (including NaN) be omitted from the calculations?
+
+
+This argument is important when some items have missing data. The question is: Should the scores be build based on the available items (this procedure is called person mean imputation) or discarded? 
+
+
+@Enders2010 summarizes it as follows (p.51): 
+
+> Until more research accumulates, you should use person mean imputation with caution and should perhaps avoid it altogether, particularly if there are high rates of item nonresponse.
+
+This means, we set `na.rm = FALSE`. It is important to note, that there are options to circumvent this issue, such as a model-based estimation of composite scores [@Rose2019] or multiple imputation [see e.g., @Schafer2002; @Enders2010]
+
+1. Calculation of the sum score
+
+```{r}
+#| label: rowsum-sumscore
+
+exDat$mscsum <- rowSums(x = exDat[,names(mscItems)],
+                        na.rm = FALSE)
+
+```
+
+2. Calculation of the average score
+
+```{r}
+#| label: rowsum-avgcore
+
+exDat$mscavg <- rowSums(x = exDat[,names(mscItems)],
+                        na.rm = FALSE)/length(names(mscItems))
+
+```
+
+### scoreItems from psych
+
+To calculate scale scores, you can also use the `scoreItems` function from the `psych` package [@R-psych].
+
+The `scoreItems` function needs at least two inputs (copied from the package description):
+
+- `keys`:  list of scoring keys or a `matrix` or `data.frame` of -1, 0, or 1 weights for each item on each scale which may be created by hand [...]. Here we assign an equal weight (=1) for all items 
+- `items`: `Matrix` or `data.frame` of raw item scores
+
+However, there a more input arguments that are important:
+
+- `totals`: if `TRUE` find total scores (!aka sum scores), if `FALSE` (default), find average scores
+- `missing`: `missing = TRUE` is the normal case and data are imputed according to the impute option. `missing = FALSE`, only complete cases are scored. 
+
+It is recommended to use `missing = FALSE` (see [Approach 1: rowSums](#app1-rowsums)).
+
+Because the function calculates several other statistics (e.g., Cronbachs $\alpha$, average correlation within a scale, ...), we do it in two-step approach. Executing the function and save the information in an object, and then extracting (with the `$` operator) the scores from the object (i.e., `MscsumPsych$scores`) while merging the scores with the example data set (i.e., by rownames via `by = 0`) . Merging is necessary because of `missing = FALSE`.
+
+1. Calculation of the sum score
+
+```{r}
+#| label: psych-sumscore
+
+MscsumPsych <- psych::scoreItems(keys = rep(1, length(names(mscItems))),
+                                 items = exDat[,names(mscItems)],
+                                 totals = TRUE,
+                                 missing = FALSE,
+                                 min = 1,
+                                 max = 4)
+
+
+colnames(MscsumPsych$scores) <- "mscsum2"
+
+exDat <- merge(exDat, MscsumPsych$scores,
+               by = 0,
+               all.x = T)
+exDat$Row.names <- NULL
+```
+
+2. Calculation of the average score
+
+```{r}
+#| label: psych-avgcore
+MscavgPsych <- psych::scoreItems(keys = rep(1, length(names(mscItems))),
+                                 items = exDat[,names(mscItems)],
+                                 totals = FALSE,
+                                 missing = FALSE,
+                                 min = 1,
+                                 max = 4)
+
+
+colnames(MscavgPsych$scores) <- "mscavg2"
+
+exDat <- merge(exDat, MscavgPsych$scores,
+               by = 0,
+               all.x = T)
+exDat$Row.names <- NULL
+```
+
+:::
+
+### Calculating many scale scores
+
+<!-- add -->
+
+```{r}
+#| label: nam-list-scalescore-1
+
+#names(scaleList)
+
+```
+
+Then using the `sapply` function to iterate through the list elements and applying the `rowSums` function. Note we calculate average scores, because we divide through the total score through the number of items.
+
+```{r}
+#| label: calc-many-scale-scores
+#| eval: false
+exDat[,names(scaleList)] <- sapply(scaleList,
+                                     function(s) rowSums(x = exDat[,s],
+                                                         na.rm = FALSE)/length(s),
+                                     simplify = FALSE)
+
+```

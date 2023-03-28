@@ -1,0 +1,28 @@
+# Introduction {.unnumbered}
+
+### Welcome {.unnumbered}
+
+- Who are we?
+
+- Why this workshop?
+
+
+### Some words regarding data sets {.unnumbered}
+  
+- Costs
+
+- Responsibility
+
+### What awaits you in the workshop? {.unnumbered}
+  
+- Input
+
+- Exercises
+  
+### Agenda {.unnumbered}
+
+- see on the left, and thereafter, on the right!
+
+### Material {.unnumbered}
+
+- All material can be found on the network drive L

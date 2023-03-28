@@ -1,0 +1,823 @@
+# General information on data documentation
+
+::: {.callout-important}
+
+We currently discussing some changes to data documentation.
+
+:::
+
+## What is data documentation?
+
+
+- Data documentation is a central part of data management^[see also here: [https://www.forschungsdaten-bildung.de/](https://www.forschungsdaten-bildung.de/daten-managen?la=en){target="_blank"}] in general and is part of the [DFG Guidelines](https://www.dfg.de/en/research_funding/principles_dfg_funding/good_scientific_practice/){target="_blank"} for safeguarding good scientific research
+practice (code of conduct)
+    - Guideline 12: [Documentation](https://wissenschaftliche-integritaet.de/en/code-of-conduct/documentation/){target="_blank"} (for more see below)
+
+
+::: {.callout-tip appearance="simple" collapse="true"}
+## **Guideline 12: Documentation**
+
+> Researchers document all information relevant to the production of a research result as clearly as is required by and is appropriate for the relevant subject area to allow the result to be reviewed and assessed. In general, this also includes documenting individual results that do not support the research
+hypothesis. The selection of results must be avoided. Where subject-specific recommendations exist for review and assessment, researchers create documentation in accordance with these guidelines.
+If the documentation does not satisfy these requirements, the constraints and the reasons for them are clearly explained. Documentation and research results must not be manipulated; they are
+protected as effectively as possible against manipulation.
+
+**Explanations:**
+
+> An important basis for enabling replication is to make available the information necessary to understand the research (including the research data used or generated, the methodological, evaluation and analytical steps taken, and, if relevant, the development of the hypothesis), to ensure that citations are clear, and, as far as possible, to enable third parties to access this information. Where research software is being developed, the source code is documented. 
+
+:::
+
+
+
+- Data documentation is a continuous process and it should start at the beginning (see e.g., @fig-research-management) of each project that collects (any kind of) data
+
+![Proposed institutional research data management workflow by @Wissik2015](images/Wissik_Durco_2015_Figure5.PNG){#fig-research-management width="90%"}
+
+
+
+::: {.callout-note}
+
+In the following, we restrict the term data documentation to the documentation of a single data set.
+
+:::
+
+
+## Who uses data documentation? 
+
+Everybody who works with the data set(s). It serves as a guidance, especially for people who did not collect the data themselves. 
+
+## How is data documentation structured? 
+
+Data documentation include several parts:
+
+1. General information on the data set and the usage of it
+
+2. Documentation of the survey process
+
+3. Information about the variables (e.g., demographic variables), (achievement) tests, items and scales
+    - Scale level
+    - Item wording
+    - Descriptive Statistics (e.g., $N, M, SD,Min, Max,...$; for more see [below](#item-analy-descr.qmd))
+    - Cross-references to other studies
+    - Sources
+
+4. Bibliography
+
+An example of a table of conents of a so-called *"Skalenhandbuch"* can be seen in @fig-example-scale-manual.
+
+![Example of table of conents of a scale manual](images/TOSCA-scale-manual-example.pdf){#fig-example-scale-manual width=80% height=5in}
+
+
+
+## Procedure of data documentation
+
+### Basis
+
+The basis of data documentation are the:
+
+- codebooks & questionnaires 
+
+- the (final) data sets 
+
+To get an overview, you should start with carefully reviewing these sources and think about a meaningful structure and order. 
+
+::: {.callout-tip}
+## Tip: How to design codebooks?
+
+You can find some information at the [https://datawizkb.leibniz-psychology.org](https://datawizkb.leibniz-psychology.org/index.php/during-data-collection/what-should-i-know-about-codebooks/){target="_blank"} website. 
+:::
+
+### Order
+
+- It is advisable to group the variables according to their content. In the following example variable clusters are listed:
+  - Socio-demographic variables (e.g., age, sex, family background, income, household, ...)
+  - Tests (e.g., school achievement tests, tests on cognitive ability)
+  - Psycho-social variables (e.g., Self-concepts, motivation, personality)
+  - ... 
+
+- Also, related scales should be reported together within a respective variable cluster (e.g., math, English and German self-concept scales) 
+
+- Discuss the concrete order of the variables with your supervisor
+
+- Names of variables, items and scales **must be identical** across codebooks, questionaires, and data sets
+
+### Template {#template}
+
+::: {.callout-important}
+
+You should always use a template! You can find it/them on the network drive L, too.
+
+:::
+
+
+
+There are two options:
+
+1. Calculate the required statistics and transfer the values into one of the millions word templates (not recommended)
+
+2. Use the `Quarto` [template](template-scale-manual.qmd) (recommended)
+    - for now the template generates *only* html^[This is (mainly) because there are some issues with the `kableExtra` package [@R-kableExtra] and `latex` implementation  (i.e., `format: pdf`) in `Quarto`.] documents 
+
+### Functions {#functions}
+
+```{r}
+#| label: read-exampleDat
+#| echo: false
+
+exDat <- readRDS("exampleDat.RDS")
+```
+
+
+The following functions were written to make your job a little bit easier. 
+
+- If you know what you are doing, feel free to change or adjust them. 
+
+- If you need more or other functions, please write us an [email](mailto:sven.rieger@uni-tuebingen.de).
+
+
+```{=html}
+<style type="text/css">
+caption, .table-caption {
+  text-align: left;
+}
+</style>
+```
+
+```{=html}
+<style type="text/css">
+.table-hover > tbody > tr:hover { 
+  background-color: #d3d3d3;
+}
+</style>
+```
+
+#### Table for variable overview (not finished)
+
+<!-- add recoded items -->
+
+The `varOverview` function translates the general information into a table and has the following arguments:
+
+- `name`: Name of the variable
+- `type`: Input is a `character`: Either `variable` or `scale`
+- `itemword`: Requires a named `list` as input. Should contain the names and wording of the items.
+- `questionaire`: Input is a `character`: Which questionnaire? 
+- `prompt`: Input is a `character`. Wording of the question,
+- `response`: Input is a `character`. Response format.
+- `cross`: Input is a `character`. Cross-reference to other studies.
+- `source`: Input is a `character`. Potential reference.
+- `note`: Input is a `character`. Room for additional notes.
+
+```{r}
+#| label: table-function
+#| code-fold: true
+#| code-summary: "Show/hide function"
+#| echo: true
+
+varOverview <- function ( name,
+                          type = "variable",
+                          itemword = NULL,
+                          questionaire = NULL,
+                          prompt = NULL,
+                          response = NULL,
+                          cross = NULL,
+                          source = NULL,
+                          note = NULL) {
+  
+  if (type == "variable") {
+    namDes <- "Name of variable:"
+  }
+  
+  if (type == "scale") {
+    namDes <- "Name of scale:"
+  }
+  
+  if (type == "scale" & is.null(itemword) ) {
+    stop("please provide the itemwording of the items")
+  } 
+  
+  if(!is.null(itemword)) {
+    
+    if ( is.null(names(itemword)) ) {
+      stop("please provide a named list as input: e.g., list(item1 = c('I like apples.'")
+      
+      
+    } else {
+      
+      itemLab <- names(itemword)
+      itemword <- unlist(itemword)
+      
+      }
+    
+    
+    
+  } else {
+    
+    itemLab <- NULL
+    itemword <- NULL
+    
+  }
+  
+  
+  if (!is.null(questionaire)) {
+    
+    questLab <- "Questionaire:"
+    questionaire <- paste0(questionaire, collapse = "; ")
+    
+  } else {
+    
+    questLab <- NULL
+    
+  }
+  
+  if (!is.null(prompt)) {
+    
+    promptLab <- "Prompt in Questionaire:"
+    prompt <- paste0(prompt, collapse = ":")
+    
+  } else {
+    
+    promptLab <- NULL
+    
+  }
+  
+  if (!is.null(response)) {
+    
+    responseLab <- "Response format:"
+    response <- paste0(response, collapse = "; ")
+    
+  } else {
+    
+    responseLab <- NULL
+    
+  }
+  
+  if (!is.null(cross)) {
+    
+    crossLab <- "Cross reference:"
+    cross <- paste0(cross, collapse = "; ")
+    
+  } else {
+    
+    crossLab <- NULL
+    
+  }
+  
+  if (!is.null(source)) {
+    
+    sourceLab <- "Source:"
+    source <- knitr::asis_output(paste0(source, collapse = "; "))
+    
+  } else {
+    
+    sourceLab <- NULL
+    
+  }
+  
+  if (!is.null(note)) {
+    
+    #generalTitel <- "Note:"
+    noteLab <- "Note:"
+    note <- paste0(note, collapse = "; ")
+    
+  } else {
+    
+    #generalTitel <- ""
+    noteLab <- NULL
+    
+  }
+  
+  tempTab <- data.frame(
+    "Col1" = c(namDes,
+               questLab,
+               promptLab,
+               responseLab,
+               crossLab,
+               sourceLab,
+               noteLab,
+               "",
+               itemLab),
+    "Col2" = c(name,
+               questionaire,
+               prompt,
+               response,
+               cross,
+               source,
+               note,
+               "",
+               itemword)
+    )
+  
+  kableExtra::kbl(tempTab,
+               col.names = NULL,
+               align = "l"
+               ,booktabs = TRUE
+               ) |>
+    kableExtra::kable_styling(
+      full_width = TRUE,
+      bootstrap_options = c("hover", "responsive")
+      , latex_options = "HOLD_position"
+      ) |>
+    kableExtra::column_spec(column = 1, width = "12em")
+  
+}
+
+```
+
+An example execution.
+
+```{r}
+#| label: tbl-demo-table-function
+#| echo: true
+#| tbl-cap: "Variable: gender"
+#| output: asis
+
+varOverview(name = "gender",
+            prompt = "The question in the questionaire...",
+            response = c("0 = male",
+                         "1 = female",
+                         "2 = divers"),
+            cross = c("A study", "Another study"),
+            source = "@Kunter2002",
+            note = "Here is room for some notes")
+
+```
+
+
+::: {.callout-note}
+The reference is not rendered correctly. This is a known bug: see here: <https://github.com/quarto-dev/quarto-cli/issues/3340> and will be hopefully solved in the next release.
+:::
+
+#### Continuous variables
+
+The `contVar` function is based on the `describe` function from the `psych` package [@R-psych] and has the following arguments:
+
+- `variable`: This should be a character or a character vector (name of variable)
+- `data`: The data frame
+- `which.stat`: Which statistics should be calculated? Default is: `N`, `Mean`, `SD`, `Min`, `Max`. Because the function is based on the `describe` function from `psych` package, you can also request: `trimmed mean`, `median`, `mad`, `skew`, `kurtosis`, `standard error`.
+- `table`: logical. Default is `TRUE`. Then the output is printed as a table using the `kbl` function from the `kableExtra` package [@R-kableExtra]. If set to false, the output is printed as a `data.frame`.
+
+
+```{r}
+#| label: contVar-function
+#| echo: true
+#| code-fold: true
+#| code-summary: "Show/hide function"
+
+contVar <- function ( variable,
+                      data,
+                      which.stat = c("N",
+                                     "Mean", "SD",
+                                     "Min", "Max"),
+                      table = TRUE) {
+
+  
+  
+  # calculate descriptives
+  tempDescr <- as.data.frame(
+    psych::describe(
+      data[,variable]
+      )
+    )[tolower(which.stat)]
+  
+  tempDescr$varNam <- variable
+  rownames(tempDescr) <- NULL
+  
+  
+  # calculate missing in %
+  if ( length(variable) == 1 ) {
+    
+    missDF <- as.data.frame(mean(is.na(data[,variable]))*100)
+    
+  } else {
+    
+    missDF <- as.data.frame(colMeans(is.na(data[,variable]))*100)
+    
+  }
+  
+  colnames(missDF) <- "miss"
+  
+  tempDescr$miss <- paste0(
+    sprintf(missDF$miss,
+            fmt = '%#.1f'),
+    "%")
+  
+  
+  if ( table == TRUE ) {
+    
+    tempTab <- kableExtra::kbl(
+      x = tempDescr[,c("varNam",
+                       tolower(which.stat),
+                       "miss")],
+      col.names = c("Variable", which.stat, "Miss."),
+      row.names = FALSE,
+      digits = 2,
+      align = c("l", rep("c",length(which.stat)), "c")
+      ,booktabs = TRUE
+      #,format = "html"
+      ) |>
+      kableExtra::kable_styling(
+        full_width = TRUE,
+        bootstrap_options = c("hover", "responsive")
+        ,latex_options = "HOLD_position"
+        )
+    
+    tempOut <- tempTab
+    tempOut
+    
+    } else {
+      
+    tempOut <- tempDescr[,c("varNam",
+                            tolower(which.stat),
+                            "miss")]
+    
+    return(tempOut)
+    
+  }
+  
+}
+
+
+
+```
+
+
+An example execution.
+
+```{r}
+#| label: tbl-demo-contVar-function
+#| echo: true
+#| tbl-cap: "Variable: age"
+#| tbl-subcap: ["Overview", "Calculated statistics"]
+#| output: asis
+
+
+varOverview(name = "age",
+            type = "variable",
+            questionaire = "Student",
+            prompt = "How old are you?",
+            response = "open",
+            cross = "not applicable",
+            source = "not applicable",
+            note = "")
+
+contVar(variable = "age", data = exDat)
+
+
+
+```
+
+
+#### Categorical variables
+
+The `catVar` function is based on the `table` function from R [@R-base] and has the following arguments:
+
+- `variable`: This should be a character or a character vector (name of variable)
+- `data`: The data frame
+- `table`: logical. Default is `TRUE`. Then the output is printed as a table using the `kbl` function from the `kableExtra` package [@R-kableExtra]. If set to false, the output is printed as a `data.frame`.
+
+```{r}
+#| label: catVar-function
+#| echo: true
+#| code-fold: true
+#| code-summary: "Show/hide function"
+
+
+catVar <- function ( variable,
+                     data,
+                     table = TRUE) {
+
+  
+  # calculate freq. as function
+  calcFreq <- function ( variable, data) {
+  
+    # calc abs and rel freq.
+    tempFreq <- data.frame( abs = table(data[,variable],
+                                        useNA = "always"))
+    
+    tempFreq$rel <- table(data[,variable],
+                          useNA = "always")/length(data[,variable])*100
+    
+    colnames(tempFreq) <- c("var",
+                            "Absolute",
+                            "Relative")
+  
+    # calculate sum
+    tempFreq <- rbind(tempFreq,
+                      data.frame(var = "Sum",
+                                 t(colSums(tempFreq[!is.na(tempFreq$var),-1])))
+                      )
+    
+  
+    # cosmetics
+    
+    tempFreq$Relative <- paste0(
+      sprintf(tempFreq$Relative,
+              fmt = '%#.1f'),
+      "%")
+  
+    tempTab <- as.data.frame(t(tempFreq[,-1]))
+    colnames(tempTab) <- tempFreq[,1]
+    colnames(tempTab)[is.na(colnames(tempTab))] <- "Miss"
+    
+    tempTab <- as.data.frame(
+      t(sapply(colnames(tempTab),
+               function(x) paste0(tempTab[1,x],
+                                  " (",
+                                  tempTab[2,x], ")"),
+               simplify = TRUE)
+        )
+      )
+      
+    return(tempTab)
+    }
+  
+  tempFreq <- data.table::rbindlist(
+    sapply(variable,
+           function(x) 
+             calcFreq(variable = x, data = data),
+           simplify = FALSE),
+    idcol = "Variable", use.names = T, fill = T)
+  
+  # get colnames to sort
+  colToSort <- c("Variable", colnames(tempFreq)[!colnames(tempFreq) %in% 
+                                                  c("Variable",
+                                                    "Miss",
+                                                    "Sum"
+                                                    #"Sum (miss)"
+                                                    )],
+                 "Sum",
+                 "Miss"
+                 #"Sum (miss)",
+                 )
+  
+  tempFreq <- tempFreq[,..colToSort]
+  
+  
+  if ( table == TRUE ) {
+    
+    tempTab <- kableExtra::kbl(
+      x = tempFreq,
+      align = "c"
+      ) |>
+      kableExtra::kable_styling(
+        full_width = TRUE,
+        bootstrap_options = c("hover", "responsive")
+        #,latex_options = "HOLD_position"
+        ) 
+    
+    tempOut <- tempTab
+    tempOut
+    
+    } else {
+    
+    tempOut <- tempFreq[,..colToSort]
+      
+    return(tempOut)
+    
+  }
+  
+}
+
+
+
+```
+
+An example execution.
+
+```{r}
+#| label: tbl-edu
+#| eval: true
+#| tbl-cap: "Variable: Education"
+#| tbl-subcap:
+#|   - "Overview"
+#|   - "Calculated statistics"
+#| results: asis
+
+varOverview(name = "edu",
+            type = "variable",
+            questionaire = "Parent",
+            prompt = "Welchen Schulabschluss haben Sie? Bitte geben Sie *nur* Ihren höchsten Abschluss an.",
+            response = c(
+              "0 = Kein Schulabschluss",
+              "1 = Abschluss einer Sonderschule/Foerderschule",
+              "2 = einer Polytechnischen Oberschule nach der 8. Klasse", 
+              "3 = Hauptschulabschluss/ Volksschulabschluss",
+              "4 = ..."),
+            cross = "NEPS",
+            source = "@Kunter2002",
+            note = "")
+
+catVar(variable = c("edu"),
+       data = exDat)
+
+```
+
+
+#### Scale score
+
+The `scaleScore` function is based on the `alpha` function from the `psych` package [@R-psych] and has the following arguments:
+
+- `items`: This should be a character vector (name of items) or a named list
+- `data`: The data frame
+- `recItems`: Numeric vector of the reversed worded items. 
+- `recode`: logical. Default is `FALSE`. If `TRUE` the items in `recItems` will be recoded.
+- `which.stat`: Which statistics should be calculated? Default is: `N`, `Mean`, `SD`, `Min`, `Max`. Because the function is based on the `describe` function from `psych` package, you can also request: `trimmed mean`, `median`, `mad`, `skew`, `kurtosis`, `standard error`.
+- `table`: logical. Default is `TRUE`. Then the output is printed as a table using the `kbl` function from the `kableExtra` package [@R-kableExtra]. If set to false, the scale score (and if requested the recoded items) are returned.
+
+
+::: {.callout-important}
+
+The scale score is built based on only valid items (i.e., `na.rm = FALSE` argument of the `rowSums` function). This means if one item has missing value, no score is computed.
+
+:::
+
+```{r}
+#| label: scales-function
+#| echo: true
+#| eval: true
+#| code-fold: true
+#| code-summary: "Show/hide function"
+
+
+scaleScore <- function ( items,
+                         scaleNameShort = NULL,
+                         recItems = NULL,
+                         recode = FALSE,
+                         data,
+                         which.stat = c("N",
+                                        "Mean", "SD",
+                                        "Min", "Max"),
+                         table = TRUE) {
+  
+  # name check
+  
+  if (is.null(scaleNameShort)) {
+    stop("please provide the short name of the scale (variable name)")
+  }
+  
+  
+  # recode check 
+  
+  if (!is.null(recItems) & recode == FALSE) {
+    warning("Are the items already recoded?\nIf not, you may use the recode argument.")
+  }
+  
+  if (!is.null(names(items))) {
+    items <- names(items)
+  }
+  
+  
+  # recode if necessary
+  if ( recode == T ) {
+    
+    data[,paste0(items[recItems],"r")] <- sapply(
+      items[recItems],
+      function(x) {
+        tempRec <- (max(data[,x]) + min(data[,x])) - data[,x]
+        return(tempRec)
+      }, simplify = FALSE)
+    
+    items[recItems] <- paste0(items[recItems],"r")
+  }
+  
+  
+  # compute sumscore
+  data[,scaleNameShort] <- rowSums(data[,items]) / length(items)
+  
+  # calculate descriptives
+  tempDescr <- as.data.frame(
+    psych::describe(
+      data[,c(items,scaleNameShort)]
+      )
+    )[tolower(which.stat)]
+  
+  # calculate missing in %
+  missDF <- as.data.frame(colMeans(is.na(data[,c(items,scaleNameShort)]))*100)
+  colnames(missDF) <- "miss"
+  
+  missDF$miss <- paste0(
+    sprintf(missDF$miss,
+            fmt = '%#.1f'),
+    "%")
+  
+  # calculate alpha et al
+  tempAlpha <- psych::alpha(
+    data[,items]
+    )
+  
+  # extract r.cor & r.drop
+  rcordrop <- tempAlpha$item.stats[,c("r.cor", "r.drop")]
+  alpha <- round(tempAlpha$total$raw_alpha,3)
+  
+  # merge dataframes
+  tempTab <- merge(tempDescr, missDF, by = 0, sort = FALSE) 
+  rownames(tempTab) <- tempTab$Row.names
+  tempTab$Row.names <- NULL
+  
+  tempTab <- merge(tempTab, rcordrop, by = 0, all.x = T, sort = FALSE)
+  rownames(tempTab) <- NULL
+  
+  # make tables
+  if ( table == TRUE ) {
+    
+    tempScaleTab <- kableExtra::kbl(
+      x = tempTab,
+      col.names = c("Item", which.stat, "Missing", "$r_{it}$", "$r_{drop}$"),
+      digits = 2,
+      align = c("l", rep("c",length(which.stat)), "c", "c", "c"),
+      booktabs = TRUE,
+      format = "html",
+      escape = FALSE
+      ) |>
+      kableExtra::kable_styling(
+        full_width = TRUE,
+        bootstrap_options = c("hover", "responsive")
+        #,latex_options = "HOLD_position"
+        ) |>
+      kableExtra::footnote(general_title = "Cronbachs $\\\\alpha$ = ",
+                           general = paste0(alpha),
+                           footnote_as_chunk = TRUE,
+                           threeparttable = TRUE) |>
+      kableExtra::row_spec(row = nrow(tempTab),
+                           background = "#d3d3d3")
+    
+    tempOut <- tempScaleTab
+    tempOut
+    
+    } else {
+      
+      tempOut <- data[,c(items[recItems], scaleNameShort)]
+      print(tempTab)
+    
+    return(tempOut)
+    
+  }
+  
+}
+
+```
+
+
+An example execution.
+
+1. Before executing the function, we create a named list. Item 3 and 4 are reversed worded items.
+
+```{r}
+#| label: named-list-msc
+
+mscItems <- list("msc1" = c("Ich bin gut in Mathematik."),
+                 "msc2" = c("Ich war in Mathematik immer gut."),
+                 "msc3" = c("Ich habe Verständnisschwierigkeiten bei allem, für das man Mathematik braucht."),
+                 "msc4" = c("Ich bin bei Aufgaben, die mathematisches Denken
+erfordern, nie gut."))
+
+```
+
+2. Then we execute the two functions. because the items 3 and 4 are not recoded in the data set, we have to pass the information to the `scaleScore` function.
+
+```{r}
+#| label: tbl-msc
+#| echo: true
+#| eval: true
+#| tbl-cap: "Variable Math Self-concept"
+#| tbl-subcap: ["Overview", "Calculated statistics"]
+
+
+varOverview(name = "Math Self-concept",
+            type = "scale",
+            itemword = mscItems,
+            prompt = "Wie sehr treffen die folgenden Aussagen auf Sie zu?",
+            response = c("1 = trifft überhaupt nicht zu",
+                        "2 = trifft eher nicht zu",
+                        "3 = trifft eher zu",
+                        "4 = trifft völlig zu"),
+           cross = "TOSCA-R",
+           source = "")
+
+scaleScore(items = names(mscItems),
+           scaleNameShort = "msc",
+           recItems = c(3,4),
+           recode = TRUE,
+           data = exDat,
+           table = T)
+
+```
+
+
+
+
+
+```{r}
+#| label: save-functions
+#| echo: false
+#| eval: false
+scaleManualFunctions <- list(varOverview = varOverview,
+                             catVar = catVar,
+                             contVar = contVar,
+                             scaleScore = scaleScore
+                             )
+save(scaleManualFunctions,
+     file = "scaleManualFunctions.Rdata")
+```
+

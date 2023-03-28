@@ -1,0 +1,496 @@
+# Data cleaning
+
+```{css, echo=FALSE}
+.vScrollbar {
+  max-height: 250px;
+  overflow-y: scroll;
+}
+```
+
+```{r}
+#| label: data-cleaning-prep
+#| echo: false
+#| warning: false
+
+exDat <- readRDS("exampleDat.RDS")
+
+library(dplyr)
+```
+
+
+-   always precedes further statistical analyses!    
+-   can significantly increase the quality of the data used    
+-   should **always be the first step** after data entry or data transfer from external sources
+
+::: {.callout-important}
+The **validity of results** of statistical data analyses depends on the **quality of the data**:
+
+-   sampling (number of cases, representativeness, etc.)    
+-   research design    
+-   quality of the survey instrument    
+-   operationalization    
+-   **data preparation**
+:::
+
+**Steps** in data cleaning include:
+
+1.  [Control of unit-identifiers]    
+2.  [Examining missing data]    
+3.  [Plausibility checks]
+
+::: {.callout-important collapse="true"} 
+## Always assign manipulated data to a new object!
+
+When cleaning the data set, you should never replace the raw data with processed data.
+:::
+
+Besides functions included in `R Base` [@R-base], the `dplyr` package [@R-dplyr] provides a set of functions for manipulating data. `dplyr` functions include the pipe operator (`|>`, in previous versions `%>%`).
+
+::: {.callout-note collapse="true"}
+## What is the pipe operator?
+
+[The tidyverse style guide](https://style.tidyverse.org/) suggests using the pipe operator "to emphasize a sequence of actions". See [Chapter 4 of the guide](https://style.tidyverse.org/pipes.html) for more information on how to use pipes.
+:::
+
+## Control of unit-identifiers
+
+::: {.callout-important collapse="true"} 
+## Plan your identification variables!
+
+Identification variables (*ID variables*) are of great importance when dealing with study data. A suitable ID assignment **should already be planned before the data collection**.
+:::
+
+**Purpose:** Identify duplicates
+
+**Procedure:**
+
+1.  Find duplicate IDs    
+2.  Exclude duplicates (consultation with supervisors!)
+
+Since our example data set does not contain an ID variable, we modify the data set to illustrate this step of data cleaning. This data manipulation is done using the `dplyr` package [@R-dplyr].
+
+```{r}
+#| label: sim-data-3
+#| code-fold: true
+
+doublingCases <- sample(1:nrow(exDat), 5)
+
+exDat_ID <- exDat |> 
+  mutate(id = 1:nrow(exDat),
+         .before = msc1) |> 
+  rbind(exDat[doublingCases, ] |> 
+          mutate(id = doublingCases,
+                 .before = msc1)) |> 
+  arrange(id)
+```
+
+```{r}
+#| label: save-simDat-3
+#| echo: false
+#| eval: false
+
+saveRDS(exDat_ID, "exampleDat_ID.RDS")
+```
+
+::: {.panel-tabset}
+### Base R
+
+The `duplicated()` function checks for each value whether it is duplicated. The output is logical vector. In combination with the `which()` function, checking which indices are `TRUE`, we can extract the duplicates.
+
+```{r}
+exDat_ID[which(duplicated(exDat_ID$id)), ]
+```
+
+By negating the function (`!duplicated()`), duplicates can be excluded.
+
+```{r}
+#| class-output: vScrollbar
+exDat_ID[which(!duplicated(exDat_ID$id)), ]
+```
+
+### dplyr package
+
+Filtering can be done using the `dplyr::filter()` function in combination with `duplicated()`.
+
+```{r}
+exDat_ID |> 
+  dplyr::filter(duplicated(id))
+```
+
+However, `dplyr` provides a function `dplyr::distinct()` which can be used to keep only unique rows.
+
+```{r}
+#| class-output: vScrollbar
+dplyr::distinct(exDat_ID)
+```
+:::
+
+::: {.callout-caution collapse="true"}
+## Exercise: Remove duplicates!
+
+Remove all duplicates contained in `exampleDat_ID.RDS` and assign the dataFrame to an object named `exDat_uniqueID`.
+
+::: {.callout-tip collapse="true" icon="false"}
+## Tip
+
+Assigning a dataFrame `df` to an object `exDat_uniqueID`:
+
+`exDat_uniqueID <- df`
+:::
+:::
+
+## Examining missing data
+
+Especially with questionnaires and surveys, it often happens that values are missing because, for example, a field of the questionnaire was not filled in. Therefore, it is important to look at the data and get an overview of missing values. By missing values, we refer to cells that could have a value, but whose value is not available (see [Data Types](intro-r-rstudio.qmd#data-types).
+
+**Procedure:**
+
+1.  [Check for missing values]    
+2.  [Define missing values]    
+3.  [Exclude missing values]
+
+### Check for missing values
+
+For this part of the data cleaning process, the `dplyr` package offers no particular advantages over `R Base`.
+
+The `summary()` function that gives an overview of the quartils, the mean and the amount of `NA`s of each variable of the given dataFrame.
+
+```{r}
+summary(exDat)
+```
+
+When considering a single variable, the sum of cells with missing values can be calculated using the function `sum()`.
+
+```{r}
+sum(is.na(exDat$msc2))
+```
+
+::: {.callout-tip collapse="true"}
+## Tip for advanced users
+
+You can apply this function to all variables of the data set:
+
+```{r}
+sapply(exDat, function(x) sum(is.na(x)))
+```
+:::
+
+### Define missing values
+
+Especially when working with SPSS generated data or character variables, missing values may not be encoded as `NA`s, but for example as empty characters (i.e. `""` or `" "`) or as numerics like `-99` or `-88`. If you notice that a variable contains missing values that are not defined as `NA`, you should recode the corresponding values.
+
+::: {.panel-tabset}
+### Base R
+
+```{r}
+exDat[exDat == -99] <- NA
+```
+
+### dplyr package
+
+`dplyr::na_if()` can be used to convert a specific value contained in a variable to `NA`.
+
+```{r}
+#| eval: false
+exDat$age <- dplyr::na_if(exDat$age, -99)
+```
+:::
+
+### Exclude missing values
+
+::: {.panel-tabset}
+
+### Base R
+
+By negating the `is.na()` function, those rows that do not contain `NA`s on a variable are kept.
+
+```{r}
+#| eval: false
+
+exDat[which(!is.na(exDat$age)), ]
+```
+
+`na.omit()` returns only those rows in a dataFrame which do not contain any `NA`s.
+
+```{r}
+#| class-output: vScrollbar
+
+na.omit(exDat)
+```
+
+### dplyr package
+
+Like in [Identify duplicates], exclusion of missings can be done using `dplyr::filter()`. The following code filters all cases that do not have a missing value in all variables.
+
+```{r}
+#| class-output: vScrollbar
+
+exDat |> 
+  dplyr::filter(if_all(everything(),
+                       ~ !is.na(.x)))
+```
+
+:::
+
+::: {.callout-caution collapse="true"}
+## Exercise: Remove missing values!
+
+Define `-99` as `NA` across all columns and remove all rows including missing values from dataFrame `exampleDat.RDS` and assign the dataFrame to an object `exDat_noNA`.
+:::
+
+## Plausibility checks
+
+Plausibility checks can be performed analytically or graphically.
+
+**Purpose:** Detecting    
+
+-   structural errors (e.g. in coding and input)    
+-   theoretical inconsistencies   
+-   variables with high proportions of missing values    
+-   outliers
+
+::: {.callout-note collapse="true"}
+## Excursus: Outliers
+
+**Definition: +/- 2 or 3 standard deviations**
+
+> "Extreme observation value that signals a qualitative element that differs from the totality."
+>
+> ::: {style="text-align: right;"}
+> -- Rönz & Strohe, 1994
+> :::
+
+Outliers must be detected, as they can introduce bias into parameter estimates and compromise validity.
+
+**Different ways of handling outliers:**    
+
+-   Box plots and histograms   
+-   Univariate distributions   
+-   Examine extreme values   
+-   Examine distributions of subgroups    
+-   Multivariate scatterplots
+
+**Recommended procedure for handling outliers:**   
+(personal preference)
+
+1.    Examine extreme values    
+      1.    z-standardize variables   
+          $$z = \frac{x_{m} - \bar{x}}{s_{x}}$$ {#eq-z-standardization}   
+      2.    examine for values above -/+ 2 or -/+ 3 standard deviations   
+2.    Coded these extreme values to `1` in a dummy variable    
+      -   `1` = outlier, `0` = no outlier
+
+:::
+
+### Discrete variables
+(= countable)    
+
+-   After assigning the value labels and after coding the missing values   
+-   Then check if non-coded numerical values exist
+
+**Procedure:**
+
+1.  [Frequency tables]   
+2.  [Bar charts]   
+3.  [Range of items]
+
+#### Frequency tables {-}
+
+`R` provides a function `table()` "to build a contingency table of the counts at each combination of factor levels" [@R-base]. By default, `NA`s are not included in the table. This can be changed by the argument `useNA`. It accepts a string as input with the accepted values `"ifany"` (only if the count is positive) and `"always"` (even for zero counts.
+
+```{r}
+table(exDat$edu, useNA = "always")
+```
+
+This function can be embedded in another function `proportions()` which creates a relative frequency table. As the [R Documentation on `proportions()`](https://rdrr.io/r/base/proportions.html) notes, "`prop.table()` is an earlier name, retained for back-compatibility."
+
+Proportions are often numerics with many decimal places. Therefore, it may be useful to round the values to four decimal places or to convert them to percentages with two decimal places.
+
+```{r}
+round(proportions(table(exDat$edu)), 4)
+
+round(proportions(table(exDat$edu)) * 100, 2)
+```
+
+#### Bar charts {-}
+
+Bar charts are one way of graphically checking the plausibility of discrete variables. Plots can be created with `Base R` [@R-base], as shown below. However, there are also packages like `ggplot2` [@R-ggplot2] that are specifically designed for data visualization. See the [tidyverse documentation](https://ggplot2.tidyverse.org/) of `ggplot2-package` for more details.
+
+```{r}
+#| label: fig-bar-charts
+#| fig-cap: "Frequencies of the education expression in the example data set"
+
+barplot(table(exDat$edu, useNA = "always"),
+        names.arg = c(0:4, "NA"),
+        main = "Education in example data set", # plot title
+        xlab = "exDat$edu", # x-axis label
+        ylab = "Count",  # y-axis label
+        ylim = c(0, 300) # y-axis range
+        )
+```
+
+#### Range of items {-}
+
+::: {.panel-tabset}
+
+### Analytical
+
+To explicitly find out the range of a variable, the function `range()` can be used. By default, the function includes `NA`s. Use the argument `na.rm` to specify whether missings should be excluded.
+
+```{r}
+range(exDat$edu, na.rm = T)
+```
+
+This function can be applied to all numeric variables and generates a matrix.
+
+```{r}
+#| eval: false
+#| 
+sapply(exDat,
+       function(x) if (is.numeric(x)) range(x, na.rm = T))
+```
+
+```{r}
+#| label: tbl-range-of-items-all-ranges
+#| code-fold: true
+#| tbl-cap: Ranges of all numeric variables in example data set
+
+exDat_ranges <- data.frame(
+  sapply(exDat,
+         function(x) if (is.numeric(x)) range(x, na.rm = T)),
+  row.names = c("min", "max")
+)
+
+knitr::kable(exDat_ranges,
+             row.names = T) |> 
+  kableExtra::kable_classic("hover")
+```
+
+### Graphical
+
+Boxplots allow visualization of the most important robust measures of location and dispersion.
+
+![Different parts of a boxplot ([Galarnyk, 2019](https://www.kdnuggets.com/2019/11/understanding-boxplots.html))](images/parts-of-boxplot.png)
+
+```{r}
+#| label: fig-range-of-items-boxplots
+#| fig-cap: "Ranges of all discrete variables in example data set"
+
+boxplot(exDat[, -5],
+        main = "Ranges of all discrete variables in example data set", # plot title
+        xlab = "Variables", # x-axis label
+        ylab = "Range" # y-axis label
+        )
+```
+
+
+:::
+
+### Metric variables
+
+(= infinite number of real values within a given interval)
+
+-   Code missing values first!    
+-   Afterwards: Consideration of the observed range of values   
+    -   Question: Are there any unplausible values? (e.g. `age` = `-9`)
+
+**Procedure:**
+
+1.  [Descriptive statistics]    
+2.  [Histogram]
+
+#### Descriptive statistics {-}
+
+The package `psych` [@R-psych] provides useful functions for descriptive statistical analyses.
+
+::: {.panel-tabset}
+
+### Base R
+
+The `summary()` function, introduced in [chapter 4.2.1](#check-for-missibg-values), provides an overview of descriptive statistics.
+
+```{r}
+summary(exDat$age)
+```
+
+### psych package
+
+The function `psych::describe()` contains additional descriptive statistics to those of the `Base R` function (e.g. number of valid cases, skewness, kurtosis, standard error).
+
+```{r}
+psych::describe(exDat$age)
+```
+
+:::
+
+#### Histogram {-}
+
+Histograms are graphical representations of frequency distributions of metric variables. Just like [bar charts](#bar-charts), these visualizations can be modified more using packages like `ggplot2` [@R-ggplot2].
+
+```{r}
+#| label: fig-histogram
+#| fig-cap: "Frequency distribution of age in example data set"
+
+hist(exDat$age,
+     main = "Age in example data set",
+     breaks = 20,
+     xlim = c(min(round(exDat$age), na.rm = T) - 1,
+              max(round(exDat$age), na.rm = T) + 1),
+     ylim = c(0, 100))
+```
+
+::: {.callout-tip collapse="true"}
+## Plot probability density
+
+```{r}
+#| label: fig-histogram-density
+#| fig-cap: "Probability density of age in example data set"
+
+# histogram with probability density
+hist(exDat$age,
+     main = "Age in example data set",
+     probability = T)
+# draw mean
+abline(v = mean(exDat$age, na.rm = T),
+       col = "red",
+       lwd = 3)
+# draw probability density line
+lines(density(exDat$age, na.rm = T),
+      col = "green",
+      lwd = 3)
+```
+
+:::
+
+# Data preparation/processing
+
+**Steps** in data preparation include:
+
+1.  [Recoding variables]    
+2.  [Auto-recoding]   
+3.  [Building new variables]
+
+
+## Recoding variables
+
+When recoding variables, new values are assigned to the old values (e.g. reversed polarity items).
+
+The old values can either be overwritten by the new values **or saved as a new variable**.
+
+::: {.callout-important collapse="true"}
+
+## We always create a new variable when recoding!
+
+-   old values are not lost    
+-   errors during recoding can be reproduced
+
+:::
+
+**Procedure:**
+
+1.  Transform    
+2.  Recode in new variable
+
+## Auto-recoding
+
+## Building new variables

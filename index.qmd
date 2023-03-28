@@ -1,0 +1,259 @@
+
+# Preface & Preperation {.unnumbered}
+
+
+This [Quarto book](https://quarto.org/docs/books/) is designed to provide an introduction into data documentation with `R` and `Quarto` and serves as the accompanying script for the workshop. For an overview about the workshop agenda see the [Introduction](#intro.qmd) section. 
+
+::: {.callout-important}
+
+The (workshop) material is (still) work in progress. It is the first time that the workshop will be held in this format. If you have feedback or encountered any bugs, please send us an [email](mailto:sven.rieger@uni-tuebingen.de).
+
+:::
+
+
+Please prepare yourself by following the steps below:
+
+- [Software installation](#software-install)
+
+- [Package installation](#pkg-install)
+
+- [Data set](#gen-dat)
+
+If you encounter any problems, please send us an [email](mailto:sven.rieger@uni-tuebingen.de).
+
+## Software installation {#software-install}
+
+Please install the following software and make sure that you are download the latest (released!) version of each program:
+
+```{r}
+#| label: versions
+#| echo: false
+
+#RStudio.Version()$version
+
+rversion <- paste0("v",R.version$major, ".", R.version$minor) 
+rstudversion <- paste0("v","2023.3.0.386")
+
+```
+
+
+- `R` `r rversion` [@R-base]: [https://cran.r-project.org/bin/windows/base/](https://cran.r-project.org/bin/windows/base/){target="_blank"}
+
+- `RStudio` `r rstudversion` [@RStudio2023]: [https://posit.co/downloads/](https://posit.co/downloads/){target="_blank"}
+
+- `Quarto` v1.3 [@R-quarto]: [https://quarto.org/docs/get-started/](https://quarto.org/docs/get-started/){target="_blank"} 
+
+
+
+## Package installation {#pkg-install}
+
+> R is an integrated suite of software facilities for data manipulation, calculation and graphical display (see [https://www.r-project.org](https://www.r-project.org/about.html){target="_blank"}).
+
+`R` is--among other things--great, because there is a large collection of packages. During the workshop, we will use the following `R` packages:
+
+```{r}
+#| label: pkgs
+#| echo: true
+pkgList <- c("rmarkdown",
+             "knitr", # tables
+             "kableExtra", # tables
+             "data.table", # rbindlist function
+             "lavaan", # generate data
+             "dplyr", # prepare data
+             "car", # recoding
+             "psych", # descriptive statistics
+             "ggplot2") # plots
+```
+
+```{r}
+#| label: write-r-refs
+#| eval: true
+#| echo: false
+
+otherPkgs <- c("base", "learnr", "quarto", "ltm", "mirt", "psy")
+
+knitr::write_bib(x = c(otherPkgs, pkgList),
+                 file = "r-refs.bib")
+```
+
+```{r}
+#| label: write-pkgs
+#| echo: false
+#| results: asis
+
+for (i in 1:length(pkgList)) {
+  
+  cat(paste0(i, ". ",
+             pkgList[i],
+             " v", utils::packageVersion(pkgList[i]),
+             " [@R-", pkgList[i],
+             "]\n"))
+}
+    
+
+```
+
+You can install them (check the versions!) with the following code: 
+
+```{r}
+#| label: pkgs-2
+#| code-fold: show
+#| eval: false
+lapply(pkgList,
+       function(x) 
+         if(!x %in% rownames(installed.packages())) install.packages(x))
+```
+
+
+```{r}
+#| label: date-last-render
+#| echo: false
+#| results: hide
+
+Sys.setlocale("LC_TIME", "English")
+dateLastRender <- format( Sys.time(), "%d %B %Y")
+```
+
+The book was last rendered on `r dateLastRender`.
+
+::: {.callout-note collapse="true"}
+## Information About the Current R Session
+
+```{r}
+#| label: sess-info
+sessionInfo()
+```
+
+Note that we often did not load the packages, but use the function via `::` (e.g., `psych::describe()`).
+
+:::
+
+
+
+## Data set {#gen-dat}
+
+Finally, we will use an (simulated) example data set. To get it, execute the following code:
+
+```{r}
+#| label: sim-data-1
+
+PopMod <- "
+eta1 =~ .8*msc1 + .8*msc2 + -.8*msc3 + -.8*msc4
+eta1 ~~ 1*eta1
+eta1 ~ 0*1
+
+msc3 ~~ .2*msc4
+
+msc1 | -1.5*t1 + 0*t2 + 1.5*t3
+msc2 | -1.5*t1 + 0*t2 + 1.5*t3
+msc3 | 1.5*t1 + 0*t2 + -1.5*t3
+msc4 | 1.5*t1 + 0*t2 + -1.5*t3
+
+age ~ 10*1
+age ~~ 2.5*age
+
+sex | 0*t1
+sex ~*~ .5*sex
+
+eta1 ~~ age + sex
+"
+
+exDat <- lavaan::simulateData(model = PopMod,
+                              sample.nobs = seq(50,250, by = 50),
+                              seed = 999)
+```
+
+Some cosmetics, and "adding" missing data.
+
+```{r}
+#| label: sim-data-2
+exDat$sex <- exDat$sex-1
+exDat$edu <- exDat$group-1
+exDat$group <- NULL
+
+propMiss1 <- .05
+propMiss2 <- .1
+
+exDat$sex <- ifelse (
+  rbinom(
+    nrow(exDat),
+    size = 1,
+    propMiss1) == 1,
+  NA,
+  exDat$sex
+  )
+
+exDat$age <- ifelse (
+  rbinom(
+    nrow(exDat),
+    size = 1,
+    propMiss2) == 1,
+  NA,
+  exDat$age
+  )
+
+exDat$msc2 <- ifelse (
+  rbinom(
+    nrow(exDat),
+    size = 1,
+    propMiss2) == 1,
+  NA,
+  exDat$msc2
+  )
+```
+
+::: {.callout-note collapse="true"}
+## Some descriptive statistics
+
+```{r}
+#| label: descr-gendat-tab
+#| eval: true
+#| echo: false
+#| tbl-cap: Descriptive statistics of the generated data
+
+
+knitr::kable(x = psych::describe(exDat),
+             digits = 2) |> 
+  kableExtra::kable_classic("hover")
+
+
+```
+
+
+
+```{r}
+#| label: cor-gendat-tab
+#| eval: true
+#| echo: false
+#| tbl-cap: Correlation table of the generated data
+
+corTab <- format(
+  round(
+    cor(exDat,
+        use = "pairwise.complete.obs"),
+    2),
+  nsmall = 2)
+
+corTab[upper.tri(corTab)] <- ""
+
+
+knitr::kable(
+  x = corTab,
+  align = "c"
+) |> 
+  kableExtra::kable_classic("hover")
+
+
+```
+
+:::
+
+```{r}
+#| label: save-simDat
+#| echo: false
+#| eval: false
+#|
+saveRDS(exDat, "exampleDat.RDS")
+```
+
+
