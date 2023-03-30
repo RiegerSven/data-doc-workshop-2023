@@ -555,6 +555,8 @@ Bar charts are one way of graphically checking the plausibility of discrete vari
 ```{r}
 #| label: fig-bar-charts
 #| fig-cap: "Frequencies of the education expression in the example data set"
+#| eval: false
+
 
 barplot(table(exDat$edu, useNA = "always"),
         names.arg = c(0:4, "NA"),
@@ -611,6 +613,8 @@ Boxplots allow visualization of the most important robust measures of location a
 ```{r}
 #| label: fig-range-of-items-boxplots
 #| fig-cap: "Ranges of all discrete variables in example data set"
+#| eval: false
+
 
 boxplot(exDat[, -5],
         main = "Ranges of all discrete variables in example data set", # plot title
@@ -666,6 +670,7 @@ Histograms are graphical representations of frequency distributions of metric va
 ```{r}
 #| label: fig-histogram
 #| fig-cap: "Frequency distribution of age in example data set"
+#| eval: false
 
 hist(exDat$age,
      main = "Age in example data set",
@@ -681,6 +686,8 @@ hist(exDat$age,
 ```{r}
 #| label: fig-histogram-density
 #| fig-cap: "Probability density of age in example data set"
+#| eval: false
+
 
 # histogram with probability density
 hist(exDat$age,
