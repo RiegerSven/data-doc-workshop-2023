@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Data documentation with R and Quarto - References</title>
+<title>Data documentation with R and Quarto - 5&nbsp; Data processing</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -54,26 +54,7 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -83,7 +64,8 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./item-analy-descr.html" rel="prev">
+<link href="./item-analy-descr.html" rel="next">
+<link href="./data-cleaning.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -125,7 +107,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./references.html">References</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./data-proc.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data processing</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -196,7 +178,7 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./data-proc.html" class="sidebar-item-text sidebar-link">
+  <a href="./data-proc.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data processing</span></span></a>
   </div>
 </li>
@@ -208,7 +190,7 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link active">
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">References</span></a>
   </div>
 </li>
@@ -218,14 +200,22 @@ div.csl-indent {
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#recoding-variables" id="toc-recoding-variables" class="nav-link active" data-scroll-target="#recoding-variables"><span class="header-section-number">5.1</span> Recoding variables</a></li>
+  <li><a href="#auto-recoding" id="toc-auto-recoding" class="nav-link" data-scroll-target="#auto-recoding"><span class="header-section-number">5.2</span> Auto-recoding</a></li>
+  <li><a href="#building-new-variables" id="toc-building-new-variables" class="nav-link" data-scroll-target="#building-new-variables"><span class="header-section-number">5.3</span> Building new variables</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/RiegerSven/data-doc-workshop-2023/edit/main/data-proc.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/RiegerSven/data-doc-workshop-2023/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">References</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data processing</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -240,162 +230,55 @@ div.csl-indent {
 
 </header>
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list">
-<div id="ref-R-learnr" class="csl-entry" role="listitem">
-Aden-Buie, Garrick, Barret Schloerke, JJ Allaire, and Alexander Rossell
-Hayes. 2023. <em>Learnr: Interactive Tutorials for r</em>. <a href="https://CRAN.R-project.org/package=learnr">https://CRAN.R-project.org/package=learnr</a>.
+<p><strong>Steps</strong> in data processing (or preparation) include:</p>
+<ol type="1">
+<li><a href="#recoding-variables">Recoding variables</a><br>
+</li>
+<li><a href="#auto-recoding">Auto-recoding</a><br>
+</li>
+<li><a href="#building-new-variables">Building new variables</a></li>
+</ol>
+<section id="recoding-variables" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="recoding-variables"><span class="header-section-number">5.1</span> Recoding variables</h2>
+<p>When recoding variables, new values are assigned to the old values (e.g.&nbsp;reversed polarity items).</p>
+<p>The old values can either be overwritten by the new values <strong>or saved as a new variable</strong>.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<div id="ref-R-quarto" class="csl-entry" role="listitem">
-Allaire, JJ. 2022. <em>Quarto: R Interface to Quarto Markdown Publishing
-System</em>. <a href="https://github.com/quarto-dev/quarto-r">https://github.com/quarto-dev/quarto-r</a>.
+<div class="callout-title-container flex-fill">
+We always create a new variable when recoding!
 </div>
-<div id="ref-R-rmarkdown" class="csl-entry" role="listitem">
-Allaire, JJ, Yihui Xie, Christophe Dervieux, Jonathan McPherson, Javier
-Luraschi, Kevin Ushey, Aron Atkins, et al. 2023. <em>Rmarkdown: Dynamic
-Documents for r</em>. <a href="https://CRAN.R-project.org/package=rmarkdown">https://CRAN.R-project.org/package=rmarkdown</a>.
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="ref-R-magrittr" class="csl-entry" role="listitem">
-Bache, Stefan Milton, and Hadley Wickham. 2022. <em>Magrittr: A
-Forward-Pipe Operator for r</em>. <a href="https://CRAN.R-project.org/package=magrittr">https://CRAN.R-project.org/package=magrittr</a>.
-</div>
-<div id="ref-R-mirt" class="csl-entry" role="listitem">
-Chalmers, Phil. 2022. <em>Mirt: Multidimensional Item Response
-Theory</em>. <a href="https://CRAN.R-project.org/package=mirt">https://CRAN.R-project.org/package=mirt</a>.
-</div>
-<div id="ref-Cronbach1951" class="csl-entry" role="listitem">
-Cronbach, Lee J. 1951. <span>“Coefficient Alpha and the Internal
-Structure of Tests.”</span> <em>Psychometrika</em> 16 (3): 297–334. <a href="https://doi.org/10.1007/BF02310555">https://doi.org/10.1007/BF02310555</a>.
-</div>
-<div id="ref-R-data.table" class="csl-entry" role="listitem">
-Dowle, Matt, and Arun Srinivasan. 2023. <em>Data.table: Extension of
-‘Data.frame‘</em>. <a href="https://CRAN.R-project.org/package=data.table">https://CRAN.R-project.org/package=data.table</a>.
-</div>
-<div id="ref-Enders2010" class="csl-entry" role="listitem">
-Enders, Craig K. 2010. <em>Applied Missing Data Analysis</em>.
-Methodology in the Social Sciences. New York: <span>Guilford
-Press</span>.
-</div>
-<div id="ref-Enders2023" class="csl-entry" role="listitem">
-———. 2023. <span>“Missing Data: An Update on the State of the
-Art.”</span> <em>Psychological Methods</em>. <a href="https://doi.org/10.1037/met0000563">https://doi.org/10.1037/met0000563</a>.
-</div>
-<div id="ref-R-psy" class="csl-entry" role="listitem">
-Falissard, Bruno. 2022. <em>Psy: Various Procedures Used in
-Psychometrics</em>. <a href="https://CRAN.R-project.org/package=psy">https://CRAN.R-project.org/package=psy</a>.
-</div>
-<div id="ref-R-car" class="csl-entry" role="listitem">
-Fox, John, Sanford Weisberg, and Brad Price. 2022. <em>Car: Companion to
-Applied Regression</em>. <a href="https://CRAN.R-project.org/package=car">https://CRAN.R-project.org/package=car</a>.
-</div>
-<div id="ref-McNeish2017" class="csl-entry" role="listitem">
-McNeish, Daniel. 2017. <span>“Thanks Coefficient Alpha, We’ll Take It
-from Here.”</span> <em>Psychological Methods</em>. <a href="https://doi.org/10.1037/met0000144">https://doi.org/10.1037/met0000144</a>.
-</div>
-<div id="ref-McNeish2020b" class="csl-entry" role="listitem">
-McNeish, Daniel, and Melissa Gordon Wolf. 2020. <span>“Thinking Twice
-about Sum Scores.”</span> <em>Behavior Research Methods</em> 52 (6):
-2287–2305. <a href="https://doi.org/10.3758/s13428-020-01398-0">https://doi.org/10.3758/s13428-020-01398-0</a>.
-</div>
-<div id="ref-R-tibble" class="csl-entry" role="listitem">
-Müller, Kirill, and Hadley Wickham. 2023. <em>Tibble: Simple Data
-Frames</em>. <a href="https://CRAN.R-project.org/package=tibble">https://CRAN.R-project.org/package=tibble</a>.
-</div>
-<div id="ref-RStudio2023" class="csl-entry" role="listitem">
-Posit team. 2023. <em>RStudio: Integrated Development Environment for
-r</em>. Boston, MA: Posit Software, PBC. <a href="http://www.posit.co/">http://www.posit.co/</a>.
-</div>
-<div id="ref-R-foreign" class="csl-entry" role="listitem">
-R Core Team. 2022. <em>Foreign: Read Data Stored by Minitab, s, SAS,
-SPSS, Stata, Systat, Weka, dBase, ...</em> <a href="https://svn.r-project.org/R-packages/trunk/foreign/">https://svn.r-project.org/R-packages/trunk/foreign/</a>.
-</div>
-<div id="ref-R-base" class="csl-entry" role="listitem">
-———. 2023. <em>R: A Language and Environment for Statistical
-Computing</em>. Vienna, Austria: R Foundation for Statistical Computing.
-<a href="https://www.R-project.org/">https://www.R-project.org/</a>.
-</div>
-<div id="ref-R-psych" class="csl-entry" role="listitem">
-Revelle, William. 2023. <em>Psych: Procedures for Psychological,
-Psychometric, and Personality Research</em>. <a href="https://personality-project.org/r/psych/
-https://personality-project.org/r/psych-manual.pdf">https://personality-project.org/r/psych/
-https://personality-project.org/r/psych-manual.pdf</a>.
-</div>
-<div id="ref-Revelle2009b" class="csl-entry" role="listitem">
-Revelle, William, and Richard E. Zinbarg. 2009. <span>“Coefficients
-Alpha, Beta, Omega, and the Glb: Comments on Sijtsma.”</span>
-<em>Psychometrika</em> 74 (1): 145–54. <a href="https://doi.org/10.1007/s11336-008-9102-z">https://doi.org/10.1007/s11336-008-9102-z</a>.
-</div>
-<div id="ref-R-ltm" class="csl-entry" role="listitem">
-Rizopoulos, Dimitris. 2022. <em>Ltm: Latent Trait Models Under IRT</em>.
-<a href="https://github.com/drizopoulos/ltm">https://github.com/drizopoulos/ltm</a>.
-</div>
-<div id="ref-Rose2019" class="csl-entry" role="listitem">
-Rose, Norman, Wolfgang Wagner, Axel Mayer, and Benjamin Nagengast. 2019.
-<span>“Model-Based Manifest and Latent Composite Scores in Structural
-Equation Models.”</span> <em>Collabra: Psychology</em> 5 (1): 243. <a href="https://doi.org/10.1525/collabra.143">https://doi.org/10.1525/collabra.143</a>.
-</div>
-<div id="ref-R-lavaan" class="csl-entry" role="listitem">
-Rosseel, Yves, Terrence D. Jorgensen, and Nicholas Rockwood. 2023.
-<em>Lavaan: Latent Variable Analysis</em>. <a href="https://lavaan.ugent.be">https://lavaan.ugent.be</a>.
-</div>
-<div id="ref-Savalei2019" class="csl-entry" role="listitem">
-Savalei, Victoria, and Steven P. Reise. 2019. <span>“Don’t Forget the
-Model in Your Model-Based Reliability Coefficients: A Reply to McNeish
-(2018).”</span> <em>Collabra: Psychology</em> 5 (1): 36. <a href="https://doi.org/10.1525/collabra.247">https://doi.org/10.1525/collabra.247</a>.
-</div>
-<div id="ref-Schafer2002" class="csl-entry" role="listitem">
-Schafer, Joseph L., and John W. Graham. 2002. <span>“Missing Data: Our
-View of the State of the Art.”</span> <em>Psychological Methods</em> 7
-(2): 147–77. <a href="https://doi.org/10.1037/1082-989X.7.2.147">https://doi.org/10.1037/1082-989X.7.2.147</a>.
-</div>
-<div id="ref-Sijtsma2009" class="csl-entry" role="listitem">
-Sijtsma, Klaas. 2009. <span>“On the Use, the Misuse, and the Very
-Limited Usefulness of Cronbach’s Alpha.”</span> <em>Psychometrika</em>
-74 (1): 107–20. <a href="https://doi.org/10.1007/s11336-008-9101-0">https://doi.org/10.1007/s11336-008-9101-0</a>.
-</div>
-<div id="ref-R-tidyverse" class="csl-entry" role="listitem">
-Wickham, Hadley. 2023. <em>Tidyverse: Easily Install and Load the
-Tidyverse</em>. <a href="https://CRAN.R-project.org/package=tidyverse">https://CRAN.R-project.org/package=tidyverse</a>.
-</div>
-<div id="ref-R-ggplot2" class="csl-entry" role="listitem">
-Wickham, Hadley, Winston Chang, Lionel Henry, Thomas Lin Pedersen,
-Kohske Takahashi, Claus Wilke, Kara Woo, Hiroaki Yutani, and Dewey
-Dunnington. 2023. <em>Ggplot2: Create Elegant Data Visualisations Using
-the Grammar of Graphics</em>. <a href="https://CRAN.R-project.org/package=ggplot2">https://CRAN.R-project.org/package=ggplot2</a>.
-</div>
-<div id="ref-R-dplyr" class="csl-entry" role="listitem">
-Wickham, Hadley, Romain François, Lionel Henry, Kirill Müller, and Davis
-Vaughan. 2023. <em>Dplyr: A Grammar of Data Manipulation</em>. <a href="https://CRAN.R-project.org/package=dplyr">https://CRAN.R-project.org/package=dplyr</a>.
-</div>
-<div id="ref-R-haven" class="csl-entry" role="listitem">
-Wickham, Hadley, Evan Miller, and Danny Smith. 2022. <em>Haven: Import
-and Export SPSS, Stata and SAS Files</em>. <a href="https://CRAN.R-project.org/package=haven">https://CRAN.R-project.org/package=haven</a>.
-</div>
-<div id="ref-Widaman2022" class="csl-entry" role="listitem">
-Widaman, Keith F., and William Revelle. 2022. <span>“Thinking Thrice
-about Sum Scores, and Then Some More about Measurement and
-Analysis.”</span> <em>Behavior Research Methods</em>. <a href="https://doi.org/10.3758/s13428-022-01849-w">https://doi.org/10.3758/s13428-022-01849-w</a>.
-</div>
-<div id="ref-Wissik2015" class="csl-entry" role="listitem">
-Wissik, T., and M. Ďurčo. 2015. <span>“Research Data Workflows: From
-Research Data Lifecycle Models to Institutional Solutions.”</span>
-CLARIN 2015 Selected Papers, Link<span>ö</span>ping Electronic
-Conference Proceedings, Annual Conference 2015, October 14–16, 2015,
-Wroclaw, Poland (Pp. 94–107). Link<span>ö</span>ping University
-Electronic Press, Link<span>ö</span>pings Universitet. <a href="http://www.ep.liu.se/ecp/123/008/ecp15123008.pdf">http://www.ep.liu.se/ecp/123/008/ecp15123008.pdf</a>.
-</div>
-<div id="ref-R-knitr" class="csl-entry" role="listitem">
-Xie, Yihui. 2023. <em>Knitr: A General-Purpose Package for Dynamic
-Report Generation in r</em>. <a href="https://yihui.org/knitr/">https://yihui.org/knitr/</a>.
-</div>
-<div id="ref-R-kableExtra" class="csl-entry" role="listitem">
-Zhu, Hao. 2021. <em>kableExtra: Construct Complex Table with Kable and
-Pipe Syntax</em>. <a href="https://CRAN.R-project.org/package=kableExtra">https://CRAN.R-project.org/package=kableExtra</a>.
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li>old values are not lost<br>
+</li>
+<li>errors during recoding can be reproduced</li>
+</ul>
 </div>
 </div>
+</div>
+<p><strong>Procedure:</strong></p>
+<ol type="1">
+<li>Transform<br>
+</li>
+<li>Recode in new variable</li>
+</ol>
+</section>
+<section id="auto-recoding" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="auto-recoding"><span class="header-section-number">5.2</span> Auto-recoding</h2>
+</section>
+<section id="building-new-variables" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="building-new-variables"><span class="header-section-number">5.3</span> Building new variables</h2>
 
 
 <!-- -->
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -698,20 +581,51 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./item-analy-descr.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Descriptive statistics and item analysis</span></span>
+      <a href="./data-cleaning.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Import data &amp; data cleaning</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./item-analy-descr.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Descriptive statistics and item analysis</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># References {.unnumbered}</span></span>
+<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Data processing</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>::: {#refs}</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>:::</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>**Steps** in data processing (or preparation) include:</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span><span class="co">[</span><span class="ot">Recoding variables</span><span class="co">]</span>    </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span><span class="co">[</span><span class="ot">Auto-recoding</span><span class="co">]</span>   </span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span><span class="co">[</span><span class="ot">Building new variables</span><span class="co">]</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">## Recoding variables</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>When recoding variables, new values are assigned to the old values (e.g. reversed polarity items).</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>The old values can either be overwritten by the new values **or saved as a new variable**.</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>::: {.callout-important collapse="true"}</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">## We always create a new variable when recoding!</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>old values are not lost    </span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>errors during recoding can be reproduced</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>**Procedure:**</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>Transform    </span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Recode in new variable</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="fu">## Auto-recoding</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="fu">## Building new variables</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/RiegerSven/data-doc-workshop-2023/edit/main/references.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/RiegerSven/data-doc-workshop-2023/issues/new" class="toc-action">Report an issue</a></p></div></div></div></div></footer></body></html>
+</body></html>

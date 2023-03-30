@@ -2,9 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.287">
+<meta name="generator" content="quarto-1.3.296">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Data documentation with R and Quarto - 5&nbsp; Descriptive statistics and item analysis</title>
+<title>Data documentation with R and Quarto - 6&nbsp; Descriptive statistics and item analysis</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -80,7 +80,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./references.html" rel="next">
-<link href="./data-cleaning.html" rel="prev">
+<link href="./data-proc.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -117,7 +117,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./item-analy-descr.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Descriptive statistics and item analysis</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./item-analy-descr.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Descriptive statistics and item analysis</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -130,7 +130,12 @@ div.csl-indent {
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Data documentation with R and Quarto</a> 
         <div class="sidebar-tools-main">
-    <a href="https://github.com/RiegerSven/data-documentation-workshop-2023" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/RiegerSven/data-doc-workshop-2023" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
 </div>
     </div>
       </div>
@@ -174,13 +179,19 @@ div.csl-indent {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./data-cleaning.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data cleaning</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Import data &amp; data cleaning</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data-proc.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data processing</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./item-analy-descr.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Descriptive statistics and item analysis</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Descriptive statistics and item analysis</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -197,19 +208,19 @@ div.csl-indent {
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-<li><a href="#descriptive-statistics" id="toc-descriptive-statistics" class="nav-link active" data-scroll-target="#descriptive-statistics"><span class="header-section-number">5.1</span> Descriptive statistics</a></li>
-  <li><a href="#cronbachs-alpha-and-item-statistics" id="toc-cronbachs-alpha-and-item-statistics" class="nav-link" data-scroll-target="#cronbachs-alpha-and-item-statistics"><span class="header-section-number">5.2</span> Cronbachs <span class="math inline">\(\alpha\)</span> and item statistics</a></li>
+<li><a href="#descriptive-statistics" id="toc-descriptive-statistics" class="nav-link active" data-scroll-target="#descriptive-statistics"><span class="header-section-number">6.1</span> Descriptive statistics</a></li>
+  <li><a href="#cronbachs-alpha-and-item-statistics" id="toc-cronbachs-alpha-and-item-statistics" class="nav-link" data-scroll-target="#cronbachs-alpha-and-item-statistics"><span class="header-section-number">6.2</span> Cronbachs <span class="math inline">\(\alpha\)</span> and item statistics</a></li>
   <li>
-<a href="#calculating-scale-scores" id="toc-calculating-scale-scores" class="nav-link" data-scroll-target="#calculating-scale-scores"><span class="header-section-number">5.3</span> Calculating scale scores</a>
+<a href="#calculating-scale-scores" id="toc-calculating-scale-scores" class="nav-link" data-scroll-target="#calculating-scale-scores"><span class="header-section-number">6.3</span> Calculating scale scores</a>
   <ul>
-<li><a href="#calculating-many-scale-scores" id="toc-calculating-many-scale-scores" class="nav-link" data-scroll-target="#calculating-many-scale-scores"><span class="header-section-number">5.3.1</span> Calculating many scale scores</a></li>
+<li><a href="#calculating-many-scale-scores" id="toc-calculating-many-scale-scores" class="nav-link" data-scroll-target="#calculating-many-scale-scores"><span class="header-section-number">6.3.1</span> Calculating many scale scores</a></li>
   </ul>
 </li>
-  </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/RiegerSven/data-documentation-workshop-2023/edit/main/item-analy-descr.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
+  </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/RiegerSven/data-doc-workshop-2023/edit/main/item-analy-descr.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/RiegerSven/data-doc-workshop-2023/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span id="item-analy-descr" class="quarto-section-identifier"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Descriptive statistics and item analysis</span></span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span id="item-analy-descr" class="quarto-section-identifier"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Descriptive statistics and item analysis</span></span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
 </div>
 
 
@@ -222,7 +233,7 @@ div.csl-indent {
   </div>
   
 
-</header><p>In this part you will learn how to calculate descriptive statistics, item statistics and calculate scale scores.</p>
+</header><p>In this part you will learn how to calculate descriptive statistics, item statistics and scale scores.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -236,8 +247,8 @@ Note
 <p>In <code>R</code> there are many different ways to get things done. Also, recall we provided functions (see <a href="./gen-info.html#functions">here</a>) which are ready to use.</p>
 </div>
 </div>
-<section id="descriptive-statistics" class="level2" data-number="5.1"><h2 data-number="5.1" class="anchored" data-anchor-id="descriptive-statistics">
-<span class="header-section-number">5.1</span> Descriptive statistics</h2>
+<section id="descriptive-statistics" class="level2" data-number="6.1"><h2 data-number="6.1" class="anchored" data-anchor-id="descriptive-statistics">
+<span class="header-section-number">6.1</span> Descriptive statistics</h2>
 <p>Typical descriptive statistics are:</p>
 <ul>
 <li>mean</li>
@@ -353,17 +364,18 @@ Note
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">exDescr</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Mean"</span>, <span class="st">"SD"</span>, <span class="st">"Min"</span>, <span class="st">"Max"</span><span class="op">)</span></span>
 <span><span class="va">exDescr</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output cell-output-stdout">
-<pre><code>            Mean        SD     Min      Max
-msc1   2.5186667 0.7373668 1.00000  4.00000
-msc2   2.5441176 0.7186516 1.00000  4.00000
-msc3   2.4880000 0.7482887 1.00000  4.00000
-msc4   2.4800000 0.7463306 1.00000  4.00000
-age   10.0092114 1.5812066 5.43976 14.84008
-sex    0.4978903 0.5003475 0.00000  1.00000
-edu    2.6666667 1.2480514 0.00000  4.00000
-msc3r  2.5120000 0.7482887 1.00000  4.00000
-msc4r  2.5200000 0.7463306 1.00000  4.00000
-msc    2.5275735 0.6106209 1.00000  4.00000</code></pre>
+<pre><code>             Mean          SD     Min       Max
+msc1    2.5186667   0.7373668 1.00000   4.00000
+msc2    2.5441176   0.7186516 1.00000   4.00000
+msc3    2.4880000   0.7482887 1.00000   4.00000
+msc4    2.4800000   0.7463306 1.00000   4.00000
+age    10.0092114   1.5812066 5.43976  14.84008
+sex     0.4978903   0.5003475 0.00000   1.00000
+edu     2.6666667   1.2480514 0.00000   4.00000
+id    375.5000000 216.6506404 1.00000 750.00000
+msc3r   2.5120000   0.7482887 1.00000   4.00000
+msc4r   2.5200000   0.7463306 1.00000   4.00000
+msc     2.5275735   0.6106209 1.00000   4.00000</code></pre>
 </div>
 </div>
 <p>(3. Finally, if you need an formatted table, the <code>kbl</code> function from the <code>kableExtra</code> package <span class="citation" data-cites="R-kableExtra">(<a href="references.html#ref-R-kableExtra" role="doc-biblioref">Zhu 2021</a>)</span> transforms matrices or data frames into nice tables.)</p>
@@ -434,20 +446,27 @@ msc    2.5275735 0.6106209 1.00000  4.00000</code></pre>
 <td style="text-align: right;">4.00</td>
 </tr>
 <tr class="even">
+<td style="text-align: left;">id</td>
+<td style="text-align: right;">375.50</td>
+<td style="text-align: right;">216.65</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">750.00</td>
+</tr>
+<tr class="odd">
 <td style="text-align: left;">msc3r</td>
 <td style="text-align: right;">2.51</td>
 <td style="text-align: right;">0.75</td>
 <td style="text-align: right;">1.00</td>
 <td style="text-align: right;">4.00</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">msc4r</td>
 <td style="text-align: right;">2.52</td>
 <td style="text-align: right;">0.75</td>
 <td style="text-align: right;">1.00</td>
 <td style="text-align: right;">4.00</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">msc</td>
 <td style="text-align: right;">2.53</td>
 <td style="text-align: right;">0.61</td>
@@ -456,14 +475,14 @@ msc    2.5275735 0.6106209 1.00000  4.00000</code></pre>
 </tr>
 </tbody>
 <tfoot>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left; padding: 0;"><span style="font-style: italic;">Note: </span></td>
 <td style="text-align: right;"></td>
 <td style="text-align: right;"></td>
 <td style="text-align: right;"></td>
 <td style="text-align: right;"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left; padding: 0;">
 <sup></sup> This is a nice formatted table using the kableExtra package [@R-kableExtra].</td>
 <td style="text-align: right;"></td>
@@ -487,7 +506,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Although it is probably a matter of coding taste, we do not recommend such a approach. We like it neat.</p>
+<p>Although it is probably a matter of coding taste, we do not recommend such a “nesting” approach, because it is difficult to read and comprehend. We like it neat. See also the note on <a href="./data-cleaning.html#what-is-pipe-op">What is the pipe operator?</a>.</p>
 </div>
 </div>
 <div class="cell">
@@ -570,20 +589,27 @@ Note
 <td style="text-align: right;">4.00</td>
 </tr>
 <tr class="even">
+<td style="text-align: left;">id</td>
+<td style="text-align: right;">375.50</td>
+<td style="text-align: right;">216.65</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">750.00</td>
+</tr>
+<tr class="odd">
 <td style="text-align: left;">msc3r</td>
 <td style="text-align: right;">2.51</td>
 <td style="text-align: right;">0.75</td>
 <td style="text-align: right;">1.00</td>
 <td style="text-align: right;">4.00</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">msc4r</td>
 <td style="text-align: right;">2.52</td>
 <td style="text-align: right;">0.75</td>
 <td style="text-align: right;">1.00</td>
 <td style="text-align: right;">4.00</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">msc</td>
 <td style="text-align: right;">2.53</td>
 <td style="text-align: right;">0.61</td>
@@ -592,14 +618,14 @@ Note
 </tr>
 </tbody>
 <tfoot>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left; padding: 0;"><span style="font-style: italic;">Note: </span></td>
 <td style="text-align: right;"></td>
 <td style="text-align: right;"></td>
 <td style="text-align: right;"></td>
 <td style="text-align: right;"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left; padding: 0;">
 <sup></sup> This is a nice formated table using the kableExtra package [@R-kableExtra].</td>
 <td style="text-align: right;"></td>
@@ -624,28 +650,30 @@ Note
 <div class="cell">
 <details open=""><summary>Show/hide code</summary><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">psych</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/psych/man/describe.html">describe</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">exDat</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output cell-output-stdout">
-<pre><code>      vars   n  mean   sd median trimmed  mad  min   max range  skew kurtosis
-msc1     1 750  2.52 0.74   3.00    2.52 1.48 1.00  4.00   3.0 -0.02    -0.31
-msc2     2 680  2.54 0.72   3.00    2.53 1.48 1.00  4.00   3.0 -0.02    -0.27
-msc3     3 750  2.49 0.75   2.00    2.49 1.48 1.00  4.00   3.0  0.00    -0.34
-msc4     4 750  2.48 0.75   2.00    2.48 1.48 1.00  4.00   3.0  0.06    -0.33
-age      5 670 10.01 1.58  10.03   10.02 1.46 5.44 14.84   9.4 -0.06     0.07
-sex      6 711  0.50 0.50   0.00    0.50 0.00 0.00  1.00   1.0  0.01    -2.00
-edu      7 750  2.67 1.25   3.00    2.79 1.48 0.00  4.00   4.0 -0.59    -0.73
-msc3r    8 750  2.51 0.75   3.00    2.51 1.48 1.00  4.00   3.0  0.00    -0.34
-msc4r    9 750  2.52 0.75   3.00    2.52 1.48 1.00  4.00   3.0 -0.06    -0.33
-msc     10 680  2.53 0.61   2.50    2.53 0.74 1.00  4.00   3.0 -0.07    -0.35
-        se
-msc1  0.03
-msc2  0.03
-msc3  0.03
-msc4  0.03
-age   0.06
-sex   0.02
-edu   0.05
-msc3r 0.03
-msc4r 0.03
-msc   0.02</code></pre>
+<pre><code>      vars   n   mean     sd median trimmed    mad  min    max range  skew
+msc1     1 750   2.52   0.74   3.00    2.52   1.48 1.00   4.00   3.0 -0.02
+msc2     2 680   2.54   0.72   3.00    2.53   1.48 1.00   4.00   3.0 -0.02
+msc3     3 750   2.49   0.75   2.00    2.49   1.48 1.00   4.00   3.0  0.00
+msc4     4 750   2.48   0.75   2.00    2.48   1.48 1.00   4.00   3.0  0.06
+age      5 670  10.01   1.58  10.03   10.02   1.46 5.44  14.84   9.4 -0.06
+sex      6 711   0.50   0.50   0.00    0.50   0.00 0.00   1.00   1.0  0.01
+edu      7 750   2.67   1.25   3.00    2.79   1.48 0.00   4.00   4.0 -0.59
+id       8 750 375.50 216.65 375.50  375.50 277.99 1.00 750.00 749.0  0.00
+msc3r    9 750   2.51   0.75   3.00    2.51   1.48 1.00   4.00   3.0  0.00
+msc4r   10 750   2.52   0.75   3.00    2.52   1.48 1.00   4.00   3.0 -0.06
+msc     11 680   2.53   0.61   2.50    2.53   0.74 1.00   4.00   3.0 -0.07
+      kurtosis   se
+msc1     -0.31 0.03
+msc2     -0.27 0.03
+msc3     -0.34 0.03
+msc4     -0.33 0.03
+age       0.07 0.06
+sex      -2.00 0.02
+edu      -0.73 0.05
+id       -1.20 7.91
+msc3r    -0.34 0.03
+msc4r    -0.33 0.03
+msc      -0.35 0.02</code></pre>
 </div>
 </div>
 <p>The <code>describe</code> output is easily transformed into a <code>data.frame</code> which then can be passed to the <code>kbl</code> function from the <code>kableExtra</code> package <span class="citation" data-cites="R-kableExtra">(<a href="references.html#ref-R-kableExtra" role="doc-biblioref">Zhu 2021</a>)</span>.</p>
@@ -707,18 +735,24 @@ msc   0.02</code></pre>
 <td style="text-align: right;">1.25</td>
 </tr>
 <tr class="even">
+<td style="text-align: left;">id</td>
+<td style="text-align: right;">750</td>
+<td style="text-align: right;">375.50</td>
+<td style="text-align: right;">216.65</td>
+</tr>
+<tr class="odd">
 <td style="text-align: left;">msc3r</td>
 <td style="text-align: right;">750</td>
 <td style="text-align: right;">2.51</td>
 <td style="text-align: right;">0.75</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">msc4r</td>
 <td style="text-align: right;">750</td>
 <td style="text-align: right;">2.52</td>
 <td style="text-align: right;">0.75</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">msc</td>
 <td style="text-align: right;">680</td>
 <td style="text-align: right;">2.53</td>
@@ -735,59 +769,63 @@ msc   0.02</code></pre>
 <pre><code>
  Descriptive statistics by group 
 sex: 0
-      vars   n  mean   sd median trimmed  mad  min   max range  skew kurtosis
-msc1     1 357  2.48 0.72   2.00    2.48 1.48 1.00  4.00   3.0  0.01    -0.28
-msc2     2 323  2.53 0.71   3.00    2.54 1.48 1.00  4.00   3.0 -0.10    -0.25
-msc3     3 357  2.52 0.71   3.00    2.53 1.48 1.00  4.00   3.0 -0.10    -0.26
-msc4     4 357  2.50 0.73   2.00    2.47 1.48 1.00  4.00   3.0  0.18    -0.30
-age      5 320 10.08 1.62  10.07   10.11 1.51 5.44 14.84   9.4 -0.14     0.00
-sex      6 357  0.00 0.00   0.00    0.00 0.00 0.00  0.00   0.0   NaN      NaN
-edu      7 357  2.71 1.26   3.00    2.85 1.48 0.00  4.00   4.0 -0.65    -0.67
-msc3r    8 357  2.48 0.71   2.00    2.47 1.48 1.00  4.00   3.0  0.10    -0.26
-msc4r    9 357  2.50 0.73   3.00    2.53 1.48 1.00  4.00   3.0 -0.18    -0.30
-msc     10 323  2.50 0.59   2.50    2.50 0.74 1.00  4.00   3.0 -0.04    -0.20
-        se
-msc1  0.04
-msc2  0.04
-msc3  0.04
-msc4  0.04
-age   0.09
-sex   0.00
-edu   0.07
-msc3r 0.04
-msc4r 0.04
-msc   0.03
+      vars   n   mean     sd median trimmed    mad  min    max range  skew
+msc1     1 357   2.48   0.72   2.00    2.48   1.48 1.00   4.00   3.0  0.01
+msc2     2 323   2.53   0.71   3.00    2.54   1.48 1.00   4.00   3.0 -0.10
+msc3     3 357   2.52   0.71   3.00    2.53   1.48 1.00   4.00   3.0 -0.10
+msc4     4 357   2.50   0.73   2.00    2.47   1.48 1.00   4.00   3.0  0.18
+age      5 320  10.08   1.62  10.07   10.11   1.51 5.44  14.84   9.4 -0.14
+sex      6 357   0.00   0.00   0.00    0.00   0.00 0.00   0.00   0.0   NaN
+edu      7 357   2.71   1.26   3.00    2.85   1.48 0.00   4.00   4.0 -0.65
+id       8 357 381.09 214.74 390.00  383.46 272.80 1.00 749.00 748.0 -0.08
+msc3r    9 357   2.48   0.71   2.00    2.47   1.48 1.00   4.00   3.0  0.10
+msc4r   10 357   2.50   0.73   3.00    2.53   1.48 1.00   4.00   3.0 -0.18
+msc     11 323   2.50   0.59   2.50    2.50   0.74 1.00   4.00   3.0 -0.04
+      kurtosis    se
+msc1     -0.28  0.04
+msc2     -0.25  0.04
+msc3     -0.26  0.04
+msc4     -0.30  0.04
+age       0.00  0.09
+sex        NaN  0.00
+edu      -0.67  0.07
+id       -1.20 11.37
+msc3r    -0.26  0.04
+msc4r    -0.30  0.04
+msc      -0.20  0.03
 ------------------------------------------------------------ 
 sex: 1
-      vars   n mean   sd median trimmed  mad min   max range  skew kurtosis
-msc1     1 354 2.55 0.76   3.00    2.54 1.48 1.0  4.00  3.00 -0.06    -0.36
-msc2     2 321 2.56 0.73   3.00    2.54 1.48 1.0  4.00  3.00 -0.01    -0.31
-msc3     3 354 2.46 0.79   2.00    2.46 1.48 1.0  4.00  3.00  0.08    -0.43
-msc4     4 354 2.47 0.76   2.00    2.49 1.48 1.0  4.00  3.00 -0.02    -0.38
-age      5 313 9.94 1.53  10.02    9.94 1.45 5.7 14.76  9.06  0.03     0.16
-sex      6 354 1.00 0.00   1.00    1.00 0.00 1.0  1.00  0.00   NaN      NaN
-edu      7 354 2.62 1.25   3.00    2.73 1.48 0.0  4.00  4.00 -0.51    -0.85
-msc3r    8 354 2.54 0.79   3.00    2.54 1.48 1.0  4.00  3.00 -0.08    -0.43
-msc4r    9 354 2.53 0.76   3.00    2.51 1.48 1.0  4.00  3.00  0.02    -0.38
-msc     10 321 2.55 0.63   2.50    2.57 0.74 1.0  4.00  3.00 -0.13    -0.42
-        se
-msc1  0.04
-msc2  0.04
-msc3  0.04
-msc4  0.04
-age   0.09
-sex   0.00
-edu   0.07
-msc3r 0.04
-msc4r 0.04
-msc   0.04</code></pre>
+      vars   n   mean     sd median trimmed    mad min    max  range  skew
+msc1     1 354   2.55   0.76   3.00    2.54   1.48 1.0   4.00   3.00 -0.06
+msc2     2 321   2.56   0.73   3.00    2.54   1.48 1.0   4.00   3.00 -0.01
+msc3     3 354   2.46   0.79   2.00    2.46   1.48 1.0   4.00   3.00  0.08
+msc4     4 354   2.47   0.76   2.00    2.49   1.48 1.0   4.00   3.00 -0.02
+age      5 313   9.94   1.53  10.02    9.94   1.45 5.7  14.76   9.06  0.03
+sex      6 354   1.00   0.00   1.00    1.00   0.00 1.0   1.00   0.00   NaN
+edu      7 354   2.62   1.25   3.00    2.73   1.48 0.0   4.00   4.00 -0.51
+id       8 354 369.27 220.29 357.50  366.72 285.40 2.0 750.00 748.00  0.08
+msc3r    9 354   2.54   0.79   3.00    2.54   1.48 1.0   4.00   3.00 -0.08
+msc4r   10 354   2.53   0.76   3.00    2.51   1.48 1.0   4.00   3.00  0.02
+msc     11 321   2.55   0.63   2.50    2.57   0.74 1.0   4.00   3.00 -0.13
+      kurtosis    se
+msc1     -0.36  0.04
+msc2     -0.31  0.04
+msc3     -0.43  0.04
+msc4     -0.38  0.04
+age       0.16  0.09
+sex        NaN  0.00
+edu      -0.85  0.07
+id       -1.23 11.71
+msc3r    -0.43  0.04
+msc4r    -0.38  0.04
+msc      -0.42  0.04</code></pre>
 </div>
 </div>
 </div>
 </div>
 </div>
-</section><section id="cronbachs-alpha-and-item-statistics" class="level2" data-number="5.2"><h2 data-number="5.2" class="anchored" data-anchor-id="cronbachs-alpha-and-item-statistics">
-<span class="header-section-number">5.2</span> Cronbachs <span class="math inline">\(\alpha\)</span> and item statistics</h2>
+</section><section id="cronbachs-alpha-and-item-statistics" class="level2" data-number="6.2"><h2 data-number="6.2" class="anchored" data-anchor-id="cronbachs-alpha-and-item-statistics">
+<span class="header-section-number">6.2</span> Cronbachs <span class="math inline">\(\alpha\)</span> and item statistics</h2>
 <blockquote class="blockquote">
 <p>Coefficient <span class="math inline">\(\alpha\)</span> is often called an internal consistency reliability coefficient, as it is based on covariances among scale items and thus internal consistency among items. But internal consistency should not be conflated with homogeneity, where homogeneity implies that a single dimension underlies the set of items <span class="citation" data-cites="Widaman2022">(<a href="references.html#ref-Widaman2022" role="doc-biblioref">Widaman and Revelle 2022</a>)</span>.</p>
 </blockquote>
@@ -808,7 +846,7 @@ Coefficient <span class="math inline">\(\alpha\)</span> debate
 <p>Coefficient alpha, or <span class="math inline">\(\alpha\)</span> can be written as</p>
 <p><span id="eq-alpha"><span class="math display">\[
 \alpha = (\frac{p}{p-1})\left(\frac{\sigma_Y^2-\sum\limits_{j=1}^p\sigma_j^2}{\sigma_Y^2}\right) = (\frac{p}{p-1})\left(1- \frac{\sum\limits_{j=1}^p\sigma_j^2}{\sigma_Y^2}\right)
-\tag{5.1}\]</span></span></p>
+\tag{6.1}\]</span></span></p>
 <p>where <span class="math inline">\(p\)</span> is the number of items on the scale, <span class="math inline">\(\sigma_j^2\)</span> (<span class="math inline">\(j=1,...,p\)</span>) is the variance of item <span class="math inline">\(j\)</span>, […]. <span class="math inline">\(\sigma_Y^2\)</span> is the variance of the sum score.</p>
 <p>Now lets calculate Cronbachs <span class="math inline">\(\alpha\)</span>. We use the variables <code>msc1</code>,<code>msc2</code>,<code>msc3r</code>, &amp; <code>msc4r</code> from the example data set (<code>exDat</code>).</p>
 <div class="callout callout-style-default callout-important callout-titled">
@@ -874,9 +912,10 @@ Missing values and Cronbachs <span class="math inline">\(\alpha\)</span>
 <span>  <span class="fu">kableExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kable_styling.html">kable_styling</a></span><span class="op">(</span>full_width <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>                            bootstrap_options <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"hover"</span>, <span class="st">"responsive"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details><div class="cell-output-display">
+<div id="tbl-alpha-over" class="anchored">
 <div class="table-responsive">
 <table class="table table-hover table-sm table-striped small" data-quarto-postprocess="true">
-<caption>Overview of different Cronbach <span class="math inline">\(\alpha\)</span> calculations {#tbl-alpha-over}</caption>
+<caption>Table&nbsp;6.1: Overview of different Cronbach <span class="math inline">\(\alpha\)</span> calculations</caption>
 <thead><tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">Package</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">Cronbachs $\alpha$</th>
@@ -884,22 +923,23 @@ Missing values and Cronbachs <span class="math inline">\(\alpha\)</span>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">psych</td>
-<td style="text-align: right;">0.85450</td>
+<td style="text-align: right;">0.85252</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">psy</td>
-<td style="text-align: right;">0.85385</td>
+<td style="text-align: right;">0.85139</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">mirt</td>
-<td style="text-align: right;">0.85385</td>
+<td style="text-align: right;">0.85139</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">ltm</td>
-<td style="text-align: right;">0.84913</td>
+<td style="text-align: right;">0.84383</td>
 </tr>
 </tbody>
 </table>
+</div>
 </div>
 
 
@@ -938,7 +978,7 @@ Missing values and Cronbachs <span class="math inline">\(\alpha\)</span>
 </details>
 </div>
 <ol start="3" type="1">
-<li>Apply <a href="#eq-alpha">Equation&nbsp;<span>5.1</span></a>
+<li>Apply <a href="#eq-alpha">Equation&nbsp;<span>6.1</span></a>
 </li>
 </ol>
 <div class="cell">
@@ -1032,8 +1072,8 @@ msc4r 0.08 0.41 0.44 0.08 0.00</code></pre>
 </div>
 </div>
 </div>
-</section><section id="calculating-scale-scores" class="level2" data-number="5.3"><h2 data-number="5.3" class="anchored" data-anchor-id="calculating-scale-scores">
-<span class="header-section-number">5.3</span> Calculating scale scores</h2>
+</section><section id="calculating-scale-scores" class="level2" data-number="6.3"><h2 data-number="6.3" class="anchored" data-anchor-id="calculating-scale-scores">
+<span class="header-section-number">6.3</span> Calculating scale scores</h2>
 <p>Now, we calculate scale scores (i.e., <span class="math inline">\(msc_{sum}\)</span>, <span class="math inline">\(msc_{avg}\)</span>) of the items <span class="math inline">\(msc_1,msc_2,msc_3r,msc_{4r}\)</span>.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -1149,8 +1189,8 @@ Scale scores
 </div>
 </div>
 </div>
-<section id="calculating-many-scale-scores" class="level3" data-number="5.3.1"><h3 data-number="5.3.1" class="anchored" data-anchor-id="calculating-many-scale-scores">
-<span class="header-section-number">5.3.1</span> Calculating many scale scores</h3>
+<section id="calculating-many-scale-scores" class="level3" data-number="6.3.1"><h3 data-number="6.3.1" class="anchored" data-anchor-id="calculating-many-scale-scores">
+<span class="header-section-number">6.3.1</span> Calculating many scale scores</h3>
 <!-- add -->
 <div class="cell">
 <details open=""><summary>Show/hide code</summary><div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#names(scaleList)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1519,8 +1559,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="./data-cleaning.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data cleaning</span></span>
+      <a href="./data-proc.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data processing</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
@@ -1531,7 +1571,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
 <div class="sourceCode" id="cb40" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Descriptive statistics and item analysis  {#item-analy-descr}</span></span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>In this part you will learn how to calculate descriptive statistics, item statistics and calculate scale scores. </span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>In this part you will learn how to calculate descriptive statistics, item statistics and scale scores. </span>
 <span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>::: {.callout-note }</span>
 <span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a></span>
@@ -1713,7 +1753,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb40-198"><a href="#cb40-198" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb40-199"><a href="#cb40-199" aria-hidden="true" tabindex="-1"></a>::: {.callout-note }</span>
 <span id="cb40-200"><a href="#cb40-200" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-201"><a href="#cb40-201" aria-hidden="true" tabindex="-1"></a>Although it is probably a matter of coding taste, we do not recommend such a approach. We like it neat.</span>
+<span id="cb40-201"><a href="#cb40-201" aria-hidden="true" tabindex="-1"></a>Although it is probably a matter of coding taste, we do not recommend such a "nesting" approach, because it is difficult to read and comprehend. We like it neat. See also the note on <span class="co">[</span><span class="ot">What is the pipe operator?</span><span class="co">](data-cleaning.qmd#what-is-pipe-op)</span>.</span>
 <span id="cb40-202"><a href="#cb40-202" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb40-203"><a href="#cb40-203" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb40-204"><a href="#cb40-204" aria-hidden="true" tabindex="-1"></a></span>
