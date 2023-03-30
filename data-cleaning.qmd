@@ -1,11 +1,4 @@
-# Data cleaning
-
-```{css, echo=FALSE}
-.vScrollbar {
-  max-height: 250px;
-  overflow-y: scroll;
-}
-```
+# Import data & data cleaning
 
 ```{r}
 #| label: data-cleaning-prep
@@ -17,95 +10,295 @@ exDat <- readRDS("exampleDat.RDS")
 library(dplyr)
 ```
 
+This section provides an introduction to importing data sets and data cleaning in general. When data is really messy, data cleaning can be a challenging task. We provide some approaches that however, will not include or solve all issues during data cleaning. 
 
--   always precedes further statistical analyses!    
--   can significantly increase the quality of the data used    
--   should **always be the first step** after data entry or data transfer from external sources
+```{css, echo=FALSE}
+.vScrollbar {
+  max-height: 250px;
+  overflow-y: scroll;
+}
+```
 
-::: {.callout-important}
-The **validity of results** of statistical data analyses depends on the **quality of the data**:
+## Import (or export) data sets
+
+In `R` data sets are usually stored as `data.frame` objects (see also the section [Data Structures](intro-r-rstudio.qmd#data-structure)). There are other object types for data sets such as `tibble` from the `tibble` package [@R-tibble] or `data.table` from the `data.table` package [@R-data.table] which are more efficient, especially when it comes to (very) large data sets (see e.g., [Chapter 10](https://r4ds.had.co.nz/tibbles.html) of [R for Data Science](https://r4ds.had.co.nz/) and the [vignette](https://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro.html) of the `data.table` package).
+
+### Data frames
+
+Data sets can come in many different file formats. For example, `.txt`, `.csv` files, or `.sav` ([SPSS](https://www.ibm.com/spss)), `dta` ([Stata](https://www.stata.com/)), `.sas7bdat` ([SAS](https://www.sas.com/en_us/home.html)) files.
+
+To import e.g., `.csv` or `.txt` files, `R` offers a couple of functions that deal with these formats:
+
+- `read.table`: Reads a file in table format and creates a data frame from it, with cases corresponding to lines and variables to fields in the file.
+    - `read.csv` or `read.csv2`^[see also here: <https://stackoverflow.com/questions/22970091/difference-between-read-csv-and-read-csv2-in-r>]
+    - `read.delim` or `read.delim2` 
+
+- `readLines`: Read some or all text lines from a connection.
+
+- ...
+
+When it comes to other (software specific) formats, you need additional packages e.g., `foreign` [@R-foreign] or `haven` [@R-haven]. In the following, we first export the `exDat` data set to a `.sav` file using the `write.foreign` function from the `foreign` package.
+
+To import the SPSS data sets (`.sav` file), we may use the `read.spss` function from the `foreign` package [@R-foreign]. There are a couple of default arguments which you (likely) want to change:
+
+- `use.value.labels`: logical: convert variables with value labels into R factors with those levels? (default is `TRUE` switch to `FALSE`)
+- `to.data.frame`logical: return a data frame? (default is `FALSE` switch to `TRUE`)
+- `use.missings`: logical: should information on user-defined missing values be used to set the corresponding values to NA?
+
+```{r}
+#| label: demo-read-spss
+#| eval: false
+#| code-fold: false
+
+exDatImpforeign <- foreign::read.spss("file-to-path-with-.sav-file",
+                                      use.value.labels = FALSE,
+                                      to.data.frame = TRUE,
+                                      use.missings = TRUE)
+
+```
+
+::: {.callout-note collapse="true" appearance="simple"}
+## Exporting dataframes
+
+To export data to a file, you can use the `write` function(s):
+
+- `write.table`
+- `write.csv` or `write.csv2`
+- ...
+
+Again, when it comes to software-specific file formats you need additional packages such as `foreign` [@R-foreign] or `haven` [@R-haven]:
+
+- `haven::write_sav`
+- `foreign::write.foreign`
+- ...
+
+
+In the following, the use of the `write.foreign` function is displayed:
+
+```{r}
+#| label: demo-write-foreign
+#| eval: false
+#| code-fold: false 
+
+
+#getwd()
+codefile <- tempfile()
+
+foreign::write.foreign(exDat,
+                       "exDat.sav",
+                       codefile = codefile,
+                       package = c("SPSS"))
+
+unlink(codefile)
+```
+
+Note that there are a couple of further steps necessary to get a working `.sav` file. We recommend using the `haven` [@R-haven] package (see [below]()), at least when it comes to exporting data sets.
+
+::: 
+
+### Tibbles
+
+The tibble package is part of the `tidyverse`^[for more see the section on [Base R ~~vs.~~ & tidyverse](intro-r-rstudio.qmd#baseR-tidyverse).] [@R-tidyverse].
+
+First, check the class of the example data set `exDat`.
+
+```{r}
+#| label: class-exDat
+#| code-fold: false
+class(exDat)
+```
+The `as_tibble` function from the `tibble` package [@R-tibble] turns an existing object (a data frame or matrix) into `tibble` which is a data frame with `class` `tbl_df` (see `?as_tibble`).
+
+
+```{r}
+#| label: demo-as-tibble
+#| code-fold: false
+exDatTib <- tibble::as_tibble(exDat)
+class(exDatTib)
+```
+
+The `write_sav` function from the `haven` package [@R-haven] can also be used to export data sets. Before exporting the data, you may want to check your working directory with the `getwd()` function.
+
+```{r}
+#| label: demo-write-sav
+#| eval: false
+#| code-fold: false 
+
+
+#getwd()
+haven::write_sav(exDat, "exDat.sav")
+
+```
+
+To import the data set, we use the `read_sav` function from the `haven` package.
+
+```{r}
+#| label: demo-read-sav
+#| eval: false
+#| code-fold: false
+
+exDatImpTest <- haven::read_sav("exDat.sav")
+
+```
+
+Note that the `read_sav` returns a `tibble`, `data frame` variant (with nice defaults).
+
+For more see <https://tibble.tidyverse.org/> and [Chapter 10](https://r4ds.had.co.nz/tibbles.html) of [R for Data Science](https://r4ds.had.co.nz/).
+
+## Why data cleaning?
+
+
+The **validity ** of results of statistical data analyses depends on the **quality of the data**. The quality of the data depends on several factors such as:
 
 -   sampling (number of cases, representativeness, etc.)    
 -   research design    
 -   quality of the survey instrument    
--   operationalization    
--   **data preparation**
+-   operationalization
+-   ...
+-   **data cleaning & data preparation**
+
+
+## What is data cleaning?
+
+Data cleaning (or data cleansing) is the process of identifying and correcting errors, inconsistencies, and inaccuracies in the data. It is **always the first step** after data entry or data transfer from external sources.
+
+The steps of data cleaning vary depending on the type and the quality of data. The following steps can be seen as a general outline:
+
+0.  Understand the structure of the data (set) &rarr; Codebook should help
+1.  [Remove duplicate observations](#rem-duplicate)      
+2.  [Handling missing data](#handle-missing)  
+3.  [Plausibility checks](#plaus-checks) (aka data validation)
+
+
+## How to clean data?
+
+Depending on how much data cleaning is needed, it is recommended to clean data in a sequential way (We like it neat!). This means after we succeed with one step of data cleaning, we save the respective `R`- or `Quarto` script and the data set with an appropriate description. The sequential procedure is exemplified in the [Remove duplicate observations](#rem-duplicate) section.
+
+::: {.callout-important} 
+
+When cleaning a data set, you should **NEVER(!)** replace the raw data with processed data (i.e., overwrite the raw data file). The manipulated data should be assigned to a new object and thereafter **MUST BE** saved as a new file (see also below)!
+
+The file of the raw data should also be a read-only file (i.e., right click on the `file > Properties > Attributes > Read-only`).
+
 :::
 
-**Steps** in data cleaning include:
+ 
+Because it is also crucial to document the data cleaning process (i.e., to reconstruct all steps), we also recommend to use `Quarto` documents because of the increased readability.
 
-1.  [Control of unit-identifiers]    
-2.  [Examining missing data]    
-3.  [Plausibility checks]
 
-::: {.callout-important collapse="true"} 
-## Always assign manipulated data to a new object!
 
-When cleaning the data set, you should never replace the raw data with processed data.
+
+## Remove duplicate observations {#rem-duplicate}
+
+Duplicate observations are identified via the `id` and `variable` values (i.e., response patterns). In @tbl-dup-obs there are 3 different scenarios depicted that are problematic. 
+
++----+-----------------------------------------+--------+-----------------------------------+
+|    | Scenario                                |        | Action                            |
++====+=========================================+========+===================================+
+| 1. | Same `id` variable value, and same      | &rarr; | delete one observation            |
+|    | variable values (response pattern)      |        |                                   |
++----+-----------------------------------------+--------+-----------------------------------+
+| 2. | Same `id` variable value, but different | &rarr; | check data (i.e., questionnaires) |
+|    | variable values (response pattern)      |        |                                   |
++----+-----------------------------------------+--------+-----------------------------------+
+| 3. | Different `id` variable values, but     | &rarr; | complicated, it is possible, but  |
+|    | same variable values (response pattern) |        | check data (i.e., questionnaires) |
++----+-----------------------------------------+--------+-----------------------------------+
+
+: Overview of duplicate observations scenarios {#tbl-dup-obs}
+
+::: {.callout-tip collapse="true" appearance="simple" title="Think carefully about the identification variables!"} 
+
+Identification (ID) variables are eminent when working on projects that contain several sources (e.g., different questionnaires), or span across multiple years (e.g., longitudinal studies) and must be **planned before the data collection**.
+
+ID variables should be ...
+
+- uniquely identifying &rarr; no duplicates
+
+- fully identifying &rarr; all observations have an ID variable value
+
+- constant throughout the duration of projects &rarr; observations do not have different IDs in a other datasets 
+
+- anonymous 
+
+For more see here: <https://dimewiki.worldbank.org/ID_Variable_Properties>
+
+
 :::
 
-Besides functions included in `R Base` [@R-base], the `dplyr` package [@R-dplyr] provides a set of functions for manipulating data. `dplyr` functions include the pipe operator (`|>`, in previous versions `%>%`).
 
-::: {.callout-note collapse="true"}
-## What is the pipe operator?
+The procedure is as follows:
 
-[The tidyverse style guide](https://style.tidyverse.org/) suggests using the pipe operator "to emphasize a sequence of actions". See [Chapter 4 of the guide](https://style.tidyverse.org/pipes.html) for more information on how to use pipes.
-:::
+1.  Find duplicate observations    
+2.  Exclude real (!) duplicates (but consult your supervisors!)
 
-## Control of unit-identifiers
+::: {.callout-warning collapse="false" appearance="simple" title="Generate some duplicate observations."}
 
-::: {.callout-important collapse="true"} 
-## Plan your identification variables!
-
-Identification variables (*ID variables*) are of great importance when dealing with study data. A suitable ID assignment **should already be planned before the data collection**.
-:::
-
-**Purpose:** Identify duplicates
-
-**Procedure:**
-
-1.  Find duplicate IDs    
-2.  Exclude duplicates (consultation with supervisors!)
-
-Since our example data set does not contain an ID variable, we modify the data set to illustrate this step of data cleaning. This data manipulation is done using the `dplyr` package [@R-dplyr].
+The example data set `exDat` does not contain any duplicate observations. Hence, we have to create them. This is done with the `rbind` function (i.e., adding the first five rows `[1:5]` of the `exDat` data set to the `exDat` data set).
 
 ```{r}
-#| label: sim-data-3
-#| code-fold: true
+#| label: add-dup-obs
+#| code-fold: false
+#| code-line-numbers: true
 
-doublingCases <- sample(1:nrow(exDat), 5)
 
-exDat_ID <- exDat |> 
-  mutate(id = 1:nrow(exDat),
-         .before = msc1) |> 
-  rbind(exDat[doublingCases, ] |> 
-          mutate(id = doublingCases,
-                 .before = msc1)) |> 
-  arrange(id)
+exDatID <- rbind(exDat,exDat[1:5,])
+exDatID[c(751, 752),"id"] <- c(751, 752)
+exDatID[6,"id"] <- 7
+nrow(exDatID)
 ```
 
-```{r}
-#| label: save-simDat-3
-#| echo: false
-#| eval: false
+::: {.callout-imporant}
+**!! Do not do this with real data !!**
+:::
 
-saveRDS(exDat_ID, "exampleDat_ID.RDS")
-```
+:::
+
+
+
+How to find and remove duplicate observations via the `id` and `variable` values? In the following there are a base `R` and a `dplyr` [@R-dplyr] solution. Both approaches use the `duplicated()` function which requires a `vector`, a `data frame` or an `array` as input `x`. The output is logical vector (`TRUE`/`FALSE`) of the same length as `x`.
+
 
 ::: {.panel-tabset}
 ### Base R
 
-The `duplicated()` function checks for each value whether it is duplicated. The output is logical vector. In combination with the `which()` function, checking which indices are `TRUE`, we can extract the duplicates.
+The `duplicated()` function checks for each value whether it is duplicated.  In combination with the `which()` function, checking which indices are `TRUE`, we can extract the duplicates.
+
+1. Check for duplicate `id` values. The procedure contains 4 steps.
 
 ```{r}
-exDat_ID[which(duplicated(exDat_ID$id)), ]
+#| label: show-dup
+#| code-line-numbers: true
+#| 
+exDatID$dupID <- ifelse ( duplicated(exDatID$id), "dup"," ")
+
+whichID <- exDatID[which(exDatID$dupID == "dup"), "id"]
+
+dupIDs <- exDatID[exDatID$id %in% whichID,]
+dupIDs[order(dupIDs$id),]
+```
+
+
+```{r}
+
+
+
+table(exDatID$dupID)
+
+table(ifelse ( duplicated(exDatID[,!names(exDatID) %in% c("id")]), 1, 0))
+
+which(duplicated(exDatID[,"id"]))
+
+#exDatID[which(duplicated(exDatID$id)), ]
+
+exDatID$dupID <- NULL
 ```
 
 By negating the function (`!duplicated()`), duplicates can be excluded.
 
 ```{r}
 #| class-output: vScrollbar
-exDat_ID[which(!duplicated(exDat_ID$id)), ]
+exDatID[which(!duplicated(exDatID$id)), ]
 ```
 
 ### dplyr package
@@ -113,7 +306,7 @@ exDat_ID[which(!duplicated(exDat_ID$id)), ]
 Filtering can be done using the `dplyr::filter()` function in combination with `duplicated()`.
 
 ```{r}
-exDat_ID |> 
+exDatID |> 
   dplyr::filter(duplicated(id))
 ```
 
@@ -121,7 +314,7 @@ However, `dplyr` provides a function `dplyr::distinct()` which can be used to ke
 
 ```{r}
 #| class-output: vScrollbar
-dplyr::distinct(exDat_ID)
+dplyr::distinct(exDatID)
 ```
 :::
 
@@ -130,24 +323,86 @@ dplyr::distinct(exDat_ID)
 
 Remove all duplicates contained in `exampleDat_ID.RDS` and assign the dataFrame to an object named `exDat_uniqueID`.
 
-::: {.callout-tip collapse="true" icon="false"}
-## Tip
-
-Assigning a dataFrame `df` to an object `exDat_uniqueID`:
-
-`exDat_uniqueID <- df`
-:::
 :::
 
-## Examining missing data
 
-Especially with questionnaires and surveys, it often happens that values are missing because, for example, a field of the questionnaire was not filled in. Therefore, it is important to look at the data and get an overview of missing values. By missing values, we refer to cells that could have a value, but whose value is not available (see [Data Types](intro-r-rstudio.qmd#data-types).
 
-**Procedure:**
+## Handling missing data {#handle-missing}
 
-1.  [Check for missing values]    
-2.  [Define missing values]    
-3.  [Exclude missing values]
+Missing data is a common problem in most behavioral science research [@Enders2010; @Enders2023;@Schafer2002]. Especially, in questionnaire surveys it is unavoidable that values are missing because, for example, a field of the questionnaire was not filled in. Therefore, it is essential to examine the data with regard to missing data. By missing values, we refer to cells that could have a value, but whose value is not available (see section on [Data Types](intro-r-rstudio.qmd#data-types) in the [Introduction to R & RStudio](intro-r-rstudio.qmd) part).
+
+The procedure encompasses ~~3~~ 2 steps:
+
+1.  [Define missing values](#def-miss) 
+2.  [Check for missing values]    
+3.  ([Omit missing values](#omit-miss) &rarr; usually **not** recommended)
+
+
+### Define missing values {#def-miss}
+
+In other statistical software programs (e.g., SPSS) or in study planning, missing values are often defined as numeric values (e.g., `-9`, `-88` or `-99`)^[Note that this is also recommended when designing a codebook, see here: <https://datawizkb.leibniz-psychology.org>] or as empty characters/strings (i.e., `""` or `" "`). In `R`, missing values are represented by the symbol `NA` (not available). This means we have to ensure that all missing values are declared as `NA` in the data set.
+
+::: {.callout-warning collapse="false" appearance="simple" title="Assign -99 values"}
+
+The example data set `exDat` does also not contain any missing values that are not `NA` values. Hence, we have to create them. With the following code, we assign `-99` to the first 5 rows of the variable `age` to a new data set `exDatMis`.
+
+```{r}
+#| label: add-99
+#| code-fold: false
+#| code-line-numbers: false
+exDatMis <- exDat
+exDatMis[1:5, "age"] <- -99
+head(exDatMis, 6)
+```
+
+::: {.callout-imporant}
+**!! Do not do this with real data !!**
+:::
+
+:::
+
+To demonstrate the effect, we calculate the mean of the variable `age` in the `exDat` and `exDatMis` data set:
+
+```{r}
+#| label: demo--99
+#| code-fold: false
+#| layout-ncol: 2
+
+mean(exDat$age, na.rm = T)
+mean(exDatMis$age, na.rm = T)
+```
+
+To fix this issue, we may use the following two approaches:
+
+::: {.panel-tabset}
+### Base R
+
+For a single variable
+
+```{r}
+#| label: declare-miss
+#| code-fold: false
+exDatMis$age[exDatMis$age == -99] <- NA
+```
+
+For the whole data set
+
+```{r}
+#| label: declare-miss-whole
+#| code-fold: false
+#| eval: false
+exDatMis[exDatMis == -99] <- NA
+```
+
+### dplyr package
+
+`dplyr::na_if()` can be used to convert a specific value contained in a variable to `NA`.
+
+```{r}
+#| eval: false
+exDat$age <- dplyr::na_if(exDat$age, -99)
+```
+:::
 
 ### Check for missing values
 
@@ -175,28 +430,9 @@ sapply(exDat, function(x) sum(is.na(x)))
 ```
 :::
 
-### Define missing values
 
-Especially when working with SPSS generated data or character variables, missing values may not be encoded as `NA`s, but for example as empty characters (i.e. `""` or `" "`) or as numerics like `-99` or `-88`. If you notice that a variable contains missing values that are not defined as `NA`, you should recode the corresponding values.
 
-::: {.panel-tabset}
-### Base R
-
-```{r}
-exDat[exDat == -99] <- NA
-```
-
-### dplyr package
-
-`dplyr::na_if()` can be used to convert a specific value contained in a variable to `NA`.
-
-```{r}
-#| eval: false
-exDat$age <- dplyr::na_if(exDat$age, -99)
-```
-:::
-
-### Exclude missing values
+### Omit missing values {#omit-miss}
 
 ::: {.panel-tabset}
 
@@ -238,7 +474,7 @@ exDat |>
 Define `-99` as `NA` across all columns and remove all rows including missing values from dataFrame `exampleDat.RDS` and assign the dataFrame to an object `exDat_noNA`.
 :::
 
-## Plausibility checks
+## Plausibility checks {#plaus-checks}
 
 Plausibility checks can be performed analytically or graphically.
 
@@ -462,35 +698,4 @@ lines(density(exDat$age, na.rm = T),
 
 :::
 
-# Data preparation/processing
 
-**Steps** in data preparation include:
-
-1.  [Recoding variables]    
-2.  [Auto-recoding]   
-3.  [Building new variables]
-
-
-## Recoding variables
-
-When recoding variables, new values are assigned to the old values (e.g. reversed polarity items).
-
-The old values can either be overwritten by the new values **or saved as a new variable**.
-
-::: {.callout-important collapse="true"}
-
-## We always create a new variable when recoding!
-
--   old values are not lost    
--   errors during recoding can be reproduced
-
-:::
-
-**Procedure:**
-
-1.  Transform    
-2.  Recode in new variable
-
-## Auto-recoding
-
-## Building new variables

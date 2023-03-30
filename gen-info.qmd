@@ -9,13 +9,12 @@ We currently discussing some changes to data documentation.
 ## What is data documentation?
 
 
-- Data documentation is a central part of data management^[see also here: [https://www.forschungsdaten-bildung.de/](https://www.forschungsdaten-bildung.de/daten-managen?la=en){target="_blank"}] in general and is part of the [DFG Guidelines](https://www.dfg.de/en/research_funding/principles_dfg_funding/good_scientific_practice/){target="_blank"} for safeguarding good scientific research
+- Data documentation is a central part of data management^[see also here: [https://www.forschungsdaten-bildung.de/](https://www.forschungsdaten-bildung.de/daten-managen?la=en)] in general and is part of the [DFG Guidelines](https://www.dfg.de/en/research_funding/principles_dfg_funding/good_scientific_practice/) for safeguarding good scientific research
 practice (code of conduct)
-    - Guideline 12: [Documentation](https://wissenschaftliche-integritaet.de/en/code-of-conduct/documentation/){target="_blank"} (for more see below)
+    - Guideline 12: [Documentation](https://wissenschaftliche-integritaet.de/en/code-of-conduct/documentation/) (for more see below)
 
 
-::: {.callout-tip appearance="simple" collapse="true"}
-## **Guideline 12: Documentation**
+::: {.callout-note appearance="simple" collapse="true" title="Guideline 12: Documentation"}
 
 > Researchers document all information relevant to the production of a research result as clearly as is required by and is appropriate for the relevant subject area to allow the result to be reviewed and assessed. In general, this also includes documenting individual results that do not support the research
 hypothesis. The selection of results must be avoided. Where subject-specific recommendations exist for review and assessment, researchers create documentation in accordance with these guidelines.
@@ -72,6 +71,15 @@ An example of a table of conents of a so-called *"Skalenhandbuch"* can be seen i
 
 ## Procedure of data documentation
 
+::: {.callout-tip collapse="true" appearance="simple" title="Tip: Data management (ger only)"}
+
+Recommendations for data management (e.g., planning, generation, preparation & analyses, and publications)
+
+![Forschungsdatenmanagement in kleinen Forschungsprojekten](RatSWD (2023) - FDM-kleine Projekte.pdf){#fig-data-manage width=80% height=5in}
+
+:::
+
+
 ### Basis
 
 The basis of data documentation are the:
@@ -82,10 +90,9 @@ The basis of data documentation are the:
 
 To get an overview, you should start with carefully reviewing these sources and think about a meaningful structure and order. 
 
-::: {.callout-tip}
-## Tip: How to design codebooks?
+::: {.callout-tip appearance="simple" collapse="false" title="Tip: How to design codebooks?"}
 
-You can find some information at the [https://datawizkb.leibniz-psychology.org](https://datawizkb.leibniz-psychology.org/index.php/during-data-collection/what-should-i-know-about-codebooks/){target="_blank"} website. 
+You can find some information at the [https://datawizkb.leibniz-psychology.org](https://datawizkb.leibniz-psychology.org/index.php/during-data-collection/what-should-i-know-about-codebooks/) website. 
 :::
 
 ### Order

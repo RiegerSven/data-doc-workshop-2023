@@ -1,7 +1,7 @@
 
 # Descriptive statistics and item analysis  {#item-analy-descr}
 
-In this part you will learn how to calculate descriptive statistics, item statistics and calculate scale scores. 
+In this part you will learn how to calculate descriptive statistics, item statistics and scale scores. 
 
 ::: {.callout-note }
 
@@ -183,7 +183,7 @@ kableExtra::kbl(exDescr,
 
 ::: {.callout-note }
 
-Although it is probably a matter of coding taste, we do not recommend such a approach. We like it neat.
+Although it is probably a matter of coding taste, we do not recommend such a "nesting" approach, because it is difficult to read and comprehend. We like it neat. See also the note on [What is the pipe operator?](data-cleaning.qmd#what-is-pipe-op).
 
 :::
 

@@ -57,7 +57,9 @@ rstudversion <- paste0("v","2023.3.0.386")
 pkgList <- c("rmarkdown",
              "knitr", # tables
              "kableExtra", # tables
+             "tibble", # data frame
              "data.table", # rbindlist function
+             "haven", # read data
              "lavaan", # generate data
              "dplyr", # prepare data
              "car", # recoding
@@ -70,7 +72,11 @@ pkgList <- c("rmarkdown",
 #| eval: true
 #| echo: false
 
-otherPkgs <- c("base", "learnr", "quarto", "ltm", "mirt", "psy")
+otherPkgs <- c("base", "learnr", "quarto",
+               "ltm", "mirt", "psy",
+               "foreign",
+               "magrittr",
+               "tidyverse")
 
 knitr::write_bib(x = c(otherPkgs, pkgList),
                  file = "r-refs.bib")
@@ -167,6 +173,7 @@ Some cosmetics, and "adding" missing data.
 
 ```{r}
 #| label: sim-data-2
+
 exDat$sex <- exDat$sex-1
 exDat$edu <- exDat$group-1
 exDat$group <- NULL
@@ -200,6 +207,8 @@ exDat$msc2 <- ifelse (
   NA,
   exDat$msc2
   )
+
+exDat$id <- 1:nrow(exDat)
 ```
 
 ::: {.callout-note collapse="true"}
@@ -212,7 +221,7 @@ exDat$msc2 <- ifelse (
 #| tbl-cap: Descriptive statistics of the generated data
 
 
-knitr::kable(x = psych::describe(exDat),
+knitr::kable(x = psych::describe(exDat[,-ncol(exDat)]),
              digits = 2) |> 
   kableExtra::kable_classic("hover")
 
@@ -229,7 +238,7 @@ knitr::kable(x = psych::describe(exDat),
 
 corTab <- format(
   round(
-    cor(exDat,
+    cor(exDat[,-ncol(exDat)],
         use = "pairwise.complete.obs"),
     2),
   nsmall = 2)

@@ -25,4 +25,6 @@
 
 ### Material {.unnumbered}
 
-- All material can be found on the network drive L
+- All material can be found on ~~the network drive L~~ on <https://github.com>
+    - the repository: <https://github.com/RiegerSven/data-doc-workshop-2023> 
+    - (the website: <https://riegersven.github.io/data-doc-workshop-2023/>)

@@ -1,6 +1,15 @@
 # Introduction to R & RStudio
 
-This part gives a short introduction to `R` and `RStudio`.
+This part gives a short introduction to `R` and `RStudio`. If you are familiar with the programs and are not interested in the `R` vs `tidyverse` "distinction", you can skip this section.
+
+```{r}
+#| label: intro-r-prep
+#| echo: false
+#| warning: false
+
+exDat <- readRDS("exampleDat.RDS")
+
+```
 
 ## What is R & RStudio?
 
@@ -47,7 +56,7 @@ You should **never** work directly in the Console, but always use a R-script (e.
 - **Environment/History/.../Tutorial**
   - Environment: contains all objects that were created or loaded during an R session
   - History:
-  - ... e.g., the free and open source distributed version control system [git](https://git-scm.com/){target="_blank"}
+  - ... e.g., the free and open source distributed version control system [git](https://git-scm.com/)
   - Tutorial: A tutorial to learn `R` with the `learnr` package [@R-learnr]
 
 - **Files/Plots/Packages/Help/Viewer**
@@ -90,13 +99,11 @@ It is also reasonable to use the **project option**. This means, whenever you st
 
 ## Short introduction to the R programming language
 
-This section gives a (very?) brief introduction to `R` programming language. 
+This section gives a (very?) brief introduction to the `R` programming language. 
 
-::: {.callout-tip collapse="true"}
+::: {.callout-tip collapse="true" appearance="simple" title="For (more) comprehensive introductions..."}
 
-## For comprehensive introductions...
-
-or overviews of the language see e.g., 
+...or overviews of the language see (e.g.): 
 
 - [R Manual](https://cran.r-project.org/doc/manuals/r-release/R-intro.html) on the [CRAN](https://cran.r-project.org) website
 
@@ -211,7 +218,18 @@ df <- data.frame(
 
 ::::
 
+::: {.callout-caution collapse="true"}
+## Exercise: Create a new R script
 
+`File > New File > R Script` or alternatively use the shortcut `Ctrl + Shift + N`
+
+![](images/create-r-script.PNG)
+
+
+Then save the file `File > Save` or `File > Save As`. Shortcut: `Ctrl + s`
+
+
+:::
 
 ### Data Types
 
@@ -237,8 +255,9 @@ The basic data types^[We omitted the `complex` type.] in `R` are depicted in @tb
 |               |             characteristic attributes   |                       |
 +---------------+-----------------------------------------+-----------------------+
 | **Special**   | - *Missing values:* unknown cell value  |   `NA` \              |
+|               | - *Impossible values:* not a number     |   `NaN` \             |
 |               | - *Empty values:* known empty           |   `NULL`              |
-|               |                 cell value              |                       |
+|               |                   cell value            |                       |
 +---------------+-----------------------------------------+-----------------------+
 
 : Basic data types in R {#tbl-data-type-R}
@@ -291,7 +310,7 @@ rm(x, fac)
 
 -->
 
-### Data Structures
+### Data Structures {#data-structure}
 
 `R` has a couple of different data structures^[We omitted [arrays](https://cran.r-project.org/doc/manuals/r-release/R-intro.html#Arrays-and-matrices).] which are briefly described in the following subsections.
 
@@ -314,7 +333,7 @@ rm(x, fac)
 
 ::: {.column width="60%"}
 
-::: {.callout-tip collapse="true"}
+::: {.callout-tip collapse="true" appearance="simple"}
 ## Tips for handling vectors
 
 Create a vector with the `c` function
@@ -394,10 +413,10 @@ seq(from = 0,
 
 ::: {.column width="60%"}
 
-::: {.callout-tip collapse="true"}
+::: {.callout-tip collapse="true" appearance="simple"}
 ## Tips for handling matrices {#tip-mat}
 
-- The `matrix` function creates a matrix from the given set of values
+The `matrix` function creates a matrix from the given set of values
 
 ```{r}
 #| label: demo-mat-0
@@ -409,7 +428,7 @@ m <- matrix(data = c(1, 2, 3, 45, 36, 52),
 m
 ```
 
-- Slicing works also on matrices: `m[row , column]`
+Slicing works also on matrices: `m[row , column]`
 
 ```{r}
 #| label: mat-slice
@@ -432,7 +451,7 @@ m[, 1:2]
 -   can contain elements of various data types
 -   often ordered collection of values
 -   one-indexed (indexing starts with 1)
--   e.g., `list("hello", 6, NULL)`
+-   e.g., `list("hi", 2, NULL)`
 
 :::
 
@@ -442,7 +461,7 @@ m[, 1:2]
 
 ::: {.column width="60%"}
 
-::: {.callout-tip collapse="true"}
+::: {.callout-tip collapse="true" appearance="simple"}
 ## Tips for handling lists
 
 Create lists (with different elements, i.e., numbers and letters) with the `list` function
@@ -526,7 +545,7 @@ length(unlist(l4))
 
 ::: {.column width="60%"}
 
-::: {.callout-tip collapse="true"}
+::: {.callout-tip collapse="true" appearance="simple"}
 ## Tips for handling dataFrames {#tip-df}
 
 ```{r}
@@ -607,7 +626,79 @@ rm(df)
 
 ::::
 
+## Base R ~~vs.~~ & tidyverse {#baseR-tidyverse}
 
+
+:::: {.columns}
+
+::: {.column width="47.5%"}
+
+Besides the functionality of base `R` [@R-base], there is the so-called `tidyverse` [@R-tidyverse] within `R`. The `tidyverse` is a collection of `R` packages (see @fig-tidyverse) that *"share an underlying design philosophy, grammar, and data structures"* and are (specifically) designed for data science (see <https://www.tidyverse.org/>).
+
+:::
+
+::: {.column width="5%"}
+<!-- empty column to create gap -->
+:::
+
+::: {.column width="47.5%"}
+
+![tidyverse package collection](images/tidyverse.png){#fig-tidyverse width=50%}
+
+:::
+
+::::
+
+
+Within the `tidyverse` package collection, the `dplyr` package [@R-dplyr] provides a set of convenient functions for manipulating data. Together with the pipe operator `%>%` from the `magrittr` package [@R-magrittr]), it is an extremely powerful approach to manipulate data in a clear and comprehensible way. The native^[for the difference between `|>` and `%>%` see <https://ivelasq.rbind.io/blog/understanding-the-r-pipe/>] `R` pipe `|>` was introduced with `R` [v4.1.0](https://cran.r-project.org/bin/windows/base/old/4.1.0/NEWS.R-4.1.0.html). 
+
+::: {.callout-tip collapse="true"}
+## What exactly does the pipe operator |>? {#what-is-pipe-op}
+
+[The tidyverse style guide](https://style.tidyverse.org/) suggests using the pipe operator *"to emphasize a sequence of actions"*. The pipe operator can be understood as *"take the object and then"* pass it to the next function. In the following, the use of the base `R` pipe operator is shown:
+
+1. **Take** the data frame `exDat` **and then** 
+2. Calculate descriptive statistics using the `describe` function from the `psych` package [@R-psych] **and then**
+3. Create a table with the `kable` function from the `knitr` package [@R-knitr]
+
+```{r}
+#| label: demo-pipe-1
+#| code-fold: false
+#| code-line-numbers: true
+
+exDat |> 
+  psych::describe(fast=TRUE) |> 
+  knitr::kable(digits = 2) 
+```
+
+
+In contrast, when we use a nested approach the code would look like this:
+
+```{r}
+#| label: demo-pipe-2
+#| code-fold: false
+#| code-line-numbers: true
+#| eval: false
+
+knitr::kable(psych::describe(exDat,fast=TRUE),digits = 2) 
+```
+...or maybe a little bit more clear:
+
+```{r}
+#| label: demo-pipe-3
+#| code-fold: false
+#| code-line-numbers: true
+#| eval: false
+
+knitr::kable(
+  psych::describe(exDat,
+                  fast=TRUE),
+  digits = 2) 
+```
+
+Nevertheless, when there are many functions, it gets kind of messy and difficult to comprehend. For more information on how to use pipes, see [Chapter 4](https://style.tidyverse.org/pipes.html) of the guide.
+
+:::
 
 
 

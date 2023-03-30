@@ -1,0 +1,32 @@
+# Data processing
+
+**Steps** in data processing (or preparation) include:
+
+1.  [Recoding variables]    
+2.  [Auto-recoding]   
+3.  [Building new variables]
+
+
+## Recoding variables
+
+When recoding variables, new values are assigned to the old values (e.g. reversed polarity items).
+
+The old values can either be overwritten by the new values **or saved as a new variable**.
+
+::: {.callout-important collapse="true"}
+
+## We always create a new variable when recoding!
+
+-   old values are not lost    
+-   errors during recoding can be reproduced
+
+:::
+
+**Procedure:**
+
+1.  Transform    
+2.  Recode in new variable
+
+## Auto-recoding
+
+## Building new variables
