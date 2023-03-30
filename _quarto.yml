@@ -12,10 +12,9 @@ book:
   date: "tba"
   page-navigation: true
   search: true
-  reader-mode: false
-  repo-url: https://github.com/RiegerSven/data-documentation-workshop-2023
-  repo-actions: [edit]
-  #downloads: [pdf, epub]
+  reader-mode: true
+  repo-url: https://github.com/RiegerSven/data-doc-workshop-2023
+  repo-actions: [edit, issue]
   sidebar:
     style: docked
     background: light
@@ -26,6 +25,7 @@ book:
     - intro-r-rstudio.qmd
     - intro-quarto.qmd
     - data-cleaning.qmd
+    - data-proc.qmd
     - item-analy-descr.qmd
     - references.qmd
 
@@ -43,8 +43,8 @@ format:
     code-fold: show
     code-summary: "Show/hide code"
     link-external-newwindow: true
- # pdf:
-  #  documentclass: scrreprt
-
-
+    grid:
+      sidebar-width: 275px
+      margin-width: 275px
+      body-width: 600px
 
