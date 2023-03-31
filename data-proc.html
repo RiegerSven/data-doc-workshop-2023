@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Data documentation with R and Quarto - 5&nbsp; Data processing</title>
+<title>Data documentation with R and Quarto - 6&nbsp; Data processing</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -107,7 +107,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./data-proc.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data processing</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./data-proc.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data processing</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -172,20 +172,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./imp-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Import data</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./data-cleaning.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Import data &amp; data cleaning</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data cleaning</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./data-proc.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data processing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data processing</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./item-analy-descr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Descriptive statistics and item analysis</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Descriptive statistics and item analysis</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -204,9 +210,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#recoding-variables" id="toc-recoding-variables" class="nav-link active" data-scroll-target="#recoding-variables"><span class="header-section-number">5.1</span> Recoding variables</a></li>
-  <li><a href="#auto-recoding" id="toc-auto-recoding" class="nav-link" data-scroll-target="#auto-recoding"><span class="header-section-number">5.2</span> Auto-recoding</a></li>
-  <li><a href="#building-new-variables" id="toc-building-new-variables" class="nav-link" data-scroll-target="#building-new-variables"><span class="header-section-number">5.3</span> Building new variables</a></li>
+  <li><a href="#recoding-variables" id="toc-recoding-variables" class="nav-link active" data-scroll-target="#recoding-variables"><span class="header-section-number">6.1</span> Recoding variables</a></li>
+  <li><a href="#auto-recoding" id="toc-auto-recoding" class="nav-link" data-scroll-target="#auto-recoding"><span class="header-section-number">6.2</span> Auto-recoding</a></li>
+  <li><a href="#building-new-variables" id="toc-building-new-variables" class="nav-link" data-scroll-target="#building-new-variables"><span class="header-section-number">6.3</span> Building new variables</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/RiegerSven/data-doc-workshop-2023/edit/main/data-proc.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/RiegerSven/data-doc-workshop-2023/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -215,7 +221,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data processing</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data processing</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -238,8 +244,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
 <li><a href="#building-new-variables">Building new variables</a></li>
 </ol>
-<section id="recoding-variables" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="recoding-variables"><span class="header-section-number">5.1</span> Recoding variables</h2>
+<section id="recoding-variables" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="recoding-variables"><span class="header-section-number">6.1</span> Recoding variables</h2>
 <p>When recoding variables, new values are assigned to the old values (e.g.&nbsp;reversed polarity items).</p>
 <p>The old values can either be overwritten by the new values <strong>or saved as a new variable</strong>.</p>
 <div class="callout callout-style-default callout-important callout-titled">
@@ -269,11 +275,11 @@ We always create a new variable when recoding!
 <li>Recode in new variable</li>
 </ol>
 </section>
-<section id="auto-recoding" class="level2" data-number="5.2">
-<h2 data-number="5.2" class="anchored" data-anchor-id="auto-recoding"><span class="header-section-number">5.2</span> Auto-recoding</h2>
+<section id="auto-recoding" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="auto-recoding"><span class="header-section-number">6.2</span> Auto-recoding</h2>
 </section>
-<section id="building-new-variables" class="level2" data-number="5.3">
-<h2 data-number="5.3" class="anchored" data-anchor-id="building-new-variables"><span class="header-section-number">5.3</span> Building new variables</h2>
+<section id="building-new-variables" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="building-new-variables"><span class="header-section-number">6.3</span> Building new variables</h2>
 
 
 <!-- -->
@@ -582,12 +588,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./data-cleaning.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Import data &amp; data cleaning</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data cleaning</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./item-analy-descr.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Descriptive statistics and item analysis</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Descriptive statistics and item analysis</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
