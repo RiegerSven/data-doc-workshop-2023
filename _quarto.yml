@@ -24,6 +24,7 @@ book:
     - gen-info.qmd
     - intro-r-rstudio.qmd
     - intro-quarto.qmd
+    - imp-data.qmd
     - data-cleaning.qmd
     - data-proc.qmd
     - item-analy-descr.qmd
