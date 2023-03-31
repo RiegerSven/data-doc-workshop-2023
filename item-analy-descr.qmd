@@ -121,13 +121,7 @@ table(exDat$sex,
 ::::
 
 
-However, often you need to calculate the descriptive statistics not only for a single variable, but for many variables. Again, in `R` this can be done in many different ways. Here we depict a base `R` solution using the `apply` function.
-
-The `apply` function needs the following arguments (copied from the function description):
-
-- `X`: an array, including a matrix.
-- `MARGIN`: a vector giving the subscripts which the function will be applied over. E.g., for a matrix 1 indicates rows, **2 indicates columns**, c(1, 2) indicates rows and columns. Where X has named dimnames, it can be a character vector selecting dimension names.
-- `FUN`: the function to be applied: see ‘Details’.
+However, often you need to calculate the descriptive statistics not only for a single variable, but for many variables. Again, in `R` this can be done in many different ways. Here we depict a base `R` solution using the `apply` function (for more on the apply function see the [Tip](#apply-func) on the apply function).
 
 In order to better retrace the calculation procedure, we present it in a two-step^[That is actually a three-step approach.] approach:
 
