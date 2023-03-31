@@ -73,7 +73,7 @@ pkgList <- c("rmarkdown",
 #| echo: false
 
 otherPkgs <- c("base", "learnr", "quarto",
-               "ltm", "mirt", "psy",
+               "ltm", "mirt", "psy", "mice",
                "foreign",
                "magrittr",
                "tidyverse")
@@ -207,7 +207,36 @@ exDat$msc2 <- ifelse (
   NA,
   exDat$msc2
   )
+```
 
+Add a character.
+
+```{r}
+#| label: sim-data-3
+
+
+exDat$fLang <- rep(c("german", "ger", "germn",
+                     "italian",
+                     "french",
+                     NA,
+                     " ",
+                     ""),
+                   c(650, 49, 1, 10, 10, 20, 5, 5))
+
+
+```
+
+Add outlier for the variable `age.`
+
+```{r}
+#| label: sim-data-5
+exDat[600, "age"] <- 30
+```
+
+Add `id` variable.
+
+```{r}
+#| label: sim-data-6
 exDat$id <- 1:nrow(exDat)
 ```
 
@@ -236,9 +265,11 @@ knitr::kable(x = psych::describe(exDat[,-ncol(exDat)]),
 #| echo: false
 #| tbl-cap: Correlation table of the generated data
 
+
+
 corTab <- format(
   round(
-    cor(exDat[,-ncol(exDat)],
+    cor(exDat[,!names(exDat) %in% c("fLang", "id")],
         use = "pairwise.complete.obs"),
     2),
   nsmall = 2)
