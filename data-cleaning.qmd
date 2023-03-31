@@ -1,16 +1,15 @@
-# Import data & data cleaning
+# Data cleaning
+
+This section provides an introduction data cleaning. When data is really messy, data cleaning can be a challenging task. We provide some approaches that however, will not include or solve all issues during data cleaning.
 
 ```{r}
-#| label: data-cleaning-prep
+#| label: read-data-clean
 #| echo: false
 #| warning: false
 
 exDat <- readRDS("exampleDat.RDS")
 
-library(dplyr)
 ```
-
-This section provides an introduction to importing data sets and data cleaning in general. When data is really messy, data cleaning can be a challenging task. We provide some approaches that however, will not include or solve all issues during data cleaning. 
 
 ```{css, echo=FALSE}
 .vScrollbar {
@@ -18,132 +17,6 @@ This section provides an introduction to importing data sets and data cleaning i
   overflow-y: scroll;
 }
 ```
-
-## Import (or export) data sets
-
-In `R` data sets are usually stored as `data.frame` objects (see also the section [Data Structures](intro-r-rstudio.qmd#data-structure)). There are other object types for data sets such as `tibble` from the `tibble` package [@R-tibble] or `data.table` from the `data.table` package [@R-data.table] which are more efficient, especially when it comes to (very) large data sets (see e.g., [Chapter 10](https://r4ds.had.co.nz/tibbles.html) of [R for Data Science](https://r4ds.had.co.nz/) and the [vignette](https://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro.html) of the `data.table` package).
-
-### Data frames
-
-Data sets can come in many different file formats. For example, `.txt`, `.csv` files, or `.sav` ([SPSS](https://www.ibm.com/spss)), `dta` ([Stata](https://www.stata.com/)), `.sas7bdat` ([SAS](https://www.sas.com/en_us/home.html)) files.
-
-To import e.g., `.csv` or `.txt` files, `R` offers a couple of functions that deal with these formats:
-
-- `read.table`: Reads a file in table format and creates a data frame from it, with cases corresponding to lines and variables to fields in the file.
-    - `read.csv` or `read.csv2`^[see also here: <https://stackoverflow.com/questions/22970091/difference-between-read-csv-and-read-csv2-in-r>]
-    - `read.delim` or `read.delim2` 
-
-- `readLines`: Read some or all text lines from a connection.
-
-- ...
-
-When it comes to other (software specific) formats, you need additional packages e.g., `foreign` [@R-foreign] or `haven` [@R-haven]. In the following, we first export the `exDat` data set to a `.sav` file using the `write.foreign` function from the `foreign` package.
-
-To import the SPSS data sets (`.sav` file), we may use the `read.spss` function from the `foreign` package [@R-foreign]. There are a couple of default arguments which you (likely) want to change:
-
-- `use.value.labels`: logical: convert variables with value labels into R factors with those levels? (default is `TRUE` switch to `FALSE`)
-- `to.data.frame`logical: return a data frame? (default is `FALSE` switch to `TRUE`)
-- `use.missings`: logical: should information on user-defined missing values be used to set the corresponding values to NA?
-
-```{r}
-#| label: demo-read-spss
-#| eval: false
-#| code-fold: false
-
-exDatImpforeign <- foreign::read.spss("file-to-path-with-.sav-file",
-                                      use.value.labels = FALSE,
-                                      to.data.frame = TRUE,
-                                      use.missings = TRUE)
-
-```
-
-::: {.callout-note collapse="true" appearance="simple"}
-## Exporting dataframes
-
-To export data to a file, you can use the `write` function(s):
-
-- `write.table`
-- `write.csv` or `write.csv2`
-- ...
-
-Again, when it comes to software-specific file formats you need additional packages such as `foreign` [@R-foreign] or `haven` [@R-haven]:
-
-- `haven::write_sav`
-- `foreign::write.foreign`
-- ...
-
-
-In the following, the use of the `write.foreign` function is displayed:
-
-```{r}
-#| label: demo-write-foreign
-#| eval: false
-#| code-fold: false 
-
-
-#getwd()
-codefile <- tempfile()
-
-foreign::write.foreign(exDat,
-                       "exDat.sav",
-                       codefile = codefile,
-                       package = c("SPSS"))
-
-unlink(codefile)
-```
-
-Note that there are a couple of further steps necessary to get a working `.sav` file. We recommend using the `haven` [@R-haven] package (see [below]()), at least when it comes to exporting data sets.
-
-::: 
-
-### Tibbles
-
-The tibble package is part of the `tidyverse`^[for more see the section on [Base R ~~vs.~~ & tidyverse](intro-r-rstudio.qmd#baseR-tidyverse).] [@R-tidyverse].
-
-First, check the class of the example data set `exDat`.
-
-```{r}
-#| label: class-exDat
-#| code-fold: false
-class(exDat)
-```
-The `as_tibble` function from the `tibble` package [@R-tibble] turns an existing object (a data frame or matrix) into `tibble` which is a data frame with `class` `tbl_df` (see `?as_tibble`).
-
-
-```{r}
-#| label: demo-as-tibble
-#| code-fold: false
-exDatTib <- tibble::as_tibble(exDat)
-class(exDatTib)
-```
-
-The `write_sav` function from the `haven` package [@R-haven] can also be used to export data sets. Before exporting the data, you may want to check your working directory with the `getwd()` function.
-
-```{r}
-#| label: demo-write-sav
-#| eval: false
-#| code-fold: false 
-
-
-#getwd()
-haven::write_sav(exDat, "exDat.sav")
-
-```
-
-To import the data set, we use the `read_sav` function from the `haven` package.
-
-```{r}
-#| label: demo-read-sav
-#| eval: false
-#| code-fold: false
-
-exDatImpTest <- haven::read_sav("exDat.sav")
-
-```
-
-Note that the `read_sav` returns a `tibble`, `data frame` variant (with nice defaults).
-
-For more see <https://tibble.tidyverse.org/> and [Chapter 10](https://r4ds.had.co.nz/tibbles.html) of [R for Data Science](https://r4ds.had.co.nz/).
 
 ## Why data cleaning?
 
@@ -207,7 +80,7 @@ Duplicate observations are identified via the `id` and `variable` values (i.e., 
 
 : Overview of duplicate observations scenarios {#tbl-dup-obs}
 
-::: {.callout-tip collapse="true" appearance="simple" title="Think carefully about the identification variables!"} 
+::: {.callout-tip collapse="true" appearance="simple" title="Tip: Think carefully about the identification variables!"} 
 
 Identification (ID) variables are eminent when working on projects that contain several sources (e.g., different questionnaires), or span across multiple years (e.g., longitudinal studies) and must be **planned before the data collection**.
 
@@ -279,17 +152,10 @@ dupIDs[order(dupIDs$id),]
 ```
 
 
+Exclude duplicates... add here
+
 ```{r}
 
-
-
-table(exDatID$dupID)
-
-table(ifelse ( duplicated(exDatID[,!names(exDatID) %in% c("id")]), 1, 0))
-
-which(duplicated(exDatID[,"id"]))
-
-#exDatID[which(duplicated(exDatID$id)), ]
 
 exDatID$dupID <- NULL
 ```
@@ -329,22 +195,22 @@ Remove all duplicates contained in `exampleDat_ID.RDS` and assign the dataFrame 
 
 ## Handling missing data {#handle-missing}
 
-Missing data is a common problem in most behavioral science research [@Enders2010; @Enders2023;@Schafer2002]. Especially, in questionnaire surveys it is unavoidable that values are missing because, for example, a field of the questionnaire was not filled in. Therefore, it is essential to examine the data with regard to missing data. By missing values, we refer to cells that could have a value, but whose value is not available (see section on [Data Types](intro-r-rstudio.qmd#data-types) in the [Introduction to R & RStudio](intro-r-rstudio.qmd) part).
+Missing data is a common problem in most behavioral science research [@Enders2010; @Enders2023;@Schafer2002]. Especially, in questionnaire surveys it is unavoidable that values are missing because a field of the questionnaire was not filled in or a person dropped out of the study. Therefore, it is essential to examine the data with regard to missing data. By missing values, we refer to cells that could have a value, but whose value is not available (see section on [Data Types](intro-r-rstudio.qmd#data-types) in the [Introduction to R & RStudio](intro-r-rstudio.qmd) part).
 
 The procedure encompasses ~~3~~ 2 steps:
 
 1.  [Define missing values](#def-miss) 
-2.  [Check for missing values]    
+2.  [Examine missing values](#examine-miss)  
 3.  ([Omit missing values](#omit-miss) &rarr; usually **not** recommended)
 
 
 ### Define missing values {#def-miss}
 
-In other statistical software programs (e.g., SPSS) or in study planning, missing values are often defined as numeric values (e.g., `-9`, `-88` or `-99`)^[Note that this is also recommended when designing a codebook, see here: <https://datawizkb.leibniz-psychology.org>] or as empty characters/strings (i.e., `""` or `" "`). In `R`, missing values are represented by the symbol `NA` (not available). This means we have to ensure that all missing values are declared as `NA` in the data set.
+In other statistical software programs (e.g., SPSS) or in study planning, missing values are often defined as numeric values (e.g., `-9`, `-88` or `-99`)^[Note that this is also recommended when designing a codebook, see here: <https://datawizkb.leibniz-psychology.org>] or as empty characters/strings (i.e., `""` or `" "`). In `R`, missing values are represented by the symbol `NA` (not available). This means, the first step is to ensure that all missing values are declared as `NA` in the data set.
 
 ::: {.callout-warning collapse="false" appearance="simple" title="Assign -99 values"}
 
-The example data set `exDat` does also not contain any missing values that are not `NA` values. Hence, we have to create them. With the following code, we assign `-99` to the first 5 rows of the variable `age` to a new data set `exDatMis`.
+The example data set `exDat` does also not contain any missing values that are not `NA` values. Hence, we have to create them. With the following code, we assign the values `-99` to the first 5 rows of the variable `age` and `-88` to the first 4 rows of the variables `sex` and `edu` (and store it in a new data set `exDatMis`).
 
 ```{r}
 #| label: add-99
@@ -352,12 +218,13 @@ The example data set `exDat` does also not contain any missing values that are n
 #| code-line-numbers: false
 exDatMis <- exDat
 exDatMis[1:5, "age"] <- -99
+exDatMis[1:4,c("sex", "edu")] <- -88
 head(exDatMis, 6)
 ```
 
-::: {.callout-imporant}
+
 **!! Do not do this with real data !!**
-:::
+
 
 :::
 
@@ -372,12 +239,12 @@ mean(exDat$age, na.rm = T)
 mean(exDatMis$age, na.rm = T)
 ```
 
-To fix this issue, we may use the following two approaches:
+To set the numeric values of `-99` or `-88` to `NA`, we may use one of the following two approaches:
 
 ::: {.panel-tabset}
 ### Base R
 
-For a single variable
+For a single variable:
 
 ```{r}
 #| label: declare-miss
@@ -385,7 +252,17 @@ For a single variable
 exDatMis$age[exDatMis$age == -99] <- NA
 ```
 
-For the whole data set
+For multiple variables:
+
+```{r}
+#| label: declare-miss-mult-var
+#| code-fold: false
+
+colToNa <- c("sex", "edu")
+exDatMis[colToNa][exDatMis[colToNa] == -88] <- NA
+```
+
+For the whole data set:
 
 ```{r}
 #| label: declare-miss-whole
@@ -396,161 +273,395 @@ exDatMis[exDatMis == -99] <- NA
 
 ### dplyr package
 
-`dplyr::na_if()` can be used to convert a specific value contained in a variable to `NA`.
+The `na_if()` function from the `dplyr` package [@R-dplyr] is designed to to convert a (specific) values to `NA`.
+
+For a single variable:
 
 ```{r}
+#| label: declare-miss-dply
+#| code-fold: false
 #| eval: false
-exDat$age <- dplyr::na_if(exDat$age, -99)
+
+exDatMis$age <- dplyr::na_if(exDatMis$age, -99)
 ```
+
+For multiple variables:
+
+```{r}
+#| label: declare-miss-mult-var-dplyr
+#| code-fold: false
+#| eval: false
+colToNa <- c("sex", "edu")
+exDatMis <- exDatMis |>
+  dplyr::mutate(dplyr::across(colToNa, na_if, y = -88)) 
+```
+
+
+For the whole data set:
+
+```{r}
+#| label: declare-miss-whole-dplyr
+#| code-fold: false
+#| eval: false
+
+
+exDatMis <- exDatMis |>
+  dplyr::mutate(dplyr::across(colnames(exDatMis), na_if, y = -88))
+```
+
+But note that `na_if()` is meant for use with vectors rather than entire data frames.
+
 :::
 
-### Check for missing values
 
-For this part of the data cleaning process, the `dplyr` package offers no particular advantages over `R Base`.
 
-The `summary()` function that gives an overview of the quartils, the mean and the amount of `NA`s of each variable of the given dataFrame.
+
+### Examine missing values {#examine-miss}
+
+The `is.na` function indicates which elements are missing. It requires an input `x` that can be e.g., a `vector`, `data.frame` or `list`. The values that are returned depend on the input. For example, when you pass a `vector` to the function, it returns a `logical` `vector` of the same length as its argument `x`, containing `TRUE` for those elements marked `NA` or, for `numeric` or complex `vectors`, `NaN`, and `FALSE` otherwise.
 
 ```{r}
+#| label: demo-isna
+#| code-fold: false
+is.na(
+  c(1, NA, "hello", NaN, " ")
+  )
+
+
+```
+In the following, we show how the `is.na` function may be applied to variables within a data set. To count the missing values (or to be more specific the returned `TRUE` values), we use the `sum` and `colSums` functions. 
+
+::: {.callout-tip collapse="true" appearance="simple" title="Tip: summary() of a data.frame"}
+The `summary()` function returns beside some descriptive statistics (e.g., minimum, maximum, mean, ...), also the amount of `NA`s of each variable of the given data set.
+
+```{r}
+#| label: demo-summary-miss
+#| code-fold: false
 summary(exDat)
 ```
 
-When considering a single variable, the sum of cells with missing values can be calculated using the function `sum()`.
+:::
+
+
+::: {.panel-tabset}
+### Base R
+
+For a single variable:
 
 ```{r}
+#| label: demo-count-miss-single
+#| code-fold: false
+
 sum(is.na(exDat$msc2))
+
 ```
 
-::: {.callout-tip collapse="true"}
-## Tip for advanced users
-
-You can apply this function to all variables of the data set:
+For multiple variables:
 
 ```{r}
-sapply(exDat, function(x) sum(is.na(x)))
+#| label: demo-count-miss-mult
+#| code-fold: false
+
+colSums(is.na(exDat[,c("msc2", "sex", "edu")]))
+
+
 ```
+
+For the whole data set:
+
+```{r}
+#| label: demo-count-miss-whole
+#| code-fold: false
+
+colSums(is.na(exDat))
+
+
+```
+
+### dplyr package
+
+For a single variable:
+
+```{r}
+#| label: demo-count-miss-single-dplyr
+#| code-fold: false
+exDat |>
+  dplyr::select(msc2) |>
+  is.na() |>
+  sum()
+```
+
+
+For multiple variables:
+
+```{r}
+#| label: demo-count-miss-mult-dplyr
+#| code-fold: false
+
+exDat |>
+  dplyr::select(c("msc2", "sex", "edu")) |>
+  is.na() |>
+  colSums()
+  
+
+
+```
+
+For the whole data set:
+
+```{r}
+#| label: demo-count-miss-whole-dplyr
+#| code-fold: false
+
+exDat |>
+  is.na() |>
+  colSums()
+
+```
+
+:::
+
+
+::: {.callout-caution collapse="true"}
+## Exercise: Count the missing values!
+
+0. Create a `R`- or `Quarto` script/document.
+
+1. Import the data set `` from the github repository 
+
+2. Identify and define the missing values as `NA`
+
+3. Count them for the whole data set.
+
+
 :::
 
 
 
 ### Omit missing values {#omit-miss}
 
+Although omitting or deleting missing values is a common practice, this is not a recommended approach handling missing data and should--in most data scenarios--be avoided altogether [@Schafer2002]. Two "state-of-the-art" missing data methods are maximum likelihood estimation [e.g., implemented in the `lavaan` package, see @R-lavaan] and multiple imputation [e.g., implemented in the `mice` package, see @R-mice; for good introductions to this topic, see @Enders2010].
+
+Nevertheless, if you would like to omit missing values anyway, there are several functions to do this in `R`. Also, it is important to note that ignoring or omitting missing values are often the default options in `R`.
+
+For example, by negating the `is.na` function (i.e., `!is.na`), those rows that do not contain `NA`s on a variable or data set are kept.
+
 ::: {.panel-tabset}
 
 ### Base R
 
-By negating the `is.na()` function, those rows that do not contain `NA`s on a variable are kept.
+For a single variable:
 
 ```{r}
-#| eval: false
-
-exDat[which(!is.na(exDat$age)), ]
-```
-
-`na.omit()` returns only those rows in a dataFrame which do not contain any `NA`s.
-
-```{r}
+#| label: omit-na-single
+#| code-fold: false
 #| class-output: vScrollbar
 
-na.omit(exDat)
+exDat[!is.na(exDat$age), ]
+
+```
+
+
+For the whole data set:
+
+The `na.omit` function returns the object with incomplete cases removed.
+
+```{r}
+#| label: omit-na-data
+#| code-fold: false
+#| class-output: vScrollbar
+
+exDatnoNA <- na.omit(exDat)
+exDatnoNA
 ```
 
 ### dplyr package
 
-Like in [Identify duplicates], exclusion of missings can be done using `dplyr::filter()`. The following code filters all cases that do not have a missing value in all variables.
+To exclude observations that do have missing values, we may use the `filter` function from the `dplyr` package. 
+
+For a single variable:
 
 ```{r}
+#| label: omit-na-single-dplyr
+#| code-fold: false
 #| class-output: vScrollbar
 
-exDat |> 
-  dplyr::filter(if_all(everything(),
-                       ~ !is.na(.x)))
+exDat |>
+  dplyr::filter(!is.na(age))
+```
+
+For the whole data set:
+
+```{r}
+#| label: omit-na-whole-dplyr
+#| code-fold: false
+#| class-output: vScrollbar
+
+exDatnoNA <- exDat |>
+  dplyr::filter() |>
+  na.omit()
+exDatnoNA
 ```
 
 :::
 
-::: {.callout-caution collapse="true"}
-## Exercise: Remove missing values!
 
-Define `-99` as `NA` across all columns and remove all rows including missing values from dataFrame `exampleDat.RDS` and assign the dataFrame to an object `exDat_noNA`.
-:::
 
 ## Plausibility checks {#plaus-checks}
 
-Plausibility checks can be performed analytically or graphically.
 
-**Purpose:** Detecting    
+So-called plausibility checks are performed in order to detect:
 
--   structural errors (e.g. in coding and input)    
--   theoretical inconsistencies   
--   variables with high proportions of missing values    
--   outliers
+-   structural errors &rarr; e.g., the range of a lickert scale is from 1 to 4, but the value 5 occurs  
+-   theoretical inconsistencies &rarr; e.g., 30 years of age in sample of primary students   
+-   (statistical) outliers &rarr; see Excursus on outlier [below](#excurs-outlier)
 
-::: {.callout-note collapse="true"}
-## Excursus: Outliers
 
-**Definition: +/- 2 or 3 standard deviations**
+::: {.callout-note collapse="true" appearance="simple"}
+## Excursus: Outliers {#excurs-outlier}
 
-> "Extreme observation value that signals a qualitative element that differs from the totality."
->
-> ::: {style="text-align: right;"}
-> -- Rönz & Strohe, 1994
-> :::
+According to [wikipedia](https://en.wikipedia.org/wiki/Outlier), outliers can be defined as a data point that differs significantly from other observations.
 
-Outliers must be detected, as they can introduce bias into parameter estimates and compromise validity.
+Outliers may occur due to different reasons:
 
-**Different ways of handling outliers:**    
+- data entry errors
+- measurement error
+- "true" extreme values 
 
--   Box plots and histograms   
--   Univariate distributions   
--   Examine extreme values   
--   Examine distributions of subgroups    
--   Multivariate scatterplots
+Outliers must be detected, because they may introduce bias into parameter estimates of statistical models and hence, compromise the validity of the results.
 
-**Recommended procedure for handling outliers:**   
-(personal preference)
+Different ways of detecting outliers:    
 
-1.    Examine extreme values    
-      1.    z-standardize variables   
-          $$z = \frac{x_{m} - \bar{x}}{s_{x}}$$ {#eq-z-standardization}   
-      2.    examine for values above -/+ 2 or -/+ 3 standard deviations   
-2.    Coded these extreme values to `1` in a dummy variable    
-      -   `1` = outlier, `0` = no outlier
+-   Z-score (e.g., above or below $3SD$)
+-   Visualization (e.g., box plots, histograms, or scatter plot) 
+-   Mahalanobis distance
+- ...
+
+
 
 :::
 
-### Discrete variables
-(= countable)    
+Plausibility checks can be performed both analytically and graphically. The `range` function is a useful function to quickly examine the minimum and maximum of variables that are no characters/string variables (i.e., `!is.character`).
 
--   After assigning the value labels and after coding the missing values   
--   Then check if non-coded numerical values exist
+::: {.panel-tabset}
+### Base R
 
-**Procedure:**
-
-1.  [Frequency tables]   
-2.  [Bar charts]   
-3.  [Range of items]
-
-#### Frequency tables {-}
-
-`R` provides a function `table()` "to build a contingency table of the counts at each combination of factor levels" [@R-base]. By default, `NA`s are not included in the table. This can be changed by the argument `useNA`. It accepts a string as input with the accepted values `"ifany"` (only if the count is positive) and `"always"` (even for zero counts.
+1. Identify all non-character variables using the `!is.character` function within a `lapply` loop. Because `lapply` returns a list, we need to `unlist` the output to get a logical vector.
 
 ```{r}
-table(exDat$edu, useNA = "always")
+#| label: check-range-1
+#| code-line-numbers: true
+
+nChrV <- unlist(lapply(exDatMis,
+                         function(x) !is.character(x)),
+                use.names = FALSE)
+#class(nChrV)
 ```
 
-This function can be embedded in another function `proportions()` which creates a relative frequency table. As the [R Documentation on `proportions()`](https://rdrr.io/r/base/proportions.html) notes, "`prop.table()` is an earlier name, retained for back-compatibility."
+2. Then we can apply the `range` function to the respective variable within the `exDatMis`.
 
-Proportions are often numerics with many decimal places. Therefore, it may be useful to round the values to four decimal places or to convert them to percentages with two decimal places.
+::: {.callout-tip collapse="true" appearance="simple"}
+## Tip: The apply function {#apply-func}
+
+The `apply` function is designed to apply functions (e.g., `range`) over array margins (e.g., rows or columns) and needs the following arguments (copied from the function description):
+
+- `X`: an array, including a matrix.
+- `MARGIN`: a vector giving the subscripts which the function will be applied over. E.g., for a matrix 1 indicates rows, **2 indicates columns**, c(1, 2) indicates rows and columns. Where X has named dimnames, it can be a character vector selecting dimension names.
+- `FUN`: the function to be applied: see ‘Details’.
+
+:::
 
 ```{r}
-round(proportions(table(exDat$edu)), 4)
+#| label: check-range-2
+#| code-line-numbers: true
+apply(exDatMis[,nChrV],
+      2,
+      FUN = range, na.rm=TRUE)
 
-round(proportions(table(exDat$edu)) * 100, 2)
+```
+### dplyr package
+
+In the `dplyr` package we first use the `select` function (i.e., to select the variables) in combination with `where` function to identify all non-character variables by stating `!is.character`. Then applying the `range` function on very variable in the data set.
+
+```{r}
+#| label: check-range-dplyr
+
+exDatMis |>
+  dplyr::select(
+    dplyr::where(~!is.character(.))
+    ) |>
+  dplyr::summarise_all("range", na.rm = TRUE)
+
 ```
 
-#### Bar charts {-}
+:::
 
-Bar charts are one way of graphically checking the plausibility of discrete variables. Plots can be created with `Base R` [@R-base], as shown below. However, there are also packages like `ggplot2` [@R-ggplot2] that are specifically designed for data visualization. See the [tidyverse documentation](https://ggplot2.tidyverse.org/) of `ggplot2-package` for more details.
+
+::: {.callout-caution collapse="true"}
+## Exercise: Make the value 30 of the age variable to NA.
+
+1. Identify the observation, using the `which` function.
+
+```{r}
+#| label: ident-age-30
+#| code-fold: false
+exDat[which(exDat$age == 30),c("id", "age")]
+
+```
+
+2. Set the value to `NA`
+
+```{r}
+#| label: make-age-30-NA
+#| code-fold: false
+exDat[which(exDat$age == 30),"age"] <- NA
+
+```
+
+:::
+
+
+
+### Categorical variables
+
+#### Frequencies/Counts
+
+To do further plausibility checks on categorical variable, we may examine counts at each combination of factor levels (e.g., examine extreme responses in one category).
+
+::: {.panel-tabset}
+##### Base R
+
+The `table` function builds a contingency table of the counts at each combination of factor levels. 
+
+::: {.callout-note collapse="true" appearance="simple"}
+
+Note that by default, `NA`s are not included in the `table` function. To include `NA`s, we need to change the `useNA` argument to `"ifany"` (only if the count is positive) or `"always"` (even for zero counts).
+
+:::
+
+```{r}
+#| label: clean-demo-table
+#| code-fold: false
+table(exDatMis$edu, useNA = "always")
+```
+
+##### dplyr package
+
+The `dplyr` approach is using the `count` function that counts the unique values of one or more variables.
+
+```{r}
+#| label: clean-demo-count
+#| code-fold: false
+exDatMis |>
+  dplyr::count(edu) 
+
+```
+
+:::
+
+#### Graphical inspection using bar charts 
+
+Bar charts are one way of graphically checking the plausibility of discrete variables. Plots can be created with `R` [@R-base], as shown below. However, there are also packages like `ggplot2` [@R-ggplot2] that are specifically designed for data visualization. See the [tidyverse documentation](https://ggplot2.tidyverse.org/) of `ggplot2-package` for more details.
 
 ```{r}
 #| label: fig-bar-charts
@@ -567,44 +678,17 @@ barplot(table(exDat$edu, useNA = "always"),
         )
 ```
 
-#### Range of items {-}
 
-::: {.panel-tabset}
 
-### Analytical
 
-To explicitly find out the range of a variable, the function `range()` can be used. By default, the function includes `NA`s. Use the argument `na.rm` to specify whether missings should be excluded.
 
-```{r}
-range(exDat$edu, na.rm = T)
-```
+:::
 
-This function can be applied to all numeric variables and generates a matrix.
+### Continious variables
 
-```{r}
-#| eval: false
-#| 
-sapply(exDat,
-       function(x) if (is.numeric(x)) range(x, na.rm = T))
-```
+#### ...
 
-```{r}
-#| label: tbl-range-of-items-all-ranges
-#| code-fold: true
-#| tbl-cap: Ranges of all numeric variables in example data set
-
-exDat_ranges <- data.frame(
-  sapply(exDat,
-         function(x) if (is.numeric(x)) range(x, na.rm = T)),
-  row.names = c("min", "max")
-)
-
-knitr::kable(exDat_ranges,
-             row.names = T) |> 
-  kableExtra::kable_classic("hover")
-```
-
-### Graphical
+#### Graphical inspection using histogram
 
 Boxplots allow visualization of the most important robust measures of location and dispersion.
 
@@ -624,47 +708,6 @@ boxplot(exDat[, -5],
 ```
 
 
-:::
-
-### Metric variables
-
-(= infinite number of real values within a given interval)
-
--   Code missing values first!    
--   Afterwards: Consideration of the observed range of values   
-    -   Question: Are there any unplausible values? (e.g. `age` = `-9`)
-
-**Procedure:**
-
-1.  [Descriptive statistics]    
-2.  [Histogram]
-
-#### Descriptive statistics {-}
-
-The package `psych` [@R-psych] provides useful functions for descriptive statistical analyses.
-
-::: {.panel-tabset}
-
-### Base R
-
-The `summary()` function, introduced in [chapter 4.2.1](#check-for-missibg-values), provides an overview of descriptive statistics.
-
-```{r}
-summary(exDat$age)
-```
-
-### psych package
-
-The function `psych::describe()` contains additional descriptive statistics to those of the `Base R` function (e.g. number of valid cases, skewness, kurtosis, standard error).
-
-```{r}
-psych::describe(exDat$age)
-```
-
-:::
-
-#### Histogram {-}
-
 Histograms are graphical representations of frequency distributions of metric variables. Just like [bar charts](#bar-charts), these visualizations can be modified more using packages like `ggplot2` [@R-ggplot2].
 
 ```{r}
@@ -680,29 +723,6 @@ hist(exDat$age,
      ylim = c(0, 100))
 ```
 
-::: {.callout-tip collapse="true"}
-## Plot probability density
 
-```{r}
-#| label: fig-histogram-density
-#| fig-cap: "Probability density of age in example data set"
-#| eval: false
-
-
-# histogram with probability density
-hist(exDat$age,
-     main = "Age in example data set",
-     probability = T)
-# draw mean
-abline(v = mean(exDat$age, na.rm = T),
-       col = "red",
-       lwd = 3)
-# draw probability density line
-lines(density(exDat$age, na.rm = T),
-      col = "green",
-      lwd = 3)
-```
-
-:::
 
 
