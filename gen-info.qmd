@@ -811,8 +811,86 @@ scaleScore(items = names(mscItems),
 
 ```
 
+#### Clean character variables
+
+The `cleanStr` function is designed to clean strings and has the following arguments:
+
+- `stringToClean`: This should be a character.
+- `pattern`: The pattern which should be replaced. Can be character vector.
+- `replacement`: The replacement. A character with length = 1.
+- `replaceNA`: logical. Should `NA`s be replaced?
+- `replaceNAval`: If `replaceNA` == `TRUE`. The replacement of `NA` values. Default is: `"Unknown"` 
+- `as.fac`: logical. Output of the function (`character` or `factor`) Default is `FALSE`.
+- `print`: logical.
+
+```{r}
+#| label: cleanStr-function
+#| echo: true
+#| eval: true
+#| code-fold: true
+#| code-summary: "Show/hide function"
 
 
+cleanStr <- function ( stringToClean, pattern = NULL, replacement = "Unknown",
+                       replaceNA = TRUE,
+                       replaceNAval = "Unknown",
+                       as.fac = FALSE,
+                       print = TRUE) {
+  
+  if ( length(replacement) > 1 | length(replaceNAval) > 1 ) {
+    
+    stop("Values can only be replaced by one value. length > 1")
+    
+  }
+  
+  if ( !is.character(stringToClean) ) {
+    
+    stop("input is no character")
+    
+  } else {
+      
+    outStr <- stringToClean
+    
+    }
+  
+  if ( replaceNA == TRUE ) {
+    outStr[is.na(outStr)] <- replaceNAval
+    missMess <- paste0("Missing values (NA) are replaced with: '", replaceNAval, "'")
+  } else {
+    
+    missMess <- NULL
+    
+  }
+  
+  outStr[outStr %in% pattern] <- replacement
+  
+  if (print == TRUE ) {
+   
+    message("Input\n")
+    print( table(stringToClean, useNA = "always") )
+    message("Output\n")
+    print( table(outStr, useNA = "always") )
+    
+    message("\nThis is what happened:")
+    cat("The following pattern(s): ",
+        paste0(paste0(pattern, collapse = ", "),
+        "\nwas/were replaced with: ",
+        replacement), "\n\n",
+        missMess)
+    
+    }
+  if ( as.fac == FALSE ) {
+    
+    return(outStr)
+    
+  } else {
+    
+    outFac <- as.factor(outStr)
+    return(outFac)
+  }
+  
+}
+```
 
 
 ```{r}
