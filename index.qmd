@@ -1,5 +1,5 @@
 
-# Preface & Preperation {.unnumbered}
+# Preperation {.unnumbered}
 
 
 This [Quarto book](https://quarto.org/docs/books/) is designed to provide an introduction into data documentation with `R` and `Quarto` and serves as the accompanying script for the workshop. For an overview about the workshop agenda see the [Introduction](#intro.qmd) section. 
