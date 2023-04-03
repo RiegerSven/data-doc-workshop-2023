@@ -46,6 +46,7 @@ format:
   html:
     theme: cosmo
     toc-depth: 4
+    number-sections: true
     linestretch: 1.7
     code-copy: true
     code-link: true
