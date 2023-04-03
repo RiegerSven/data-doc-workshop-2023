@@ -1,13 +1,108 @@
-# Data processing
+# Data transformation
 
-**Steps** in data processing (or preparation) include:
+```{r}
+#| label: read-data-trans
+#| echo: false
+#| warning: false
 
-1.  [Recoding variables]    
-2.  [Auto-recoding]   
-3.  [Building new variables]
+exDat <- readRDS("exampleDat.RDS")
+
+```
+
+In this part you will learn how to transform variables into a usable form for analysis. The steps include:
+
+1. [Building new variables](#build-var)
+2. [Recoding variables](#rec-var)    
+3. [Working with strings]   
 
 
-## Recoding variables
+## Building new variables {#build-var}
+
+To build new variables and add them to a data set, we can use *all* functions and operators that `R` offers.
+
+::: {.callout-note collapse="true" appearance="simple" title="Create and delete objects."}
+
+In `R`, you can create so-called objects (from existing ones) and store them as new objects using functions and operators. In the following example, we create the objects `x` and `y` and assign them numbers.
+
+```{r}
+#| label: demo-build-1
+#| code-fold: false
+x <- 5
+y <- 4
+```
+
+Then we sum them up:
+
+```{r}
+#| label: demo-build-2
+#| code-fold: false
+xy <- x+y
+xy
+```
+This is the same as:
+
+```{r}
+#| label: demo-build-3
+#| code-fold: false
+sum(c(x,y)) == xy
+```
+
+Finally, we may delete all objects using the `rm` function.
+
+```{r}
+#| label: demo-rm
+#| code-fold: false
+
+rm(x,y,xy)
+```
+
+:::
+
+For example, we might want to sum up item indicators to a so-called scale score (for now only the first 2; for a more detailed examination see the section [Descriptive statistics and item analysis](item-analy-descr.qmd)) and add them as a new columnto the example data set `exDat`.
+
+::: {.panel-tabset}
+
+### Base R
+
+There are several ways to do that:
+
+```{r}
+#| label: demo-add-var-1
+#| code-fold: false
+
+exDat$mscSum1 <- exDat$msc1+exDat$msc2
+exDat$mscSum2 <- with(exDat, msc1 + msc2)
+exDat[,"mscSum3"] <- with(exDat, msc1 + msc2)
+
+mscSum4 <- exDat$msc1+exDat$msc2
+exDat <- cbind(exDat, mscSum4)
+
+exDat$mscSum5 <- rowSums(exDat[,c("msc1","msc2")], na.rm = T)
+```
+
+
+To delete variables, you can use the `NULL` statement.
+
+```{r}
+#| label: demo-del-var
+#| code-fold: false
+exDat[,c(paste0("mscSum", 1:5))] <- NULL
+```
+
+
+### dplyr package
+
+```{r}
+#| label: demo-add-var-dplyr
+#| code-fold: false
+
+
+
+```
+
+:::
+
+## Recoding variables {#rec-var}
 
 When recoding variables, new values are assigned to the old values (e.g. reversed polarity items).
 
@@ -28,5 +123,3 @@ The old values can either be overwritten by the new values **or saved as a new v
 2.  Recode in new variable
 
 ## Auto-recoding
-
-## Building new variables

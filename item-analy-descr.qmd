@@ -132,12 +132,12 @@ In order to better retrace the calculation procedure, we present it in a two-ste
 1. Using the `apply` function and save the output in an object (here: `exDescr`):
     - Input `X` is the example data set: `exDat`
     - Set `MARGIN` value to 2, because we want to apply the function over columns of `exDat`
-    - `FUN`: Here we define a function^[It is also possible to write a function in advance and use them in this argument. A short introduction how to write function can be found [here](https://riegersven.github.io/method-website/data-proc-func-loops.html#writing-functions){target="_blank"}.] that calculates the mean, standard deviation, minimum and maximum (combined through the `c` function). Within the braces `{` you can state several (consecutive) arguments. Finally, we return the object (`fOut`) of the function. Note the `fOut` object is not saved in the workspace.
+    - `FUN`: Here we define a function^[It is also possible to write a function in advance and use them in this argument. A short introduction how to write function can be found [here](https://riegersven.github.io/method-website/data-proc-func-loops.html#writing-functions).] that calculates the mean, standard deviation, minimum and maximum (combined through the `c` function). Within the braces `{` you can state several (consecutive) arguments. Finally, we return the object (`fOut`) of the function. Note the `fOut` object is not saved in the workspace.
     
 ```{r}
 #| label: demo-descr-apply-two-1
 
-exDescr <- apply(X = exDat,
+exDescr <- apply(X = exDat[,1:5],
                  MARGIN = 2,
                  FUN = function(x) {
                    fOut <- c(
@@ -185,7 +185,7 @@ Although it is probably a matter of coding taste, we do not recommend such a "ne
 #| label: demo-descr-apply-one
 
 kableExtra::kbl(x = t(
-  apply(exDat,
+  apply(exDat[,1:5],
         MARGIN = 2,
         FUN = function(x) {
           fOut <- c(
