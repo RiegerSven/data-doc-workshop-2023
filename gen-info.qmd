@@ -900,7 +900,8 @@ cleanStr <- function ( stringToClean, pattern = NULL, replacement = "Unknown",
 scaleManualFunctions <- list(varOverview = varOverview,
                              catVar = catVar,
                              contVar = contVar,
-                             scaleScore = scaleScore
+                             scaleScore = scaleScore,
+                             cleanStr = cleanStr
                              )
 save(scaleManualFunctions,
      file = "scaleManualFunctions.Rdata")
