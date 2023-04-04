@@ -81,6 +81,7 @@ div.csl-indent {
 <meta name="quarto:offset" content="./">
 <link href="./data-cleaning.html" rel="next">
 <link href="./intro-quarto.html" rel="prev">
+<link href="./file-richtext" rel="icon">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -111,6 +112,9 @@ div.csl-indent {
 <meta property="og:title" content="Data documentation with R and Quarto - 6&nbsp; Import data">
 <meta property="og:description" content="">
 <meta property="og:site-name" content="Data documentation with R and Quarto">
+<meta name="twitter:title" content="Data documentation with R and Quarto - 6&nbsp; Import data">
+<meta name="twitter:description" content="">
+<meta name="twitter:card" content="summary">
 </head>
 <body class="nav-sidebar docked">
 
@@ -131,8 +135,25 @@ div.csl-indent {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Data documentation with R and Quarto</a> 
-        <div class="sidebar-tools-main">
+        <div class="sidebar-tools-main tools-wide">
     <a href="https://github.com/RiegerSven/data-doc-workshop-2023" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <div class="dropdown">
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+<li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
+              <i class="bi bi-bi-twitter pe-1"></i>
+            Twitter
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
+              <i class="bi bi-bi-facebook pe-1"></i>
+            Facebook
+            </a>
+          </li>
+      </ul>
+</div>
   <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
   <div class="quarto-reader-toggle-btn">
   <i class="bi"></i>
@@ -166,7 +187,7 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Welcome to the workshops</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Welcome to the workshop</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -223,7 +244,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./data-proc.html" class="sidebar-item-text sidebar-link">
+  <a href="./data-transform.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Data transformation</span></span></a>
   </div>
 </li>
@@ -293,17 +314,17 @@ div.csl-indent {
 <p>To import e.g., <code>.csv</code> or <code>.txt</code> files, <code>R</code> offers a couple of functions that deal with these formats:</p>
 <ul>
 <li>
-<p><code>read.table</code>: Reads a file in table format and creates a data frame from it, with cases corresponding to lines and variables to fields in the file.</p>
+<p><code><a href="https://rdrr.io/r/utils/read.table.html">utils::read.table</a></code>: Reads a file in table format and creates a data frame from it, with cases corresponding to lines and variables to fields in the file.</p>
 <ul>
 <li>
-<code>read.csv</code> or <code>read.csv2</code><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>
+<code><a href="https://rdrr.io/r/utils/read.table.html">utils::read.csv</a></code> or <code><a href="https://rdrr.io/r/utils/read.table.html">utils::read.csv2</a></code><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>
 </li>
 <li>
-<code>read.delim</code> or <code>read.delim2</code>
+<code><a href="https://rdrr.io/r/utils/read.table.html">utils::read.delim</a></code> or <code><a href="https://rdrr.io/r/utils/read.table.html">utils::read.delim2</a></code>
 </li>
 </ul>
 </li>
-<li><p><code>readLines</code>: Read some or all text lines from a connection.</p></li>
+<li><p><code><a href="https://rdrr.io/r/base/readLines.html">base::readLines</a></code>: Read some or all text lines from a connection.</p></li>
 <li><p>…</p></li>
 </ul>
 <p>When it comes to other (software specific) formats, you need additional packages e.g., <code>foreign</code> <span class="citation" data-cites="R-foreign">(<a href="references.html#ref-R-foreign" role="doc-biblioref">R Core Team, 2022</a>)</span> or <code>haven</code> <span class="citation" data-cites="R-haven">(<a href="references.html#ref-R-haven" role="doc-biblioref">Wickham et al., 2022</a>)</span>. In the following, we first export the <code>exDat</code> data set to a <code>.sav</code> file using the <code>write.foreign</code> function from the <code>foreign</code> package.</p>
@@ -334,11 +355,11 @@ Exporting dataframes
 </div>
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>To export data to a file, you can use the <code>write</code> function(s):</p>
+<p>To export data to a file, you can use the <code><a href="https://rdrr.io/r/base/write.html">base::write</a></code> function(s):</p>
 <ul>
-<li><code>write.table</code></li>
+<li><code><a href="https://rdrr.io/r/utils/write.table.html">utils::write.table</a></code></li>
 <li>
-<code>write.csv</code> or <code>write.csv2</code>
+<code><a href="https://rdrr.io/r/utils/write.table.html">utils::write.csv</a></code> or <code><a href="https://rdrr.io/r/utils/write.table.html">utils::write.csv2</a></code>
 </li>
 <li>…</li>
 </ul>
@@ -350,7 +371,7 @@ Exporting dataframes
 </ul>
 <p>In the following, the use of the <code>write.foreign</code> function is displayed:</p>
 <div class="cell">
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#getwd()</span></span>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">codefile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempfile</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">foreign</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/foreign/man/write.foreign.html">write.foreign</a></span><span class="op">(</span><span class="va">exDat</span>,</span>
@@ -374,7 +395,7 @@ Exporting dataframes
 <pre><code>[1] "data.frame"</code></pre>
 </div>
 </div>
-<p>The <code>as_tibble</code> function from the <code>tibble</code> package <span class="citation" data-cites="R-tibble">(<a href="references.html#ref-R-tibble" role="doc-biblioref">Müller &amp; Wickham, 2023</a>)</span> turns an existing object (a data frame or matrix) into <code>tibble</code> which is a data frame with <code>class</code> <code>tbl_df</code> (see <code>?as_tibble</code>).</p>
+<p>The <code>as_tibble</code> function from the <code>tibble</code> package <span class="citation" data-cites="R-tibble">(<a href="references.html#ref-R-tibble" role="doc-biblioref">Müller &amp; Wickham, 2023</a>)</span> turns an existing object (a data frame or matrix) into <code>tibble</code> which is a <code>data.frame</code> variant (with nice defaults) and <code>class</code> <code>tbl_df</code> (see <code><a href="https://tibble.tidyverse.org/reference/as_tibble.html">?tibble::as_tibble</a></code>).</p>
 <div class="cell">
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">exDatTib</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="va">exDat</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">exDatTib</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -384,14 +405,14 @@ Exporting dataframes
 </div>
 <p>The <code>write_sav</code> function from the <code>haven</code> package <span class="citation" data-cites="R-haven">(<a href="references.html#ref-R-haven" role="doc-biblioref">Wickham et al., 2022</a>)</span> can also be used to export data sets. Before exporting the data, you may want to check your working directory with the <code><a href="https://rdrr.io/r/base/getwd.html">getwd()</a></code> function.</p>
 <div class="cell">
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#getwd()</span></span>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu">haven</span><span class="fu">::</span><span class="fu"><a href="https://haven.tidyverse.org/reference/read_spss.html">write_sav</a></span><span class="op">(</span><span class="va">exDat</span>, <span class="st">"exDat.sav"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>To import the data set, we use the <code>read_sav</code> function from the <code>haven</code> package.</p>
 <div class="cell">
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">exDatImpTest</span> <span class="op">&lt;-</span> <span class="fu">haven</span><span class="fu">::</span><span class="fu"><a href="https://haven.tidyverse.org/reference/read_spss.html">read_sav</a></span><span class="op">(</span><span class="st">"exDat.sav"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Note that the <code>read_sav</code> returns a <code>tibble</code>, <code>data frame</code> variant (with nice defaults).</p>
+<p>Note that the <code>read_sav</code> returns a <code>tibble</code>, <code>data.frame</code> variant (with nice defaults).</p>
 <p>For more see <a href="https://tibble.tidyverse.org/" class="uri">https://tibble.tidyverse.org/</a> and <a href="https://r4ds.had.co.nz/tibbles.html">Chapter 10</a> of <a href="https://r4ds.had.co.nz/">R for Data Science</a>.</p>
 
 
@@ -756,11 +777,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>To import e.g., <span class="in">`.csv`</span> or <span class="in">`.txt`</span> files, <span class="in">`R`</span> offers a couple of functions that deal with these formats:</span>
 <span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`read.table`</span>: Reads a file in table format and creates a data frame from it, with cases corresponding to lines and variables to fields in the file.</span>
-<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span><span class="in">`read.csv`</span> or <span class="in">`read.csv2`</span>^<span class="co">[</span><span class="ot">see also here: &lt;https://stackoverflow.com/questions/22970091/difference-between-read-csv-and-read-csv2-in-r&gt;</span><span class="co">]</span></span>
-<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span><span class="in">`read.delim`</span> or <span class="in">`read.delim2`</span> </span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`utils::read.table`</span>: Reads a file in table format and creates a data frame from it, with cases corresponding to lines and variables to fields in the file.</span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span><span class="in">`utils::read.csv`</span> or <span class="in">`utils::read.csv2`</span>^<span class="co">[</span><span class="ot">see also here: &lt;https://stackoverflow.com/questions/22970091/difference-between-read-csv-and-read-csv2-in-r&gt;</span><span class="co">]</span></span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span><span class="in">`utils::read.delim`</span> or <span class="in">`utils::read.delim2`</span> </span>
 <span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`readLines`</span>: Read some or all text lines from a connection.</span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`base::readLines`</span>: Read some or all text lines from a connection.</span>
 <span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>...</span>
 <span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a></span>
@@ -787,10 +808,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb9-63"><a href="#cb9-63" aria-hidden="true" tabindex="-1"></a>::: {.callout-note collapse="true" appearance="simple"}</span>
 <span id="cb9-64"><a href="#cb9-64" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exporting dataframes</span></span>
 <span id="cb9-65"><a href="#cb9-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-66"><a href="#cb9-66" aria-hidden="true" tabindex="-1"></a>To export data to a file, you can use the <span class="in">`write`</span> function(s):</span>
+<span id="cb9-66"><a href="#cb9-66" aria-hidden="true" tabindex="-1"></a>To export data to a file, you can use the <span class="in">`base::write`</span> function(s):</span>
 <span id="cb9-67"><a href="#cb9-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-68"><a href="#cb9-68" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`write.table`</span></span>
-<span id="cb9-69"><a href="#cb9-69" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`write.csv`</span> or <span class="in">`write.csv2`</span></span>
+<span id="cb9-68"><a href="#cb9-68" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`utils::write.table`</span></span>
+<span id="cb9-69"><a href="#cb9-69" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`utils::write.csv`</span> or <span class="in">`utils::write.csv2`</span></span>
 <span id="cb9-70"><a href="#cb9-70" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>...</span>
 <span id="cb9-71"><a href="#cb9-71" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-72"><a href="#cb9-72" aria-hidden="true" tabindex="-1"></a>Again, when it comes to software-specific file formats you need additional packages such as <span class="in">`foreign`</span> <span class="co">[</span><span class="ot">@R-foreign</span><span class="co">]</span> or <span class="in">`haven`</span> <span class="co">[</span><span class="ot">@R-haven</span><span class="co">]</span>:</span>
@@ -808,7 +829,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb9-86"><a href="#cb9-86" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false </span></span>
 <span id="cb9-87"><a href="#cb9-87" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-88"><a href="#cb9-88" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-89"><a href="#cb9-89" aria-hidden="true" tabindex="-1"></a><span class="co">#getwd()</span></span>
+<span id="cb9-89"><a href="#cb9-89" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span>
 <span id="cb9-90"><a href="#cb9-90" aria-hidden="true" tabindex="-1"></a>codefile <span class="ot">&lt;-</span> <span class="fu">tempfile</span>()</span>
 <span id="cb9-91"><a href="#cb9-91" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-92"><a href="#cb9-92" aria-hidden="true" tabindex="-1"></a>foreign<span class="sc">::</span><span class="fu">write.foreign</span>(exDat,</span>
@@ -834,7 +855,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb9-114"><a href="#cb9-114" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
 <span id="cb9-115"><a href="#cb9-115" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(exDat)</span>
 <span id="cb9-116"><a href="#cb9-116" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb9-117"><a href="#cb9-117" aria-hidden="true" tabindex="-1"></a>The <span class="in">`as_tibble`</span> function from the <span class="in">`tibble`</span> package <span class="co">[</span><span class="ot">@R-tibble</span><span class="co">]</span> turns an existing object (a data frame or matrix) into <span class="in">`tibble`</span> which is a data frame with <span class="in">`class`</span> <span class="in">`tbl_df`</span> (see <span class="in">`?as_tibble`</span>).</span>
+<span id="cb9-117"><a href="#cb9-117" aria-hidden="true" tabindex="-1"></a>The <span class="in">`as_tibble`</span> function from the <span class="in">`tibble`</span> package <span class="co">[</span><span class="ot">@R-tibble</span><span class="co">]</span> turns an existing object (a data frame or matrix) into <span class="in">`tibble`</span> which is a <span class="in">`data.frame`</span> variant (with nice defaults)  and <span class="in">`class`</span> <span class="in">`tbl_df`</span> (see <span class="in">`?tibble::as_tibble`</span>).</span>
 <span id="cb9-118"><a href="#cb9-118" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-119"><a href="#cb9-119" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-122"><a href="#cb9-122" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
@@ -852,7 +873,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb9-136"><a href="#cb9-136" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false </span></span>
 <span id="cb9-137"><a href="#cb9-137" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-138"><a href="#cb9-138" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-139"><a href="#cb9-139" aria-hidden="true" tabindex="-1"></a><span class="co">#getwd()</span></span>
+<span id="cb9-139"><a href="#cb9-139" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span>
 <span id="cb9-140"><a href="#cb9-140" aria-hidden="true" tabindex="-1"></a>haven<span class="sc">::</span><span class="fu">write_sav</span>(exDat, <span class="st">"exDat.sav"</span>)</span>
 <span id="cb9-141"><a href="#cb9-141" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-142"><a href="#cb9-142" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
@@ -868,7 +889,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb9-154"><a href="#cb9-154" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-155"><a href="#cb9-155" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb9-156"><a href="#cb9-156" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-157"><a href="#cb9-157" aria-hidden="true" tabindex="-1"></a>Note that the <span class="in">`read_sav`</span> returns a <span class="in">`tibble`</span>, <span class="in">`data frame`</span> variant (with nice defaults).</span>
+<span id="cb9-157"><a href="#cb9-157" aria-hidden="true" tabindex="-1"></a>Note that the <span class="in">`read_sav`</span> returns a <span class="in">`tibble`</span>, <span class="in">`data.frame`</span> variant (with nice defaults).</span>
 <span id="cb9-158"><a href="#cb9-158" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-159"><a href="#cb9-159" aria-hidden="true" tabindex="-1"></a>For more see <span class="ot">&lt;https://tibble.tidyverse.org/&gt;</span> and <span class="co">[</span><span class="ot">Chapter 10</span><span class="co">](https://r4ds.had.co.nz/tibbles.html)</span> of <span class="co">[</span><span class="ot">R for Data Science</span><span class="co">](https://r4ds.had.co.nz/)</span>.</span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>

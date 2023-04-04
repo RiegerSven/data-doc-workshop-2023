@@ -81,6 +81,7 @@ div.csl-indent {
 <meta name="quarto:offset" content="./">
 <link href="./intro-quarto.html" rel="next">
 <link href="./gen-info.html" rel="prev">
+<link href="./file-richtext" rel="icon">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -112,6 +113,10 @@ div.csl-indent {
 <meta property="og:description" content="">
 <meta property="og:image" content="images/tidyverse.png">
 <meta property="og:site-name" content="Data documentation with R and Quarto">
+<meta name="twitter:title" content="Data documentation with R and Quarto - 4&nbsp; Introduction to R &amp; RStudio">
+<meta name="twitter:description" content="">
+<meta name="twitter:image" content="images/tidyverse.png">
+<meta name="twitter:card" content="summary_large_image">
 </head>
 <body class="nav-sidebar docked">
 
@@ -132,8 +137,25 @@ div.csl-indent {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Data documentation with R and Quarto</a> 
-        <div class="sidebar-tools-main">
+        <div class="sidebar-tools-main tools-wide">
     <a href="https://github.com/RiegerSven/data-doc-workshop-2023" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <div class="dropdown">
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+<li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
+              <i class="bi bi-bi-twitter pe-1"></i>
+            Twitter
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
+              <i class="bi bi-bi-facebook pe-1"></i>
+            Facebook
+            </a>
+          </li>
+      </ul>
+</div>
   <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
   <div class="quarto-reader-toggle-btn">
   <i class="bi"></i>
@@ -167,7 +189,7 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Welcome to the workshops</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Welcome to the workshop</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -224,7 +246,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./data-proc.html" class="sidebar-item-text sidebar-link">
+  <a href="./data-transform.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Data transformation</span></span></a>
   </div>
 </li>
@@ -281,7 +303,7 @@ div.csl-indent {
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
 <div class="quarto-title-block"><div><h1 class="title">
 <span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Introduction to R &amp; RStudio</span>
-</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -606,14 +628,14 @@ Exercise: Use the class function to check the data type of an object!
 <div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<details open=""><summary>Show/hide code</summary><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">10</span></span>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">10</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] "numeric"</code></pre>
 </div>
-<details open=""><summary>Show/hide code</summary><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="st">"Hello World"</span></span>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="st">"Hello World"</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] "character"</code></pre>
 </div>
 </div>
@@ -687,7 +709,7 @@ levels(fac)
 </div><div class="column" style="width:5%;">
 <!-- empty column to create gap -->
 </div><div class="column" style="width:60%;">
-<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout callout-style-simple callout-tip callout-titled" title="Tips for handling vectors">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
@@ -769,7 +791,7 @@ Tips for handling vectors
 </div><div class="column" style="width:5%;">
 <!-- empty column to create gap -->
 </div><div class="column" style="width:60%;">
-<div class="callout callout-style-simple callout-tip callout-titled">
+<div id="tip-mat" class="callout callout-style-simple callout-tip callout-titled" title="Tips for handling matrices">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
@@ -822,7 +844,7 @@ Tips for handling matrices
 </div><div class="column" style="width:5%;">
 <!-- empty column to create gap -->
 </div><div class="column" style="width:60%;">
-<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout callout-style-simple callout-tip callout-titled" title="Tips for handling lists">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
@@ -906,7 +928,7 @@ NULL</code></pre>
 </div><div class="column" style="width:5%;">
 <!-- empty column to create gap -->
 </div><div class="column" style="width:60%;">
-<div class="callout callout-style-simple callout-tip callout-titled">
+<div id="tip-df" class="callout callout-style-simple callout-tip callout-titled" title="Tips for handling dataFrames">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
@@ -1007,13 +1029,13 @@ Tips for handling dataFrames
 </div>
 </div>
 <p>Within the <code>tidyverse</code> package collection, the <code>dplyr</code> package <span class="citation" data-cites="R-dplyr">(<a href="references.html#ref-R-dplyr" role="doc-biblioref">Wickham et al., 2023</a>)</span> provides a set of convenient functions for manipulating data. Together with the pipe operator <code>%&gt;%</code> from the <code>magrittr</code> package <span class="citation" data-cites="R-magrittr">(<a href="references.html#ref-R-magrittr" role="doc-biblioref">Bache &amp; Wickham, 2022</a>)</span>), it is an extremely powerful approach to manipulate data in a clear and comprehensible way. The native<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> <code>R</code> pipe <code>|&gt;</code> was introduced with <code>R</code> <a href="https://cran.r-project.org/bin/windows/base/old/4.1.0/NEWS.R-4.1.0.html">v4.1.0</a>.</p>
-<div class="callout callout-style-default callout-tip callout-titled">
+<div id="what-is-pipe-op" class="callout callout-style-default callout-tip callout-titled" title="What does the pipe operator |>?">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-What exactly does the pipe operator |&gt;?
+What does the pipe operator |&gt;?
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -1024,6 +1046,8 @@ What exactly does the pipe operator |&gt;?
 <li>
 <strong>Take</strong> the data frame <code>exDat</code> <strong>and then</strong>
 </li>
+<li>Select the variables: <code>msc1</code> and <code>msc2</code> <strong>and then</strong>
+</li>
 <li>Calculate descriptive statistics using the <code>describe</code> function from the <code>psych</code> package <span class="citation" data-cites="R-psych">(<a href="references.html#ref-R-psych" role="doc-biblioref">Revelle, 2023</a>)</span> <strong>and then</strong>
 </li>
 <li>Create a table with the <code>kable</code> function from the <code>knitr</code> package <span class="citation" data-cites="R-knitr">(<a href="references.html#ref-R-knitr" role="doc-biblioref">Xie, 2023</a>)</span>
@@ -1031,16 +1055,9 @@ What exactly does the pipe operator |&gt;?
 </ol>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1"></a>exDat <span class="sc">|&gt;</span> </span>
-<span id="cb56-2"><a href="#cb56-2"></a>  psych<span class="sc">::</span><span class="fu">describe</span>(<span class="at">fast=</span><span class="cn">TRUE</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb56-3"><a href="#cb56-3"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">2</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in FUN(newX[, i], ...): kein nicht-fehlendes Argument für min; gebe Inf
-zurück</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in FUN(newX[, i], ...): kein nicht-fehlendes Argument für max; gebe
--Inf zurück</code></pre>
-</div>
+<span id="cb56-2"><a href="#cb56-2"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="fu">c</span>(msc1, msc2)) <span class="sc">|&gt;</span></span>
+<span id="cb56-3"><a href="#cb56-3"></a>  psych<span class="sc">::</span><span class="fu">describe</span>(<span class="at">fast=</span><span class="cn">TRUE</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb56-4"><a href="#cb56-4"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">2</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
 <thead><tr class="header">
@@ -1061,9 +1078,9 @@ zurück</code></pre>
 <td style="text-align: right;">750</td>
 <td style="text-align: right;">2.52</td>
 <td style="text-align: right;">0.74</td>
-<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">4</td>
-<td style="text-align: right;">3.00</td>
+<td style="text-align: right;">3</td>
 <td style="text-align: right;">0.03</td>
 </tr>
 <tr class="even">
@@ -1072,87 +1089,10 @@ zurück</code></pre>
 <td style="text-align: right;">680</td>
 <td style="text-align: right;">2.54</td>
 <td style="text-align: right;">0.72</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">3.00</td>
-<td style="text-align: right;">0.03</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">msc3</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">750</td>
-<td style="text-align: right;">2.49</td>
-<td style="text-align: right;">0.75</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">3.00</td>
-<td style="text-align: right;">0.03</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">msc4</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">750</td>
-<td style="text-align: right;">2.48</td>
-<td style="text-align: right;">0.75</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">3.00</td>
-<td style="text-align: right;">0.03</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">age</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">670</td>
-<td style="text-align: right;">10.03</td>
-<td style="text-align: right;">1.76</td>
-<td style="text-align: right;">5.44</td>
-<td style="text-align: right;">30</td>
-<td style="text-align: right;">24.56</td>
-<td style="text-align: right;">0.07</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">sex</td>
-<td style="text-align: right;">6</td>
-<td style="text-align: right;">711</td>
-<td style="text-align: right;">0.50</td>
-<td style="text-align: right;">0.50</td>
-<td style="text-align: right;">0.00</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">0.02</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">edu</td>
-<td style="text-align: right;">7</td>
-<td style="text-align: right;">750</td>
-<td style="text-align: right;">2.67</td>
-<td style="text-align: right;">1.25</td>
-<td style="text-align: right;">0.00</td>
 <td style="text-align: right;">4</td>
-<td style="text-align: right;">4.00</td>
-<td style="text-align: right;">0.05</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">fLang</td>
-<td style="text-align: right;">8</td>
-<td style="text-align: right;">730</td>
-<td style="text-align: right;">NaN</td>
-<td style="text-align: right;">NA</td>
-<td style="text-align: right;">Inf</td>
-<td style="text-align: right;">-Inf</td>
-<td style="text-align: right;">-Inf</td>
-<td style="text-align: right;">NA</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">id</td>
-<td style="text-align: right;">9</td>
-<td style="text-align: right;">750</td>
-<td style="text-align: right;">375.50</td>
-<td style="text-align: right;">216.65</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">750</td>
-<td style="text-align: right;">749.00</td>
-<td style="text-align: right;">7.91</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0.03</td>
 </tr>
 </tbody>
 </table>
@@ -1160,14 +1100,14 @@ zurück</code></pre>
 </div>
 <p>In contrast, when we use a nested approach the code would look like this:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(psych<span class="sc">::</span><span class="fu">describe</span>(exDat,<span class="at">fast=</span><span class="cn">TRUE</span>),<span class="at">digits =</span> <span class="dv">2</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(psych<span class="sc">::</span><span class="fu">describe</span>(exDat,<span class="at">fast=</span><span class="cn">TRUE</span>),<span class="at">digits =</span> <span class="dv">2</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>…or maybe a little bit more clear:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
-<span id="cb60-2"><a href="#cb60-2"></a>  psych<span class="sc">::</span><span class="fu">describe</span>(exDat,</span>
-<span id="cb60-3"><a href="#cb60-3"></a>                  <span class="at">fast=</span><span class="cn">TRUE</span>),</span>
-<span id="cb60-4"><a href="#cb60-4"></a>  <span class="at">digits =</span> <span class="dv">2</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
+<span id="cb58-2"><a href="#cb58-2"></a>  psych<span class="sc">::</span><span class="fu">describe</span>(exDat,</span>
+<span id="cb58-3"><a href="#cb58-3"></a>                  <span class="at">fast=</span><span class="cn">TRUE</span>),</span>
+<span id="cb58-4"><a href="#cb58-4"></a>  <span class="at">digits =</span> <span class="dv">2</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Nevertheless, when there are many functions, it gets kind of messy and difficult to comprehend. For more information on how to use pipes, see <a href="https://style.tidyverse.org/pipes.html">Chapter 4</a> of the guide.</p>
 </div>
@@ -1514,709 +1454,706 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb61" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Introduction to R &amp; RStudio</span></span>
-<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>This part gives a short introduction to <span class="in">`R`</span> and <span class="in">`RStudio`</span>. If you are familiar with the programs and are not interested in the <span class="in">`R`</span> vs <span class="in">`tidyverse`</span> "distinction", you can skip this section.</span>
-<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-7"><a href="#cb61-7" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb61-8"><a href="#cb61-8" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: intro-r-prep</span></span>
-<span id="cb61-9"><a href="#cb61-9" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb61-10"><a href="#cb61-10" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
-<span id="cb61-11"><a href="#cb61-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-12"><a href="#cb61-12" aria-hidden="true" tabindex="-1"></a>exDat <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"exampleDat.RDS"</span>)</span>
-<span id="cb61-13"><a href="#cb61-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-14"><a href="#cb61-14" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb61-15"><a href="#cb61-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-16"><a href="#cb61-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## What is R &amp; RStudio?</span></span>
-<span id="cb61-17"><a href="#cb61-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-18"><a href="#cb61-18" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**R**: <span class="in">`R`</span> is a free software environment for statistical computing and graphics. It compiles and runs on a wide variety of UNIX platforms, Windows and MacOS (see <span class="co">[</span><span class="ot">https://www.r-project.org/</span><span class="co">](https://www.r-project.org/)</span>{target="_blank"}). </span>
-<span id="cb61-19"><a href="#cb61-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-20"><a href="#cb61-20" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**R Studio**: Coding environment for <span class="in">`R`</span>, built by <span class="co">[</span><span class="ot">Posit</span><span class="co">](https://posit.co/)</span>{target="_blank"}. </span>
-<span id="cb61-21"><a href="#cb61-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-22"><a href="#cb61-22" aria-hidden="true" tabindex="-1"></a>Some advertisement from the <span class="co">[</span><span class="ot">Posit website</span><span class="co">](https://posit.co/downloads/)</span>{target="_blank"}: </span>
-<span id="cb61-23"><a href="#cb61-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-24"><a href="#cb61-24" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Used by millions of people weekly, the RStudio integrated development environment (IDE) is a set of tools built to help you be more productive with R and Python. It includes a console, syntax-highlighting editor that supports direct code execution. It also features tools for plotting, viewing history, debugging and managing your workspace. </span></span>
-<span id="cb61-25"><a href="#cb61-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-26"><a href="#cb61-26" aria-hidden="true" tabindex="-1"></a>Of course there are other IDEs (e.g., <span class="co">[</span><span class="ot">Visual Studio Code</span><span class="co">](https://code.visualstudio.com/)</span>{target="_blank"}, but if you use <span class="in">`R`</span>, <span class="in">`RStudio`</span> is most likely the way to go.</span>
-<span id="cb61-27"><a href="#cb61-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-28"><a href="#cb61-28" aria-hidden="true" tabindex="-1"></a><span class="fu">## How to work with R and RStudio?</span></span>
-<span id="cb61-29"><a href="#cb61-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-30"><a href="#cb61-30" aria-hidden="true" tabindex="-1"></a>::: {.callout-caution collapse="true"}</span>
-<span id="cb61-31"><a href="#cb61-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-32"><a href="#cb61-32" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise: Open RStudio!</span></span>
-<span id="cb61-33"><a href="#cb61-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-34"><a href="#cb61-34" aria-hidden="true" tabindex="-1"></a>This should look like this, maybe or probably with a different appearance (this is the Dracula theme). You can change this via <span class="in">`Tools &gt; Global Options &gt; Appearance`</span></span>
-<span id="cb61-35"><a href="#cb61-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-36"><a href="#cb61-36" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/rstudio-panes.PNG)</span></span>
-<span id="cb61-37"><a href="#cb61-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-38"><a href="#cb61-38" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb61-39"><a href="#cb61-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-40"><a href="#cb61-40" aria-hidden="true" tabindex="-1"></a>In <span class="in">`RStudio`</span> there are different panes^<span class="co">[</span><span class="ot">You can customize them: `Tools &gt; Global Options &gt; Pane Layout`</span><span class="co">]</span>:</span>
-<span id="cb61-41"><a href="#cb61-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-42"><a href="#cb61-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-43"><a href="#cb61-43" aria-hidden="true" tabindex="-1"></a><span class="fu">### Panes</span></span>
-<span id="cb61-44"><a href="#cb61-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-45"><a href="#cb61-45" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Console**</span>
-<span id="cb61-46"><a href="#cb61-46" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Here you can access <span class="in">`R`</span></span>
-<span id="cb61-47"><a href="#cb61-47" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>E.g., ask <span class="in">`R`</span> what is: <span class="in">`2 + 2`</span></span>
-<span id="cb61-48"><a href="#cb61-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-49"><a href="#cb61-49" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Source/Script**</span>
-<span id="cb61-50"><a href="#cb61-50" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Editor to save scripts</span>
-<span id="cb61-51"><a href="#cb61-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-52"><a href="#cb61-52" aria-hidden="true" tabindex="-1"></a>::: {.callout-warning}</span>
-<span id="cb61-53"><a href="#cb61-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-54"><a href="#cb61-54" aria-hidden="true" tabindex="-1"></a>You should **never** work directly in the Console, but always use a R-script (e.g., script.R) or *even better* a Quarto document (e.g., script.qmd). It is important to understand and reproduce everything you did.</span>
-<span id="cb61-55"><a href="#cb61-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-56"><a href="#cb61-56" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb61-57"><a href="#cb61-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-58"><a href="#cb61-58" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Environment/History/.../Tutorial**</span>
-<span id="cb61-59"><a href="#cb61-59" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Environment: contains all objects that were created or loaded during an R session</span>
-<span id="cb61-60"><a href="#cb61-60" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>History:</span>
-<span id="cb61-61"><a href="#cb61-61" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>... e.g., the free and open source distributed version control system <span class="co">[</span><span class="ot">git</span><span class="co">](https://git-scm.com/)</span></span>
-<span id="cb61-62"><a href="#cb61-62" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Tutorial: A tutorial to learn <span class="in">`R`</span> with the <span class="in">`learnr`</span> package <span class="co">[</span><span class="ot">@R-learnr</span><span class="co">]</span></span>
-<span id="cb61-63"><a href="#cb61-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-64"><a href="#cb61-64" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Files/Plots/Packages/Help/Viewer**</span>
-<span id="cb61-65"><a href="#cb61-65" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Files: is kind of the file manager</span>
-<span id="cb61-66"><a href="#cb61-66" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Plots: shows the generated plots</span>
-<span id="cb61-67"><a href="#cb61-67" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Packages: overview of the (loaded &amp;) installed packages</span>
-<span id="cb61-68"><a href="#cb61-68" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Help: When you ask for help (e.g., regarding a specific function in R: <span class="in">`?mean`</span>) </span>
-<span id="cb61-69"><a href="#cb61-69" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Viewer: E.g., previewing rendered Quarto documents</span>
-<span id="cb61-70"><a href="#cb61-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-71"><a href="#cb61-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-72"><a href="#cb61-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-73"><a href="#cb61-73" aria-hidden="true" tabindex="-1"></a><span class="fu">### Projects</span></span>
-<span id="cb61-74"><a href="#cb61-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-75"><a href="#cb61-75" aria-hidden="true" tabindex="-1"></a>It is also reasonable to use the **project option**. This means, whenever you start a new project (e.g., a scale-manual), create an <span class="in">`project`</span>: <span class="in">`File &gt; New Project`</span> </span>
-<span id="cb61-76"><a href="#cb61-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-77"><a href="#cb61-77" aria-hidden="true" tabindex="-1"></a>::: {.callout-caution collapse="true"}</span>
-<span id="cb61-78"><a href="#cb61-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-79"><a href="#cb61-79" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise: Create an project!</span></span>
-<span id="cb61-80"><a href="#cb61-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-81"><a href="#cb61-81" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Choose between:</span>
-<span id="cb61-82"><a href="#cb61-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-83"><a href="#cb61-83" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**New Directory** (for today)</span>
-<span id="cb61-84"><a href="#cb61-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-85"><a href="#cb61-85" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Existing Directory</span>
-<span id="cb61-86"><a href="#cb61-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-87"><a href="#cb61-87" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Version Control (this is recommended, but is beyond the scope of this workshop)</span>
-<span id="cb61-88"><a href="#cb61-88" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-89"><a href="#cb61-89" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/new-proj-wizz.PNG)</span></span>
-<span id="cb61-90"><a href="#cb61-90" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-91"><a href="#cb61-91" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Choose a project type (today a <span class="in">`R project`</span> or <span class="in">`Quarto project`</span>)</span>
-<span id="cb61-92"><a href="#cb61-92" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-93"><a href="#cb61-93" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/project-type.PNG)</span></span>
-<span id="cb61-94"><a href="#cb61-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-95"><a href="#cb61-95" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Provide a short name, set the check mark <span class="in">`Open in new session`</span> and click <span class="in">`Create Project`</span></span>
-<span id="cb61-96"><a href="#cb61-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-97"><a href="#cb61-97" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/name-rproj.PNG)</span></span>
-<span id="cb61-98"><a href="#cb61-98" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-99"><a href="#cb61-99" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb61-100"><a href="#cb61-100" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-101"><a href="#cb61-101" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-102"><a href="#cb61-102" aria-hidden="true" tabindex="-1"></a><span class="fu">## Short introduction to the R programming language</span></span>
-<span id="cb61-103"><a href="#cb61-103" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-104"><a href="#cb61-104" aria-hidden="true" tabindex="-1"></a>This section gives a (very?) brief introduction to the <span class="in">`R`</span> programming language. </span>
-<span id="cb61-105"><a href="#cb61-105" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-106"><a href="#cb61-106" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" appearance="simple" title="For (more) comprehensive introductions..."}</span>
-<span id="cb61-107"><a href="#cb61-107" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-108"><a href="#cb61-108" aria-hidden="true" tabindex="-1"></a>...or overviews of the language see (e.g.): </span>
-<span id="cb61-109"><a href="#cb61-109" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-110"><a href="#cb61-110" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">R Manual</span><span class="co">](https://cran.r-project.org/doc/manuals/r-release/R-intro.html)</span> on the <span class="co">[</span><span class="ot">CRAN</span><span class="co">](https://cran.r-project.org)</span> website</span>
-<span id="cb61-111"><a href="#cb61-111" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-112"><a href="#cb61-112" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">R for Data Science</span><span class="co">](https://r4ds.had.co.nz/)</span> by Hadley Wickham and Garrett Grolemund</span>
-<span id="cb61-113"><a href="#cb61-113" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-114"><a href="#cb61-114" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Hands-On Programming with R</span><span class="co">](https://rstudio-education.github.io/hopr/)</span> by Garrett Grolemund</span>
-<span id="cb61-115"><a href="#cb61-115" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-116"><a href="#cb61-116" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Introduction to R</span><span class="co">](https://stats.oarc.ucla.edu/stat/data/intro_r/intro_r_interactive_flat.html)</span> by the <span class="co">[</span><span class="ot">IDRE Statistical Consulting Group</span><span class="co">](https://stats.oarc.ucla.edu/ucla/policies/)</span></span>
-<span id="cb61-117"><a href="#cb61-117" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-118"><a href="#cb61-118" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>...</span>
-<span id="cb61-119"><a href="#cb61-119" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-120"><a href="#cb61-120" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb61-121"><a href="#cb61-121" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-122"><a href="#cb61-122" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-123"><a href="#cb61-123" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-124"><a href="#cb61-124" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; To understand computations in R, two slogans are helpful:</span></span>
-<span id="cb61-125"><a href="#cb61-125" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
-<span id="cb61-126"><a href="#cb61-126" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; -   Everything that exists is an object.\</span></span>
-<span id="cb61-127"><a href="#cb61-127" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; -   Everything that happens is a function call.</span></span>
-<span id="cb61-128"><a href="#cb61-128" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
-<span id="cb61-129"><a href="#cb61-129" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; ::: {style="text-align: right;"}</span></span>
-<span id="cb61-130"><a href="#cb61-130" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; -- John Chambers (creator of the S programming language)</span></span>
-<span id="cb61-131"><a href="#cb61-131" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; :::</span></span>
-<span id="cb61-132"><a href="#cb61-132" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-133"><a href="#cb61-133" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-134"><a href="#cb61-134" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-135"><a href="#cb61-135" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-136"><a href="#cb61-136" aria-hidden="true" tabindex="-1"></a><span class="fu">### Basics</span></span>
-<span id="cb61-137"><a href="#cb61-137" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-138"><a href="#cb61-138" aria-hidden="true" tabindex="-1"></a>Before working with <span class="in">`R`</span>, there are a few basics you need to know:</span>
-<span id="cb61-139"><a href="#cb61-139" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-140"><a href="#cb61-140" aria-hidden="true" tabindex="-1"></a>:::: {.columns}</span>
-<span id="cb61-141"><a href="#cb61-141" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-142"><a href="#cb61-142" aria-hidden="true" tabindex="-1"></a>::: {.column width="40%"}</span>
-<span id="cb61-143"><a href="#cb61-143" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-144"><a href="#cb61-144" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`R`</span> is a **case-sensitive** programming language. This means that R distinguishes whether a word is written in upper or lower case</span>
-<span id="cb61-145"><a href="#cb61-145" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-146"><a href="#cb61-146" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb61-147"><a href="#cb61-147" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-148"><a href="#cb61-148" aria-hidden="true" tabindex="-1"></a>::: {.column width="10%"}</span>
-<span id="cb61-149"><a href="#cb61-149" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- empty column to create gap --&gt;</span></span>
-<span id="cb61-150"><a href="#cb61-150" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb61-151"><a href="#cb61-151" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-152"><a href="#cb61-152" aria-hidden="true" tabindex="-1"></a>::: {.column width="40%"}</span>
-<span id="cb61-153"><a href="#cb61-153" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-156"><a href="#cb61-156" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb61-157"><a href="#cb61-157" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: case-sense</span></span>
-<span id="cb61-158"><a href="#cb61-158" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
-<span id="cb61-159"><a href="#cb61-159" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-line-numbers: false</span></span>
-<span id="cb61-160"><a href="#cb61-160" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-161"><a href="#cb61-161" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-162"><a href="#cb61-162" aria-hidden="true" tabindex="-1"></a><span class="st">"name"</span> <span class="sc">==</span> <span class="st">"Name"</span></span>
-<span id="cb61-163"><a href="#cb61-163" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb61-164"><a href="#cb61-164" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-165"><a href="#cb61-165" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb61-166"><a href="#cb61-166" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-167"><a href="#cb61-167" aria-hidden="true" tabindex="-1"></a>::::</span>
-<span id="cb61-168"><a href="#cb61-168" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-169"><a href="#cb61-169" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-170"><a href="#cb61-170" aria-hidden="true" tabindex="-1"></a>:::: {.columns}</span>
-<span id="cb61-171"><a href="#cb61-171" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-172"><a href="#cb61-172" aria-hidden="true" tabindex="-1"></a>::: {.column width="40%"}</span>
-<span id="cb61-173"><a href="#cb61-173" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-174"><a href="#cb61-174" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Values** are assigned to objects using <span class="in">`&lt;-`</span></span>
-<span id="cb61-175"><a href="#cb61-175" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-176"><a href="#cb61-176" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb61-177"><a href="#cb61-177" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-178"><a href="#cb61-178" aria-hidden="true" tabindex="-1"></a>::: {.column width="10%"}</span>
-<span id="cb61-179"><a href="#cb61-179" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- empty column to create gap --&gt;</span></span>
-<span id="cb61-180"><a href="#cb61-180" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb61-181"><a href="#cb61-181" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-182"><a href="#cb61-182" aria-hidden="true" tabindex="-1"></a>::: {.column width="40%"}</span>
-<span id="cb61-183"><a href="#cb61-183" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-186"><a href="#cb61-186" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb61-187"><a href="#cb61-187" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: r-assing</span></span>
-<span id="cb61-188"><a href="#cb61-188" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
-<span id="cb61-189"><a href="#cb61-189" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
-<span id="cb61-190"><a href="#cb61-190" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-line-numbers: false</span></span>
-<span id="cb61-191"><a href="#cb61-191" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="st">"Hello world!"</span></span>
-<span id="cb61-192"><a href="#cb61-192" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb61-193"><a href="#cb61-193" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-194"><a href="#cb61-194" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb61-195"><a href="#cb61-195" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-196"><a href="#cb61-196" aria-hidden="true" tabindex="-1"></a>::::</span>
-<span id="cb61-197"><a href="#cb61-197" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-198"><a href="#cb61-198" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-199"><a href="#cb61-199" aria-hidden="true" tabindex="-1"></a>:::: {.columns}</span>
-<span id="cb61-200"><a href="#cb61-200" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-201"><a href="#cb61-201" aria-hidden="true" tabindex="-1"></a>::: {.column width="40%"}</span>
-<span id="cb61-202"><a href="#cb61-202" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-203"><a href="#cb61-203" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Arguments** within functions are assigned using <span class="in">`=`</span></span>
-<span id="cb61-204"><a href="#cb61-204" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-205"><a href="#cb61-205" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb61-206"><a href="#cb61-206" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-207"><a href="#cb61-207" aria-hidden="true" tabindex="-1"></a>::: {.column width="10%"}</span>
-<span id="cb61-208"><a href="#cb61-208" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- empty column to create gap --&gt;</span></span>
-<span id="cb61-209"><a href="#cb61-209" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb61-210"><a href="#cb61-210" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-211"><a href="#cb61-211" aria-hidden="true" tabindex="-1"></a>::: {.column width="40%"}</span>
-<span id="cb61-212"><a href="#cb61-212" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-215"><a href="#cb61-215" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb61-216"><a href="#cb61-216" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: r-arg</span></span>
-<span id="cb61-217"><a href="#cb61-217" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
-<span id="cb61-218"><a href="#cb61-218" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
-<span id="cb61-219"><a href="#cb61-219" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb61-220"><a href="#cb61-220" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>,</span>
-<span id="cb61-221"><a href="#cb61-221" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> <span class="dv">3</span><span class="sc">:</span><span class="dv">6</span></span>
-<span id="cb61-222"><a href="#cb61-222" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb61-223"><a href="#cb61-223" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb61-224"><a href="#cb61-224" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-225"><a href="#cb61-225" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb61-226"><a href="#cb61-226" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-227"><a href="#cb61-227" aria-hidden="true" tabindex="-1"></a>::::</span>
-<span id="cb61-228"><a href="#cb61-228" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-229"><a href="#cb61-229" aria-hidden="true" tabindex="-1"></a>::: {.callout-caution collapse="true"}</span>
-<span id="cb61-230"><a href="#cb61-230" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise: Create a new R script</span></span>
-<span id="cb61-231"><a href="#cb61-231" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-232"><a href="#cb61-232" aria-hidden="true" tabindex="-1"></a><span class="in">`File &gt; New File &gt; R Script`</span> or alternatively use the shortcut <span class="in">`Ctrl + Shift + N`</span></span>
-<span id="cb61-233"><a href="#cb61-233" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-234"><a href="#cb61-234" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/create-r-script.PNG)</span></span>
-<span id="cb61-235"><a href="#cb61-235" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-236"><a href="#cb61-236" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-237"><a href="#cb61-237" aria-hidden="true" tabindex="-1"></a>Then save the file <span class="in">`File &gt; Save`</span> or <span class="in">`File &gt; Save As`</span>. Shortcut: <span class="in">`Ctrl + s`</span></span>
-<span id="cb61-238"><a href="#cb61-238" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-239"><a href="#cb61-239" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-240"><a href="#cb61-240" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb61-241"><a href="#cb61-241" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-242"><a href="#cb61-242" aria-hidden="true" tabindex="-1"></a><span class="fu">### Data Types</span></span>
-<span id="cb61-243"><a href="#cb61-243" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-244"><a href="#cb61-244" aria-hidden="true" tabindex="-1"></a>The basic data types^<span class="co">[</span><span class="ot">We omitted the `complex` type.</span><span class="co">]</span> in <span class="in">`R`</span> are depicted in @tbl-data-type-R.</span>
-<span id="cb61-245"><a href="#cb61-245" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-246"><a href="#cb61-246" aria-hidden="true" tabindex="-1"></a>+---------------+-----------------------------------------+-----------------------+</span>
-<span id="cb61-247"><a href="#cb61-247" aria-hidden="true" tabindex="-1"></a>| Type          | Description                             | Value (example)       |</span>
-<span id="cb61-248"><a href="#cb61-248" aria-hidden="true" tabindex="-1"></a>+===============+=========================================+=======================+</span>
-<span id="cb61-249"><a href="#cb61-249" aria-hidden="true" tabindex="-1"></a>| **Numeric**   | Numbers with decimal value or fraction  | <span class="in">`3.7`</span>                 |</span>
-<span id="cb61-250"><a href="#cb61-250" aria-hidden="true" tabindex="-1"></a>+---------------+-----------------------------------------+-----------------------+</span>
-<span id="cb61-251"><a href="#cb61-251" aria-hidden="true" tabindex="-1"></a>| **Integer**   | Counting numbers and their additive     | <span class="in">`2`</span>, <span class="in">`-115`</span>           |</span>
-<span id="cb61-252"><a href="#cb61-252" aria-hidden="true" tabindex="-1"></a>|               | inverses                                |                       |</span>
-<span id="cb61-253"><a href="#cb61-253" aria-hidden="true" tabindex="-1"></a>+---------------+-----------------------------------------+-----------------------+</span>
-<span id="cb61-254"><a href="#cb61-254" aria-hidden="true" tabindex="-1"></a>| **Character** | aka string. Letters enclosed by quotes  | <span class="in">`"Hello World!"`</span>,<span class="in">`"4"`</span>|</span>
-<span id="cb61-255"><a href="#cb61-255" aria-hidden="true" tabindex="-1"></a>|               | in the output.                          |                       |</span>
-<span id="cb61-256"><a href="#cb61-256" aria-hidden="true" tabindex="-1"></a>+---------------+-----------------------------------------+-----------------------+</span>
-<span id="cb61-257"><a href="#cb61-257" aria-hidden="true" tabindex="-1"></a>| **Logical **  | boolean                                 | <span class="in">`TRUE`</span>, <span class="in">`FALSE`</span>       |</span>
-<span id="cb61-258"><a href="#cb61-258" aria-hidden="true" tabindex="-1"></a>+---------------+-----------------------------------------+-----------------------+</span>
-<span id="cb61-259"><a href="#cb61-259" aria-hidden="true" tabindex="-1"></a>| **Factor**    | Categorial data \                       |   \                   |</span>
-<span id="cb61-260"><a href="#cb61-260" aria-hidden="true" tabindex="-1"></a>|               | - *Level:* characteristic value         |   <span class="in">`0`</span>, <span class="in">`1`</span> \          |</span>
-<span id="cb61-261"><a href="#cb61-261" aria-hidden="true" tabindex="-1"></a>|               |             as seen by R  \             |  <span class="in">`male`</span>,<span class="in">`female`</span>      |</span>
-<span id="cb61-262"><a href="#cb61-262" aria-hidden="true" tabindex="-1"></a>|               | - *Label:* designation of the           |                       |</span>
-<span id="cb61-263"><a href="#cb61-263" aria-hidden="true" tabindex="-1"></a>|               |             characteristic attributes   |                       |</span>
-<span id="cb61-264"><a href="#cb61-264" aria-hidden="true" tabindex="-1"></a>+---------------+-----------------------------------------+-----------------------+</span>
-<span id="cb61-265"><a href="#cb61-265" aria-hidden="true" tabindex="-1"></a>| **Special**   | - *Missing values:* unknown cell value  |   <span class="in">`NA`</span> \              |</span>
-<span id="cb61-266"><a href="#cb61-266" aria-hidden="true" tabindex="-1"></a>|               | - *Impossible values:* not a number     |   <span class="in">`NaN`</span> \             |</span>
-<span id="cb61-267"><a href="#cb61-267" aria-hidden="true" tabindex="-1"></a>|               | - *Empty values:* known empty           |   <span class="in">`NULL`</span>              |</span>
-<span id="cb61-268"><a href="#cb61-268" aria-hidden="true" tabindex="-1"></a>|               |                   cell value            |                       |</span>
-<span id="cb61-269"><a href="#cb61-269" aria-hidden="true" tabindex="-1"></a>+---------------+-----------------------------------------+-----------------------+</span>
-<span id="cb61-270"><a href="#cb61-270" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-271"><a href="#cb61-271" aria-hidden="true" tabindex="-1"></a>: Basic data types in R {#tbl-data-type-R}</span>
-<span id="cb61-272"><a href="#cb61-272" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-273"><a href="#cb61-273" aria-hidden="true" tabindex="-1"></a>::: {.callout-caution collapse="true"}</span>
-<span id="cb61-274"><a href="#cb61-274" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise: Use the class function to check the data type of an object!</span></span>
-<span id="cb61-275"><a href="#cb61-275" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-276"><a href="#cb61-276" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-277"><a href="#cb61-277" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-280"><a href="#cb61-280" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb61-281"><a href="#cb61-281" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-class</span></span>
-<span id="cb61-282"><a href="#cb61-282" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">10</span></span>
-<span id="cb61-283"><a href="#cb61-283" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(x)</span>
-<span id="cb61-284"><a href="#cb61-284" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="st">"Hello World"</span></span>
-<span id="cb61-285"><a href="#cb61-285" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(y)</span>
-<span id="cb61-286"><a href="#cb61-286" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb61-287"><a href="#cb61-287" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-290"><a href="#cb61-290" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb61-291"><a href="#cb61-291" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-class-del</span></span>
-<span id="cb61-292"><a href="#cb61-292" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb61-293"><a href="#cb61-293" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(x,y)</span>
-<span id="cb61-294"><a href="#cb61-294" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb61-295"><a href="#cb61-295" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-296"><a href="#cb61-296" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-297"><a href="#cb61-297" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb61-298"><a href="#cb61-298" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-299"><a href="#cb61-299" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!--</span></span>
-<span id="cb61-300"><a href="#cb61-300" aria-hidden="true" tabindex="-1"></a><span class="co">::: {.callout-note collapse="true"}</span></span>
-<span id="cb61-301"><a href="#cb61-301" aria-hidden="true" tabindex="-1"></a><span class="co">## Why might factors be useful?</span></span>
-<span id="cb61-302"><a href="#cb61-302" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-305"><a href="#cb61-305" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb61-306"><a href="#cb61-306" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-factor</span></span>
-<span id="cb61-307"><a href="#cb61-307" aria-hidden="true" tabindex="-1"></a><span class="co">x &lt;- c(1, 0, 1, 1, 0, 1, 0)</span></span>
-<span id="cb61-308"><a href="#cb61-308" aria-hidden="true" tabindex="-1"></a><span class="co">print(x)</span></span>
-<span id="cb61-309"><a href="#cb61-309" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-310"><a href="#cb61-310" aria-hidden="true" tabindex="-1"></a><span class="co">fac &lt;- factor(x,</span></span>
-<span id="cb61-311"><a href="#cb61-311" aria-hidden="true" tabindex="-1"></a><span class="co">              labels = c('male', 'female'))</span></span>
-<span id="cb61-312"><a href="#cb61-312" aria-hidden="true" tabindex="-1"></a><span class="co">print(fac)</span></span>
-<span id="cb61-313"><a href="#cb61-313" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-314"><a href="#cb61-314" aria-hidden="true" tabindex="-1"></a><span class="co">levels(fac)</span></span>
-<span id="cb61-315"><a href="#cb61-315" aria-hidden="true" tabindex="-1"></a><span class="co">```</span></span>
-<span id="cb61-316"><a href="#cb61-316" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-319"><a href="#cb61-319" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb61-320"><a href="#cb61-320" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-factor-del</span></span>
-<span id="cb61-321"><a href="#cb61-321" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb61-322"><a href="#cb61-322" aria-hidden="true" tabindex="-1"></a><span class="co">rm(x, fac)</span></span>
-<span id="cb61-323"><a href="#cb61-323" aria-hidden="true" tabindex="-1"></a><span class="co">```</span></span>
-<span id="cb61-324"><a href="#cb61-324" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-325"><a href="#cb61-325" aria-hidden="true" tabindex="-1"></a><span class="co">:::</span></span>
-<span id="cb61-326"><a href="#cb61-326" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-327"><a href="#cb61-327" aria-hidden="true" tabindex="-1"></a><span class="co">--&gt;</span></span>
-<span id="cb61-328"><a href="#cb61-328" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-329"><a href="#cb61-329" aria-hidden="true" tabindex="-1"></a><span class="fu">### Data Structures {#data-structure}</span></span>
-<span id="cb61-330"><a href="#cb61-330" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-331"><a href="#cb61-331" aria-hidden="true" tabindex="-1"></a><span class="in">`R`</span> has a couple of different data structures^<span class="co">[</span><span class="ot">We omitted [arrays](https://cran.r-project.org/doc/manuals/r-release/R-intro.html#Arrays-and-matrices).</span><span class="co">]</span> which are briefly described in the following subsections.</span>
-<span id="cb61-332"><a href="#cb61-332" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-333"><a href="#cb61-333" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-334"><a href="#cb61-334" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Vector</span></span>
-<span id="cb61-335"><a href="#cb61-335" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-336"><a href="#cb61-336" aria-hidden="true" tabindex="-1"></a>:::: {.columns}</span>
-<span id="cb61-337"><a href="#cb61-337" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-338"><a href="#cb61-338" aria-hidden="true" tabindex="-1"></a>::: {.column width="35%"}</span>
-<span id="cb61-339"><a href="#cb61-339" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-340"><a href="#cb61-340" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>one-dimensional array\</span>
-<span id="cb61-341"><a href="#cb61-341" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>same data type</span>
-<span id="cb61-342"><a href="#cb61-342" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>e.g., <span class="in">`c(45, 6, -83, 23, 61)`</span></span>
-<span id="cb61-343"><a href="#cb61-343" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-344"><a href="#cb61-344" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb61-345"><a href="#cb61-345" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-346"><a href="#cb61-346" aria-hidden="true" tabindex="-1"></a>::: {.column width="5%"}</span>
-<span id="cb61-347"><a href="#cb61-347" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- empty column to create gap --&gt;</span></span>
-<span id="cb61-348"><a href="#cb61-348" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb61-349"><a href="#cb61-349" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-350"><a href="#cb61-350" aria-hidden="true" tabindex="-1"></a>::: {.column width="60%"}</span>
-<span id="cb61-351"><a href="#cb61-351" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-352"><a href="#cb61-352" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" appearance="simple"}</span>
-<span id="cb61-353"><a href="#cb61-353" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tips for handling vectors</span></span>
-<span id="cb61-354"><a href="#cb61-354" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-355"><a href="#cb61-355" aria-hidden="true" tabindex="-1"></a>Create a vector with the <span class="in">`c`</span> function</span>
-<span id="cb61-356"><a href="#cb61-356" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-359"><a href="#cb61-359" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb61-360"><a href="#cb61-360" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-vec-0</span></span>
-<span id="cb61-361"><a href="#cb61-361" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
-<span id="cb61-362"><a href="#cb61-362" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">45</span>, <span class="dv">6</span>, <span class="sc">-</span><span class="dv">83</span>, <span class="dv">23</span>, <span class="dv">61</span>)</span>
-<span id="cb61-363"><a href="#cb61-363" aria-hidden="true" tabindex="-1"></a>v</span>
-<span id="cb61-364"><a href="#cb61-364" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb61-365"><a href="#cb61-365" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-366"><a href="#cb61-366" aria-hidden="true" tabindex="-1"></a>Or a named vector...</span>
-<span id="cb61-367"><a href="#cb61-367" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-370"><a href="#cb61-370" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb61-371"><a href="#cb61-371" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-vec-1</span></span>
-<span id="cb61-372"><a href="#cb61-372" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
-<span id="cb61-373"><a href="#cb61-373" aria-hidden="true" tabindex="-1"></a>vNam <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">a =</span> <span class="dv">45</span>, <span class="at">b =</span> <span class="dv">6</span>, <span class="at">c =</span> <span class="sc">-</span><span class="dv">83</span>, <span class="at">d =</span> <span class="dv">23</span>, <span class="at">e =</span> <span class="dv">61</span>)</span>
-<span id="cb61-374"><a href="#cb61-374" aria-hidden="true" tabindex="-1"></a>vNam</span>
-<span id="cb61-375"><a href="#cb61-375" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb61-376"><a href="#cb61-376" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-377"><a href="#cb61-377" aria-hidden="true" tabindex="-1"></a>Count the amount of items contained in vector</span>
-<span id="cb61-378"><a href="#cb61-378" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-381"><a href="#cb61-381" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb61-382"><a href="#cb61-382" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-vec-2</span></span>
-<span id="cb61-383"><a href="#cb61-383" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
-<span id="cb61-384"><a href="#cb61-384" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(v)</span>
-<span id="cb61-385"><a href="#cb61-385" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb61-386"><a href="#cb61-386" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-387"><a href="#cb61-387" aria-hidden="true" tabindex="-1"></a>Vector indexing (by position)</span>
-<span id="cb61-388"><a href="#cb61-388" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-391"><a href="#cb61-391" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb61-392"><a href="#cb61-392" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-vec-3</span></span>
-<span id="cb61-393"><a href="#cb61-393" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
-<span id="cb61-394"><a href="#cb61-394" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-395"><a href="#cb61-395" aria-hidden="true" tabindex="-1"></a>v[<span class="dv">1</span>]</span>
-<span id="cb61-396"><a href="#cb61-396" aria-hidden="true" tabindex="-1"></a>v[<span class="sc">-</span><span class="dv">3</span>]</span>
-<span id="cb61-397"><a href="#cb61-397" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb61-398"><a href="#cb61-398" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-399"><a href="#cb61-399" aria-hidden="true" tabindex="-1"></a>Slicing vectors</span>
-<span id="cb61-400"><a href="#cb61-400" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-403"><a href="#cb61-403" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb61-404"><a href="#cb61-404" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-vec-4</span></span>
-<span id="cb61-405"><a href="#cb61-405" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
-<span id="cb61-406"><a href="#cb61-406" aria-hidden="true" tabindex="-1"></a>v[<span class="dv">3</span><span class="sc">:</span><span class="dv">5</span>]</span>
-<span id="cb61-407"><a href="#cb61-407" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb61-408"><a href="#cb61-408" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-409"><a href="#cb61-409" aria-hidden="true" tabindex="-1"></a>Generate regular sequences using <span class="in">`seq`</span> function</span>
-<span id="cb61-410"><a href="#cb61-410" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-413"><a href="#cb61-413" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb61-414"><a href="#cb61-414" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-seq-4</span></span>
-<span id="cb61-415"><a href="#cb61-415" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
-<span id="cb61-416"><a href="#cb61-416" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>,</span>
-<span id="cb61-417"><a href="#cb61-417" aria-hidden="true" tabindex="-1"></a>    <span class="at">to =</span> <span class="dv">20</span>,</span>
-<span id="cb61-418"><a href="#cb61-418" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> <span class="dv">2</span>)</span>
-<span id="cb61-419"><a href="#cb61-419" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb61-420"><a href="#cb61-420" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb61-421"><a href="#cb61-421" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-422"><a href="#cb61-422" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb61-423"><a href="#cb61-423" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-424"><a href="#cb61-424" aria-hidden="true" tabindex="-1"></a>::::</span>
-<span id="cb61-425"><a href="#cb61-425" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-426"><a href="#cb61-426" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Matrix</span></span>
-<span id="cb61-427"><a href="#cb61-427" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-428"><a href="#cb61-428" aria-hidden="true" tabindex="-1"></a>:::: {.columns}</span>
-<span id="cb61-429"><a href="#cb61-429" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-430"><a href="#cb61-430" aria-hidden="true" tabindex="-1"></a>::: {.column width="35%"}</span>
-<span id="cb61-431"><a href="#cb61-431" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-432"><a href="#cb61-432" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>two-dimensional\</span>
-<span id="cb61-433"><a href="#cb61-433" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>same data type</span>
-<span id="cb61-434"><a href="#cb61-434" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>example see on the <span class="co">[</span><span class="ot">right</span><span class="co">](#tip-mat)</span></span>
-<span id="cb61-435"><a href="#cb61-435" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-436"><a href="#cb61-436" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb61-437"><a href="#cb61-437" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-438"><a href="#cb61-438" aria-hidden="true" tabindex="-1"></a>::: {.column width="5%"}</span>
-<span id="cb61-439"><a href="#cb61-439" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- empty column to create gap --&gt;</span></span>
-<span id="cb61-440"><a href="#cb61-440" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb61-441"><a href="#cb61-441" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-442"><a href="#cb61-442" aria-hidden="true" tabindex="-1"></a>::: {.column width="60%"}</span>
-<span id="cb61-443"><a href="#cb61-443" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-444"><a href="#cb61-444" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" appearance="simple"}</span>
-<span id="cb61-445"><a href="#cb61-445" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tips for handling matrices {#tip-mat}</span></span>
-<span id="cb61-446"><a href="#cb61-446" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-447"><a href="#cb61-447" aria-hidden="true" tabindex="-1"></a>The <span class="in">`matrix`</span> function creates a matrix from the given set of values</span>
-<span id="cb61-448"><a href="#cb61-448" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-451"><a href="#cb61-451" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb61-452"><a href="#cb61-452" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-mat-0</span></span>
-<span id="cb61-453"><a href="#cb61-453" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
-<span id="cb61-454"><a href="#cb61-454" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">data =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">45</span>, <span class="dv">36</span>, <span class="dv">52</span>),</span>
-<span id="cb61-455"><a href="#cb61-455" aria-hidden="true" tabindex="-1"></a>            <span class="at">nrow =</span> <span class="dv">2</span>,</span>
-<span id="cb61-456"><a href="#cb61-456" aria-hidden="true" tabindex="-1"></a>            <span class="at">ncol =</span> <span class="dv">3</span>,</span>
-<span id="cb61-457"><a href="#cb61-457" aria-hidden="true" tabindex="-1"></a>            <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb61-458"><a href="#cb61-458" aria-hidden="true" tabindex="-1"></a>m</span>
-<span id="cb61-459"><a href="#cb61-459" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb61-460"><a href="#cb61-460" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-461"><a href="#cb61-461" aria-hidden="true" tabindex="-1"></a>Slicing works also on matrices: <span class="in">`m[row , column]`</span></span>
-<span id="cb61-462"><a href="#cb61-462" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-465"><a href="#cb61-465" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb61-466"><a href="#cb61-466" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: mat-slice</span></span>
-<span id="cb61-467"><a href="#cb61-467" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
-<span id="cb61-468"><a href="#cb61-468" aria-hidden="true" tabindex="-1"></a>m[, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]</span>
-<span id="cb61-469"><a href="#cb61-469" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb61-470"><a href="#cb61-470" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-471"><a href="#cb61-471" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb61-472"><a href="#cb61-472" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-473"><a href="#cb61-473" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb61-474"><a href="#cb61-474" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-475"><a href="#cb61-475" aria-hidden="true" tabindex="-1"></a>::::</span>
-<span id="cb61-476"><a href="#cb61-476" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-477"><a href="#cb61-477" aria-hidden="true" tabindex="-1"></a><span class="fu">#### List</span></span>
-<span id="cb61-478"><a href="#cb61-478" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-479"><a href="#cb61-479" aria-hidden="true" tabindex="-1"></a>:::: {.columns}</span>
-<span id="cb61-480"><a href="#cb61-480" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-481"><a href="#cb61-481" aria-hidden="true" tabindex="-1"></a>::: {.column width="35%"}</span>
-<span id="cb61-482"><a href="#cb61-482" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-483"><a href="#cb61-483" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>can contain elements of various data types</span>
-<span id="cb61-484"><a href="#cb61-484" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>often ordered collection of values</span>
-<span id="cb61-485"><a href="#cb61-485" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>one-indexed (indexing starts with 1)</span>
-<span id="cb61-486"><a href="#cb61-486" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>e.g., <span class="in">`list("hi", 2, NULL)`</span></span>
-<span id="cb61-487"><a href="#cb61-487" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-488"><a href="#cb61-488" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb61-489"><a href="#cb61-489" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-490"><a href="#cb61-490" aria-hidden="true" tabindex="-1"></a>::: {.column width="5%"}</span>
-<span id="cb61-491"><a href="#cb61-491" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- empty column to create gap --&gt;</span></span>
-<span id="cb61-492"><a href="#cb61-492" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb61-493"><a href="#cb61-493" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-494"><a href="#cb61-494" aria-hidden="true" tabindex="-1"></a>::: {.column width="60%"}</span>
-<span id="cb61-495"><a href="#cb61-495" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-496"><a href="#cb61-496" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" appearance="simple"}</span>
-<span id="cb61-497"><a href="#cb61-497" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tips for handling lists</span></span>
-<span id="cb61-498"><a href="#cb61-498" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-499"><a href="#cb61-499" aria-hidden="true" tabindex="-1"></a>Create lists (with different elements, i.e., numbers and letters) with the <span class="in">`list`</span> function</span>
-<span id="cb61-500"><a href="#cb61-500" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-503"><a href="#cb61-503" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb61-504"><a href="#cb61-504" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-list-0</span></span>
-<span id="cb61-505"><a href="#cb61-505" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
-<span id="cb61-506"><a href="#cb61-506" aria-hidden="true" tabindex="-1"></a>l1 <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>)</span>
-<span id="cb61-507"><a href="#cb61-507" aria-hidden="true" tabindex="-1"></a>l2 <span class="ot">&lt;-</span> <span class="fu">list</span>(letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>])</span>
-<span id="cb61-508"><a href="#cb61-508" aria-hidden="true" tabindex="-1"></a>l3 <span class="ot">&lt;-</span> <span class="fu">list</span>(LETTERS[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>])</span>
-<span id="cb61-509"><a href="#cb61-509" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb61-510"><a href="#cb61-510" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-511"><a href="#cb61-511" aria-hidden="true" tabindex="-1"></a>Create a nested list...</span>
-<span id="cb61-512"><a href="#cb61-512" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-515"><a href="#cb61-515" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb61-516"><a href="#cb61-516" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-list-1</span></span>
-<span id="cb61-517"><a href="#cb61-517" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
-<span id="cb61-518"><a href="#cb61-518" aria-hidden="true" tabindex="-1"></a>l4 <span class="ot">&lt;-</span> <span class="fu">list</span>(l1, l2, l3)</span>
-<span id="cb61-519"><a href="#cb61-519" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb61-520"><a href="#cb61-520" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-521"><a href="#cb61-521" aria-hidden="true" tabindex="-1"></a>...or a named (nested) list</span>
-<span id="cb61-522"><a href="#cb61-522" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-525"><a href="#cb61-525" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb61-526"><a href="#cb61-526" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-list-2</span></span>
-<span id="cb61-527"><a href="#cb61-527" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
-<span id="cb61-528"><a href="#cb61-528" aria-hidden="true" tabindex="-1"></a>l4Nam <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="st">"Numbers"</span> <span class="ot">=</span> l1,</span>
-<span id="cb61-529"><a href="#cb61-529" aria-hidden="true" tabindex="-1"></a>              <span class="st">"SmallLetters"</span> <span class="ot">=</span> l2,</span>
-<span id="cb61-530"><a href="#cb61-530" aria-hidden="true" tabindex="-1"></a>              <span class="st">"CaptialLetters"</span> <span class="ot">=</span> l3)</span>
-<span id="cb61-531"><a href="#cb61-531" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb61-532"><a href="#cb61-532" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-533"><a href="#cb61-533" aria-hidden="true" tabindex="-1"></a>Access list or nested list elements</span>
-<span id="cb61-534"><a href="#cb61-534" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-537"><a href="#cb61-537" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb61-538"><a href="#cb61-538" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-list-3</span></span>
-<span id="cb61-539"><a href="#cb61-539" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
-<span id="cb61-540"><a href="#cb61-540" aria-hidden="true" tabindex="-1"></a>l4[<span class="dv">2</span>]</span>
-<span id="cb61-541"><a href="#cb61-541" aria-hidden="true" tabindex="-1"></a>l4[[<span class="dv">2</span>]][<span class="dv">3</span>]</span>
-<span id="cb61-542"><a href="#cb61-542" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb61-543"><a href="#cb61-543" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-544"><a href="#cb61-544" aria-hidden="true" tabindex="-1"></a>Unlist the <span class="in">`list`</span> to get vector which contains all the atomic components</span>
-<span id="cb61-545"><a href="#cb61-545" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-548"><a href="#cb61-548" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb61-549"><a href="#cb61-549" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-list-4</span></span>
-<span id="cb61-550"><a href="#cb61-550" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
-<span id="cb61-551"><a href="#cb61-551" aria-hidden="true" tabindex="-1"></a><span class="fu">unlist</span>(l1)</span>
-<span id="cb61-552"><a href="#cb61-552" aria-hidden="true" tabindex="-1"></a><span class="fu">unlist</span>(l4)</span>
-<span id="cb61-553"><a href="#cb61-553" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb61-554"><a href="#cb61-554" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-555"><a href="#cb61-555" aria-hidden="true" tabindex="-1"></a>Count amount of items contained in list</span>
-<span id="cb61-556"><a href="#cb61-556" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-559"><a href="#cb61-559" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb61-560"><a href="#cb61-560" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-list-5</span></span>
-<span id="cb61-561"><a href="#cb61-561" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
-<span id="cb61-562"><a href="#cb61-562" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(l4)</span>
-<span id="cb61-563"><a href="#cb61-563" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unlist</span>(l4))</span>
-<span id="cb61-564"><a href="#cb61-564" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb61-565"><a href="#cb61-565" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb61-566"><a href="#cb61-566" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-567"><a href="#cb61-567" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb61-568"><a href="#cb61-568" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-569"><a href="#cb61-569" aria-hidden="true" tabindex="-1"></a>::::</span>
-<span id="cb61-570"><a href="#cb61-570" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-571"><a href="#cb61-571" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Data frame</span></span>
-<span id="cb61-572"><a href="#cb61-572" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-573"><a href="#cb61-573" aria-hidden="true" tabindex="-1"></a>:::: {.columns}</span>
-<span id="cb61-574"><a href="#cb61-574" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-575"><a href="#cb61-575" aria-hidden="true" tabindex="-1"></a>::: {.column width="35%"}</span>
-<span id="cb61-576"><a href="#cb61-576" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-577"><a href="#cb61-577" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-578"><a href="#cb61-578" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>various columns</span>
-<span id="cb61-579"><a href="#cb61-579" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>different data types</span>
-<span id="cb61-580"><a href="#cb61-580" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>variables = columns</span>
-<span id="cb61-581"><a href="#cb61-581" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>observations = rows</span>
-<span id="cb61-582"><a href="#cb61-582" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>example see on the <span class="co">[</span><span class="ot">right</span><span class="co">](#tip-df)</span></span>
-<span id="cb61-583"><a href="#cb61-583" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-584"><a href="#cb61-584" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb61-585"><a href="#cb61-585" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-586"><a href="#cb61-586" aria-hidden="true" tabindex="-1"></a>::: {.column width="5%"}</span>
-<span id="cb61-587"><a href="#cb61-587" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- empty column to create gap --&gt;</span></span>
-<span id="cb61-588"><a href="#cb61-588" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb61-589"><a href="#cb61-589" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-590"><a href="#cb61-590" aria-hidden="true" tabindex="-1"></a>::: {.column width="60%"}</span>
-<span id="cb61-591"><a href="#cb61-591" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-592"><a href="#cb61-592" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" appearance="simple"}</span>
-<span id="cb61-593"><a href="#cb61-593" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tips for handling dataFrames {#tip-df}</span></span>
-<span id="cb61-594"><a href="#cb61-594" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-597"><a href="#cb61-597" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb61-598"><a href="#cb61-598" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-df-0</span></span>
-<span id="cb61-599"><a href="#cb61-599" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
-<span id="cb61-600"><a href="#cb61-600" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb61-601"><a href="#cb61-601" aria-hidden="true" tabindex="-1"></a>  <span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>,</span>
-<span id="cb61-602"><a href="#cb61-602" aria-hidden="true" tabindex="-1"></a>  <span class="at">age =</span> <span class="fu">c</span>(<span class="dv">12</span>, <span class="dv">13</span>, <span class="dv">12</span>, <span class="dv">14</span>),</span>
-<span id="cb61-603"><a href="#cb61-603" aria-hidden="true" tabindex="-1"></a>  <span class="at">sex =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>)</span>
-<span id="cb61-604"><a href="#cb61-604" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb61-605"><a href="#cb61-605" aria-hidden="true" tabindex="-1"></a>df</span>
-<span id="cb61-606"><a href="#cb61-606" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb61-607"><a href="#cb61-607" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-608"><a href="#cb61-608" aria-hidden="true" tabindex="-1"></a>Number of observations</span>
-<span id="cb61-609"><a href="#cb61-609" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-612"><a href="#cb61-612" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb61-613"><a href="#cb61-613" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-df-1</span></span>
-<span id="cb61-614"><a href="#cb61-614" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
-<span id="cb61-615"><a href="#cb61-615" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-616"><a href="#cb61-616" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(df)</span>
-<span id="cb61-617"><a href="#cb61-617" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb61-618"><a href="#cb61-618" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-619"><a href="#cb61-619" aria-hidden="true" tabindex="-1"></a>Show dimension (rows, columns) of dataframe </span>
-<span id="cb61-620"><a href="#cb61-620" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-623"><a href="#cb61-623" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb61-624"><a href="#cb61-624" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-df-2</span></span>
-<span id="cb61-625"><a href="#cb61-625" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
-<span id="cb61-626"><a href="#cb61-626" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-627"><a href="#cb61-627" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(df)</span>
-<span id="cb61-628"><a href="#cb61-628" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb61-629"><a href="#cb61-629" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-630"><a href="#cb61-630" aria-hidden="true" tabindex="-1"></a>Column names</span>
-<span id="cb61-631"><a href="#cb61-631" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-634"><a href="#cb61-634" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb61-635"><a href="#cb61-635" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-df-3</span></span>
-<span id="cb61-636"><a href="#cb61-636" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
-<span id="cb61-637"><a href="#cb61-637" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-638"><a href="#cb61-638" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(df)</span>
-<span id="cb61-639"><a href="#cb61-639" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb61-640"><a href="#cb61-640" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-641"><a href="#cb61-641" aria-hidden="true" tabindex="-1"></a>Show the first two rows of the dataframe</span>
-<span id="cb61-642"><a href="#cb61-642" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-645"><a href="#cb61-645" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb61-646"><a href="#cb61-646" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-df-4</span></span>
-<span id="cb61-647"><a href="#cb61-647" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
-<span id="cb61-648"><a href="#cb61-648" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-649"><a href="#cb61-649" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df, <span class="dv">2</span>)</span>
-<span id="cb61-650"><a href="#cb61-650" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb61-651"><a href="#cb61-651" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-652"><a href="#cb61-652" aria-hidden="true" tabindex="-1"></a>Structure of dataframe object</span>
-<span id="cb61-653"><a href="#cb61-653" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-656"><a href="#cb61-656" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb61-657"><a href="#cb61-657" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-df-5</span></span>
-<span id="cb61-658"><a href="#cb61-658" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
-<span id="cb61-659"><a href="#cb61-659" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-660"><a href="#cb61-660" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(df)</span>
-<span id="cb61-661"><a href="#cb61-661" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb61-662"><a href="#cb61-662" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-663"><a href="#cb61-663" aria-hidden="true" tabindex="-1"></a>Some descriptive statistics using the <span class="in">`summary`</span> function (for more see Section <span class="co">[</span><span class="ot">Descriptive statistics and item analysis</span><span class="co">](#item-analy-descr)</span></span>
-<span id="cb61-664"><a href="#cb61-664" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-667"><a href="#cb61-667" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb61-668"><a href="#cb61-668" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-df-6</span></span>
-<span id="cb61-669"><a href="#cb61-669" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
-<span id="cb61-670"><a href="#cb61-670" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-671"><a href="#cb61-671" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(df)</span>
-<span id="cb61-672"><a href="#cb61-672" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb61-673"><a href="#cb61-673" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-676"><a href="#cb61-676" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb61-677"><a href="#cb61-677" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: del-df</span></span>
-<span id="cb61-678"><a href="#cb61-678" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb61-679"><a href="#cb61-679" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(df)</span>
-<span id="cb61-680"><a href="#cb61-680" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb61-681"><a href="#cb61-681" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-682"><a href="#cb61-682" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-683"><a href="#cb61-683" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb61-684"><a href="#cb61-684" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-685"><a href="#cb61-685" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb61-686"><a href="#cb61-686" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-687"><a href="#cb61-687" aria-hidden="true" tabindex="-1"></a>::::</span>
-<span id="cb61-688"><a href="#cb61-688" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-689"><a href="#cb61-689" aria-hidden="true" tabindex="-1"></a><span class="fu">## Base R ~~vs.~~ &amp; tidyverse {#baseR-tidyverse}</span></span>
-<span id="cb61-690"><a href="#cb61-690" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-691"><a href="#cb61-691" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-692"><a href="#cb61-692" aria-hidden="true" tabindex="-1"></a>:::: {.columns}</span>
-<span id="cb61-693"><a href="#cb61-693" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-694"><a href="#cb61-694" aria-hidden="true" tabindex="-1"></a>::: {.column width="47.5%"}</span>
-<span id="cb61-695"><a href="#cb61-695" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-696"><a href="#cb61-696" aria-hidden="true" tabindex="-1"></a>Besides the functionality of base <span class="in">`R`</span> <span class="co">[</span><span class="ot">@R-base</span><span class="co">]</span>, there is the so-called <span class="in">`tidyverse`</span> <span class="co">[</span><span class="ot">@R-tidyverse</span><span class="co">]</span> within <span class="in">`R`</span>. The <span class="in">`tidyverse`</span> is a collection of <span class="in">`R`</span> packages (see @fig-tidyverse) that *"share an underlying design philosophy, grammar, and data structures"* and are (specifically) designed for data science (see <span class="ot">&lt;https://www.tidyverse.org/&gt;</span>).</span>
-<span id="cb61-697"><a href="#cb61-697" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-698"><a href="#cb61-698" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb61-699"><a href="#cb61-699" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-700"><a href="#cb61-700" aria-hidden="true" tabindex="-1"></a>::: {.column width="5%"}</span>
-<span id="cb61-701"><a href="#cb61-701" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- empty column to create gap --&gt;</span></span>
-<span id="cb61-702"><a href="#cb61-702" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb61-703"><a href="#cb61-703" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-704"><a href="#cb61-704" aria-hidden="true" tabindex="-1"></a>::: {.column width="47.5%"}</span>
-<span id="cb61-705"><a href="#cb61-705" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-706"><a href="#cb61-706" aria-hidden="true" tabindex="-1"></a><span class="al">![tidyverse package collection](images/tidyverse.png)</span>{#fig-tidyverse width=50%}</span>
-<span id="cb61-707"><a href="#cb61-707" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-708"><a href="#cb61-708" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb61-709"><a href="#cb61-709" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-710"><a href="#cb61-710" aria-hidden="true" tabindex="-1"></a>::::</span>
-<span id="cb61-711"><a href="#cb61-711" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-712"><a href="#cb61-712" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-713"><a href="#cb61-713" aria-hidden="true" tabindex="-1"></a>Within the <span class="in">`tidyverse`</span> package collection, the <span class="in">`dplyr`</span> package <span class="co">[</span><span class="ot">@R-dplyr</span><span class="co">]</span> provides a set of convenient functions for manipulating data. Together with the pipe operator <span class="in">`%&gt;%`</span> from the <span class="in">`magrittr`</span> package <span class="co">[</span><span class="ot">@R-magrittr</span><span class="co">]</span>), it is an extremely powerful approach to manipulate data in a clear and comprehensible way. The native^<span class="co">[</span><span class="ot">for the difference between `|&gt;` and `%&gt;%` see &lt;https://ivelasq.rbind.io/blog/understanding-the-r-pipe/&gt;</span><span class="co">]</span> <span class="in">`R`</span> pipe <span class="in">`|&gt;`</span> was introduced with <span class="in">`R`</span> <span class="co">[</span><span class="ot">v4.1.0</span><span class="co">](https://cran.r-project.org/bin/windows/base/old/4.1.0/NEWS.R-4.1.0.html)</span>. </span>
-<span id="cb61-714"><a href="#cb61-714" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-715"><a href="#cb61-715" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true"}</span>
-<span id="cb61-716"><a href="#cb61-716" aria-hidden="true" tabindex="-1"></a><span class="fu">## What exactly does the pipe operator |&gt;? {#what-is-pipe-op}</span></span>
-<span id="cb61-717"><a href="#cb61-717" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-718"><a href="#cb61-718" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">The tidyverse style guide</span><span class="co">](https://style.tidyverse.org/)</span> suggests using the pipe operator *"to emphasize a sequence of actions"*. The pipe operator can be understood as *"take the object and then"* pass it to the next function. In the following, the use of the base <span class="in">`R`</span> pipe operator is shown:</span>
-<span id="cb61-719"><a href="#cb61-719" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-720"><a href="#cb61-720" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Take** the data frame `exDat` **and then** </span>
-<span id="cb61-721"><a href="#cb61-721" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Calculate descriptive statistics using the <span class="in">`describe`</span> function from the <span class="in">`psych`</span> package <span class="co">[</span><span class="ot">@R-psych</span><span class="co">]</span> **and then**</span>
-<span id="cb61-722"><a href="#cb61-722" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Create a table with the <span class="in">`kable`</span> function from the <span class="in">`knitr`</span> package <span class="co">[</span><span class="ot">@R-knitr</span><span class="co">]</span></span>
-<span id="cb61-723"><a href="#cb61-723" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-726"><a href="#cb61-726" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb61-727"><a href="#cb61-727" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-pipe-1</span></span>
-<span id="cb61-728"><a href="#cb61-728" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
-<span id="cb61-729"><a href="#cb61-729" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-line-numbers: true</span></span>
-<span id="cb61-730"><a href="#cb61-730" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-731"><a href="#cb61-731" aria-hidden="true" tabindex="-1"></a>exDat <span class="sc">|&gt;</span> </span>
-<span id="cb61-732"><a href="#cb61-732" aria-hidden="true" tabindex="-1"></a>  psych<span class="sc">::</span><span class="fu">describe</span>(<span class="at">fast=</span><span class="cn">TRUE</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb61-733"><a href="#cb61-733" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">2</span>) </span>
-<span id="cb61-734"><a href="#cb61-734" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb61-735"><a href="#cb61-735" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-736"><a href="#cb61-736" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-737"><a href="#cb61-737" aria-hidden="true" tabindex="-1"></a>In contrast, when we use a nested approach the code would look like this:</span>
-<span id="cb61-738"><a href="#cb61-738" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-741"><a href="#cb61-741" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb61-742"><a href="#cb61-742" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-pipe-2</span></span>
-<span id="cb61-743"><a href="#cb61-743" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
-<span id="cb61-744"><a href="#cb61-744" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-line-numbers: true</span></span>
-<span id="cb61-745"><a href="#cb61-745" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
-<span id="cb61-746"><a href="#cb61-746" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-747"><a href="#cb61-747" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(psych<span class="sc">::</span><span class="fu">describe</span>(exDat,<span class="at">fast=</span><span class="cn">TRUE</span>),<span class="at">digits =</span> <span class="dv">2</span>) </span>
-<span id="cb61-748"><a href="#cb61-748" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb61-749"><a href="#cb61-749" aria-hidden="true" tabindex="-1"></a>...or maybe a little bit more clear:</span>
-<span id="cb61-750"><a href="#cb61-750" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-753"><a href="#cb61-753" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb61-754"><a href="#cb61-754" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-pipe-3</span></span>
-<span id="cb61-755"><a href="#cb61-755" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
-<span id="cb61-756"><a href="#cb61-756" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-line-numbers: true</span></span>
-<span id="cb61-757"><a href="#cb61-757" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
-<span id="cb61-758"><a href="#cb61-758" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-759"><a href="#cb61-759" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
-<span id="cb61-760"><a href="#cb61-760" aria-hidden="true" tabindex="-1"></a>  psych<span class="sc">::</span><span class="fu">describe</span>(exDat,</span>
-<span id="cb61-761"><a href="#cb61-761" aria-hidden="true" tabindex="-1"></a>                  <span class="at">fast=</span><span class="cn">TRUE</span>),</span>
-<span id="cb61-762"><a href="#cb61-762" aria-hidden="true" tabindex="-1"></a>  <span class="at">digits =</span> <span class="dv">2</span>) </span>
-<span id="cb61-763"><a href="#cb61-763" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb61-764"><a href="#cb61-764" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-765"><a href="#cb61-765" aria-hidden="true" tabindex="-1"></a>Nevertheless, when there are many functions, it gets kind of messy and difficult to comprehend. For more information on how to use pipes, see <span class="co">[</span><span class="ot">Chapter 4</span><span class="co">](https://style.tidyverse.org/pipes.html)</span> of the guide.</span>
-<span id="cb61-766"><a href="#cb61-766" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-767"><a href="#cb61-767" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb61-768"><a href="#cb61-768" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-769"><a href="#cb61-769" aria-hidden="true" tabindex="-1"></a></span>
+<div class="sourceCode" id="cb59" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Introduction to R &amp; RStudio</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>This part gives a short introduction to <span class="in">`R`</span> and <span class="in">`RStudio`</span>. If you are familiar with the programs and are not interested in the <span class="in">`R`</span> vs <span class="in">`tidyverse`</span> "distinction", you can skip this section.</span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: intro-r-prep</span></span>
+<span id="cb59-9"><a href="#cb59-9" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb59-10"><a href="#cb59-10" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
+<span id="cb59-11"><a href="#cb59-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-12"><a href="#cb59-12" aria-hidden="true" tabindex="-1"></a>exDat <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"exampleDat.RDS"</span>)</span>
+<span id="cb59-13"><a href="#cb59-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-14"><a href="#cb59-14" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb59-15"><a href="#cb59-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-16"><a href="#cb59-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## What is R &amp; RStudio?</span></span>
+<span id="cb59-17"><a href="#cb59-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-18"><a href="#cb59-18" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**R**: <span class="in">`R`</span> is a free software environment for statistical computing and graphics. It compiles and runs on a wide variety of UNIX platforms, Windows and MacOS (see <span class="co">[</span><span class="ot">https://www.r-project.org/</span><span class="co">](https://www.r-project.org/)</span>{target="_blank"}). </span>
+<span id="cb59-19"><a href="#cb59-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-20"><a href="#cb59-20" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**R Studio**: Coding environment for <span class="in">`R`</span>, built by <span class="co">[</span><span class="ot">Posit</span><span class="co">](https://posit.co/)</span>{target="_blank"}. </span>
+<span id="cb59-21"><a href="#cb59-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-22"><a href="#cb59-22" aria-hidden="true" tabindex="-1"></a>Some advertisement from the <span class="co">[</span><span class="ot">Posit website</span><span class="co">](https://posit.co/downloads/)</span>{target="_blank"}: </span>
+<span id="cb59-23"><a href="#cb59-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-24"><a href="#cb59-24" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Used by millions of people weekly, the RStudio integrated development environment (IDE) is a set of tools built to help you be more productive with R and Python. It includes a console, syntax-highlighting editor that supports direct code execution. It also features tools for plotting, viewing history, debugging and managing your workspace. </span></span>
+<span id="cb59-25"><a href="#cb59-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-26"><a href="#cb59-26" aria-hidden="true" tabindex="-1"></a>Of course there are other IDEs (e.g., <span class="co">[</span><span class="ot">Visual Studio Code</span><span class="co">](https://code.visualstudio.com/)</span>{target="_blank"}, but if you use <span class="in">`R`</span>, <span class="in">`RStudio`</span> is most likely the way to go.</span>
+<span id="cb59-27"><a href="#cb59-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-28"><a href="#cb59-28" aria-hidden="true" tabindex="-1"></a><span class="fu">## How to work with R and RStudio?</span></span>
+<span id="cb59-29"><a href="#cb59-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-30"><a href="#cb59-30" aria-hidden="true" tabindex="-1"></a>::: {.callout-caution collapse="true"}</span>
+<span id="cb59-31"><a href="#cb59-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-32"><a href="#cb59-32" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise: Open RStudio!</span></span>
+<span id="cb59-33"><a href="#cb59-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-34"><a href="#cb59-34" aria-hidden="true" tabindex="-1"></a>This should look like this, maybe or probably with a different appearance (this is the Dracula theme). You can change this via <span class="in">`Tools &gt; Global Options &gt; Appearance`</span></span>
+<span id="cb59-35"><a href="#cb59-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-36"><a href="#cb59-36" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/rstudio-panes.PNG)</span></span>
+<span id="cb59-37"><a href="#cb59-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-38"><a href="#cb59-38" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb59-39"><a href="#cb59-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-40"><a href="#cb59-40" aria-hidden="true" tabindex="-1"></a>In <span class="in">`RStudio`</span> there are different panes^<span class="co">[</span><span class="ot">You can customize them: `Tools &gt; Global Options &gt; Pane Layout`</span><span class="co">]</span>:</span>
+<span id="cb59-41"><a href="#cb59-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-42"><a href="#cb59-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-43"><a href="#cb59-43" aria-hidden="true" tabindex="-1"></a><span class="fu">### Panes</span></span>
+<span id="cb59-44"><a href="#cb59-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-45"><a href="#cb59-45" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Console**</span>
+<span id="cb59-46"><a href="#cb59-46" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Here you can access <span class="in">`R`</span></span>
+<span id="cb59-47"><a href="#cb59-47" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>E.g., ask <span class="in">`R`</span> what is: <span class="in">`2 + 2`</span></span>
+<span id="cb59-48"><a href="#cb59-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-49"><a href="#cb59-49" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Source/Script**</span>
+<span id="cb59-50"><a href="#cb59-50" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Editor to save scripts</span>
+<span id="cb59-51"><a href="#cb59-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-52"><a href="#cb59-52" aria-hidden="true" tabindex="-1"></a>::: {.callout-warning}</span>
+<span id="cb59-53"><a href="#cb59-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-54"><a href="#cb59-54" aria-hidden="true" tabindex="-1"></a>You should **never** work directly in the Console, but always use a R-script (e.g., script.R) or *even better* a Quarto document (e.g., script.qmd). It is important to understand and reproduce everything you did.</span>
+<span id="cb59-55"><a href="#cb59-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-56"><a href="#cb59-56" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb59-57"><a href="#cb59-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-58"><a href="#cb59-58" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Environment/History/.../Tutorial**</span>
+<span id="cb59-59"><a href="#cb59-59" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Environment: contains all objects that were created or loaded during an R session</span>
+<span id="cb59-60"><a href="#cb59-60" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>History:</span>
+<span id="cb59-61"><a href="#cb59-61" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>... e.g., the free and open source distributed version control system <span class="co">[</span><span class="ot">git</span><span class="co">](https://git-scm.com/)</span></span>
+<span id="cb59-62"><a href="#cb59-62" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Tutorial: A tutorial to learn <span class="in">`R`</span> with the <span class="in">`learnr`</span> package <span class="co">[</span><span class="ot">@R-learnr</span><span class="co">]</span></span>
+<span id="cb59-63"><a href="#cb59-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-64"><a href="#cb59-64" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Files/Plots/Packages/Help/Viewer**</span>
+<span id="cb59-65"><a href="#cb59-65" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Files: is kind of the file manager</span>
+<span id="cb59-66"><a href="#cb59-66" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Plots: shows the generated plots</span>
+<span id="cb59-67"><a href="#cb59-67" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Packages: overview of the (loaded &amp;) installed packages</span>
+<span id="cb59-68"><a href="#cb59-68" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Help: When you ask for help (e.g., regarding a specific function in R: <span class="in">`?mean`</span>) </span>
+<span id="cb59-69"><a href="#cb59-69" aria-hidden="true" tabindex="-1"></a><span class="ss">  - </span>Viewer: E.g., previewing rendered Quarto documents</span>
+<span id="cb59-70"><a href="#cb59-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-71"><a href="#cb59-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-72"><a href="#cb59-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-73"><a href="#cb59-73" aria-hidden="true" tabindex="-1"></a><span class="fu">### Projects</span></span>
+<span id="cb59-74"><a href="#cb59-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-75"><a href="#cb59-75" aria-hidden="true" tabindex="-1"></a>It is also reasonable to use the **project option**. This means, whenever you start a new project (e.g., a scale-manual), create an <span class="in">`project`</span>: <span class="in">`File &gt; New Project`</span> </span>
+<span id="cb59-76"><a href="#cb59-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-77"><a href="#cb59-77" aria-hidden="true" tabindex="-1"></a>::: {.callout-caution collapse="true"}</span>
+<span id="cb59-78"><a href="#cb59-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-79"><a href="#cb59-79" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise: Create an project!</span></span>
+<span id="cb59-80"><a href="#cb59-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-81"><a href="#cb59-81" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Choose between:</span>
+<span id="cb59-82"><a href="#cb59-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-83"><a href="#cb59-83" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**New Directory** (for today)</span>
+<span id="cb59-84"><a href="#cb59-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-85"><a href="#cb59-85" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Existing Directory</span>
+<span id="cb59-86"><a href="#cb59-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-87"><a href="#cb59-87" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Version Control (this is recommended, but is beyond the scope of this workshop)</span>
+<span id="cb59-88"><a href="#cb59-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-89"><a href="#cb59-89" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/new-proj-wizz.PNG)</span></span>
+<span id="cb59-90"><a href="#cb59-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-91"><a href="#cb59-91" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Choose a project type (today a <span class="in">`R project`</span> or <span class="in">`Quarto project`</span>)</span>
+<span id="cb59-92"><a href="#cb59-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-93"><a href="#cb59-93" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/project-type.PNG)</span></span>
+<span id="cb59-94"><a href="#cb59-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-95"><a href="#cb59-95" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Provide a short name, set the check mark <span class="in">`Open in new session`</span> and click <span class="in">`Create Project`</span></span>
+<span id="cb59-96"><a href="#cb59-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-97"><a href="#cb59-97" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/name-rproj.PNG)</span></span>
+<span id="cb59-98"><a href="#cb59-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-99"><a href="#cb59-99" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb59-100"><a href="#cb59-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-101"><a href="#cb59-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-102"><a href="#cb59-102" aria-hidden="true" tabindex="-1"></a><span class="fu">## Short introduction to the R programming language</span></span>
+<span id="cb59-103"><a href="#cb59-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-104"><a href="#cb59-104" aria-hidden="true" tabindex="-1"></a>This section gives a (very?) brief introduction to the <span class="in">`R`</span> programming language. </span>
+<span id="cb59-105"><a href="#cb59-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-106"><a href="#cb59-106" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" appearance="simple" title="For (more) comprehensive introductions..."}</span>
+<span id="cb59-107"><a href="#cb59-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-108"><a href="#cb59-108" aria-hidden="true" tabindex="-1"></a>...or overviews of the language see (e.g.): </span>
+<span id="cb59-109"><a href="#cb59-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-110"><a href="#cb59-110" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">R Manual</span><span class="co">](https://cran.r-project.org/doc/manuals/r-release/R-intro.html)</span> on the <span class="co">[</span><span class="ot">CRAN</span><span class="co">](https://cran.r-project.org)</span> website</span>
+<span id="cb59-111"><a href="#cb59-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-112"><a href="#cb59-112" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">R for Data Science</span><span class="co">](https://r4ds.had.co.nz/)</span> by Hadley Wickham and Garrett Grolemund</span>
+<span id="cb59-113"><a href="#cb59-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-114"><a href="#cb59-114" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Hands-On Programming with R</span><span class="co">](https://rstudio-education.github.io/hopr/)</span> by Garrett Grolemund</span>
+<span id="cb59-115"><a href="#cb59-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-116"><a href="#cb59-116" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">Introduction to R</span><span class="co">](https://stats.oarc.ucla.edu/stat/data/intro_r/intro_r_interactive_flat.html)</span> by the <span class="co">[</span><span class="ot">IDRE Statistical Consulting Group</span><span class="co">](https://stats.oarc.ucla.edu/ucla/policies/)</span></span>
+<span id="cb59-117"><a href="#cb59-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-118"><a href="#cb59-118" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>...</span>
+<span id="cb59-119"><a href="#cb59-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-120"><a href="#cb59-120" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb59-121"><a href="#cb59-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-122"><a href="#cb59-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-123"><a href="#cb59-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-124"><a href="#cb59-124" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; To understand computations in R, two slogans are helpful:</span></span>
+<span id="cb59-125"><a href="#cb59-125" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
+<span id="cb59-126"><a href="#cb59-126" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; -   Everything that exists is an object.\</span></span>
+<span id="cb59-127"><a href="#cb59-127" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; -   Everything that happens is a function call.</span></span>
+<span id="cb59-128"><a href="#cb59-128" aria-hidden="true" tabindex="-1"></a><span class="at">&gt;</span></span>
+<span id="cb59-129"><a href="#cb59-129" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; ::: {style="text-align: right;"}</span></span>
+<span id="cb59-130"><a href="#cb59-130" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; -- John Chambers (creator of the S programming language)</span></span>
+<span id="cb59-131"><a href="#cb59-131" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; :::</span></span>
+<span id="cb59-132"><a href="#cb59-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-133"><a href="#cb59-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-134"><a href="#cb59-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-135"><a href="#cb59-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-136"><a href="#cb59-136" aria-hidden="true" tabindex="-1"></a><span class="fu">### Basics</span></span>
+<span id="cb59-137"><a href="#cb59-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-138"><a href="#cb59-138" aria-hidden="true" tabindex="-1"></a>Before working with <span class="in">`R`</span>, there are a few basics you need to know:</span>
+<span id="cb59-139"><a href="#cb59-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-140"><a href="#cb59-140" aria-hidden="true" tabindex="-1"></a>:::: {.columns}</span>
+<span id="cb59-141"><a href="#cb59-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-142"><a href="#cb59-142" aria-hidden="true" tabindex="-1"></a>::: {.column width="40%"}</span>
+<span id="cb59-143"><a href="#cb59-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-144"><a href="#cb59-144" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`R`</span> is a **case-sensitive** programming language. This means that R distinguishes whether a word is written in upper or lower case</span>
+<span id="cb59-145"><a href="#cb59-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-146"><a href="#cb59-146" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb59-147"><a href="#cb59-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-148"><a href="#cb59-148" aria-hidden="true" tabindex="-1"></a>::: {.column width="10%"}</span>
+<span id="cb59-149"><a href="#cb59-149" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- empty column to create gap --&gt;</span></span>
+<span id="cb59-150"><a href="#cb59-150" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb59-151"><a href="#cb59-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-152"><a href="#cb59-152" aria-hidden="true" tabindex="-1"></a>::: {.column width="40%"}</span>
+<span id="cb59-153"><a href="#cb59-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-156"><a href="#cb59-156" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb59-157"><a href="#cb59-157" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: case-sense</span></span>
+<span id="cb59-158"><a href="#cb59-158" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
+<span id="cb59-159"><a href="#cb59-159" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-line-numbers: false</span></span>
+<span id="cb59-160"><a href="#cb59-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-161"><a href="#cb59-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-162"><a href="#cb59-162" aria-hidden="true" tabindex="-1"></a><span class="st">"name"</span> <span class="sc">==</span> <span class="st">"Name"</span></span>
+<span id="cb59-163"><a href="#cb59-163" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb59-164"><a href="#cb59-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-165"><a href="#cb59-165" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb59-166"><a href="#cb59-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-167"><a href="#cb59-167" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb59-168"><a href="#cb59-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-169"><a href="#cb59-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-170"><a href="#cb59-170" aria-hidden="true" tabindex="-1"></a>:::: {.columns}</span>
+<span id="cb59-171"><a href="#cb59-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-172"><a href="#cb59-172" aria-hidden="true" tabindex="-1"></a>::: {.column width="40%"}</span>
+<span id="cb59-173"><a href="#cb59-173" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-174"><a href="#cb59-174" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Values** are assigned to objects using <span class="in">`&lt;-`</span></span>
+<span id="cb59-175"><a href="#cb59-175" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-176"><a href="#cb59-176" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb59-177"><a href="#cb59-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-178"><a href="#cb59-178" aria-hidden="true" tabindex="-1"></a>::: {.column width="10%"}</span>
+<span id="cb59-179"><a href="#cb59-179" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- empty column to create gap --&gt;</span></span>
+<span id="cb59-180"><a href="#cb59-180" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb59-181"><a href="#cb59-181" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-182"><a href="#cb59-182" aria-hidden="true" tabindex="-1"></a>::: {.column width="40%"}</span>
+<span id="cb59-183"><a href="#cb59-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-186"><a href="#cb59-186" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb59-187"><a href="#cb59-187" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: r-assing</span></span>
+<span id="cb59-188"><a href="#cb59-188" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb59-189"><a href="#cb59-189" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
+<span id="cb59-190"><a href="#cb59-190" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-line-numbers: false</span></span>
+<span id="cb59-191"><a href="#cb59-191" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="st">"Hello world!"</span></span>
+<span id="cb59-192"><a href="#cb59-192" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb59-193"><a href="#cb59-193" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-194"><a href="#cb59-194" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb59-195"><a href="#cb59-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-196"><a href="#cb59-196" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb59-197"><a href="#cb59-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-198"><a href="#cb59-198" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-199"><a href="#cb59-199" aria-hidden="true" tabindex="-1"></a>:::: {.columns}</span>
+<span id="cb59-200"><a href="#cb59-200" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-201"><a href="#cb59-201" aria-hidden="true" tabindex="-1"></a>::: {.column width="40%"}</span>
+<span id="cb59-202"><a href="#cb59-202" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-203"><a href="#cb59-203" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Arguments** within functions are assigned using <span class="in">`=`</span></span>
+<span id="cb59-204"><a href="#cb59-204" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-205"><a href="#cb59-205" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb59-206"><a href="#cb59-206" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-207"><a href="#cb59-207" aria-hidden="true" tabindex="-1"></a>::: {.column width="10%"}</span>
+<span id="cb59-208"><a href="#cb59-208" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- empty column to create gap --&gt;</span></span>
+<span id="cb59-209"><a href="#cb59-209" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb59-210"><a href="#cb59-210" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-211"><a href="#cb59-211" aria-hidden="true" tabindex="-1"></a>::: {.column width="40%"}</span>
+<span id="cb59-212"><a href="#cb59-212" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-215"><a href="#cb59-215" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb59-216"><a href="#cb59-216" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: r-arg</span></span>
+<span id="cb59-217"><a href="#cb59-217" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb59-218"><a href="#cb59-218" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
+<span id="cb59-219"><a href="#cb59-219" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb59-220"><a href="#cb59-220" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>,</span>
+<span id="cb59-221"><a href="#cb59-221" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> <span class="dv">3</span><span class="sc">:</span><span class="dv">6</span></span>
+<span id="cb59-222"><a href="#cb59-222" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb59-223"><a href="#cb59-223" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb59-224"><a href="#cb59-224" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-225"><a href="#cb59-225" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb59-226"><a href="#cb59-226" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-227"><a href="#cb59-227" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb59-228"><a href="#cb59-228" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-229"><a href="#cb59-229" aria-hidden="true" tabindex="-1"></a>::: {.callout-caution collapse="true"}</span>
+<span id="cb59-230"><a href="#cb59-230" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise: Create a new R script</span></span>
+<span id="cb59-231"><a href="#cb59-231" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-232"><a href="#cb59-232" aria-hidden="true" tabindex="-1"></a><span class="in">`File &gt; New File &gt; R Script`</span> or alternatively use the shortcut <span class="in">`Ctrl + Shift + N`</span></span>
+<span id="cb59-233"><a href="#cb59-233" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-234"><a href="#cb59-234" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/create-r-script.PNG)</span></span>
+<span id="cb59-235"><a href="#cb59-235" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-236"><a href="#cb59-236" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-237"><a href="#cb59-237" aria-hidden="true" tabindex="-1"></a>Then save the file <span class="in">`File &gt; Save`</span> or <span class="in">`File &gt; Save As`</span>. Shortcut: <span class="in">`Ctrl + s`</span></span>
+<span id="cb59-238"><a href="#cb59-238" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-239"><a href="#cb59-239" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-240"><a href="#cb59-240" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb59-241"><a href="#cb59-241" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-242"><a href="#cb59-242" aria-hidden="true" tabindex="-1"></a><span class="fu">### Data Types</span></span>
+<span id="cb59-243"><a href="#cb59-243" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-244"><a href="#cb59-244" aria-hidden="true" tabindex="-1"></a>The basic data types^<span class="co">[</span><span class="ot">We omitted the `complex` type.</span><span class="co">]</span> in <span class="in">`R`</span> are depicted in @tbl-data-type-R.</span>
+<span id="cb59-245"><a href="#cb59-245" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-246"><a href="#cb59-246" aria-hidden="true" tabindex="-1"></a>+---------------+-----------------------------------------+-----------------------+</span>
+<span id="cb59-247"><a href="#cb59-247" aria-hidden="true" tabindex="-1"></a>| Type          | Description                             | Value (example)       |</span>
+<span id="cb59-248"><a href="#cb59-248" aria-hidden="true" tabindex="-1"></a>+===============+=========================================+=======================+</span>
+<span id="cb59-249"><a href="#cb59-249" aria-hidden="true" tabindex="-1"></a>| **Numeric**   | Numbers with decimal value or fraction  | <span class="in">`3.7`</span>                 |</span>
+<span id="cb59-250"><a href="#cb59-250" aria-hidden="true" tabindex="-1"></a>+---------------+-----------------------------------------+-----------------------+</span>
+<span id="cb59-251"><a href="#cb59-251" aria-hidden="true" tabindex="-1"></a>| **Integer**   | Counting numbers and their additive     | <span class="in">`2`</span>, <span class="in">`-115`</span>           |</span>
+<span id="cb59-252"><a href="#cb59-252" aria-hidden="true" tabindex="-1"></a>|               | inverses                                |                       |</span>
+<span id="cb59-253"><a href="#cb59-253" aria-hidden="true" tabindex="-1"></a>+---------------+-----------------------------------------+-----------------------+</span>
+<span id="cb59-254"><a href="#cb59-254" aria-hidden="true" tabindex="-1"></a>| **Character** | aka string. Letters enclosed by quotes  | <span class="in">`"Hello World!"`</span>,<span class="in">`"4"`</span>|</span>
+<span id="cb59-255"><a href="#cb59-255" aria-hidden="true" tabindex="-1"></a>|               | in the output.                          |                       |</span>
+<span id="cb59-256"><a href="#cb59-256" aria-hidden="true" tabindex="-1"></a>+---------------+-----------------------------------------+-----------------------+</span>
+<span id="cb59-257"><a href="#cb59-257" aria-hidden="true" tabindex="-1"></a>| **Logical **  | boolean                                 | <span class="in">`TRUE`</span>, <span class="in">`FALSE`</span>       |</span>
+<span id="cb59-258"><a href="#cb59-258" aria-hidden="true" tabindex="-1"></a>+---------------+-----------------------------------------+-----------------------+</span>
+<span id="cb59-259"><a href="#cb59-259" aria-hidden="true" tabindex="-1"></a>| **Factor**    | Categorial data \                       |   \                   |</span>
+<span id="cb59-260"><a href="#cb59-260" aria-hidden="true" tabindex="-1"></a>|               | - *Level:* characteristic value         |   <span class="in">`0`</span>, <span class="in">`1`</span> \          |</span>
+<span id="cb59-261"><a href="#cb59-261" aria-hidden="true" tabindex="-1"></a>|               |             as seen by R  \             |  <span class="in">`male`</span>,<span class="in">`female`</span>      |</span>
+<span id="cb59-262"><a href="#cb59-262" aria-hidden="true" tabindex="-1"></a>|               | - *Label:* designation of the           |                       |</span>
+<span id="cb59-263"><a href="#cb59-263" aria-hidden="true" tabindex="-1"></a>|               |             characteristic attributes   |                       |</span>
+<span id="cb59-264"><a href="#cb59-264" aria-hidden="true" tabindex="-1"></a>+---------------+-----------------------------------------+-----------------------+</span>
+<span id="cb59-265"><a href="#cb59-265" aria-hidden="true" tabindex="-1"></a>| **Special**   | - *Missing values:* unknown cell value  |   <span class="in">`NA`</span> \              |</span>
+<span id="cb59-266"><a href="#cb59-266" aria-hidden="true" tabindex="-1"></a>|               | - *Impossible values:* not a number     |   <span class="in">`NaN`</span> \             |</span>
+<span id="cb59-267"><a href="#cb59-267" aria-hidden="true" tabindex="-1"></a>|               | - *Empty values:* known empty           |   <span class="in">`NULL`</span>              |</span>
+<span id="cb59-268"><a href="#cb59-268" aria-hidden="true" tabindex="-1"></a>|               |                   cell value            |                       |</span>
+<span id="cb59-269"><a href="#cb59-269" aria-hidden="true" tabindex="-1"></a>+---------------+-----------------------------------------+-----------------------+</span>
+<span id="cb59-270"><a href="#cb59-270" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-271"><a href="#cb59-271" aria-hidden="true" tabindex="-1"></a>: Basic data types in R {#tbl-data-type-R}</span>
+<span id="cb59-272"><a href="#cb59-272" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-273"><a href="#cb59-273" aria-hidden="true" tabindex="-1"></a>::: {.callout-caution collapse="true"}</span>
+<span id="cb59-274"><a href="#cb59-274" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise: Use the class function to check the data type of an object!</span></span>
+<span id="cb59-275"><a href="#cb59-275" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-276"><a href="#cb59-276" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-277"><a href="#cb59-277" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-280"><a href="#cb59-280" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb59-281"><a href="#cb59-281" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-class</span></span>
+<span id="cb59-282"><a href="#cb59-282" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb59-283"><a href="#cb59-283" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(x)</span>
+<span id="cb59-284"><a href="#cb59-284" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="st">"Hello World"</span></span>
+<span id="cb59-285"><a href="#cb59-285" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(y)</span>
+<span id="cb59-286"><a href="#cb59-286" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb59-287"><a href="#cb59-287" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-290"><a href="#cb59-290" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb59-291"><a href="#cb59-291" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-class-del</span></span>
+<span id="cb59-292"><a href="#cb59-292" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb59-293"><a href="#cb59-293" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(x,y)</span>
+<span id="cb59-294"><a href="#cb59-294" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb59-295"><a href="#cb59-295" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-296"><a href="#cb59-296" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-297"><a href="#cb59-297" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb59-298"><a href="#cb59-298" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-299"><a href="#cb59-299" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!--</span></span>
+<span id="cb59-300"><a href="#cb59-300" aria-hidden="true" tabindex="-1"></a><span class="co">::: {.callout-note collapse="true"}</span></span>
+<span id="cb59-301"><a href="#cb59-301" aria-hidden="true" tabindex="-1"></a><span class="co">## Why might factors be useful?</span></span>
+<span id="cb59-302"><a href="#cb59-302" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-305"><a href="#cb59-305" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb59-306"><a href="#cb59-306" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-factor</span></span>
+<span id="cb59-307"><a href="#cb59-307" aria-hidden="true" tabindex="-1"></a><span class="co">x &lt;- c(1, 0, 1, 1, 0, 1, 0)</span></span>
+<span id="cb59-308"><a href="#cb59-308" aria-hidden="true" tabindex="-1"></a><span class="co">print(x)</span></span>
+<span id="cb59-309"><a href="#cb59-309" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-310"><a href="#cb59-310" aria-hidden="true" tabindex="-1"></a><span class="co">fac &lt;- factor(x,</span></span>
+<span id="cb59-311"><a href="#cb59-311" aria-hidden="true" tabindex="-1"></a><span class="co">              labels = c('male', 'female'))</span></span>
+<span id="cb59-312"><a href="#cb59-312" aria-hidden="true" tabindex="-1"></a><span class="co">print(fac)</span></span>
+<span id="cb59-313"><a href="#cb59-313" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-314"><a href="#cb59-314" aria-hidden="true" tabindex="-1"></a><span class="co">levels(fac)</span></span>
+<span id="cb59-315"><a href="#cb59-315" aria-hidden="true" tabindex="-1"></a><span class="co">```</span></span>
+<span id="cb59-316"><a href="#cb59-316" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-319"><a href="#cb59-319" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb59-320"><a href="#cb59-320" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-factor-del</span></span>
+<span id="cb59-321"><a href="#cb59-321" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb59-322"><a href="#cb59-322" aria-hidden="true" tabindex="-1"></a><span class="co">rm(x, fac)</span></span>
+<span id="cb59-323"><a href="#cb59-323" aria-hidden="true" tabindex="-1"></a><span class="co">```</span></span>
+<span id="cb59-324"><a href="#cb59-324" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-325"><a href="#cb59-325" aria-hidden="true" tabindex="-1"></a><span class="co">:::</span></span>
+<span id="cb59-326"><a href="#cb59-326" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-327"><a href="#cb59-327" aria-hidden="true" tabindex="-1"></a><span class="co">--&gt;</span></span>
+<span id="cb59-328"><a href="#cb59-328" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-329"><a href="#cb59-329" aria-hidden="true" tabindex="-1"></a><span class="fu">### Data Structures {#data-structure}</span></span>
+<span id="cb59-330"><a href="#cb59-330" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-331"><a href="#cb59-331" aria-hidden="true" tabindex="-1"></a><span class="in">`R`</span> has a couple of different data structures^<span class="co">[</span><span class="ot">We omitted [arrays](https://cran.r-project.org/doc/manuals/r-release/R-intro.html#Arrays-and-matrices).</span><span class="co">]</span> which are briefly described in the following subsections.</span>
+<span id="cb59-332"><a href="#cb59-332" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-333"><a href="#cb59-333" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-334"><a href="#cb59-334" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Vector</span></span>
+<span id="cb59-335"><a href="#cb59-335" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-336"><a href="#cb59-336" aria-hidden="true" tabindex="-1"></a>:::: {.columns}</span>
+<span id="cb59-337"><a href="#cb59-337" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-338"><a href="#cb59-338" aria-hidden="true" tabindex="-1"></a>::: {.column width="35%"}</span>
+<span id="cb59-339"><a href="#cb59-339" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-340"><a href="#cb59-340" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>one-dimensional array\</span>
+<span id="cb59-341"><a href="#cb59-341" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>same data type</span>
+<span id="cb59-342"><a href="#cb59-342" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>e.g., <span class="in">`c(45, 6, -83, 23, 61)`</span></span>
+<span id="cb59-343"><a href="#cb59-343" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-344"><a href="#cb59-344" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb59-345"><a href="#cb59-345" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-346"><a href="#cb59-346" aria-hidden="true" tabindex="-1"></a>::: {.column width="5%"}</span>
+<span id="cb59-347"><a href="#cb59-347" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- empty column to create gap --&gt;</span></span>
+<span id="cb59-348"><a href="#cb59-348" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb59-349"><a href="#cb59-349" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-350"><a href="#cb59-350" aria-hidden="true" tabindex="-1"></a>::: {.column width="60%"}</span>
+<span id="cb59-351"><a href="#cb59-351" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-352"><a href="#cb59-352" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" appearance="simple" title="Tips for handling vectors"}</span>
+<span id="cb59-353"><a href="#cb59-353" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-354"><a href="#cb59-354" aria-hidden="true" tabindex="-1"></a>Create a vector with the <span class="in">`c`</span> function</span>
+<span id="cb59-355"><a href="#cb59-355" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-358"><a href="#cb59-358" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb59-359"><a href="#cb59-359" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-vec-0</span></span>
+<span id="cb59-360"><a href="#cb59-360" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
+<span id="cb59-361"><a href="#cb59-361" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">45</span>, <span class="dv">6</span>, <span class="sc">-</span><span class="dv">83</span>, <span class="dv">23</span>, <span class="dv">61</span>)</span>
+<span id="cb59-362"><a href="#cb59-362" aria-hidden="true" tabindex="-1"></a>v</span>
+<span id="cb59-363"><a href="#cb59-363" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb59-364"><a href="#cb59-364" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-365"><a href="#cb59-365" aria-hidden="true" tabindex="-1"></a>Or a named vector...</span>
+<span id="cb59-366"><a href="#cb59-366" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-369"><a href="#cb59-369" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb59-370"><a href="#cb59-370" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-vec-1</span></span>
+<span id="cb59-371"><a href="#cb59-371" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
+<span id="cb59-372"><a href="#cb59-372" aria-hidden="true" tabindex="-1"></a>vNam <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">a =</span> <span class="dv">45</span>, <span class="at">b =</span> <span class="dv">6</span>, <span class="at">c =</span> <span class="sc">-</span><span class="dv">83</span>, <span class="at">d =</span> <span class="dv">23</span>, <span class="at">e =</span> <span class="dv">61</span>)</span>
+<span id="cb59-373"><a href="#cb59-373" aria-hidden="true" tabindex="-1"></a>vNam</span>
+<span id="cb59-374"><a href="#cb59-374" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb59-375"><a href="#cb59-375" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-376"><a href="#cb59-376" aria-hidden="true" tabindex="-1"></a>Count the amount of items contained in vector</span>
+<span id="cb59-377"><a href="#cb59-377" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-380"><a href="#cb59-380" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb59-381"><a href="#cb59-381" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-vec-2</span></span>
+<span id="cb59-382"><a href="#cb59-382" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
+<span id="cb59-383"><a href="#cb59-383" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(v)</span>
+<span id="cb59-384"><a href="#cb59-384" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb59-385"><a href="#cb59-385" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-386"><a href="#cb59-386" aria-hidden="true" tabindex="-1"></a>Vector indexing (by position)</span>
+<span id="cb59-387"><a href="#cb59-387" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-390"><a href="#cb59-390" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb59-391"><a href="#cb59-391" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-vec-3</span></span>
+<span id="cb59-392"><a href="#cb59-392" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
+<span id="cb59-393"><a href="#cb59-393" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-394"><a href="#cb59-394" aria-hidden="true" tabindex="-1"></a>v[<span class="dv">1</span>]</span>
+<span id="cb59-395"><a href="#cb59-395" aria-hidden="true" tabindex="-1"></a>v[<span class="sc">-</span><span class="dv">3</span>]</span>
+<span id="cb59-396"><a href="#cb59-396" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb59-397"><a href="#cb59-397" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-398"><a href="#cb59-398" aria-hidden="true" tabindex="-1"></a>Slicing vectors</span>
+<span id="cb59-399"><a href="#cb59-399" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-402"><a href="#cb59-402" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb59-403"><a href="#cb59-403" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-vec-4</span></span>
+<span id="cb59-404"><a href="#cb59-404" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
+<span id="cb59-405"><a href="#cb59-405" aria-hidden="true" tabindex="-1"></a>v[<span class="dv">3</span><span class="sc">:</span><span class="dv">5</span>]</span>
+<span id="cb59-406"><a href="#cb59-406" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb59-407"><a href="#cb59-407" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-408"><a href="#cb59-408" aria-hidden="true" tabindex="-1"></a>Generate regular sequences using <span class="in">`seq`</span> function</span>
+<span id="cb59-409"><a href="#cb59-409" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-412"><a href="#cb59-412" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb59-413"><a href="#cb59-413" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-seq-4</span></span>
+<span id="cb59-414"><a href="#cb59-414" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
+<span id="cb59-415"><a href="#cb59-415" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>,</span>
+<span id="cb59-416"><a href="#cb59-416" aria-hidden="true" tabindex="-1"></a>    <span class="at">to =</span> <span class="dv">20</span>,</span>
+<span id="cb59-417"><a href="#cb59-417" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> <span class="dv">2</span>)</span>
+<span id="cb59-418"><a href="#cb59-418" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb59-419"><a href="#cb59-419" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb59-420"><a href="#cb59-420" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-421"><a href="#cb59-421" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb59-422"><a href="#cb59-422" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-423"><a href="#cb59-423" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb59-424"><a href="#cb59-424" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-425"><a href="#cb59-425" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Matrix</span></span>
+<span id="cb59-426"><a href="#cb59-426" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-427"><a href="#cb59-427" aria-hidden="true" tabindex="-1"></a>:::: {.columns}</span>
+<span id="cb59-428"><a href="#cb59-428" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-429"><a href="#cb59-429" aria-hidden="true" tabindex="-1"></a>::: {.column width="35%"}</span>
+<span id="cb59-430"><a href="#cb59-430" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-431"><a href="#cb59-431" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>two-dimensional\</span>
+<span id="cb59-432"><a href="#cb59-432" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>same data type</span>
+<span id="cb59-433"><a href="#cb59-433" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>example see on the <span class="co">[</span><span class="ot">right</span><span class="co">](#tip-mat)</span></span>
+<span id="cb59-434"><a href="#cb59-434" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-435"><a href="#cb59-435" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb59-436"><a href="#cb59-436" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-437"><a href="#cb59-437" aria-hidden="true" tabindex="-1"></a>::: {.column width="5%"}</span>
+<span id="cb59-438"><a href="#cb59-438" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- empty column to create gap --&gt;</span></span>
+<span id="cb59-439"><a href="#cb59-439" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb59-440"><a href="#cb59-440" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-441"><a href="#cb59-441" aria-hidden="true" tabindex="-1"></a>::: {.column width="60%"}</span>
+<span id="cb59-442"><a href="#cb59-442" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-443"><a href="#cb59-443" aria-hidden="true" tabindex="-1"></a>::: {#tip-mat .callout-tip collapse="true" appearance="simple" title="Tips for handling matrices"}</span>
+<span id="cb59-444"><a href="#cb59-444" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-445"><a href="#cb59-445" aria-hidden="true" tabindex="-1"></a>The <span class="in">`matrix`</span> function creates a matrix from the given set of values</span>
+<span id="cb59-446"><a href="#cb59-446" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-449"><a href="#cb59-449" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb59-450"><a href="#cb59-450" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-mat-0</span></span>
+<span id="cb59-451"><a href="#cb59-451" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
+<span id="cb59-452"><a href="#cb59-452" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">data =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">45</span>, <span class="dv">36</span>, <span class="dv">52</span>),</span>
+<span id="cb59-453"><a href="#cb59-453" aria-hidden="true" tabindex="-1"></a>            <span class="at">nrow =</span> <span class="dv">2</span>,</span>
+<span id="cb59-454"><a href="#cb59-454" aria-hidden="true" tabindex="-1"></a>            <span class="at">ncol =</span> <span class="dv">3</span>,</span>
+<span id="cb59-455"><a href="#cb59-455" aria-hidden="true" tabindex="-1"></a>            <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb59-456"><a href="#cb59-456" aria-hidden="true" tabindex="-1"></a>m</span>
+<span id="cb59-457"><a href="#cb59-457" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb59-458"><a href="#cb59-458" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-459"><a href="#cb59-459" aria-hidden="true" tabindex="-1"></a>Slicing works also on matrices: <span class="in">`m[row , column]`</span></span>
+<span id="cb59-460"><a href="#cb59-460" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-463"><a href="#cb59-463" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb59-464"><a href="#cb59-464" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: mat-slice</span></span>
+<span id="cb59-465"><a href="#cb59-465" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
+<span id="cb59-466"><a href="#cb59-466" aria-hidden="true" tabindex="-1"></a>m[, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]</span>
+<span id="cb59-467"><a href="#cb59-467" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb59-468"><a href="#cb59-468" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-469"><a href="#cb59-469" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb59-470"><a href="#cb59-470" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-471"><a href="#cb59-471" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb59-472"><a href="#cb59-472" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-473"><a href="#cb59-473" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb59-474"><a href="#cb59-474" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-475"><a href="#cb59-475" aria-hidden="true" tabindex="-1"></a><span class="fu">#### List</span></span>
+<span id="cb59-476"><a href="#cb59-476" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-477"><a href="#cb59-477" aria-hidden="true" tabindex="-1"></a>:::: {.columns}</span>
+<span id="cb59-478"><a href="#cb59-478" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-479"><a href="#cb59-479" aria-hidden="true" tabindex="-1"></a>::: {.column width="35%"}</span>
+<span id="cb59-480"><a href="#cb59-480" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-481"><a href="#cb59-481" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>can contain elements of various data types</span>
+<span id="cb59-482"><a href="#cb59-482" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>often ordered collection of values</span>
+<span id="cb59-483"><a href="#cb59-483" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>one-indexed (indexing starts with 1)</span>
+<span id="cb59-484"><a href="#cb59-484" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>e.g., <span class="in">`list("hi", 2, NULL)`</span></span>
+<span id="cb59-485"><a href="#cb59-485" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-486"><a href="#cb59-486" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb59-487"><a href="#cb59-487" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-488"><a href="#cb59-488" aria-hidden="true" tabindex="-1"></a>::: {.column width="5%"}</span>
+<span id="cb59-489"><a href="#cb59-489" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- empty column to create gap --&gt;</span></span>
+<span id="cb59-490"><a href="#cb59-490" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb59-491"><a href="#cb59-491" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-492"><a href="#cb59-492" aria-hidden="true" tabindex="-1"></a>::: {.column width="60%"}</span>
+<span id="cb59-493"><a href="#cb59-493" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-494"><a href="#cb59-494" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" appearance="simple" title="Tips for handling lists"}</span>
+<span id="cb59-495"><a href="#cb59-495" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-496"><a href="#cb59-496" aria-hidden="true" tabindex="-1"></a>Create lists (with different elements, i.e., numbers and letters) with the <span class="in">`list`</span> function</span>
+<span id="cb59-497"><a href="#cb59-497" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-500"><a href="#cb59-500" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb59-501"><a href="#cb59-501" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-list-0</span></span>
+<span id="cb59-502"><a href="#cb59-502" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
+<span id="cb59-503"><a href="#cb59-503" aria-hidden="true" tabindex="-1"></a>l1 <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>)</span>
+<span id="cb59-504"><a href="#cb59-504" aria-hidden="true" tabindex="-1"></a>l2 <span class="ot">&lt;-</span> <span class="fu">list</span>(letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>])</span>
+<span id="cb59-505"><a href="#cb59-505" aria-hidden="true" tabindex="-1"></a>l3 <span class="ot">&lt;-</span> <span class="fu">list</span>(LETTERS[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>])</span>
+<span id="cb59-506"><a href="#cb59-506" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb59-507"><a href="#cb59-507" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-508"><a href="#cb59-508" aria-hidden="true" tabindex="-1"></a>Create a nested list...</span>
+<span id="cb59-509"><a href="#cb59-509" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-512"><a href="#cb59-512" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb59-513"><a href="#cb59-513" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-list-1</span></span>
+<span id="cb59-514"><a href="#cb59-514" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
+<span id="cb59-515"><a href="#cb59-515" aria-hidden="true" tabindex="-1"></a>l4 <span class="ot">&lt;-</span> <span class="fu">list</span>(l1, l2, l3)</span>
+<span id="cb59-516"><a href="#cb59-516" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb59-517"><a href="#cb59-517" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-518"><a href="#cb59-518" aria-hidden="true" tabindex="-1"></a>...or a named (nested) list</span>
+<span id="cb59-519"><a href="#cb59-519" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-522"><a href="#cb59-522" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb59-523"><a href="#cb59-523" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-list-2</span></span>
+<span id="cb59-524"><a href="#cb59-524" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
+<span id="cb59-525"><a href="#cb59-525" aria-hidden="true" tabindex="-1"></a>l4Nam <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="st">"Numbers"</span> <span class="ot">=</span> l1,</span>
+<span id="cb59-526"><a href="#cb59-526" aria-hidden="true" tabindex="-1"></a>              <span class="st">"SmallLetters"</span> <span class="ot">=</span> l2,</span>
+<span id="cb59-527"><a href="#cb59-527" aria-hidden="true" tabindex="-1"></a>              <span class="st">"CaptialLetters"</span> <span class="ot">=</span> l3)</span>
+<span id="cb59-528"><a href="#cb59-528" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb59-529"><a href="#cb59-529" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-530"><a href="#cb59-530" aria-hidden="true" tabindex="-1"></a>Access list or nested list elements</span>
+<span id="cb59-531"><a href="#cb59-531" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-534"><a href="#cb59-534" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb59-535"><a href="#cb59-535" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-list-3</span></span>
+<span id="cb59-536"><a href="#cb59-536" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
+<span id="cb59-537"><a href="#cb59-537" aria-hidden="true" tabindex="-1"></a>l4[<span class="dv">2</span>]</span>
+<span id="cb59-538"><a href="#cb59-538" aria-hidden="true" tabindex="-1"></a>l4[[<span class="dv">2</span>]][<span class="dv">3</span>]</span>
+<span id="cb59-539"><a href="#cb59-539" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb59-540"><a href="#cb59-540" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-541"><a href="#cb59-541" aria-hidden="true" tabindex="-1"></a>Unlist the <span class="in">`list`</span> to get vector which contains all the atomic components</span>
+<span id="cb59-542"><a href="#cb59-542" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-545"><a href="#cb59-545" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb59-546"><a href="#cb59-546" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-list-4</span></span>
+<span id="cb59-547"><a href="#cb59-547" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
+<span id="cb59-548"><a href="#cb59-548" aria-hidden="true" tabindex="-1"></a><span class="fu">unlist</span>(l1)</span>
+<span id="cb59-549"><a href="#cb59-549" aria-hidden="true" tabindex="-1"></a><span class="fu">unlist</span>(l4)</span>
+<span id="cb59-550"><a href="#cb59-550" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb59-551"><a href="#cb59-551" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-552"><a href="#cb59-552" aria-hidden="true" tabindex="-1"></a>Count amount of items contained in list</span>
+<span id="cb59-553"><a href="#cb59-553" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-556"><a href="#cb59-556" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb59-557"><a href="#cb59-557" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-list-5</span></span>
+<span id="cb59-558"><a href="#cb59-558" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
+<span id="cb59-559"><a href="#cb59-559" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(l4)</span>
+<span id="cb59-560"><a href="#cb59-560" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unlist</span>(l4))</span>
+<span id="cb59-561"><a href="#cb59-561" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb59-562"><a href="#cb59-562" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb59-563"><a href="#cb59-563" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-564"><a href="#cb59-564" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb59-565"><a href="#cb59-565" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-566"><a href="#cb59-566" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb59-567"><a href="#cb59-567" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-568"><a href="#cb59-568" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Data frame</span></span>
+<span id="cb59-569"><a href="#cb59-569" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-570"><a href="#cb59-570" aria-hidden="true" tabindex="-1"></a>:::: {.columns}</span>
+<span id="cb59-571"><a href="#cb59-571" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-572"><a href="#cb59-572" aria-hidden="true" tabindex="-1"></a>::: {.column width="35%"}</span>
+<span id="cb59-573"><a href="#cb59-573" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-574"><a href="#cb59-574" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-575"><a href="#cb59-575" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>various columns</span>
+<span id="cb59-576"><a href="#cb59-576" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>different data types</span>
+<span id="cb59-577"><a href="#cb59-577" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>variables = columns</span>
+<span id="cb59-578"><a href="#cb59-578" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>observations = rows</span>
+<span id="cb59-579"><a href="#cb59-579" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>example see on the <span class="co">[</span><span class="ot">right</span><span class="co">](#tip-df)</span></span>
+<span id="cb59-580"><a href="#cb59-580" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-581"><a href="#cb59-581" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb59-582"><a href="#cb59-582" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-583"><a href="#cb59-583" aria-hidden="true" tabindex="-1"></a>::: {.column width="5%"}</span>
+<span id="cb59-584"><a href="#cb59-584" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- empty column to create gap --&gt;</span></span>
+<span id="cb59-585"><a href="#cb59-585" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb59-586"><a href="#cb59-586" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-587"><a href="#cb59-587" aria-hidden="true" tabindex="-1"></a>::: {.column width="60%"}</span>
+<span id="cb59-588"><a href="#cb59-588" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-589"><a href="#cb59-589" aria-hidden="true" tabindex="-1"></a>::: {#tip-df .callout-tip collapse="true" appearance="simple" title="Tips for handling dataFrames"}</span>
+<span id="cb59-590"><a href="#cb59-590" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-593"><a href="#cb59-593" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb59-594"><a href="#cb59-594" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-df-0</span></span>
+<span id="cb59-595"><a href="#cb59-595" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
+<span id="cb59-596"><a href="#cb59-596" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb59-597"><a href="#cb59-597" aria-hidden="true" tabindex="-1"></a>  <span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>,</span>
+<span id="cb59-598"><a href="#cb59-598" aria-hidden="true" tabindex="-1"></a>  <span class="at">age =</span> <span class="fu">c</span>(<span class="dv">12</span>, <span class="dv">13</span>, <span class="dv">12</span>, <span class="dv">14</span>),</span>
+<span id="cb59-599"><a href="#cb59-599" aria-hidden="true" tabindex="-1"></a>  <span class="at">sex =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb59-600"><a href="#cb59-600" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb59-601"><a href="#cb59-601" aria-hidden="true" tabindex="-1"></a>df</span>
+<span id="cb59-602"><a href="#cb59-602" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb59-603"><a href="#cb59-603" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-604"><a href="#cb59-604" aria-hidden="true" tabindex="-1"></a>Number of observations</span>
+<span id="cb59-605"><a href="#cb59-605" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-608"><a href="#cb59-608" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb59-609"><a href="#cb59-609" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-df-1</span></span>
+<span id="cb59-610"><a href="#cb59-610" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
+<span id="cb59-611"><a href="#cb59-611" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-612"><a href="#cb59-612" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(df)</span>
+<span id="cb59-613"><a href="#cb59-613" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb59-614"><a href="#cb59-614" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-615"><a href="#cb59-615" aria-hidden="true" tabindex="-1"></a>Show dimension (rows, columns) of dataframe </span>
+<span id="cb59-616"><a href="#cb59-616" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-619"><a href="#cb59-619" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb59-620"><a href="#cb59-620" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-df-2</span></span>
+<span id="cb59-621"><a href="#cb59-621" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
+<span id="cb59-622"><a href="#cb59-622" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-623"><a href="#cb59-623" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(df)</span>
+<span id="cb59-624"><a href="#cb59-624" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb59-625"><a href="#cb59-625" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-626"><a href="#cb59-626" aria-hidden="true" tabindex="-1"></a>Column names</span>
+<span id="cb59-627"><a href="#cb59-627" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-630"><a href="#cb59-630" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb59-631"><a href="#cb59-631" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-df-3</span></span>
+<span id="cb59-632"><a href="#cb59-632" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
+<span id="cb59-633"><a href="#cb59-633" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-634"><a href="#cb59-634" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(df)</span>
+<span id="cb59-635"><a href="#cb59-635" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb59-636"><a href="#cb59-636" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-637"><a href="#cb59-637" aria-hidden="true" tabindex="-1"></a>Show the first two rows of the dataframe</span>
+<span id="cb59-638"><a href="#cb59-638" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-641"><a href="#cb59-641" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb59-642"><a href="#cb59-642" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-df-4</span></span>
+<span id="cb59-643"><a href="#cb59-643" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
+<span id="cb59-644"><a href="#cb59-644" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-645"><a href="#cb59-645" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df, <span class="dv">2</span>)</span>
+<span id="cb59-646"><a href="#cb59-646" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb59-647"><a href="#cb59-647" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-648"><a href="#cb59-648" aria-hidden="true" tabindex="-1"></a>Structure of dataframe object</span>
+<span id="cb59-649"><a href="#cb59-649" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-652"><a href="#cb59-652" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb59-653"><a href="#cb59-653" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-df-5</span></span>
+<span id="cb59-654"><a href="#cb59-654" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
+<span id="cb59-655"><a href="#cb59-655" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-656"><a href="#cb59-656" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(df)</span>
+<span id="cb59-657"><a href="#cb59-657" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb59-658"><a href="#cb59-658" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-659"><a href="#cb59-659" aria-hidden="true" tabindex="-1"></a>Some descriptive statistics using the <span class="in">`summary`</span> function (for more see Section <span class="co">[</span><span class="ot">Descriptive statistics and item analysis</span><span class="co">](#item-analy-descr)</span></span>
+<span id="cb59-660"><a href="#cb59-660" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-663"><a href="#cb59-663" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb59-664"><a href="#cb59-664" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-df-6</span></span>
+<span id="cb59-665"><a href="#cb59-665" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
+<span id="cb59-666"><a href="#cb59-666" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-667"><a href="#cb59-667" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(df)</span>
+<span id="cb59-668"><a href="#cb59-668" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb59-669"><a href="#cb59-669" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-672"><a href="#cb59-672" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb59-673"><a href="#cb59-673" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: del-df</span></span>
+<span id="cb59-674"><a href="#cb59-674" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb59-675"><a href="#cb59-675" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(df)</span>
+<span id="cb59-676"><a href="#cb59-676" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb59-677"><a href="#cb59-677" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-678"><a href="#cb59-678" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-679"><a href="#cb59-679" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb59-680"><a href="#cb59-680" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-681"><a href="#cb59-681" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb59-682"><a href="#cb59-682" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-683"><a href="#cb59-683" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb59-684"><a href="#cb59-684" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-685"><a href="#cb59-685" aria-hidden="true" tabindex="-1"></a><span class="fu">## Base R ~~vs.~~ &amp; tidyverse {#baseR-tidyverse}</span></span>
+<span id="cb59-686"><a href="#cb59-686" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-687"><a href="#cb59-687" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-688"><a href="#cb59-688" aria-hidden="true" tabindex="-1"></a>:::: {.columns}</span>
+<span id="cb59-689"><a href="#cb59-689" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-690"><a href="#cb59-690" aria-hidden="true" tabindex="-1"></a>::: {.column width="47.5%"}</span>
+<span id="cb59-691"><a href="#cb59-691" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-692"><a href="#cb59-692" aria-hidden="true" tabindex="-1"></a>Besides the functionality of base <span class="in">`R`</span> <span class="co">[</span><span class="ot">@R-base</span><span class="co">]</span>, there is the so-called <span class="in">`tidyverse`</span> <span class="co">[</span><span class="ot">@R-tidyverse</span><span class="co">]</span> within <span class="in">`R`</span>. The <span class="in">`tidyverse`</span> is a collection of <span class="in">`R`</span> packages (see @fig-tidyverse) that *"share an underlying design philosophy, grammar, and data structures"* and are (specifically) designed for data science (see <span class="ot">&lt;https://www.tidyverse.org/&gt;</span>).</span>
+<span id="cb59-693"><a href="#cb59-693" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-694"><a href="#cb59-694" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb59-695"><a href="#cb59-695" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-696"><a href="#cb59-696" aria-hidden="true" tabindex="-1"></a>::: {.column width="5%"}</span>
+<span id="cb59-697"><a href="#cb59-697" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- empty column to create gap --&gt;</span></span>
+<span id="cb59-698"><a href="#cb59-698" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb59-699"><a href="#cb59-699" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-700"><a href="#cb59-700" aria-hidden="true" tabindex="-1"></a>::: {.column width="47.5%"}</span>
+<span id="cb59-701"><a href="#cb59-701" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-702"><a href="#cb59-702" aria-hidden="true" tabindex="-1"></a><span class="al">![tidyverse package collection](images/tidyverse.png)</span>{#fig-tidyverse width=50%}</span>
+<span id="cb59-703"><a href="#cb59-703" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-704"><a href="#cb59-704" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb59-705"><a href="#cb59-705" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-706"><a href="#cb59-706" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb59-707"><a href="#cb59-707" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-708"><a href="#cb59-708" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-709"><a href="#cb59-709" aria-hidden="true" tabindex="-1"></a>Within the <span class="in">`tidyverse`</span> package collection, the <span class="in">`dplyr`</span> package <span class="co">[</span><span class="ot">@R-dplyr</span><span class="co">]</span> provides a set of convenient functions for manipulating data. Together with the pipe operator <span class="in">`%&gt;%`</span> from the <span class="in">`magrittr`</span> package <span class="co">[</span><span class="ot">@R-magrittr</span><span class="co">]</span>), it is an extremely powerful approach to manipulate data in a clear and comprehensible way. The native^<span class="co">[</span><span class="ot">for the difference between `|&gt;` and `%&gt;%` see &lt;https://ivelasq.rbind.io/blog/understanding-the-r-pipe/&gt;</span><span class="co">]</span> <span class="in">`R`</span> pipe <span class="in">`|&gt;`</span> was introduced with <span class="in">`R`</span> <span class="co">[</span><span class="ot">v4.1.0</span><span class="co">](https://cran.r-project.org/bin/windows/base/old/4.1.0/NEWS.R-4.1.0.html)</span>. </span>
+<span id="cb59-710"><a href="#cb59-710" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-711"><a href="#cb59-711" aria-hidden="true" tabindex="-1"></a>::: {#what-is-pipe-op .callout-tip collapse="true" title="What does the pipe operator |&gt;?"}</span>
+<span id="cb59-712"><a href="#cb59-712" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-713"><a href="#cb59-713" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">The tidyverse style guide</span><span class="co">](https://style.tidyverse.org/)</span> suggests using the pipe operator *"to emphasize a sequence of actions"*. The pipe operator can be understood as *"take the object and then"* pass it to the next function. In the following, the use of the base <span class="in">`R`</span> pipe operator is shown:</span>
+<span id="cb59-714"><a href="#cb59-714" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-715"><a href="#cb59-715" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Take** the data frame `exDat` **and then** </span>
+<span id="cb59-716"><a href="#cb59-716" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Select the variables: <span class="in">`msc1`</span> and <span class="in">`msc2`</span> **and then**</span>
+<span id="cb59-717"><a href="#cb59-717" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Calculate descriptive statistics using the <span class="in">`describe`</span> function from the <span class="in">`psych`</span> package <span class="co">[</span><span class="ot">@R-psych</span><span class="co">]</span> **and then**</span>
+<span id="cb59-718"><a href="#cb59-718" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Create a table with the <span class="in">`kable`</span> function from the <span class="in">`knitr`</span> package <span class="co">[</span><span class="ot">@R-knitr</span><span class="co">]</span></span>
+<span id="cb59-719"><a href="#cb59-719" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-722"><a href="#cb59-722" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb59-723"><a href="#cb59-723" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-pipe-1</span></span>
+<span id="cb59-724"><a href="#cb59-724" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
+<span id="cb59-725"><a href="#cb59-725" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-line-numbers: true</span></span>
+<span id="cb59-726"><a href="#cb59-726" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-727"><a href="#cb59-727" aria-hidden="true" tabindex="-1"></a>exDat <span class="sc">|&gt;</span> </span>
+<span id="cb59-728"><a href="#cb59-728" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="fu">c</span>(msc1, msc2)) <span class="sc">|&gt;</span></span>
+<span id="cb59-729"><a href="#cb59-729" aria-hidden="true" tabindex="-1"></a>  psych<span class="sc">::</span><span class="fu">describe</span>(<span class="at">fast=</span><span class="cn">TRUE</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb59-730"><a href="#cb59-730" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">2</span>) </span>
+<span id="cb59-731"><a href="#cb59-731" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb59-732"><a href="#cb59-732" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-733"><a href="#cb59-733" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-734"><a href="#cb59-734" aria-hidden="true" tabindex="-1"></a>In contrast, when we use a nested approach the code would look like this:</span>
+<span id="cb59-735"><a href="#cb59-735" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-738"><a href="#cb59-738" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb59-739"><a href="#cb59-739" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-pipe-2</span></span>
+<span id="cb59-740"><a href="#cb59-740" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
+<span id="cb59-741"><a href="#cb59-741" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-line-numbers: true</span></span>
+<span id="cb59-742"><a href="#cb59-742" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb59-743"><a href="#cb59-743" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-744"><a href="#cb59-744" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(psych<span class="sc">::</span><span class="fu">describe</span>(exDat,<span class="at">fast=</span><span class="cn">TRUE</span>),<span class="at">digits =</span> <span class="dv">2</span>) </span>
+<span id="cb59-745"><a href="#cb59-745" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb59-746"><a href="#cb59-746" aria-hidden="true" tabindex="-1"></a>...or maybe a little bit more clear:</span>
+<span id="cb59-747"><a href="#cb59-747" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-750"><a href="#cb59-750" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb59-751"><a href="#cb59-751" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-pipe-3</span></span>
+<span id="cb59-752"><a href="#cb59-752" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
+<span id="cb59-753"><a href="#cb59-753" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-line-numbers: true</span></span>
+<span id="cb59-754"><a href="#cb59-754" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb59-755"><a href="#cb59-755" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-756"><a href="#cb59-756" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
+<span id="cb59-757"><a href="#cb59-757" aria-hidden="true" tabindex="-1"></a>  psych<span class="sc">::</span><span class="fu">describe</span>(exDat,</span>
+<span id="cb59-758"><a href="#cb59-758" aria-hidden="true" tabindex="-1"></a>                  <span class="at">fast=</span><span class="cn">TRUE</span>),</span>
+<span id="cb59-759"><a href="#cb59-759" aria-hidden="true" tabindex="-1"></a>  <span class="at">digits =</span> <span class="dv">2</span>) </span>
+<span id="cb59-760"><a href="#cb59-760" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb59-761"><a href="#cb59-761" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-762"><a href="#cb59-762" aria-hidden="true" tabindex="-1"></a>Nevertheless, when there are many functions, it gets kind of messy and difficult to comprehend. For more information on how to use pipes, see <span class="co">[</span><span class="ot">Chapter 4</span><span class="co">](https://style.tidyverse.org/pipes.html)</span> of the guide.</span>
+<span id="cb59-763"><a href="#cb59-763" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-764"><a href="#cb59-764" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb59-765"><a href="#cb59-765" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-766"><a href="#cb59-766" aria-hidden="true" tabindex="-1"></a></span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

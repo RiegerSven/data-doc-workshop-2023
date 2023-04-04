@@ -80,7 +80,8 @@ div.csl-indent {
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./references.html" rel="next">
-<link href="./data-proc.html" rel="prev">
+<link href="./data-transform.html" rel="prev">
+<link href="./file-richtext" rel="icon">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -112,6 +113,9 @@ div.csl-indent {
 <meta property="og:title" content="Data documentation with R and Quarto - 9&nbsp; Descriptive statistics and item analysis">
 <meta property="og:description" content="">
 <meta property="og:site-name" content="Data documentation with R and Quarto">
+<meta name="twitter:title" content="Data documentation with R and Quarto - 9&nbsp; Descriptive statistics and item analysis">
+<meta name="twitter:description" content="">
+<meta name="twitter:card" content="summary">
 </head>
 <body class="nav-sidebar docked">
 
@@ -132,8 +136,25 @@ div.csl-indent {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Data documentation with R and Quarto</a> 
-        <div class="sidebar-tools-main">
+        <div class="sidebar-tools-main tools-wide">
     <a href="https://github.com/RiegerSven/data-doc-workshop-2023" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <div class="dropdown">
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+<li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=%7Curl%7C">
+              <i class="bi bi-bi-twitter pe-1"></i>
+            Twitter
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=%7Curl%7C">
+              <i class="bi bi-bi-facebook pe-1"></i>
+            Facebook
+            </a>
+          </li>
+      </ul>
+</div>
   <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
   <div class="quarto-reader-toggle-btn">
   <i class="bi"></i>
@@ -167,7 +188,7 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Welcome to the workshops</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Welcome to the workshop</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -224,7 +245,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./data-proc.html" class="sidebar-item-text sidebar-link">
+  <a href="./data-transform.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Data transformation</span></span></a>
   </div>
 </li>
@@ -311,8 +332,8 @@ Note
 <div class="columns">
 <div class="column" style="width:40%;">
 <div class="cell">
-<details open=""><summary>Show/hide code</summary><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">exDat</span><span class="op">$</span><span class="va">age</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stdout">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">exDat</span><span class="op">$</span><span class="va">age</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] 10.03468</code></pre>
 </div>
 </div>
@@ -320,8 +341,8 @@ Note
 <!-- empty column to create gap -->
 </div><div class="column" style="width:40%;">
 <div class="cell">
-<details open=""><summary>Show/hide code</summary><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">exDat</span><span class="op">$</span><span class="va">age</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stdout">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">exDat</span><span class="op">$</span><span class="va">age</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.756173</code></pre>
 </div>
 </div>
@@ -331,8 +352,8 @@ Note
 <div class="columns">
 <div class="column" style="width:40%;">
 <div class="cell">
-<details open=""><summary>Show/hide code</summary><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">exDat</span><span class="op">$</span><span class="va">sex</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stdout">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">exDat</span><span class="op">$</span><span class="va">sex</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
 <pre><code>
   0   1 
 357 354 </code></pre>
@@ -342,9 +363,9 @@ Note
 <!-- empty column to create gap -->
 </div><div class="column" style="width:40%;">
 <div class="cell">
-<details open=""><summary>Show/hide code</summary><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">exDat</span><span class="op">$</span><span class="va">sex</span>,</span>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">exDat</span><span class="op">$</span><span class="va">sex</span>,</span>
 <span>      useNA <span class="op">=</span> <span class="st">"always"</span><span class="op">)</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">exDat</span><span class="op">$</span><span class="va">sex</span><span class="op">)</span><span class="op">*</span><span class="fl">100</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>
    0    1 &lt;NA&gt; 
 47.6 47.2  5.2 </code></pre>
@@ -374,7 +395,7 @@ Note
 </li>
 </ol>
 <div class="cell">
-<details open=""><summary>Show/hide code</summary><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">exDescr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span><span class="op">(</span>X <span class="op">=</span> <span class="va">exDat</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>,</span>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">exDescr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span><span class="op">(</span>X <span class="op">=</span> <span class="va">exDat</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>,</span>
 <span>                 MARGIN <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>                 FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
 <span>                   <span class="va">fOut</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
@@ -385,18 +406,17 @@ Note
 <span>                     <span class="op">)</span></span>
 <span>                   <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">fOut</span><span class="op">)</span></span>
 <span>                   <span class="op">}</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <ol start="2" type="1">
 <li>In the second step, we first transpose (<code>t</code> function) the returned <code>matrix</code>, transform it then to a <code>data.frame</code><a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> object and provide the column names.</li>
 </ol>
 <div class="cell">
-<details open=""><summary>Show/hide code</summary><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">exDescr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">exDescr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="va">exDescr</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">exDescr</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Mean"</span>, <span class="st">"SD"</span>, <span class="st">"Min"</span>, <span class="st">"Max"</span><span class="op">)</span></span>
 <span><span class="va">exDescr</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>          Mean        SD     Min Max
 msc1  2.518667 0.7373668 1.00000   4
 msc2  2.544118 0.7186516 1.00000   4
@@ -407,12 +427,12 @@ age  10.034684 1.7561728 5.43976  30</code></pre>
 </div>
 <p>(3. Finally, if you need an formatted table, the <code>kbl</code> function from the <code>kableExtra</code> package <span class="citation" data-cites="R-kableExtra">(<a href="references.html#ref-R-kableExtra" role="doc-biblioref">Zhu, 2021</a>)</span> transforms matrices or data frames into nice tables.)</p>
 <div class="cell">
-<details open=""><summary>Show/hide code</summary><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">kableExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kbl.html">kbl</a></span><span class="op">(</span><span class="va">exDescr</span>,</span>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">kableExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kbl.html">kbl</a></span><span class="op">(</span><span class="va">exDescr</span>,</span>
 <span>                digits <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>                caption <span class="op">=</span> <span class="st">"Descriptive Statistics of the example data set"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">kableExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kable_classic.html">kable_classic</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">kableExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/footnote.html">footnote</a></span><span class="op">(</span>general <span class="op">=</span> <span class="st">"This is a nice formatted table using the kableExtra package [@R-kableExtra]."</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output-display">
+<div class="cell-output-display">
 <table class="lightable-classic table table-sm table-striped small" data-quarto-postprocess="true">
 <caption>Descriptive Statistics of the example data set</caption>
 <thead><tr class="header">
@@ -495,7 +515,7 @@ Note
 </div>
 </div>
 <div class="cell">
-<details open=""><summary>Show/hide code</summary><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">kableExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kbl.html">kbl</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">kableExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kbl.html">kbl</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span><span class="op">(</span><span class="va">exDat</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>,</span>
 <span>        MARGIN <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>        FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
@@ -513,7 +533,7 @@ Note
 <span>  caption <span class="op">=</span> <span class="st">"Descriptive Statistics of the example data set"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">kableExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kable_classic.html">kable_classic</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">kableExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/footnote.html">footnote</a></span><span class="op">(</span>general <span class="op">=</span> <span class="st">"This is a nice formated table using the kableExtra package [@R-kableExtra]."</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output-display">
+<div class="cell-output-display">
 <table class="lightable-classic table table-sm table-striped small" data-quarto-postprocess="true">
 <caption>Descriptive Statistics of the example data set</caption>
 <thead><tr class="header">
@@ -591,8 +611,8 @@ Note
 </blockquote>
 <p>The function has many input argument (see again <code><a href="https://rdrr.io/pkg/psych/man/describe.html">?psych::describe</a></code>), but requires only <code>x</code>: A data frame or matrix</p>
 <div class="cell">
-<details open=""><summary>Show/hide code</summary><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">psych</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/psych/man/describe.html">describe</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">exDat</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stdout">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">psych</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/psych/man/describe.html">describe</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">exDat</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
 <pre><code>       vars   n   mean     sd median trimmed    mad  min max  range  skew
 msc1      1 750   2.52   0.74   3.00    2.52   1.48 1.00   4   3.00 -0.02
 msc2      2 680   2.54   0.72   3.00    2.53   1.48 1.00   4   3.00 -0.02
@@ -623,11 +643,11 @@ msc       -0.35 0.02</code></pre>
 </div>
 <p>The <code>describe</code> output is easily transformed into a <code>data.frame</code> which then can be passed to the <code>kbl</code> function from the <code>kableExtra</code> package <span class="citation" data-cites="R-kableExtra">(<a href="references.html#ref-R-kableExtra" role="doc-biblioref">Zhu, 2021</a>)</span>.</p>
 <div class="cell">
-<details open=""><summary>Show/hide code</summary><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">kableExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kbl.html">kbl</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu">psych</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/psych/man/describe.html">describe</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">exDat</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"n"</span>, <span class="st">"mean"</span>, <span class="st">"sd"</span><span class="op">)</span><span class="op">]</span>,</span>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">kableExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kbl.html">kbl</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu">psych</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/psych/man/describe.html">describe</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">exDat</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"n"</span>, <span class="st">"mean"</span>, <span class="st">"sd"</span><span class="op">)</span><span class="op">]</span>,</span>
 <span>                caption <span class="op">=</span> <span class="st">"Descriptive Statistics of the example data set calculated by the psych package [@R-psych]"</span>,</span>
 <span>                digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">kableExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kable_classic.html">kable_paper</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output-display">
+<div class="cell-output-display">
 <table class="lightable-paper table table-sm table-striped small" data-quarto-postprocess="true">
 <caption>Descriptive Statistics of the example data set calculated by the psych package [@R-psych]</caption>
 <thead><tr class="header">
@@ -715,8 +735,8 @@ msc       -0.35 0.02</code></pre>
 </div>
 <p>If you need to calculate the descriptive statistics separate for groups, there is the <code>describeBy</code> function. Use the <code>group</code> argument.</p>
 <div class="cell">
-<details open=""><summary>Show/hide code</summary><div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">psych</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/psych/man/describe.by.html">describeBy</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">exDat</span>, group <span class="op">=</span><span class="st">"sex"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stdout">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">psych</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/psych/man/describe.by.html">describeBy</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">exDat</span>, group <span class="op">=</span><span class="st">"sex"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
 <pre><code>
  Descriptive statistics by group 
 sex: 0
@@ -878,19 +898,19 @@ Missing values and Cronbachs <span class="math inline">\(\alpha\)</span>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">psych</td>
-<td style="text-align: right;">0.85129</td>
+<td style="text-align: right;">0.84687</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">psy</td>
-<td style="text-align: right;">0.85589</td>
+<td style="text-align: right;">0.84429</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">mirt</td>
-<td style="text-align: right;">0.85589</td>
+<td style="text-align: right;">0.84429</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">ltm</td>
-<td style="text-align: right;">0.85980</td>
+<td style="text-align: right;">0.83658</td>
 </tr>
 </tbody>
 </table>
@@ -914,32 +934,29 @@ Missing values and Cronbachs <span class="math inline">\(\alpha\)</span>
 <li>Before we calculate Cronbachs <span class="math inline">\(\alpha\)</span>, we remove (using the <code>na.omit</code> function) all incomplete cases from the data set.</li>
 </ol>
 <div class="cell">
-<details open=""><summary>Show/hide code</summary><div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">itemDF</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html">na.omit</a></span><span class="op">(</span><span class="va">exDat</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">mscItems</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">itemDF</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html">na.omit</a></span><span class="op">(</span><span class="va">exDat</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">mscItems</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ol type="1">
 <li>Get the number of items (<span class="math inline">\(p\)</span>)</li>
 </ol>
 <div class="cell">
-<details open=""><summary>Show/hide code</summary><div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">mscItems</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">mscItems</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ol start="2" type="1">
 <li>Calculate the sum (i.e., <code>sum</code> function) of <span class="math inline">\(\sigma_j^2\)</span> of all items using the <code>apply</code> function (see also <a href="#two-step-apply">above</a>) and <span class="math inline">\(\sigma_Y^2\)</span> of the total score (that is calculated by the <code>rowSums</code> function; see <a href="#app1-rowsums">below</a> for a detailed description of the function).</li>
 </ol>
 <div class="cell">
-<details open=""><summary>Show/hide code</summary><div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sigmaInd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span><span class="op">(</span><span class="va">itemDF</span>, <span class="fl">2</span>, <span class="va">sd</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">sigmaInd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span><span class="op">(</span><span class="va">itemDF</span>, <span class="fl">2</span>, <span class="va">sd</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span>
 <span><span class="va">sigmaTot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">var</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html">rowSums</a></span><span class="op">(</span><span class="va">itemDF</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <ol start="3" type="1">
 <li>Apply <a href="#eq-alpha">Equation&nbsp;<span>9.1</span></a>
 </li>
 </ol>
 <div class="cell">
-<details open=""><summary>Show/hide code</summary><div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">alpha</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">p</span><span class="op">/</span><span class="op">(</span><span class="va">p</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">*</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">sigmaInd</span><span class="op">/</span> <span class="va">sigmaTot</span> <span class="op">)</span></span>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">alpha</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">p</span><span class="op">/</span><span class="op">(</span><span class="va">p</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">*</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">sigmaInd</span><span class="op">/</span> <span class="va">sigmaTot</span> <span class="op">)</span></span>
 <span><span class="va">alpha</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.8496289</code></pre>
 </div>
 </div>
@@ -948,8 +965,8 @@ Missing values and Cronbachs <span class="math inline">\(\alpha\)</span>
 <li>Recall, the names of the items are stored in the <code>named list</code> object (i.e., <code>mscItems</code>).</li>
 </ol>
 <div class="cell">
-<details open=""><summary>Show/hide code</summary><div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">mscItems</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stdout">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">mscItems</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] "msc1"  "msc2"  "msc3r" "msc4r"</code></pre>
 </div>
 </div>
@@ -957,10 +974,10 @@ Missing values and Cronbachs <span class="math inline">\(\alpha\)</span>
 <li>To correlate the first item with the sum score, we use the <code>cor</code> function. To ignore the item when calculating the sum score, we state <code>[-1]</code> after the <code>names</code> call of the <code>named list</code>.</li>
 </ol>
 <div class="cell">
-<details open=""><summary>Show/hide code</summary><div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">exDat</span><span class="op">[</span>,<span class="st">"msc1"</span><span class="op">]</span>,</span>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">exDat</span><span class="op">[</span>,<span class="st">"msc1"</span><span class="op">]</span>,</span>
 <span>    y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html">rowSums</a></span><span class="op">(</span><span class="va">exDat</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">mscItems</span><span class="op">)</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>,</span>
 <span>    use <span class="op">=</span> <span class="st">"pairwise.complete.obs"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.6657391</code></pre>
 </div>
 </div>
@@ -968,11 +985,11 @@ Missing values and Cronbachs <span class="math inline">\(\alpha\)</span>
 <li>Now, we do it for all items. Therefore, we may use the <code>sapply</code> function. More specifically, we iterate through the item names (or to be precise, through the length of the item names)<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>. In the input argument <code>x</code> we (only) use the respective item <code>[itemNr]</code>, while we ignore it <code>[-itemNr]</code> when calculating the sum score in the second input argument <code>y</code>.</li>
 </ol>
 <div class="cell">
-<details open=""><summary>Show/hide code</summary><div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">mscItems</span><span class="op">)</span><span class="op">)</span>,</span>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">mscItems</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>       <span class="kw">function</span><span class="op">(</span><span class="va">itemNr</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">exDat</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">mscItems</span><span class="op">)</span><span class="op">[</span><span class="va">itemNr</span><span class="op">]</span><span class="op">]</span>,</span>
 <span>                            y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html">rowSums</a></span><span class="op">(</span><span class="va">exDat</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">mscItems</span><span class="op">)</span><span class="op">[</span><span class="op">-</span><span class="va">itemNr</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>,</span>
 <span>                            use <span class="op">=</span> <span class="st">"pairwise.complete.obs"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.6657391 0.6269790 0.7422577 0.7205174</code></pre>
 </div>
 </div>
@@ -988,8 +1005,8 @@ Missing values and Cronbachs <span class="math inline">\(\alpha\)</span>
 <li><p>…</p></li>
 </ul>
 <div class="cell">
-<details open=""><summary>Show/hide code</summary><div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">psych</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/psych/man/alpha.html">alpha</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">exDat</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">mscItems</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stdout">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">psych</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/psych/man/alpha.html">alpha</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">exDat</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">mscItems</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
 <pre><code>
 Reliability analysis   
 Call: psych::alpha(x = exDat[names(mscItems)])
@@ -1070,17 +1087,15 @@ Scale scores
 <li>Calculation of the sum score</li>
 </ol>
 <div class="cell">
-<details open=""><summary>Show/hide code</summary><div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">exDat</span><span class="op">$</span><span class="va">mscsum</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html">rowSums</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">exDat</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">mscItems</span><span class="op">)</span><span class="op">]</span>,</span>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">exDat</span><span class="op">$</span><span class="va">mscsum</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html">rowSums</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">exDat</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">mscItems</span><span class="op">)</span><span class="op">]</span>,</span>
 <span>                        na.rm <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <ol start="2" type="1">
 <li>Calculation of the average score</li>
 </ol>
 <div class="cell">
-<details open=""><summary>Show/hide code</summary><div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">exDat</span><span class="op">$</span><span class="va">mscavg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html">rowSums</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">exDat</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">mscItems</span><span class="op">)</span><span class="op">]</span>,</span>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">exDat</span><span class="op">$</span><span class="va">mscavg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html">rowSums</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">exDat</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">mscItems</span><span class="op">)</span><span class="op">]</span>,</span>
 <span>                        na.rm <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">mscItems</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 </div>
 <div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
@@ -1105,7 +1120,7 @@ Scale scores
 <li>Calculation of the sum score</li>
 </ol>
 <div class="cell">
-<details open=""><summary>Show/hide code</summary><div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">MscsumPsych</span> <span class="op">&lt;-</span> <span class="fu">psych</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/psych/man/score.items.html">scoreItems</a></span><span class="op">(</span>keys <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">mscItems</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">MscsumPsych</span> <span class="op">&lt;-</span> <span class="fu">psych</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/psych/man/score.items.html">scoreItems</a></span><span class="op">(</span>keys <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">mscItems</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>                                 items <span class="op">=</span> <span class="va">exDat</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">mscItems</span><span class="op">)</span><span class="op">]</span>,</span>
 <span>                                 totals <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>                                 missing <span class="op">=</span> <span class="cn">FALSE</span>,</span>
@@ -1119,13 +1134,12 @@ Scale scores
 <span>               by <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>               all.x <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
 <span><span class="va">exDat</span><span class="op">$</span><span class="va">Row.names</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <ol start="2" type="1">
 <li>Calculation of the average score</li>
 </ol>
 <div class="cell">
-<details open=""><summary>Show/hide code</summary><div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">MscavgPsych</span> <span class="op">&lt;-</span> <span class="fu">psych</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/psych/man/score.items.html">scoreItems</a></span><span class="op">(</span>keys <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">mscItems</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">MscavgPsych</span> <span class="op">&lt;-</span> <span class="fu">psych</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/psych/man/score.items.html">scoreItems</a></span><span class="op">(</span>keys <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">mscItems</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>                                 items <span class="op">=</span> <span class="va">exDat</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">mscItems</span><span class="op">)</span><span class="op">]</span>,</span>
 <span>                                 totals <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>                                 missing <span class="op">=</span> <span class="cn">FALSE</span>,</span>
@@ -1139,7 +1153,6 @@ Scale scores
 <span>               by <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>               all.x <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
 <span><span class="va">exDat</span><span class="op">$</span><span class="va">Row.names</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 </div>
 </div>
@@ -1148,16 +1161,14 @@ Scale scores
 <span class="header-section-number">9.3.1</span> Calculating many scale scores</h3>
 <!-- add -->
 <div class="cell">
-<details open=""><summary>Show/hide code</summary><div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#names(scaleList)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#names(scaleList)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Then using the <code>sapply</code> function to iterate through the list elements and applying the <code>rowSums</code> function. Note we calculate average scores, because we divide through the total score through the number of items.</p>
 <div class="cell">
-<details open=""><summary>Show/hide code</summary><div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">exDat</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">scaleList</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span><span class="op">(</span><span class="va">scaleList</span>,</span>
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">exDat</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">scaleList</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span><span class="op">(</span><span class="va">scaleList</span>,</span>
 <span>                                     <span class="kw">function</span><span class="op">(</span><span class="va">s</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html">rowSums</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">exDat</span><span class="op">[</span>,<span class="va">s</span><span class="op">]</span>,</span>
 <span>                                                         na.rm <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">s</span><span class="op">)</span>,</span>
 <span>                                     simplify <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 
 
@@ -1514,7 +1525,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="./data-proc.html" class="pagination-link">
+      <a href="./data-transform.html" class="pagination-link">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Data transformation</span></span>
       </a>          
   </div>
