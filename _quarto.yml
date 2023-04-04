@@ -1,23 +1,25 @@
 project:
   type: book
   output-dir: _book
-  #output-file: "Data-documentation-R-Quarto"
 
 book:
   title: "Data documentation with R and Quarto"
   author:
     - "Noel Wytopil (presenter)"
     - "Sonja Gelzenleuchter (presenter & creator)"
-    - "Sven Rieger (creater)"
+    - "Sven Rieger (creator)"
   date: "13. April 2023"
   page-navigation: true
   open-graph: true
+  twitter-card: true
+  favicon: file-richtext
   #page-footer: "This is a Quarto book."
   back-to-top-navigation: true
   search: true
   reader-mode: true
   repo-url: https://github.com/RiegerSven/data-doc-workshop-2023
   repo-actions: [edit, issue]
+  sharing: [twitter, facebook]
   sidebar:
     style: docked
     background: light
@@ -35,7 +37,7 @@ book:
       chapters:
         - imp-data.qmd
         - data-cleaning.qmd
-        - data-proc.qmd
+        - data-transform.qmd
         - item-analy-descr.qmd
     - references.qmd
 
@@ -47,16 +49,17 @@ format:
     theme: cosmo
     toc-depth: 4
     number-sections: true
-    linestretch: 1.7
+    linestretch: 1.8
     code-copy: true
     code-link: true
     code-tools: true
     code-line-numbers: false
-    code-fold: show
+    code-fold: false
     code-summary: "Show/hide code"
     link-external-newwindow: true
     grid:
       sidebar-width: 275px
       margin-width: 275px
       body-width: 600px
+
 

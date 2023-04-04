@@ -57,7 +57,7 @@ Data documentation include several parts:
 3. Information about the variables (e.g., demographic variables), (achievement) tests, items and scales
     - Scale level
     - Item wording
-    - Descriptive Statistics (e.g., $N, M, SD,Min, Max,...$; for more see [below](#item-analy-descr.qmd))
+    - Descriptive Statistics (e.g., $N, M, SD,Min, Max,...$; for more see [below](item-analy-descr.qmd))
     - Cross-references to other studies
     - Sources
 
@@ -65,7 +65,7 @@ Data documentation include several parts:
 
 An example of a table of conents of a so-called *"Skalenhandbuch"* can be seen in @fig-example-scale-manual.
 
-![Example of table of conents of a scale manual](images/TOSCA-scale-manual-example.pdf){#fig-example-scale-manual width=80% height=5in}
+![Example of table of contents of a "Skalenhandbuch"](images/TOSCA-scale-manual-example.pdf){#fig-example-scale-manual width=80% height=5in}
 
 
 
@@ -336,6 +336,7 @@ An example execution.
 ```{r}
 #| label: tbl-demo-table-function
 #| echo: true
+#| code-fold: show
 #| tbl-cap: "Variable: gender"
 #| output: asis
 
@@ -454,6 +455,7 @@ An example execution.
 ```{r}
 #| label: tbl-demo-contVar-function
 #| echo: true
+#| code-fold: show
 #| tbl-cap: "Variable: age"
 #| tbl-subcap: ["Overview", "Calculated statistics"]
 #| output: asis
@@ -595,6 +597,7 @@ An example execution.
 ```{r}
 #| label: tbl-edu
 #| eval: true
+#| code-fold: show
 #| tbl-cap: "Variable: Education"
 #| tbl-subcap:
 #|   - "Overview"
@@ -787,6 +790,7 @@ erfordern, nie gut."))
 #| label: tbl-msc
 #| echo: true
 #| eval: true
+#| code-fold: show
 #| tbl-cap: "Variable Math Self-concept"
 #| tbl-subcap: ["Overview", "Calculated statistics"]
 
@@ -892,6 +896,7 @@ cleanStr <- function ( stringToClean, pattern = NULL, replacement = "Unknown",
 }
 ```
 
+What the function does is shown in the [Data cleaning](data-cleaning.qmd) part.
 
 ```{r}
 #| label: save-functions
