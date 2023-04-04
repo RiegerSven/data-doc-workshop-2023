@@ -141,7 +141,7 @@ The function returns a value with the same shape as `test` which is filled with 
 
 ```{r}
 #| label: demo-ifelse-1
-#| code-fold: true
+
 ifelse(1 == 1,
        yes = "That is correct!",
        no = FALSE)
@@ -154,7 +154,7 @@ To apply the function in a more *"meaningful"* setting. Lets transform (i.e., re
 
 ```{r}
 #| label: demo-ifelse-2
-#| code-fold: false
+
 exDat$ageCat <- ifelse (exDat$age > 10, "old", "young")
 table(exDat$ageCat)
 ```

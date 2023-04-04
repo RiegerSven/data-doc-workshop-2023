@@ -186,8 +186,6 @@ write.csv2(x = exDatCleanID,
            file = "exDat-cleaned-ID.csv",
            row.names = FALSE)
 ```
-```
-
 
 :::
 
@@ -322,6 +320,7 @@ However, `dplyr` provides a function `dplyr::distinct()` which can be used to ke
 #| class-output: vScrollbar
 dplyr::distinct(exDatID)
 ```
+
 :::
 
 
