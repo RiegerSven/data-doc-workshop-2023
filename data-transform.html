@@ -279,7 +279,7 @@ div.csl-indent {
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
 <div class="quarto-title-block"><div><h1 class="title">
 <span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Data transformation</span>
-</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -414,16 +414,16 @@ We always create a new variable when we recode a variable!
 </ul>
 <p>The function returns a value with the same shape as <code>test</code> which is filled with elements selected from either <code>yes</code> or <code>no</code> depending on whether the element of test is <code>TRUE</code> or <code>FALSE</code>.</p>
 <div class="cell">
-<details><summary>Show/hide code</summary><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">==</span> <span class="fl">1</span>,</span>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">==</span> <span class="fl">1</span>,</span>
 <span>       yes <span class="op">=</span> <span class="st">"That is correct!"</span>,</span>
 <span>       no <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] "That is correct!"</code></pre>
 </div>
-<details><summary>Show/hide code</summary><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">1</span><span class="op">)</span>,</span>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">1</span><span class="op">)</span>,</span>
 <span>       yes <span class="op">=</span> <span class="st">"That is correct!"</span>,</span>
 <span>       no <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details><div class="cell-output cell-output-stdout">
+<div class="cell-output cell-output-stdout">
 <pre><code>[1] "That is correct!" "FALSE"            "FALSE"            "That is correct!"</code></pre>
 </div>
 </div>
@@ -1016,7 +1016,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb28-159"><a href="#cb28-159" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb28-162"><a href="#cb28-162" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb28-163"><a href="#cb28-163" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-ifelse-1</span></span>
-<span id="cb28-164"><a href="#cb28-164" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb28-164"><a href="#cb28-164" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb28-165"><a href="#cb28-165" aria-hidden="true" tabindex="-1"></a><span class="fu">ifelse</span>(<span class="dv">1</span> <span class="sc">==</span> <span class="dv">1</span>,</span>
 <span id="cb28-166"><a href="#cb28-166" aria-hidden="true" tabindex="-1"></a>       <span class="at">yes =</span> <span class="st">"That is correct!"</span>,</span>
 <span id="cb28-167"><a href="#cb28-167" aria-hidden="true" tabindex="-1"></a>       <span class="at">no =</span> <span class="cn">FALSE</span>)</span>
@@ -1029,7 +1029,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb28-174"><a href="#cb28-174" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb28-177"><a href="#cb28-177" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb28-178"><a href="#cb28-178" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-ifelse-2</span></span>
-<span id="cb28-179"><a href="#cb28-179" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
+<span id="cb28-179"><a href="#cb28-179" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb28-180"><a href="#cb28-180" aria-hidden="true" tabindex="-1"></a>exDat<span class="sc">$</span>ageCat <span class="ot">&lt;-</span> <span class="fu">ifelse</span> (exDat<span class="sc">$</span>age <span class="sc">&gt;</span> <span class="dv">10</span>, <span class="st">"old"</span>, <span class="st">"young"</span>)</span>
 <span id="cb28-181"><a href="#cb28-181" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(exDat<span class="sc">$</span>ageCat)</span>
 <span id="cb28-182"><a href="#cb28-182" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
