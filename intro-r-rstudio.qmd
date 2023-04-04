@@ -333,8 +333,7 @@ rm(x, fac)
 
 ::: {.column width="60%"}
 
-::: {.callout-tip collapse="true" appearance="simple"}
-## Tips for handling vectors
+::: {.callout-tip collapse="true" appearance="simple" title="Tips for handling vectors"}
 
 Create a vector with the `c` function
 
@@ -413,8 +412,7 @@ seq(from = 0,
 
 ::: {.column width="60%"}
 
-::: {.callout-tip collapse="true" appearance="simple"}
-## Tips for handling matrices {#tip-mat}
+::: {#tip-mat .callout-tip collapse="true" appearance="simple" title="Tips for handling matrices"}
 
 The `matrix` function creates a matrix from the given set of values
 
@@ -461,8 +459,7 @@ m[, 1:2]
 
 ::: {.column width="60%"}
 
-::: {.callout-tip collapse="true" appearance="simple"}
-## Tips for handling lists
+::: {.callout-tip collapse="true" appearance="simple" title="Tips for handling lists"}
 
 Create lists (with different elements, i.e., numbers and letters) with the `list` function
 
@@ -545,8 +542,7 @@ length(unlist(l4))
 
 ::: {.column width="60%"}
 
-::: {.callout-tip collapse="true" appearance="simple"}
-## Tips for handling dataFrames {#tip-df}
+::: {#tip-df .callout-tip collapse="true" appearance="simple" title="Tips for handling dataFrames"}
 
 ```{r}
 #| label: demo-df-0
@@ -652,14 +648,14 @@ Besides the functionality of base `R` [@R-base], there is the so-called `tidyver
 
 Within the `tidyverse` package collection, the `dplyr` package [@R-dplyr] provides a set of convenient functions for manipulating data. Together with the pipe operator `%>%` from the `magrittr` package [@R-magrittr]), it is an extremely powerful approach to manipulate data in a clear and comprehensible way. The native^[for the difference between `|>` and `%>%` see <https://ivelasq.rbind.io/blog/understanding-the-r-pipe/>] `R` pipe `|>` was introduced with `R` [v4.1.0](https://cran.r-project.org/bin/windows/base/old/4.1.0/NEWS.R-4.1.0.html). 
 
-::: {.callout-tip collapse="true"}
-## What exactly does the pipe operator |>? {#what-is-pipe-op}
+::: {#what-is-pipe-op .callout-tip collapse="true" title="What does the pipe operator |>?"}
 
 [The tidyverse style guide](https://style.tidyverse.org/) suggests using the pipe operator *"to emphasize a sequence of actions"*. The pipe operator can be understood as *"take the object and then"* pass it to the next function. In the following, the use of the base `R` pipe operator is shown:
 
 1. **Take** the data frame `exDat` **and then** 
-2. Calculate descriptive statistics using the `describe` function from the `psych` package [@R-psych] **and then**
-3. Create a table with the `kable` function from the `knitr` package [@R-knitr]
+2. Select the variables: `msc1` and `msc2` **and then**
+3. Calculate descriptive statistics using the `describe` function from the `psych` package [@R-psych] **and then**
+4. Create a table with the `kable` function from the `knitr` package [@R-knitr]
 
 ```{r}
 #| label: demo-pipe-1
@@ -667,6 +663,7 @@ Within the `tidyverse` package collection, the `dplyr` package [@R-dplyr] provid
 #| code-line-numbers: true
 
 exDat |> 
+  dplyr::select(c(msc1, msc2)) |>
   psych::describe(fast=TRUE) |> 
   knitr::kable(digits = 2) 
 ```

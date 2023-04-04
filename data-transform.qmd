@@ -1,0 +1,276 @@
+# Data transformation
+
+```{r}
+#| label: read-data-trans
+#| echo: false
+#| warning: false
+
+exDat <- readRDS("exampleDat.RDS")
+
+```
+
+In this part you will learn how to transform or convert variables into a usable form for analysis. The steps include:
+
+1. [Building new variables](#build-var)
+2. [Recoding variables](#rec-var)
+
+
+## Building new variables {#build-var}
+
+To build new variables and add them to a data set, we can use *all* functions and operators that `R` offers.
+
+::: {.callout-note collapse="true" appearance="simple" title="Create and delete objects."}
+
+In `R`, you can create objects (from existing ones) and store them as new objects using functions and operators. In the following example, we create the objects `x` and `y` and assign them numbers.
+
+```{r}
+#| label: demo-build-1
+#| code-fold: false
+x <- 5
+y <- 4
+```
+
+Then we sum them up:
+
+```{r}
+#| label: demo-build-2
+#| code-fold: false
+xy <- x+y
+xy
+```
+This is the same as:
+
+```{r}
+#| label: demo-build-3
+#| code-fold: false
+sum(c(x,y)) == xy
+```
+
+Finally, we may delete all objects using the `rm` function.
+
+```{r}
+#| label: demo-rm
+#| code-fold: false
+
+rm(x,y,xy)
+```
+
+:::
+
+For example, we might want to sum up item indicators to a so-called scale score (for now only the first 2; for a more detailed examination see the section [Descriptive statistics and item analysis](item-analy-descr.qmd)) and add them as a new column to the example data set `exDat`.
+
+::: {.panel-tabset}
+
+### Base R
+
+There are several ways to do that, for example:
+
+```{r}
+#| label: demo-add-var-1
+#| code-fold: false
+
+exDat$mscSum1 <- exDat$msc1+exDat$msc2
+exDat$mscSum2 <- with(exDat, msc1 + msc2)
+exDat[,"mscSum3"] <- with(exDat, msc1 + msc2)
+
+mscSum4 <- exDat$msc1+exDat$msc2
+exDat <- cbind(exDat, mscSum4)
+
+exDat$mscSum5 <- rowSums(exDat[,c("msc1","msc2")], na.rm = T)
+```
+
+
+To delete variables, you can use the `NULL` statement.
+
+```{r}
+#| label: demo-del-var
+
+exDat[,c(paste0("mscSum", 1:5))] <- NULL
+```
+
+
+### dplyr package
+
+To add a variable to a data set, we may use `mutate` function from the `dplyr` package.
+
+From the function description: `dplyr::mutate` creates new columns that are functions of existing variables. It can also modify (if the name is the same as an existing column) and delete columns (by setting their value to `NULL`).
+
+Add the new variable `mscSum6`.
+
+```{r}
+#| label: demo-add-var-dplyr
+
+exDat <- exDat |>
+  dplyr::mutate(mscSum6 = msc1 + msc2)
+
+```
+
+Delete the variable `mscSum6`.
+
+```{r}
+#| label: demo-del-var-dplyr
+
+exDat <- exDat |>
+  dplyr::mutate(mscSum6 = NULL)
+
+```
+
+:::
+
+## Recoding variables {#rec-var}
+
+Recoding is the process of reassigning values (old &rarr; new) for a variable in a dataset.
+
+The old values can either be overwritten by the new values **or saved as a new variable**.
+
+::: {.callout-important collapse="false" appearance="simple" title="We always create a new variable when we recode a variable!"}
+
+-   old values are not lost    
+-   errors during recoding can be reproduced
+
+:::
+
+
+A common approach to recode variables is to use the `base::ifelse` function. It requires 3 input arguments:
+
+- `test`: which is an object that can be coerced to logical mode
+- `yes`: return values for true elements of test
+- `no`: return values for false elements of test
+
+The function returns a value with the same shape as `test` which is filled with elements selected from either `yes` or `no` depending on whether the element of test is `TRUE` or `FALSE`.
+
+```{r}
+#| label: demo-ifelse-1
+#| code-fold: true
+ifelse(1 == 1,
+       yes = "That is correct!",
+       no = FALSE)
+ifelse(1 == c(1,2,3,1),
+       yes = "That is correct!",
+       no = FALSE)
+```
+
+To apply the function in a more *"meaningful"* setting. Lets transform (i.e., recode) the variable `age` to a categorical variable (here: `ageCat`) with the categories: old and young. All units that are older than 10 are getting the value `"old"`, otherwise they get the value `"young"`.
+
+```{r}
+#| label: demo-ifelse-2
+#| code-fold: false
+exDat$ageCat <- ifelse (exDat$age > 10, "old", "young")
+table(exDat$ageCat)
+```
+
+
+Psychological instruments often contain items that are designed to measure the opposite of the actual construct (e.g., "I am good at math." vs. "I am bad at math."). These items are called reverse-scored or negatively-keyed items. In the example data set `exDat` the variables `msc3` and `msc4` are (simulated as) reverse-scored and thus, need to be recoded.
+
+The first step is to check the response categories.
+
+```{r}
+#| label: demo-msc3
+#| 
+table(exDat$msc3, useNA = "always")
+```
+
+
+::: {.panel-tabset}
+
+### Base R
+
+In this approach, we subtract the item from the sum of the maximum and minimum of the item (here is maximum = 4 minimum = 1).
+
+```{r}
+#| label: recode-base
+#| code-fold: false
+exDat$msc3r1 <- sum(max(exDat$msc3,na.rm=T),
+                    min(exDat$msc3,na.rm=T)) - exDat$msc3 
+
+```
+
+::: {.callout-note collapse="false" appearance="simple" }
+
+Note that this approach is not very robust across different recoding strategies. Also, when sample size is small and the categories are not used completely. 
+
+:::
+
+It is important to evaluate the result.
+
+```{r}
+#| label: recode-base-check
+#| code-fold: false
+
+with(exDat, table(msc3, msc3r1))
+```
+
+
+### car package
+
+In this approach, we use the `recode` function of the `car` package [@R-car]. This function needs at least 2 inputs (copied from the package description):
+
+- `var`: numeric vector, character vector, or factor.
+- `recodes`: character string of recode specifications
+
+There are further additional arguments such as `as.factor` and `as.numeric` which direct the class of the output.
+
+```{r}
+#| label: recode-car
+#| code-fold: false
+#| code-line-numbers: true
+exDat$msc3r2 <- car::recode(var = exDat$msc3,
+                            recodes = "
+                            1 = 4;
+                            2 = 3;
+                            3 = 2;
+                            4 = 1;
+                            NA = NA",
+                            as.factor = FALSE,
+                            as.numeric = TRUE)
+```
+
+Again, evaluating the result.
+
+```{r}
+#| label: recode-car-check
+#| code-fold: false
+
+with(exDat, table(msc3, msc3r2))
+```
+
+### dplyr package
+
+```{r}
+#| label: recode-dplyr
+#| code-fold: false
+#| code-line-numbers: true
+exDat <- exDat |>
+  dplyr::mutate(
+    msc3r3 = dplyr::case_when(
+      msc3 == 1 ~ 4,
+      msc3 == 2 ~ 3,
+      msc3 == 3 ~ 2,
+      msc3 == 4 ~ 1
+      ))
+```
+
+Evaluating the result.
+
+```{r}
+#| label: recode-dplyr-check
+#| code-fold: false
+
+with(exDat, table(msc3, msc3r3))
+```
+
+::: {.callout-note collapse="false" appearance="simple" }
+
+(copied from the `?dplyr::recode` function description)
+
+`dplyr::recode` is superseded in favor of `dplyr::case_match`, which handles the most important cases of `dplyr::recode` with a more elegant interface. `dplyr::recode_factor` is also superseded, however, its direct replacement is not currently available but will eventually live in `forcats`. For creating new variables based on logical `vectors`, use `dplyr::if_else()`. For even more complicated criteria, use `dplyr::case_match`.
+
+
+:::
+
+:::
+
+## Working with strings/characters
+
+add cleanstring function
+

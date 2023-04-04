@@ -136,21 +136,23 @@ A reference in the .bib-file looks like this:
 ::: {.callout-caution collapse="true"}
 ## Exercise: Create a .bib file for the R references
 
-1. Check the path (same folder as the `Quarto` document, otherwise you have to provide the path in the `bibliography`).
+1. Check the path with the `base::getwd` function (should be the same folder as the `Quarto` document, otherwise you have to provide the path in the `YAML` `bibliography` argument).
 
 ```{r}
 #| label: demo-getwd
 #| eval: false
 #| echo: true
+#| code-fold: false
 getwd()
 ```
 
-2. Save the `R` packages in a character vector.
+2. Save (some of the) `R` packages in a character vector.
 
 ```{r}
 #| label: demo-pkgs
 #| echo: true
 #| eval: false
+#| code-fold: false
 pkgList <- c("knitr", # tables
              "kableExtra", # tables
              "lavaan", # generate data
@@ -165,6 +167,7 @@ pkgList <- c("knitr", # tables
 #| label: demo-write-bib
 #| eval: false
 #| echo: true
+#| code-fold: false
 knitr::write_bib(x = pkgList,
                  file = "r-refs.bib")
 ```

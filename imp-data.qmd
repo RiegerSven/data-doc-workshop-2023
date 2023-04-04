@@ -28,11 +28,11 @@ Data sets can come in many different file formats. For example, `.txt`, `.csv` f
 
 To import e.g., `.csv` or `.txt` files, `R` offers a couple of functions that deal with these formats:
 
-- `read.table`: Reads a file in table format and creates a data frame from it, with cases corresponding to lines and variables to fields in the file.
-    - `read.csv` or `read.csv2`^[see also here: <https://stackoverflow.com/questions/22970091/difference-between-read-csv-and-read-csv2-in-r>]
-    - `read.delim` or `read.delim2` 
+- `utils::read.table`: Reads a file in table format and creates a data frame from it, with cases corresponding to lines and variables to fields in the file.
+    - `utils::read.csv` or `utils::read.csv2`^[see also here: <https://stackoverflow.com/questions/22970091/difference-between-read-csv-and-read-csv2-in-r>]
+    - `utils::read.delim` or `utils::read.delim2` 
 
-- `readLines`: Read some or all text lines from a connection.
+- `base::readLines`: Read some or all text lines from a connection.
 
 - ...
 
@@ -59,10 +59,10 @@ exDatImpforeign <- foreign::read.spss("file-to-path-with-.sav-file",
 ::: {.callout-note collapse="true" appearance="simple"}
 ## Exporting dataframes
 
-To export data to a file, you can use the `write` function(s):
+To export data to a file, you can use the `base::write` function(s):
 
-- `write.table`
-- `write.csv` or `write.csv2`
+- `utils::write.table`
+- `utils::write.csv` or `utils::write.csv2`
 - ...
 
 Again, when it comes to software-specific file formats you need additional packages such as `foreign` [@R-foreign] or `haven` [@R-haven]:
@@ -80,7 +80,7 @@ In the following, the use of the `write.foreign` function is displayed:
 #| code-fold: false 
 
 
-#getwd()
+getwd()
 codefile <- tempfile()
 
 foreign::write.foreign(exDat,
@@ -106,7 +106,7 @@ First, check the class of the example data set `exDat`.
 #| code-fold: false
 class(exDat)
 ```
-The `as_tibble` function from the `tibble` package [@R-tibble] turns an existing object (a data frame or matrix) into `tibble` which is a data frame with `class` `tbl_df` (see `?as_tibble`).
+The `as_tibble` function from the `tibble` package [@R-tibble] turns an existing object (a data frame or matrix) into `tibble` which is a `data.frame` variant (with nice defaults)  and `class` `tbl_df` (see `?tibble::as_tibble`).
 
 
 ```{r}
@@ -124,7 +124,7 @@ The `write_sav` function from the `haven` package [@R-haven] can also be used to
 #| code-fold: false 
 
 
-#getwd()
+getwd()
 haven::write_sav(exDat, "exDat.sav")
 
 ```
@@ -140,6 +140,6 @@ exDatImpTest <- haven::read_sav("exDat.sav")
 
 ```
 
-Note that the `read_sav` returns a `tibble`, `data frame` variant (with nice defaults).
+Note that the `read_sav` returns a `tibble`, `data.frame` variant (with nice defaults).
 
 For more see <https://tibble.tidyverse.org/> and [Chapter 10](https://r4ds.had.co.nz/tibbles.html) of [R for Data Science](https://r4ds.had.co.nz/).

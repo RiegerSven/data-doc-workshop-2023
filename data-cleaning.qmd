@@ -1,6 +1,6 @@
 # Data cleaning
 
-This section provides an introduction to data cleaning. When data is really messy, data cleaning can be a challenging task. We provide some approaches that however, will not include or solve all issues during data cleaning.
+This part provides an introduction to data cleaning. When data is really messy, data cleaning can be a challenging task. We provide some approaches that however, will not include or solve all issues during data cleaning.
 
 ```{r}
 #| label: read-data-clean
@@ -35,7 +35,7 @@ The **validity ** of results of statistical data analyses depends on the **quali
 
 Data cleaning (or data cleansing) is the process of identifying and correcting errors, inconsistencies, and inaccuracies in the data. It is **always the first step** after data entry or data transfer from external sources.
 
-The steps of data cleaning vary depending on the type and the quality of data. The following steps can be seen as a general outline:
+The steps of data cleaning vary depending on the type and quality of data. The following steps can be seen as a general outline:
 
 0.  Understand the structure of the data (set) &rarr; Codebook should help
 1.  [Remove duplicate observations](#rem-duplicate)      
@@ -45,29 +45,24 @@ The steps of data cleaning vary depending on the type and the quality of data. T
 
 ## How to clean data?
 
-Depending on how much data cleaning is needed, it is recommended to clean data in a sequential way (We like it neat!). This means after we succeed with one step of data cleaning, we save the respective `R`- or `Quarto` script and the data set with an appropriate description. 
+Depending on how much data cleaning is needed, it is recommended to clean data in a sequential way (We like it neat!). This means after we succeed with one step of data cleaning, we save the respective `R`- or `Quarto` script and the data set with an appropriate description (see @fig-seq-way-data). 
 
-::: {.callout-tip collapse="false" appearance="simple" title="Tip: Sequential way of working with data"} 
 
 ![Example of sequential way of working with data](images/seq-way-data.PNG){#fig-seq-way-data}
 
 
-:::
 
-The sequential procedure is also exemplified in the [Remove duplicate observations](#rem-duplicate) section.
+The sequential procedure is also exemplified in the next section [Remove duplicate observations](#rem-duplicate).
 
 ::: {.callout-important} 
 
-When cleaning a data set, you should **NEVER(!)** replace the raw data with processed data (i.e., overwrite the raw data file). The manipulated data should be assigned to a new object and thereafter **MUST BE** saved as a new file (see also below)!
+When cleaning a data set, you should **NEVER(!)** replace the raw data with processed data (i.e., overwrite the raw data file). The manipulated data should be assigned to a new object and thereafter **MUST BE** saved as a new file!
 
 The raw data should also be a read-only file (i.e., right click on the `file > Properties > Attributes > Read-only`).
 
 :::
 
- 
 Because it is also crucial to document the data cleaning process (i.e., to reconstruct all steps), we also recommend to use `Quarto` documents because of the increased readability.
-
-
 
 
 ## Remove duplicate observations {#rem-duplicate}
@@ -84,7 +79,8 @@ Duplicate observations are identified via the `id` and `variable` values (i.e., 
 |    | variable values (response pattern)      |        |                                   |
 +----+-----------------------------------------+--------+-----------------------------------+
 | 3. | Different `id` variable values, but     | &rarr; | complicated, it is possible, but  |
-|    | same variable values (response pattern) |        | check data (i.e., questionnaires) |
+|    | same variable values (response pattern) |        | check data (i.e., questionnaires, |
+|    |                                         |        | especially open fields)           |
 +----+-----------------------------------------+--------+-----------------------------------+
 
 : Overview of duplicate observations scenarios {#tbl-dup-obs}
@@ -111,10 +107,15 @@ For more see here: <https://dimewiki.worldbank.org/ID_Variable_Properties>
 
 The procedure is as follows:
 
-1.  Find duplicate observations    
-2.  Exclude real (!) duplicates (but consult your supervisors!)
+0. Import data &rarr; we use the data set from below: `exDatID`
 
-::: {.callout-warning collapse="false" appearance="simple" title="Generate some duplicate observations."}
+1. Find duplicate observations
+
+2. Exclude real (!) duplicates (but consult your supervisors!)
+
+3. Save data set to a new file 
+
+::: {#gen-dup-obs .callout-warning collapse="false" appearance="simple" title="Generate some duplicate observations."}
 
 **!! Do not do this with real data !! !! Do not do this with real data !! !! Do not do this with real data !!**
 
@@ -126,13 +127,29 @@ The example data set `exDat` does not contain any duplicate observations. Hence,
 #| code-line-numbers: true
 
 
-exDatID <- rbind(exDat,exDat[1:5,])
+exDatID <- tibble::as_tibble( rbind(exDat,exDat[1:5,]) )
 exDatID[c(751, 752),"id"] <- c(751, 752)
 exDatID[6,"id"] <- 7
+#exDatID$comment <- c("Hi", "Hello", "apple", "avocado", "bye",
+  #                   rep("no", 745),
+ #                    "Hi", "Hello", "apple", "avocado", "bye")
+
 nrow(exDatID)
 ```
 
 **!! Do not do this with real data !! !! Do not do this with real data !! !! Do not do this with real data !!**
+
+For the exercise [below](#ex-rem-dup), write the `exDatID` data set to your project folder.
+
+```{r}
+#| label: write-exDatID
+#| eval: false
+
+getwd()
+write.csv2(x = exDatID,
+           file = "exDatID.csv",
+           row.names = FALSE)
+```
 
 
 :::
@@ -141,41 +158,151 @@ nrow(exDatID)
 
 How to find and remove duplicate observations via the `id` and `variable` values? In the following there is a base `R` and a `dplyr` [@R-dplyr] solution shown. Both approaches use the `duplicated()` function which requires a `vector`, a `data frame` or an `array` as input `x`. The output is logical vector (`TRUE`/`FALSE`) of the same length as `x`.
 
+::: {#ex-rem-dup .callout-caution collapse="true" title="Exercise: Remove the duplicate observations from the exDatId data set!"}
+
+0. Open a new `R`- or `Quarto`-script (i.e., `File > New File`) and provide an meaningful name.
+
+1. Import the `exDatID.csv` data set (which was generated [above](#gen-dup-obs)) 
+
+```{r}
+#| label: read-exDatID
+#| eval: false
+#| code-fold: false
+exDatID <- read.csv2(file = "exDatID.csv",
+          header = TRUE)
+```
+
+
+2. Go through the following steps. Choose either between the base `R` or the `dplyr` approach.
+
+3. Save the cleaned data set (i.e., without the duplicates) with a meaningful name that also matches the name of the script.
+
+```{r}
+#| label: write-exDatID-clean
+#| eval: false
+#| code-fold: false
+getwd()
+write.csv2(x = exDatCleanID,
+           file = "exDat-cleaned-ID.csv",
+           row.names = FALSE)
+```
+```
+
+
+:::
+
 
 ::: {.panel-tabset}
 ### Base R
 
-The `duplicated()` function checks for each value whether it is duplicated.  In combination with the `which()` function, checking which indices are `TRUE`, we can extract the duplicates.
-
-1. Check for duplicate `id` values. The procedure contains 4 steps.
-
+1. Identify the duplicate `id` values: Use the `ifelse` function to transform the returned logical vector of the `duplicated` function to a `character` variable and then it as a new variable^[How to add a new variable is explained in more detail in the section on [Data transformation](data-transform.qmd#build-var).] (here: `dupID`) to the data set. 
+  
 ```{r}
-#| label: show-dup
-#| code-line-numbers: true
+#| label: show-dup-1
+#| code-fold: false
+#| code-line-numbers: false
 #| 
 exDatID$dupID <- ifelse ( duplicated(exDatID$id), "dup"," ")
+#table(exDatID$dupID)
+```
 
+2. Identify with the `which` function which `id` values are duplicated.
+
+```{r}
+#| label: show-dup-2
+#| code-fold: false
+#| code-line-numbers: false
+#| 
 whichID <- exDatID[which(exDatID$dupID == "dup"), "id"]
+whichID
+```
 
-dupIDs <- exDatID[exDatID$id %in% whichID,]
+
+3. Select only the the rows with duplicated `id` values (`unlist` the `tbl_df` object: `whichID` is necessary).
+
+```{r}
+#| label: show-dup-3
+#| code-fold: false
+#| code-line-numbers: false
+#| 
+dupIDs <- exDatID[exDatID$id %in% unlist(whichID),]
+```
+
+4. Show the (ordered) data set.
+
+```{r}
+#| label: show-dup-4
+#| code-fold: false
+#| code-line-numbers: false
+#| 
 dupIDs[order(dupIDs$id),]
 ```
 
 
-Exclude duplicates... add here
+What do we see? 4 duplicated `id` values: 3, 4, 5, 7 were identified, but only 3, 4, and 5 are real duplicate observations. In a real data set, this would be probably a input error during data entry. Hence, it would be necessary to check the questionnaires. We know that it was a mistake, because we created the error (see above). Thus, we can reverse it without further ado. But be careful that you select the right observation.
 
 ```{r}
+#| label: exDatID-fix-id
+#| code-fold: show
+#| code-line-numbers: false
+exDatID[exDatID$id == 7 & exDatID$dupID != "dup","id"] <- 6
+exDatID[exDatID$id == 7,"dupID"] <- " "
+```
 
 
+The observations with the `id` values 3, 4, and 5 can be deleted. Therefore, we can use the `subset` function that requires the input `x` which can be `matrices`, `data frames` or `vectors` (including `lists`). In the `subset`argument you can state logical expression indicating elements or rows to keep (here: `!= dup`).
+
+```{r}
+#| label: demo-subset-dup
+#| code-fold: false
+exDatID <- subset(x = exDatID,
+                  subset = dupID != "dup")
+nrow(exDatID)
+```
+
+Note that there are still 2 duplicate observations left. Nevertheless, we can delete the variable `dupID` and clean our environment with the `rm` function:
+
+```{r}
+#| label: del-dupID
+#| code-fold: false
 exDatID$dupID <- NULL
+rm(whichID, dupIDs)
 ```
 
-By negating the function (`!duplicated()`), duplicates can be excluded.
+What to do with the other 2 duplicate observation? We need to repeat the procedure. This time we do not examine the `id` values (i.e., actually we exclude this variable), but the response pattern.
 
 ```{r}
-#| class-output: vScrollbar
-exDatID[which(!duplicated(exDatID$id)), ]
+
+uniqueRows <- exDatID[duplicated(exDatID[, -which(names(exDatID) == "id")]),"id"]
+
+exDatID[exDatID$id %in% unlist(uniqueRows),]
+
 ```
+
+
+<!--
+
+
+
+```{r}
+#| label: show-dup-resp
+#| code-fold: false
+#| code-line-numbers: true
+
+
+exDatID$dupResp <- ifelse(duplicated( exDatID[, -which(names(exDatID) == "id")],),
+                          "dup",
+                          " ")
+#table(exDatID$dupResp)
+whichresp <- exDatID[which(exDatID$dupResp == "dup"), "id"]
+dupResps <- exDatID[exDatID$id %in% unlist(whichresp),]
+dupResps[order(dupResps$id),]
+```
+
+
+-->
+
+
 
 ### dplyr package
 
@@ -183,7 +310,10 @@ Filtering can be done using the `dplyr::filter()` function in combination with `
 
 ```{r}
 exDatID |> 
-  dplyr::filter(duplicated(id))
+  dplyr::mutate(dupID = ifelse(duplicated(id), "dup", " ")) |>
+  dplyr::filter(dupID == "dup")
+    
+  
 ```
 
 However, `dplyr` provides a function `dplyr::distinct()` which can be used to keep only unique rows.
@@ -194,12 +324,7 @@ dplyr::distinct(exDatID)
 ```
 :::
 
-::: {.callout-caution collapse="true"}
-## Exercise: Remove duplicates!
 
-Remove all duplicates contained in `exampleDat_ID.RDS` and assign the dataFrame to an object named `exDat_uniqueID`.
-
-:::
 
 
 
@@ -437,22 +562,13 @@ exDat |>
 ::: {.callout-caution collapse="true"}
 ## Exercise: Count the missing values!
 
-0. Create a `R`- or `Quarto` script/document.
-
-1. Import the data set `` from the github repository 
-
-2. Identify and define the missing values as `NA`
-
-3. Count them for the whole data set.
-
-
 :::
 
 
 
 ### Omit missing values {#omit-miss}
 
-Although omitting or deleting missing values is a common practice, this is not a recommended approach handling missing data and should--in most data scenarios--be avoided altogether [@Schafer2002]. Two "state-of-the-art" missing data methods are maximum likelihood estimation [e.g., implemented in the `lavaan` package, see @R-lavaan] and multiple imputation [e.g., implemented in the `mice` package, see @R-mice; for good introductions to this topic, see @Enders2010].
+Although omitting or deleting missing values is a common practice, this is not recommended to deal with missing data and should--in most scenarios--be avoided altogether [@Schafer2002]. Two "state-of-the-art" missing data methods are maximum likelihood estimation [e.g., implemented in the `lavaan` package, see @R-lavaan] and multiple imputation [e.g., implemented in the `mice` package, see @R-mice; for good introductions to this topic, see @Enders2010].
 
 Nevertheless, if you would like to omit missing values anyway, there are several functions to do this in `R`. Also, it is important to note that ignoring or omitting missing values are often the default options in `R`.
 
@@ -736,8 +852,8 @@ Continuous variables are checked by examining the distribution of the variables.
 
 Furthermore, the following Distribution parameters/measures might be informative:
 
-- location: mean, median &rarr; `mean`, `median`
-- dispersion: standard deviation, variance &rarr; `sd`, `var`
+- location: mean, median &rarr; `base::mean`, `stats::median`
+- dispersion: standard deviation, variance &rarr; `stats::sd`, `stats::var`
 - shape (asymmetry): skewness &rarr; `moments::skewness`
 - shape (tailedness): kurtosis &rarr; `moments::kurtosis`
 
@@ -777,11 +893,11 @@ moments::kurtosis(exDat$age,
 What are the cutoffs for skewness and kurtosis? It depends on the specific context...
 
 - Skewness: 0 (perfect symmetry) &rarr; cutoff: 1-2
-  - > 0: right-skewed distributions 
-  - < 0: left-skewed distributions
+  - $> 0$: right-skewed distributions 
+  - $< 0$: left-skewed distributions
 - Kurtosis: 3 (perfect normal distribution) &rarr; cutoff: 6-7
-  - > 3: more peaked distribution
-  - < 3: a flatter distribution 
+  - $> 3$: more peaked distribution
+  - $< 3$: a flatter distribution 
 
 (Reference needed)
 
@@ -869,8 +985,11 @@ boxplot(exDat$age,
 #| warning: false
 
 ggplot(data = exDat, #na.omit
-       aes(y = age)) +
-  geom_boxplot() +
+       aes(y = age, x = factor(0))) +
+  geom_boxplot(width=.5, outlier.color = "red") +
+  #geom_jitter(width = .25, color = "grey", alpha = .2) +
+  scale_x_discrete(breaks = NULL) +
+  xlab(NULL) +
   theme_bw()
 ```
 
