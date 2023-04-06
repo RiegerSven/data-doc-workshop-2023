@@ -20,7 +20,6 @@ format:
     number-sections: true
     smooth-scroll: true
     theme: cosmo
-  #pdf: default
     
 bibliography: ["r-refs-scaleManual.bib", "references.bib"]
 csl: apa7.csl
