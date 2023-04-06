@@ -6,7 +6,20 @@
 #| warning: false
 
 exDat <- readRDS("exampleDat.RDS")
+```
 
+
+```{r}
+#| label: load-func-trans
+#| echo: false
+#| warning: false
+load("scaleManualFunctions.Rdata")
+
+varOverview <-  scaleManualFunctions$varOverview
+catVar <-  scaleManualFunctions$catVar
+contVar <-  scaleManualFunctions$contVar
+scaleScore <-  scaleManualFunctions$scaleScore
+cleanStr <- scaleManualFunctions$cleanStr
 ```
 
 In this part you will learn how to transform or convert variables into a usable form for analysis. The steps include:
@@ -270,7 +283,83 @@ with(exDat, table(msc3, msc3r3))
 
 :::
 
-## Working with strings/characters
+## Working with strings (character objects)
 
-add cleanstring function
+This section briefly introduces how to work with strings (`character` objects). Recall, what is a `character` (in `R`)?
+
+```{r}
+#| label: demo-char-0
+
+aChr <- "This is character"
+class(aChr)
+print(aChr)
+```
+
+Everything what appears within single (`'`) or double quotes (`"`; double quotes are recommended) will be treated as a string (i.e., `character` object). It is important to know that `character` objects are space and case sensitive.
+
+```{r}
+#| label: demo-char-1
+" " == ""
+
+"hello world!" == "Hello world!"
+```
+
+
+When it comes to survey research, strings are used to transfer the information from (mostly) open fields in a questionnaire into the data set (e.g., *"What is your first language or mother tongue? (Please specify)"*.
+
+The variable `fLang` in the `exDat` data set contains the different answers on such a question.
+```{r}
+#| label: flang-descr
+
+table(exDat$fLang, useNA = "always")
+
+```
+
+
+To clean such a `character` variable, `R` offers a couple of functions (e.g., `base::grep`, `base::grepl`, `base::regexpr`, `base::gregexpr`, ...). Also, there are packages such as `stringr` [@R-stringr] or `stringi` [@R-stringi] that offer great functionality^[A comprehensive introduction to these functions or packages is beyond the scope of this workshop. Hence, we focus on some mechanics of these functions.].
+
+In the following example, we use `base::gsub` function to search for matches in the value pattern `" "` of the character vector `anotherChr` and replace it with `""`.
+
+```{r}
+#| label: demo-char-2
+anotherChr <- c(" ", "", "hello", " hello")
+
+gsub(" ", "", x = anotherChr)
+```
+
+
+The `cleanStr` function (introduced in the [Functions](gen-info.qmd#functions) section of the [General information on data documentation](gen-info.qmd) part) is designed to clean strings and has the following arguments:
+
+- `stringToClean`: This should be a character.
+- `pattern`: The pattern which should be replaced. Can be character vector.
+- `replacement`: The replacement. A character with length = 1.
+- `replaceNA`: logical. Should `NA`s be replaced? Default is `TRUE`.
+- `replaceNAval`: If `replaceNA` == `TRUE`. The replacement of `NA` values. Default is: `"Unknown"` 
+- `as.fac`: logical. Output of the function (`character` or `factor`). Default is `FALSE`.
+- `print`: logical. Default is `TRUE`.
+
+```{r}
+#| label: demo-cleanStr
+exDat$fLangR <- cleanStr(exDat$fLang,
+                         pattern = c(" ", ""),
+                         replacement = "Unknown",
+                         replaceNA = TRUE)
+```
+
+::: {.callout-caution collapse="true"}
+## Exercise: Clean the spelling mistakes and abbreviation.
+
+1. Use the `cleanStr` function and use the `pattern` and `replacement` arguments. 
+```{r}
+#| label: ex-cleanStr
+#| code-fold: true
+exDat$fLangR <- cleanStr(exDat$fLangR,
+                         pattern = c("ger", "germn"),
+                         replacement = "german",
+                         replaceNA = FALSE)
+```
+
+
+:::
+
 

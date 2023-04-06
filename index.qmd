@@ -4,7 +4,7 @@ published-title: "Workshop held on:"
 # Preperation
 
 
-This [Quarto book](https://quarto.org/docs/books/) is designed to provide an introduction into data documentation with `R` and `Quarto` and serves as the accompanying script for the workshop. For an overview about the workshop agenda see the [Introduction](#intro.qmd) section. 
+This [Quarto book](https://quarto.org/docs/books/) is designed to provide an introduction to data documentation with `R` and `Quarto` and serves as the accompanying script for the workshop. For an overview about the workshop agenda see the [Introduction](#intro.qmd) section. 
 
 
 ```{r}
@@ -79,6 +79,7 @@ pkgList <- c("rmarkdown",
              "dplyr", # prepare data
              "moments", # skewness/kurtosis
              "car", # recoding
+             "stringr", # strings
              "psych", # descriptive statistics
              "ggplot2") # plots
 ```
@@ -92,8 +93,9 @@ otherPkgs <- c("base", "learnr", "quarto",
                "ltm", "mirt", "psy", "mice",
                "foreign",
                "magrittr",
-               "tidyverse", # plots
-               "lattice")
+               "tidyverse", 
+               "stringi",
+               "lattice") # plots
 
 knitr::write_bib(x = c(otherPkgs, pkgList),
                  file = "r-refs.bib")

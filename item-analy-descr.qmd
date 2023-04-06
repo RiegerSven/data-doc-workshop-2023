@@ -5,7 +5,7 @@ In this part you will learn how to calculate descriptive statistics, item statis
 
 ::: {.callout-note }
 
-In `R` there are many different ways to get things done. Also, recall we provided functions (see [here](gen-info.qmd#functions)) which are ready to use.
+Recall, to calculate the descriptive statistics for continuous and categorical variables as well as scales, we provide functions which are ready to use (see [here](gen-info.qmd#functions)) .
 
 :::
 
@@ -22,6 +22,7 @@ varOverview <-  scaleManualFunctions$varOverview
 catVar <-  scaleManualFunctions$catVar
 contVar <-  scaleManualFunctions$contVar
 scaleScore <-  scaleManualFunctions$scaleScore
+cleanStr <- scaleManualFunctions$cleanStr
 
 exDat <- readRDS("exampleDat.RDS")
 
@@ -54,7 +55,7 @@ Typical descriptive statistics are:
   
 `R` provides functions to calculate the statistics: `mean`, `sd`, `min`, `max`, `table`, ...
 
-In addition, there are packages such as the `psych` package [@R-psych] that offer additional functionality.
+In addition, there are packages such as the `psych` package [@R-psych] that offer helpful functionality.
 
 ::: {.panel-tabset}
 
@@ -68,7 +69,8 @@ For example, if we want to calculate the mean and the standard deviation of the 
 
 ```{r}
 #| label: base-r-mean
-mean(exDat$age, na.rm = T)
+mean(exDat$age,
+     na.rm = T)
 ```
 
 :::
@@ -81,7 +83,8 @@ mean(exDat$age, na.rm = T)
 
 ```{r}
 #| label: sd-r-mean
-sd(exDat$age, na.rm = T)
+sd(exDat$age,
+   na.rm = T)
 ```
 
 :::
@@ -164,12 +167,12 @@ exDescr
 (3. Finally, if you need an formatted table, the `kbl` function from the `kableExtra` package [@R-kableExtra] transforms matrices or data frames into nice tables.)
 
 ```{r}
-#| label: demo-descr-apply-two-3
+#| label: tbl-demo-descr-two
+#| tbl-cap: "Descriptive Statistics of the example data set"
+#| tbl-colwidths: [10,20,20,20,20]
 kableExtra::kbl(exDescr,
-                digits = 2,
-                caption = "Descriptive Statistics of the example data set") |>
-  kableExtra::kable_classic() |>
-  kableExtra::footnote(general = "This is a nice formatted table using the kableExtra package [@R-kableExtra].")
+                digits = 2) |> 
+  kableExtra::kable_classic() 
 ```
 
 
@@ -182,7 +185,9 @@ Although it is probably a matter of coding taste, we do not recommend such a "ne
 :::
 
 ```{r}
-#| label: demo-descr-apply-one
+#| label: tbl-demo-descr-apply-one
+#| tbl-cap: "Descriptive Statistics of the example data set"
+#| tbl-colwidths: [10,20,20,20,20]
 
 kableExtra::kbl(x = t(
   apply(exDat[,1:5],
@@ -198,10 +203,8 @@ kableExtra::kbl(x = t(
           })
   ),
   digits = 2,
-  col.names = c("Mean", "SD", "Min", "Max"),
-  caption = "Descriptive Statistics of the example data set") |>
-  kableExtra::kable_classic() |>
-  kableExtra::footnote(general = "This is a nice formated table using the kableExtra package [@R-kableExtra].")
+  col.names = c("Mean", "SD", "Min", "Max")) |>
+  kableExtra::kable_classic()
 ```
 
 
@@ -213,7 +216,7 @@ From the function description (see `?psych::describe`):
 
 > The `describe` function in the `psych` package is meant to produce the most frequently requested stats in psychometric and psychology studies, and to produce them in an easy to read data.frame. If a grouping variable is called for in formula mode, it will also call `describeBy` to the processing. 
 
-The function has many input argument (see again `?psych::describe`), but requires only `x`: A data frame or matrix
+The function has many input argument (see again `?psych::describe`), but requires only `x` a data frame or matrix.
 
 ```{r}
 #| label: psych-descr
@@ -232,13 +235,17 @@ kableExtra::kbl(x = as.data.frame(psych::describe(x = exDat))[c("n", "mean", "sd
   kableExtra::kable_paper()
 ```
 
-If you need to calculate the descriptive statistics separate for groups, there is the `describeBy` function. Use the `group` argument.
+If you need to calculate the descriptive statistics separate for groups, there is the `describeBy` function. Use the `group` argument. If you use set the `fast` argument to `TRUE` only `n`, `means`, `sds`, `min`, `max`, `ranges` are calculated.
 
 ```{r}
 #| label: psych-descr-by
-
-psych::describeBy(x = exDat, group ="sex")
+#| warning: false
+psych::describeBy(x = exDat,
+                  group ="sex",
+                  fast = TRUE)
 ```
+
+
 
 :::
 
@@ -356,7 +363,7 @@ itemDF <- na.omit(exDat[names(mscItems)])
 p <- length(mscItems)
 ```
 
-2. Calculate the sum (i.e., `sum` function) of $\sigma_j^2$ of all items using the `apply` function (see also [above](#two-step-apply)) and $\sigma_Y^2$ of the total score (that is calculated by the `rowSums` function; see [below](#app1-rowsums) for a detailed description of the function).
+2. Calculate the sum (i.e., `sum` function) of $\sigma_j^2$ of all items using the `apply` function and $\sigma_Y^2$ of the total score (that is calculated by the `rowSums` function; see [below](#app1-rowsums) for a detailed description of the function).
 
 ```{r}
 #| label: alpha-hand-2
@@ -394,7 +401,7 @@ cor(x = exDat[,"msc1"],
 
 ```
 
-2. Now, we do it for all items. Therefore, we may use the `sapply` function. More specifically, we iterate through the item names (or to be precise, through the length of the item names)^[Check it by writing: `1:length(names(mscItems))`]. In the input argument `x` we (only) use the respective item `[itemNr]`, while we ignore  it `[-itemNr]` when calculating the sum score in the second input argument `y`.
+2. Now, we do it for all items. Therefore, we may use the `sapply` function. More specifically, we iterate through the item names (or to be precise, through the length of the item names)^[Check it by writing: `1:length(names(mscItems))`]. In the input argument `x` of the `cor` function, we (only) use the respective item `[itemNr]`, while we ignore  it `[-itemNr]` when calculating the sum score in the second input argument `y`.
 
 ```{r}
 #| label: base-r-rdrop-2

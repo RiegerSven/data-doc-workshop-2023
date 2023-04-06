@@ -2,7 +2,7 @@
 
 ::: {.callout-important}
 
-We currently discussing some changes to data documentation.
+We currently discussing some changes to data management and data documentation. The goal is to use the so-called Stamp ("Standardisierte Datenmanagementplan") guidelines for educational research (ger only, see here: <https://www.forschungsdaten-bildung.de/stamp-nutzen>)
 
 :::
 
@@ -69,7 +69,7 @@ An example of a table of conents of a so-called *"Skalenhandbuch"* can be seen i
 
 
 
-## Procedure of data documentation
+## How to document (a specific) data (set)?
 
 ::: {.callout-tip collapse="true" appearance="simple" title="Tip: Data management (ger only)"}
 
@@ -159,7 +159,7 @@ caption, .table-caption {
 </style>
 ```
 
-#### Table for variable overview (not finished)
+#### Table for variable overview 
 
 <!-- add recoded items -->
 
@@ -822,10 +822,10 @@ The `cleanStr` function is designed to clean strings and has the following argum
 - `stringToClean`: This should be a character.
 - `pattern`: The pattern which should be replaced. Can be character vector.
 - `replacement`: The replacement. A character with length = 1.
-- `replaceNA`: logical. Should `NA`s be replaced?
+- `replaceNA`: logical. Should `NA`s be replaced? Default is `TRUE`.
 - `replaceNAval`: If `replaceNA` == `TRUE`. The replacement of `NA` values. Default is: `"Unknown"` 
-- `as.fac`: logical. Output of the function (`character` or `factor`) Default is `FALSE`.
-- `print`: logical.
+- `as.fac`: logical. Output of the function (`character` or `factor`). Default is `FALSE`.
+- `print`: logical. Default is `TRUE`.
 
 ```{r}
 #| label: cleanStr-function

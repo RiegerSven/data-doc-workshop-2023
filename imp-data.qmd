@@ -1,4 +1,4 @@
-# Import data
+# Import and merge data
 
 ```{r}
 #| label: read-data-imp
@@ -9,7 +9,7 @@ exDat <- readRDS("exampleDat.RDS")
 
 ```
 
-This section provides an introduction to importing (and exporting) data sets into `R`. 
+This part provides an introduction to import data sets into `R` and merge them. 
 
 ```{css, echo=FALSE}
 .vScrollbar {
@@ -36,7 +36,7 @@ To import e.g., `.csv` or `.txt` files, `R` offers a couple of functions that de
 
 - ...
 
-When it comes to other (software specific) formats, you need additional packages e.g., `foreign` [@R-foreign] or `haven` [@R-haven]. In the following, we first export the `exDat` data set to a `.sav` file using the `write.foreign` function from the `foreign` package.
+When it comes to other (software specific) formats, you need additional packages e.g., `foreign` [@R-foreign] or `haven` [@R-haven]. 
 
 To import the SPSS data sets (`.sav` file), we may use the `read.spss` function from the `foreign` package [@R-foreign]. There are a couple of default arguments which you (likely) want to change:
 
@@ -49,7 +49,7 @@ To import the SPSS data sets (`.sav` file), we may use the `read.spss` function 
 #| eval: false
 #| code-fold: false
 
-exDatImpforeign <- foreign::read.spss("file-to-path-with-.sav-file",
+exDatImpforeign <- foreign::read.spss("path-to-file.sav-file",
                                       use.value.labels = FALSE,
                                       to.data.frame = TRUE,
                                       use.missings = TRUE)
@@ -143,3 +143,82 @@ exDatImpTest <- haven::read_sav("exDat.sav")
 Note that the `read_sav` returns a `tibble`, `data.frame` variant (with nice defaults).
 
 For more see <https://tibble.tidyverse.org/> and [Chapter 10](https://r4ds.had.co.nz/tibbles.html) of [R for Data Science](https://r4ds.had.co.nz/).
+
+## Merge data sets
+
+Merging data sets is necessary, because we often work with different data sources. By merging, we combine the information from multiple data sets to create one (complete) data set.
+
+
+
+::: {.callout-note collapse="false" appearance="simple" title="Before we merge, we need another data set. Execute the following code to simulate one!"}
+
+```{r}
+#| label: sim-merge
+#| code-fold: false
+PopModMerge <- "
+eta2 =~ .8*gsc1 + .8*gsc2 + .8*gsc3 + .8*gsc4
+eta2 ~~ 1*eta2
+eta2 ~ 0*1
+
+gsc1 | -1.5*t1 + 0*t2 + 1.5*t3
+gsc2 | -1.5*t1 + 0*t2 + 1.5*t3
+gsc3 | 1.5*t1 + 0*t2 + -1.5*t3
+gsc4 | 1.5*t1 + 0*t2 + -1.5*t3
+
+"
+
+exDatMerge <- lavaan::simulateData(model = PopModMerge,
+                                   sample.nobs = 700,
+                                   seed = 999)
+exDatMerge$id <- 1:nrow(exDatMerge)
+```
+
+:::
+
+::: {.panel-tabset}
+
+### base R
+
+The `merge` function is designed to merge two data frames by common columns or row names, or do other versions of database join operations. It requires at least two `input` arguments `x`,`y` that are `data frames`, or `objects` to be coerced to one. However, it is recommended to provide some more information by using the further `input` arguments, including:
+
+- `by`, `by.x`, `by.y`: specifications of the columns used for merging. See ‘Details’.
+
+- `all`: logical; `all` = L is shorthand for `all.x` = L and `all.y` = L, where L is either `TRUE` or `FALSE`.
+
+- `all.x`: logical; if `TRUE`, then extra rows will be added to the output, one for each row in `x` that has no matching row in `y`. These rows will have `NAs` in those columns that are usually filled with values from `y`. The default is `FALSE`, so that only rows with data from both x and y are included in the output.
+
+- `all.y`: logical; analogous to `all.x`.
+
+- ...
+
+
+```{r}
+#| label: demo-merge
+exDatComb <- merge(exDat, exDatMerge,
+                   by = "id",
+                   all.x = TRUE)
+head(exDatComb)
+```
+
+### dplyr package
+
+In the `dplyr` packages, there are 4 functions that are designed to combine data sets which need two input arguments `x` and `y`:
+
+1. `dplyr::left_join` keeps all observations in x.
+
+2. `dplyr::right_join` keeps all observations in y.
+
+3. `dplyr::inner_join` only keeps observations from x that have a matching key in y.
+
+4. `dplyr::full_join` keeps all observations in x and y.
+
+It is recommended to use the `by` argument to specify the column(s) that are used for joining/merging. 
+
+```{r}
+#| label: demo-left-join-dplyr
+exDat |>
+  dplyr::left_join(exDatMerge, by = "id") |>
+  head()
+```
+
+:::

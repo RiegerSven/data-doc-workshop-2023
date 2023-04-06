@@ -409,7 +409,7 @@ exDatMis[exDatMis == -99] <- NA
 
 ### dplyr package
 
-The `na_if()` function from the `dplyr` package [@R-dplyr] is designed to to convert a (specific) values to `NA`.
+The `na_if()` function from the `dplyr` package [@R-dplyr] is designed to to convert (specific) values to `NA`.
 
 For a single variable:
 
@@ -641,7 +641,7 @@ So-called plausibility checks are performed in order to detect:
 
 -   structural errors &rarr; e.g., the range of a lickert scale is from 1 to 4, but the value 5 occurs  
 -   theoretical inconsistencies &rarr; e.g., 30 years of age in sample of primary students   
--   (statistical) outliers &rarr; see Excursus on outlier [below](#excurs-outlier)
+-   (statistical) outliers &rarr; see Excursus on outlier in the following
 
 
 ::: {.callout-note collapse="true" appearance="simple"}
@@ -668,7 +668,7 @@ Different ways of detecting outliers:
 
 :::
 
-Plausibility checks can be performed both analytically and graphically. Graphics can be created with base `R` [@R-base], or packages such as `lattice` [@R-lattice] and `ggplot2` [@R-ggplot2] that are specifically designed for data visualization. Although base `R` graphics are useful (especially for creating simple plots), `ggplot2` more powerful and flexible for creating complex visualizations. You may load the package via: 
+Plausibility checks can be performed both analytically and graphically. Graphics can be created with base `R` [@R-base], or packages such as `lattice` [@R-lattice] and `ggplot2` [@R-ggplot2] that are specifically designed for data visualization. Although base `R` graphics are useful (especially for creating simple plots), the `ggplot2` package is more powerful and flexible for creating complex visualizations. You may load the package via: 
 
 ```{r}
 #| label: load-ggplot2
@@ -678,7 +678,7 @@ Plausibility checks can be performed both analytically and graphically. Graphics
 library(ggplot2)
 ```
 
-Note that `ggplot2` package [@R-ggplot2] is part of the `tidyverse` and it nicely works with the `dplyr` package [@R-dplyr]. For an introduction see the `tidyverse` [documentation of ggplot2](https://ggplot2.tidyverse.org/).
+Note that `ggplot2` package [@R-ggplot2] is part of the `tidyverse` and nicely works with the `dplyr` package [@R-dplyr]. For an introduction see the `tidyverse` [documentation of ggplot2](https://ggplot2.tidyverse.org/).
 
 To perform plausibility checks analytically, the `range` function is a useful starting point to quickly examine the minimum and maximum of variables that are no characters/string variables (i.e., `!is.character`).
 
@@ -748,7 +748,7 @@ exDat[which(exDat$age == 30),c("id", "age")]
 
 ```
 
-2. Set the value 30 to `NA`
+2. Set the value 30 of the variable `age` to `NA`.
 
 ```{r}
 #| label: make-age-30-NA
