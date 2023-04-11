@@ -140,7 +140,7 @@ The following functions were written to make your job a little bit easier.
 
 - If you know what you are doing, feel free to change or adjust them. 
 
-- If you need more or other functions, please write us an [email](mailto:sven.rieger@uni-tuebingen.de).
+- If you found a bug or need more/other functions, please write us an [email](mailto:sven.rieger@uni-tuebingen.de).
 
 
 ```{=html}
@@ -161,13 +161,12 @@ caption, .table-caption {
 
 #### Table for variable overview 
 
-<!-- add recoded items -->
-
 The `varOverview` function translates the general information into a table and has the following arguments:
 
 - `name`: Name of the variable
 - `type`: Input is a `character`: Either `variable` or `scale`
 - `itemword`: Requires a named `list` as input. Should contain the names and wording of the items.
+- `recItems`: Numeric vector of the reversed worded items.
 - `questionaire`: Input is a `character`: Which questionnaire? 
 - `prompt`: Input is a `character`. Wording of the question,
 - `response`: Input is a `character`. Response format.
@@ -184,6 +183,7 @@ The `varOverview` function translates the general information into a table and h
 varOverview <- function ( name,
                           type = "variable",
                           itemword = NULL,
+                          recItems = NULL,
                           questionaire = NULL,
                           prompt = NULL,
                           response = NULL,
@@ -212,6 +212,11 @@ varOverview <- function ( name,
     } else {
       
       itemLab <- names(itemword)
+      
+      if (!is.null(recItems)) {
+      itemLab[recItems] <- paste0(names(itemword)[recItems],"r")
+      }
+      
       itemword <- unlist(itemword)
       
       }
@@ -798,6 +803,7 @@ erfordern, nie gut."))
 varOverview(name = "Math Self-concept",
             type = "scale",
             itemword = mscItems,
+            recItems = c(3,4),
             prompt = "Wie sehr treffen die folgenden Aussagen auf Sie zu?",
             response = c("1 = trifft überhaupt nicht zu",
                         "2 = trifft eher nicht zu",
@@ -896,7 +902,7 @@ cleanStr <- function ( stringToClean, pattern = NULL, replacement = "Unknown",
 }
 ```
 
-What the function does is shown in the [Data cleaning](data-cleaning.qmd) part.
+An application of the function is shown in the [Data cleaning](data-cleaning.qmd) part.
 
 ```{r}
 #| label: save-functions
