@@ -1,13 +1,12 @@
 
 # A not so short introduction to Quarto
 
-This part gives a not so short introduction to `Quarto`. This introduction is based on the [https://quarto.org](https://quarto.org/docs/authoring/markdown-basics.html){target="_blank"} website. Sometimes the topics are introduced a little bit shorter, sometimes a little bit more information is provided. Most sections provide the hyperlink to the respective  sub-website.  
+This part gives a not so short introduction to `Quarto`. This introduction is based on the [https://quarto.org](https://quarto.org/docs/authoring/markdown-basics.html) website. Sometimes the topics are introduced a bit shorter, sometimes complementary information is provided. Most sub-sections provide the hyperlink to the respective `Quarto` sub-website.  
 
 
-::: {.callout-tip collapse="true"}
-## Tip for RMarkdown user
+::: {.callout-tip collapse="true" title="Tip for RMarkdown user"}
 
-If you are familiar with RMarkdown [@R-rmarkdown] the [FAQ for RMarkdown Users](https://quarto.org/docs/faq/rmarkdown.html){target="_blank"} might be interesting for you.
+If you are familiar with RMarkdown [@R-rmarkdown] the [FAQ for RMarkdown Users](https://quarto.org/docs/faq/rmarkdown.html) might be interesting for you.
 
 :::
 
@@ -15,7 +14,7 @@ If you are familiar with RMarkdown [@R-rmarkdown] the [FAQ for RMarkdown Users](
 
 ![](images/quarto.PNG){width=80% fig-align="center"}
 
-But, what is [Pandoc](https://pandoc.org/){target="_blank"}? `Pandoc` is a universal document converter. It converts files from one markup format into another (e.g., `markdown` &rarr; `HTML`).
+But, what is [Pandoc](https://pandoc.org/)? `Pandoc` is a universal document converter. It converts files from one markup format into another (e.g., `markdown` &rarr; `HTML`).
 
 In short, with `Quarto` you can create different types of (reproducible) documents^[Note: It is also possible to generate, presentations (e.g., powerpoint, beamer), websites, books and even interactive components.] including:
 

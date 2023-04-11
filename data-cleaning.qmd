@@ -558,7 +558,7 @@ exDat |>
 :::
 
 
-::: {.callout-caution collapse="true"}
+::: {.callout-caution}
 ## Exercise: Count the missing values!
 
 :::
@@ -567,7 +567,13 @@ exDat |>
 
 ### Omit missing values {#omit-miss}
 
-Although omitting or deleting missing values is a common practice, this is not recommended to deal with missing data and should--in most scenarios--be avoided altogether [@Schafer2002]. Two "state-of-the-art" missing data methods are maximum likelihood estimation [e.g., implemented in the `lavaan` package, see @R-lavaan] and multiple imputation [e.g., implemented in the `mice` package, see @R-mice; for good introductions to this topic, see @Enders2010].
+Although omitting or deleting missing values is a common practice, this is not recommended to deal with missing data and should--in most scenarios--be avoided altogether [@Schafer2002]. Two "state-of-the-art" missing data methods are maximum likelihood estimation [e.g., implemented in the `lavaan` package, see @R-lavaan] and multiple imputation [e.g., implemented in the `mice` package, see @R-mice; for good introductions to this topic, see @Enders2010]. 
+
+::: {.callout-important appearance="simple" title="Documentation of missing data"}
+
+For the sake of documentation it is important to report the percentage of missing data of the variables in the data set.
+
+:::
 
 Nevertheless, if you would like to omit missing values anyway, there are several functions to do this in `R`. Also, it is important to note that ignoring or omitting missing values are often the default options in `R`.
 
@@ -680,12 +686,12 @@ library(ggplot2)
 
 Note that `ggplot2` package [@R-ggplot2] is part of the `tidyverse` and nicely works with the `dplyr` package [@R-dplyr]. For an introduction see the `tidyverse` [documentation of ggplot2](https://ggplot2.tidyverse.org/).
 
-To perform plausibility checks analytically, the `range` function is a useful starting point to quickly examine the minimum and maximum of variables that are no characters/string variables (i.e., `!is.character`).
+To perform plausibility checks analytically, the `base::range` function is a useful starting point to quickly examine the minimum and maximum of variables that are no characters/string variables (i.e., `!is.character`).
 
 ::: {.panel-tabset}
 ### Base R
 
-1. Identify all non-character variables using the `!is.character` function within a `lapply` loop. Because `lapply` returns a list, we need to `unlist` the output to get a logical vector.
+1. Identify all non-character variables using the `!is.character` function within a `base::lapply` loop. Because `base::lapply` returns a list, we need to `base::unlist` the output to get a logical vector.
 
 ```{r}
 #| label: check-range-1
@@ -697,12 +703,12 @@ nChrV <- unlist(lapply(exDatMis,
 #class(nChrV)
 ```
 
-2. Then we can apply the `range` function to the respective variable within the `exDatMis`.
+2. Then we can apply the `base::range` function to the respective variable within the `exDatMis`.
 
 ::: {.callout-tip collapse="true" appearance="simple"}
 ## Tip: The apply function {#apply-func}
 
-The `apply` function is designed to apply functions (e.g., `range`) over array margins (e.g., rows or columns) and needs the following arguments (copied from the function description):
+The `base::apply` function is designed to apply functions (e.g., `base::range`) over array margins (e.g., rows or columns) and needs the following arguments (copied from the function description):
 
 - `X`: an array, including a matrix.
 - `MARGIN`: a vector giving the subscripts which the function will be applied over. E.g., for a matrix 1 indicates rows, **2 indicates columns**, c(1, 2) indicates rows and columns. Where X has named dimnames, it can be a character vector selecting dimension names.
@@ -720,7 +726,7 @@ apply(exDatMis[,nChrV],
 ```
 ### dplyr package
 
-In the `dplyr` package we first use the `select` function (i.e., to select the variables) in combination with `where` function to identify all non-character variables by stating `!is.character`. Then applying the `range` function on very variable in the data set.
+In the `dplyr` package we first use the `select` function (i.e., to select the variables) in combination with `where` function to identify all non-character variables by stating `!is.character`. Then applying the `base::range` function on very variable in the data set.
 
 ```{r}
 #| label: check-range-dplyr
@@ -739,7 +745,7 @@ exDatMis |>
 ::: {.callout-caution collapse="true"}
 ## Exercise: Set the value 30 of the age variable to NA.
 
-1. Identify the observation with `age == 30`, using the `which` function.
+1. Identify the observation with `age == 30`, using the `base::which` function.
 
 ```{r}
 #| label: ident-age-30
@@ -770,11 +776,11 @@ To do further plausibility checks on categorical variables, we may examine count
 ::: {.panel-tabset}
 ##### Base R
 
-The `table` function builds a contingency table of the counts at each combination of factor levels. 
+The `base::table` function builds a contingency table of the counts at each combination of factor levels. 
 
 ::: {.callout-note collapse="true" appearance="simple"}
 
-Note that by default, `NA`s are not included in the `table` function. To include `NA`s, we need to change the `useNA` argument to `"ifany"` (only if the count is positive) or `"always"` (even for zero counts).
+Note that by default, `NA`s are not included in the `base::table` function. To include `NA`s, we need to change the `useNA` argument to `"ifany"` (only if the count is positive) or `"always"` (even for zero counts).
 
 :::
 
@@ -845,7 +851,7 @@ exDat |>
 
 ### Continuous variables
 
-Continuous variables are checked by examining the distribution of the variables. It is reasonable to start checking the range (i.e., minimum & maximum) of the variable (using the `range` function, see e.g., [above](#plaus-checks)). 
+Continuous variables are checked by examining the distribution of the variables. It is reasonable to start checking the range (i.e., minimum & maximum) of the variable (using the `base::range` function, see e.g., [above](#plaus-checks)). 
 
 #### Distribution parameters/measures
 
