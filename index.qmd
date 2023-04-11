@@ -16,11 +16,11 @@ Sys.setlocale("LC_TIME", "English")
 dateLastRender <- format( Sys.time(), "%B %d,  %Y")
 ```
 
-The book was last rendered on `r dateLastRender`.
+
 
 ::: {.callout-note}
 
-The material is work in progress. It is the first time that the workshop will be held in this format. If you have feedback or encountered any bugs, please send us an [email](mailto:sven.rieger@uni-tuebingen.de).
+The material is work in progress. It is the first time that the workshop will be held in this format. If you have feedback or encountered any bugs, please send us an [email](mailto:sven.rieger@uni-tuebingen.de). The book was last updated on `r dateLastRender`.
 
 :::
 
@@ -76,12 +76,14 @@ pkgList <- c("rmarkdown",
              "data.table", # rbindlist function
              "haven", # read data
              "lavaan", # generate data
+             "tidyr", # reshape tidyverse
              "dplyr", # prepare data
              "moments", # skewness/kurtosis
              "car", # recoding
              "stringr", # strings
              "psych", # descriptive statistics
-             "ggplot2") # plots
+             "ggplot2",# plots
+             "scales") # percent 
 ```
 
 ```{r}
@@ -90,7 +92,7 @@ pkgList <- c("rmarkdown",
 #| echo: false
 
 otherPkgs <- c("base", "learnr", "quarto",
-               "ltm", "mirt", "psy", "mice",
+               "mice",
                "foreign",
                "magrittr",
                "tidyverse", 
