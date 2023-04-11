@@ -233,7 +233,7 @@ div.csl-indent {
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./imp-data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Import data</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Import, merge &amp; reshape data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -272,14 +272,14 @@ div.csl-indent {
   <ul>
 <li><a href="#build-var" id="toc-build-var" class="nav-link active" data-scroll-target="#build-var"><span class="header-section-number">8.1</span> Building new variables</a></li>
   <li><a href="#rec-var" id="toc-rec-var" class="nav-link" data-scroll-target="#rec-var"><span class="header-section-number">8.2</span> Recoding variables</a></li>
-  <li><a href="#working-with-stringscharacters" id="toc-working-with-stringscharacters" class="nav-link" data-scroll-target="#working-with-stringscharacters"><span class="header-section-number">8.3</span> Working with strings/characters</a></li>
+  <li><a href="#working-with-strings-character-objects" id="toc-working-with-strings-character-objects" class="nav-link" data-scroll-target="#working-with-strings-character-objects"><span class="header-section-number">8.3</span> Working with strings (character objects)</a></li>
   </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/RiegerSven/data-doc-workshop-2023/edit/main/data-transform.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/RiegerSven/data-doc-workshop-2023/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
 <div class="quarto-title-block"><div><h1 class="title">
 <span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Data transformation</span>
-</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
 </div>
 
 
@@ -553,9 +553,149 @@ msc3   1   2   3   4
 </div>
 </div>
 </div>
-</section><section id="working-with-stringscharacters" class="level2" data-number="8.3"><h2 data-number="8.3" class="anchored" data-anchor-id="working-with-stringscharacters">
-<span class="header-section-number">8.3</span> Working with strings/characters</h2>
-<p>add cleanstring function</p>
+</section><section id="working-with-strings-character-objects" class="level2" data-number="8.3"><h2 data-number="8.3" class="anchored" data-anchor-id="working-with-strings-character-objects">
+<span class="header-section-number">8.3</span> Working with strings (character objects)</h2>
+<p>This section briefly introduces how to work with strings (<code>character</code> objects). Recall, what is a <code>character</code> (in <code>R</code>)?</p>
+<div class="cell">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">aChr</span> <span class="op">&lt;-</span> <span class="st">"This is character"</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">aChr</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "character"</code></pre>
+</div>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">aChr</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "This is character"</code></pre>
+</div>
+</div>
+<p>Everything what appears within single (<code>'</code>) or double quotes (<code>"</code>; double quotes are recommended) will be treated as a string (i.e., <code>character</code> object). It is important to know that <code>character</code> objects are space and case sensitive.</p>
+<div class="cell">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="st">" "</span> <span class="op">==</span> <span class="st">""</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="st">"hello world!"</span> <span class="op">==</span> <span class="st">"Hello world!"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+</div>
+<p>When it comes to survey research, strings are used to transfer the information from (mostly) open fields in a questionnaire into the data set (e.g., <em>“What is your first language or mother tongue? (Please specify)”</em>.</p>
+<p>The variable <code>fLang</code> in the <code>exDat</code> data set contains the different answers on such a question.</p>
+<div class="cell">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">exDat</span><span class="op">$</span><span class="va">fLang</span>, useNA <span class="op">=</span> <span class="st">"always"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+                 french     ger  german   germn italian    &lt;NA&gt; 
+      5       5      10      49     650       1      10      20 </code></pre>
+</div>
+</div>
+<p>To clean such a <code>character</code> variable, <code>R</code> offers a couple of functions (e.g., <code><a href="https://rdrr.io/r/base/grep.html">base::grep</a></code>, <code><a href="https://rdrr.io/r/base/grep.html">base::grepl</a></code>, <code><a href="https://rdrr.io/r/base/grep.html">base::regexpr</a></code>, <code><a href="https://rdrr.io/r/base/grep.html">base::gregexpr</a></code>, …). Also, there are packages such as <code>stringr</code> <span class="citation" data-cites="R-stringr">(<a href="references.html#ref-R-stringr" role="doc-biblioref">Wickham, 2022</a>)</span> or <code>stringi</code> <span class="citation" data-cites="R-stringi">(<a href="references.html#ref-R-stringi" role="doc-biblioref">Gagolewski et al., 2022</a>)</span> that offer great functionality<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
+<p>In the following example, we use <code><a href="https://rdrr.io/r/base/grep.html">base::gsub</a></code> function to search for matches in the value pattern <code>" "</code> of the character vector <code>anotherChr</code> and replace it with <code>""</code>.</p>
+<div class="cell">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">anotherChr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">" "</span>, <span class="st">""</span>, <span class="st">"hello"</span>, <span class="st">" hello"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span><span class="st">" "</span>, <span class="st">""</span>, x <span class="op">=</span> <span class="va">anotherChr</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] ""      ""      "hello" "hello"</code></pre>
+</div>
+</div>
+<p>The <code>cleanStr</code> function (introduced in the <a href="./gen-info.html#functions">Functions</a> section of the <a href="./gen-info.html">General information on data documentation</a> part) is designed to clean strings and has the following arguments:</p>
+<ul>
+<li>
+<code>stringToClean</code>: This should be a character.</li>
+<li>
+<code>pattern</code>: The pattern which should be replaced. Can be character vector.</li>
+<li>
+<code>replacement</code>: The replacement. A character with length = 1.</li>
+<li>
+<code>replaceNA</code>: logical. Should <code>NA</code>s be replaced? Default is <code>TRUE</code>.</li>
+<li>
+<code>replaceNAval</code>: If <code>replaceNA</code> == <code>TRUE</code>. The replacement of <code>NA</code> values. Default is: <code>"Unknown"</code>
+</li>
+<li>
+<code>as.fac</code>: logical. Output of the function (<code>character</code> or <code>factor</code>). Default is <code>FALSE</code>.</li>
+<li>
+<code>print</code>: logical. Default is <code>TRUE</code>.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">exDat</span><span class="op">$</span><span class="va">fLangR</span> <span class="op">&lt;-</span> <span class="fu">cleanStr</span><span class="op">(</span><span class="va">exDat</span><span class="op">$</span><span class="va">fLang</span>,</span>
+<span>                         pattern <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">" "</span>, <span class="st">""</span><span class="op">)</span>,</span>
+<span>                         replacement <span class="op">=</span> <span class="st">"Unknown"</span>,</span>
+<span>                         replaceNA <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Input</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>stringToClean
+                 french     ger  german   germn italian    &lt;NA&gt; 
+      5       5      10      49     650       1      10      20 </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Output</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>outStr
+ french     ger  german   germn italian Unknown    &lt;NA&gt; 
+     10      49     650       1      10      30       0 </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+This is what happened:</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The following pattern(s):   , 
+was/were replaced with: Unknown 
+
+ Missing values (NA) are replaced with: 'Unknown'</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exercise: Clean the spelling mistakes and abbreviation.
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>Use the <code>cleanStr</code> function and use the <code>pattern</code> and <code>replacement</code> arguments.</li>
+</ol>
+<div class="cell">
+<details><summary>Show/hide code</summary><div class="sourceCode" id="cb47"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">exDat</span><span class="op">$</span><span class="va">fLangR</span> <span class="op">&lt;-</span> <span class="fu">cleanStr</span><span class="op">(</span><span class="va">exDat</span><span class="op">$</span><span class="va">fLangR</span>,</span>
+<span>                         pattern <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"ger"</span>, <span class="st">"germn"</span><span class="op">)</span>,</span>
+<span>                         replacement <span class="op">=</span> <span class="st">"german"</span>,</span>
+<span>                         replaceNA <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details><div class="cell-output cell-output-stderr">
+<pre><code>Input</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>stringToClean
+ french     ger  german   germn italian Unknown    &lt;NA&gt; 
+     10      49     650       1      10      30       0 </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Output</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>outStr
+ french  german italian Unknown    &lt;NA&gt; 
+     10     700      10      30       0 </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+This is what happened:</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The following pattern(s):  ger, germn
+was/were replaced with: german </code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 
 
 <!-- -->
@@ -564,8 +704,17 @@ msc3   1   2   3   4
 <div id="ref-R-car" class="csl-entry" role="listitem">
 Fox, J., Weisberg, S., &amp; Price, B. (2022). <em>Car: Companion to applied regression</em>. <a href="https://CRAN.R-project.org/package=car">https://CRAN.R-project.org/package=car</a>
 </div>
+<div id="ref-R-stringi" class="csl-entry" role="listitem">
+Gagolewski, M., Tartanus, B., Unicode, others;, Inc., et al. (2022). <em>Stringi: Fast and portable character string processing facilities</em>. <a href="https://CRAN.R-project.org/package=stringi">https://CRAN.R-project.org/package=stringi</a>
 </div>
-</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+<div id="ref-R-stringr" class="csl-entry" role="listitem">
+Wickham, H. (2022). <em>Stringr: Simple, consistent wrappers for common string operations</em>. <a href="https://CRAN.R-project.org/package=stringr">https://CRAN.R-project.org/package=stringr</a>
+</div>
+</div>
+</section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
+<ol>
+<li id="fn1"><p>A comprehensive introduction to these functions or packages is beyond the scope of this workshop. Hence, we focus on some mechanics of these functions.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -873,281 +1022,370 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb28" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Data transformation</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: read-data-trans</span></span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>exDat <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"exampleDat.RDS"</span>)</span>
-<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>In this part you will learn how to transform or convert variables into a usable form for analysis. The steps include:</span>
-<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span><span class="co">[</span><span class="ot">Building new variables</span><span class="co">](#build-var)</span></span>
-<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span><span class="co">[</span><span class="ot">Recoding variables</span><span class="co">](#rec-var)</span></span>
-<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a><span class="fu">## Building new variables {#build-var}</span></span>
-<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a>To build new variables and add them to a data set, we can use *all* functions and operators that <span class="in">`R`</span> offers.</span>
-<span id="cb28-23"><a href="#cb28-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-24"><a href="#cb28-24" aria-hidden="true" tabindex="-1"></a>::: {.callout-note collapse="true" appearance="simple" title="Create and delete objects."}</span>
-<span id="cb28-25"><a href="#cb28-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-26"><a href="#cb28-26" aria-hidden="true" tabindex="-1"></a>In <span class="in">`R`</span>, you can create objects (from existing ones) and store them as new objects using functions and operators. In the following example, we create the objects <span class="in">`x`</span> and <span class="in">`y`</span> and assign them numbers.</span>
-<span id="cb28-27"><a href="#cb28-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-30"><a href="#cb28-30" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb28-31"><a href="#cb28-31" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-build-1</span></span>
-<span id="cb28-32"><a href="#cb28-32" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
-<span id="cb28-33"><a href="#cb28-33" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">5</span></span>
-<span id="cb28-34"><a href="#cb28-34" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">4</span></span>
-<span id="cb28-35"><a href="#cb28-35" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb28-36"><a href="#cb28-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-37"><a href="#cb28-37" aria-hidden="true" tabindex="-1"></a>Then we sum them up:</span>
-<span id="cb28-38"><a href="#cb28-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-41"><a href="#cb28-41" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb28-42"><a href="#cb28-42" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-build-2</span></span>
-<span id="cb28-43"><a href="#cb28-43" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
-<span id="cb28-44"><a href="#cb28-44" aria-hidden="true" tabindex="-1"></a>xy <span class="ot">&lt;-</span> x<span class="sc">+</span>y</span>
-<span id="cb28-45"><a href="#cb28-45" aria-hidden="true" tabindex="-1"></a>xy</span>
-<span id="cb28-46"><a href="#cb28-46" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb28-47"><a href="#cb28-47" aria-hidden="true" tabindex="-1"></a>This is the same as:</span>
-<span id="cb28-48"><a href="#cb28-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-51"><a href="#cb28-51" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb28-52"><a href="#cb28-52" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-build-3</span></span>
-<span id="cb28-53"><a href="#cb28-53" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
-<span id="cb28-54"><a href="#cb28-54" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">c</span>(x,y)) <span class="sc">==</span> xy</span>
-<span id="cb28-55"><a href="#cb28-55" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb28-56"><a href="#cb28-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-57"><a href="#cb28-57" aria-hidden="true" tabindex="-1"></a>Finally, we may delete all objects using the <span class="in">`rm`</span> function.</span>
-<span id="cb28-58"><a href="#cb28-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-61"><a href="#cb28-61" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb28-62"><a href="#cb28-62" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-rm</span></span>
-<span id="cb28-63"><a href="#cb28-63" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
-<span id="cb28-64"><a href="#cb28-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-65"><a href="#cb28-65" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(x,y,xy)</span>
-<span id="cb28-66"><a href="#cb28-66" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb28-67"><a href="#cb28-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-68"><a href="#cb28-68" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb28-69"><a href="#cb28-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-70"><a href="#cb28-70" aria-hidden="true" tabindex="-1"></a>For example, we might want to sum up item indicators to a so-called scale score (for now only the first 2; for a more detailed examination see the section <span class="co">[</span><span class="ot">Descriptive statistics and item analysis</span><span class="co">](item-analy-descr.qmd)</span>) and add them as a new column to the example data set <span class="in">`exDat`</span>.</span>
-<span id="cb28-71"><a href="#cb28-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-72"><a href="#cb28-72" aria-hidden="true" tabindex="-1"></a>::: {.panel-tabset}</span>
-<span id="cb28-73"><a href="#cb28-73" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-74"><a href="#cb28-74" aria-hidden="true" tabindex="-1"></a><span class="fu">### Base R</span></span>
-<span id="cb28-75"><a href="#cb28-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-76"><a href="#cb28-76" aria-hidden="true" tabindex="-1"></a>There are several ways to do that, for example:</span>
-<span id="cb28-77"><a href="#cb28-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-80"><a href="#cb28-80" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb28-81"><a href="#cb28-81" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-add-var-1</span></span>
-<span id="cb28-82"><a href="#cb28-82" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
-<span id="cb28-83"><a href="#cb28-83" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-84"><a href="#cb28-84" aria-hidden="true" tabindex="-1"></a>exDat<span class="sc">$</span>mscSum1 <span class="ot">&lt;-</span> exDat<span class="sc">$</span>msc1<span class="sc">+</span>exDat<span class="sc">$</span>msc2</span>
-<span id="cb28-85"><a href="#cb28-85" aria-hidden="true" tabindex="-1"></a>exDat<span class="sc">$</span>mscSum2 <span class="ot">&lt;-</span> <span class="fu">with</span>(exDat, msc1 <span class="sc">+</span> msc2)</span>
-<span id="cb28-86"><a href="#cb28-86" aria-hidden="true" tabindex="-1"></a>exDat[,<span class="st">"mscSum3"</span>] <span class="ot">&lt;-</span> <span class="fu">with</span>(exDat, msc1 <span class="sc">+</span> msc2)</span>
-<span id="cb28-87"><a href="#cb28-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-88"><a href="#cb28-88" aria-hidden="true" tabindex="-1"></a>mscSum4 <span class="ot">&lt;-</span> exDat<span class="sc">$</span>msc1<span class="sc">+</span>exDat<span class="sc">$</span>msc2</span>
-<span id="cb28-89"><a href="#cb28-89" aria-hidden="true" tabindex="-1"></a>exDat <span class="ot">&lt;-</span> <span class="fu">cbind</span>(exDat, mscSum4)</span>
-<span id="cb28-90"><a href="#cb28-90" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-91"><a href="#cb28-91" aria-hidden="true" tabindex="-1"></a>exDat<span class="sc">$</span>mscSum5 <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(exDat[,<span class="fu">c</span>(<span class="st">"msc1"</span>,<span class="st">"msc2"</span>)], <span class="at">na.rm =</span> T)</span>
-<span id="cb28-92"><a href="#cb28-92" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb28-93"><a href="#cb28-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-94"><a href="#cb28-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-95"><a href="#cb28-95" aria-hidden="true" tabindex="-1"></a>To delete variables, you can use the <span class="in">`NULL`</span> statement.</span>
-<span id="cb28-96"><a href="#cb28-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-99"><a href="#cb28-99" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb28-100"><a href="#cb28-100" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-del-var</span></span>
-<span id="cb28-101"><a href="#cb28-101" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-102"><a href="#cb28-102" aria-hidden="true" tabindex="-1"></a>exDat[,<span class="fu">c</span>(<span class="fu">paste0</span>(<span class="st">"mscSum"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>))] <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
-<span id="cb28-103"><a href="#cb28-103" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb28-104"><a href="#cb28-104" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-105"><a href="#cb28-105" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-106"><a href="#cb28-106" aria-hidden="true" tabindex="-1"></a><span class="fu">### dplyr package</span></span>
-<span id="cb28-107"><a href="#cb28-107" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-108"><a href="#cb28-108" aria-hidden="true" tabindex="-1"></a>To add a variable to a data set, we may use <span class="in">`mutate`</span> function from the <span class="in">`dplyr`</span> package.</span>
-<span id="cb28-109"><a href="#cb28-109" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-110"><a href="#cb28-110" aria-hidden="true" tabindex="-1"></a>From the function description: <span class="in">`dplyr::mutate`</span> creates new columns that are functions of existing variables. It can also modify (if the name is the same as an existing column) and delete columns (by setting their value to <span class="in">`NULL`</span>).</span>
-<span id="cb28-111"><a href="#cb28-111" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-112"><a href="#cb28-112" aria-hidden="true" tabindex="-1"></a>Add the new variable <span class="in">`mscSum6`</span>.</span>
-<span id="cb28-113"><a href="#cb28-113" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-116"><a href="#cb28-116" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb28-117"><a href="#cb28-117" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-add-var-dplyr</span></span>
-<span id="cb28-118"><a href="#cb28-118" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-119"><a href="#cb28-119" aria-hidden="true" tabindex="-1"></a>exDat <span class="ot">&lt;-</span> exDat <span class="sc">|&gt;</span></span>
-<span id="cb28-120"><a href="#cb28-120" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">mscSum6 =</span> msc1 <span class="sc">+</span> msc2)</span>
-<span id="cb28-121"><a href="#cb28-121" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-122"><a href="#cb28-122" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb28-123"><a href="#cb28-123" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-124"><a href="#cb28-124" aria-hidden="true" tabindex="-1"></a>Delete the variable <span class="in">`mscSum6`</span>.</span>
-<span id="cb28-125"><a href="#cb28-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-128"><a href="#cb28-128" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb28-129"><a href="#cb28-129" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-del-var-dplyr</span></span>
-<span id="cb28-130"><a href="#cb28-130" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-131"><a href="#cb28-131" aria-hidden="true" tabindex="-1"></a>exDat <span class="ot">&lt;-</span> exDat <span class="sc">|&gt;</span></span>
-<span id="cb28-132"><a href="#cb28-132" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">mscSum6 =</span> <span class="cn">NULL</span>)</span>
-<span id="cb28-133"><a href="#cb28-133" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-134"><a href="#cb28-134" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb28-135"><a href="#cb28-135" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-136"><a href="#cb28-136" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb28-137"><a href="#cb28-137" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-138"><a href="#cb28-138" aria-hidden="true" tabindex="-1"></a><span class="fu">## Recoding variables {#rec-var}</span></span>
-<span id="cb28-139"><a href="#cb28-139" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-140"><a href="#cb28-140" aria-hidden="true" tabindex="-1"></a>Recoding is the process of reassigning values (old <span class="dv">&amp;rarr;</span> new) for a variable in a dataset.</span>
-<span id="cb28-141"><a href="#cb28-141" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-142"><a href="#cb28-142" aria-hidden="true" tabindex="-1"></a>The old values can either be overwritten by the new values **or saved as a new variable**.</span>
-<span id="cb28-143"><a href="#cb28-143" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-144"><a href="#cb28-144" aria-hidden="true" tabindex="-1"></a>::: {.callout-important collapse="false" appearance="simple" title="We always create a new variable when we recode a variable!"}</span>
-<span id="cb28-145"><a href="#cb28-145" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-146"><a href="#cb28-146" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>old values are not lost    </span>
-<span id="cb28-147"><a href="#cb28-147" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>errors during recoding can be reproduced</span>
-<span id="cb28-148"><a href="#cb28-148" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-149"><a href="#cb28-149" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb28-150"><a href="#cb28-150" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-151"><a href="#cb28-151" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-152"><a href="#cb28-152" aria-hidden="true" tabindex="-1"></a>A common approach to recode variables is to use the <span class="in">`base::ifelse`</span> function. It requires 3 input arguments:</span>
-<span id="cb28-153"><a href="#cb28-153" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-154"><a href="#cb28-154" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`test`</span>: which is an object that can be coerced to logical mode</span>
-<span id="cb28-155"><a href="#cb28-155" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`yes`</span>: return values for true elements of test</span>
-<span id="cb28-156"><a href="#cb28-156" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`no`</span>: return values for false elements of test</span>
-<span id="cb28-157"><a href="#cb28-157" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-158"><a href="#cb28-158" aria-hidden="true" tabindex="-1"></a>The function returns a value with the same shape as <span class="in">`test`</span> which is filled with elements selected from either <span class="in">`yes`</span> or <span class="in">`no`</span> depending on whether the element of test is <span class="in">`TRUE`</span> or <span class="in">`FALSE`</span>.</span>
-<span id="cb28-159"><a href="#cb28-159" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-162"><a href="#cb28-162" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb28-163"><a href="#cb28-163" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-ifelse-1</span></span>
-<span id="cb28-164"><a href="#cb28-164" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-165"><a href="#cb28-165" aria-hidden="true" tabindex="-1"></a><span class="fu">ifelse</span>(<span class="dv">1</span> <span class="sc">==</span> <span class="dv">1</span>,</span>
-<span id="cb28-166"><a href="#cb28-166" aria-hidden="true" tabindex="-1"></a>       <span class="at">yes =</span> <span class="st">"That is correct!"</span>,</span>
-<span id="cb28-167"><a href="#cb28-167" aria-hidden="true" tabindex="-1"></a>       <span class="at">no =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb28-168"><a href="#cb28-168" aria-hidden="true" tabindex="-1"></a><span class="fu">ifelse</span>(<span class="dv">1</span> <span class="sc">==</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">1</span>),</span>
-<span id="cb28-169"><a href="#cb28-169" aria-hidden="true" tabindex="-1"></a>       <span class="at">yes =</span> <span class="st">"That is correct!"</span>,</span>
-<span id="cb28-170"><a href="#cb28-170" aria-hidden="true" tabindex="-1"></a>       <span class="at">no =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb28-171"><a href="#cb28-171" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb28-172"><a href="#cb28-172" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-173"><a href="#cb28-173" aria-hidden="true" tabindex="-1"></a>To apply the function in a more *"meaningful"* setting. Lets transform (i.e., recode) the variable <span class="in">`age`</span> to a categorical variable (here: <span class="in">`ageCat`</span>) with the categories: old and young. All units that are older than 10 are getting the value <span class="in">`"old"`</span>, otherwise they get the value <span class="in">`"young"`</span>.</span>
-<span id="cb28-174"><a href="#cb28-174" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-177"><a href="#cb28-177" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb28-178"><a href="#cb28-178" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-ifelse-2</span></span>
-<span id="cb28-179"><a href="#cb28-179" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-180"><a href="#cb28-180" aria-hidden="true" tabindex="-1"></a>exDat<span class="sc">$</span>ageCat <span class="ot">&lt;-</span> <span class="fu">ifelse</span> (exDat<span class="sc">$</span>age <span class="sc">&gt;</span> <span class="dv">10</span>, <span class="st">"old"</span>, <span class="st">"young"</span>)</span>
-<span id="cb28-181"><a href="#cb28-181" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(exDat<span class="sc">$</span>ageCat)</span>
-<span id="cb28-182"><a href="#cb28-182" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb28-183"><a href="#cb28-183" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-184"><a href="#cb28-184" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-185"><a href="#cb28-185" aria-hidden="true" tabindex="-1"></a>Psychological instruments often contain items that are designed to measure the opposite of the actual construct (e.g., "I am good at math." vs. "I am bad at math."). These items are called reverse-scored or negatively-keyed items. In the example data set <span class="in">`exDat`</span> the variables <span class="in">`msc3`</span> and <span class="in">`msc4`</span> are (simulated as) reverse-scored and thus, need to be recoded.</span>
-<span id="cb28-186"><a href="#cb28-186" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-187"><a href="#cb28-187" aria-hidden="true" tabindex="-1"></a>The first step is to check the response categories.</span>
-<span id="cb28-188"><a href="#cb28-188" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-191"><a href="#cb28-191" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb28-192"><a href="#cb28-192" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-msc3</span></span>
-<span id="cb28-193"><a href="#cb28-193" aria-hidden="true" tabindex="-1"></a><span class="co">#| </span></span>
-<span id="cb28-194"><a href="#cb28-194" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(exDat<span class="sc">$</span>msc3, <span class="at">useNA =</span> <span class="st">"always"</span>)</span>
-<span id="cb28-195"><a href="#cb28-195" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb28-196"><a href="#cb28-196" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-197"><a href="#cb28-197" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-198"><a href="#cb28-198" aria-hidden="true" tabindex="-1"></a>::: {.panel-tabset}</span>
-<span id="cb28-199"><a href="#cb28-199" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-200"><a href="#cb28-200" aria-hidden="true" tabindex="-1"></a><span class="fu">### Base R</span></span>
-<span id="cb28-201"><a href="#cb28-201" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-202"><a href="#cb28-202" aria-hidden="true" tabindex="-1"></a>In this approach, we subtract the item from the sum of the maximum and minimum of the item (here is maximum = 4 minimum = 1).</span>
-<span id="cb28-203"><a href="#cb28-203" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-206"><a href="#cb28-206" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb28-207"><a href="#cb28-207" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: recode-base</span></span>
-<span id="cb28-208"><a href="#cb28-208" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
-<span id="cb28-209"><a href="#cb28-209" aria-hidden="true" tabindex="-1"></a>exDat<span class="sc">$</span>msc3r1 <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">max</span>(exDat<span class="sc">$</span>msc3,<span class="at">na.rm=</span>T),</span>
-<span id="cb28-210"><a href="#cb28-210" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">min</span>(exDat<span class="sc">$</span>msc3,<span class="at">na.rm=</span>T)) <span class="sc">-</span> exDat<span class="sc">$</span>msc3 </span>
-<span id="cb28-211"><a href="#cb28-211" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-212"><a href="#cb28-212" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb28-213"><a href="#cb28-213" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-214"><a href="#cb28-214" aria-hidden="true" tabindex="-1"></a>::: {.callout-note collapse="false" appearance="simple" }</span>
-<span id="cb28-215"><a href="#cb28-215" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-216"><a href="#cb28-216" aria-hidden="true" tabindex="-1"></a>Note that this approach is not very robust across different recoding strategies. Also, when sample size is small and the categories are not used completely. </span>
-<span id="cb28-217"><a href="#cb28-217" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-218"><a href="#cb28-218" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb28-219"><a href="#cb28-219" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-220"><a href="#cb28-220" aria-hidden="true" tabindex="-1"></a>It is important to evaluate the result.</span>
-<span id="cb28-221"><a href="#cb28-221" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-224"><a href="#cb28-224" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb28-225"><a href="#cb28-225" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: recode-base-check</span></span>
-<span id="cb28-226"><a href="#cb28-226" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
-<span id="cb28-227"><a href="#cb28-227" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-228"><a href="#cb28-228" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(exDat, <span class="fu">table</span>(msc3, msc3r1))</span>
-<span id="cb28-229"><a href="#cb28-229" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb28-230"><a href="#cb28-230" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-231"><a href="#cb28-231" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-232"><a href="#cb28-232" aria-hidden="true" tabindex="-1"></a><span class="fu">### car package</span></span>
-<span id="cb28-233"><a href="#cb28-233" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-234"><a href="#cb28-234" aria-hidden="true" tabindex="-1"></a>In this approach, we use the <span class="in">`recode`</span> function of the <span class="in">`car`</span> package <span class="co">[</span><span class="ot">@R-car</span><span class="co">]</span>. This function needs at least 2 inputs (copied from the package description):</span>
-<span id="cb28-235"><a href="#cb28-235" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-236"><a href="#cb28-236" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`var`</span>: numeric vector, character vector, or factor.</span>
-<span id="cb28-237"><a href="#cb28-237" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`recodes`</span>: character string of recode specifications</span>
-<span id="cb28-238"><a href="#cb28-238" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-239"><a href="#cb28-239" aria-hidden="true" tabindex="-1"></a>There are further additional arguments such as <span class="in">`as.factor`</span> and <span class="in">`as.numeric`</span> which direct the class of the output.</span>
-<span id="cb28-240"><a href="#cb28-240" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-243"><a href="#cb28-243" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb28-244"><a href="#cb28-244" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: recode-car</span></span>
-<span id="cb28-245"><a href="#cb28-245" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
-<span id="cb28-246"><a href="#cb28-246" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-line-numbers: true</span></span>
-<span id="cb28-247"><a href="#cb28-247" aria-hidden="true" tabindex="-1"></a>exDat<span class="sc">$</span>msc3r2 <span class="ot">&lt;-</span> car<span class="sc">::</span><span class="fu">recode</span>(<span class="at">var =</span> exDat<span class="sc">$</span>msc3,</span>
-<span id="cb28-248"><a href="#cb28-248" aria-hidden="true" tabindex="-1"></a>                            <span class="at">recodes =</span> <span class="st">"</span></span>
-<span id="cb28-249"><a href="#cb28-249" aria-hidden="true" tabindex="-1"></a><span class="st">                            1 = 4;</span></span>
-<span id="cb28-250"><a href="#cb28-250" aria-hidden="true" tabindex="-1"></a><span class="st">                            2 = 3;</span></span>
-<span id="cb28-251"><a href="#cb28-251" aria-hidden="true" tabindex="-1"></a><span class="st">                            3 = 2;</span></span>
-<span id="cb28-252"><a href="#cb28-252" aria-hidden="true" tabindex="-1"></a><span class="st">                            4 = 1;</span></span>
-<span id="cb28-253"><a href="#cb28-253" aria-hidden="true" tabindex="-1"></a><span class="st">                            NA = NA"</span>,</span>
-<span id="cb28-254"><a href="#cb28-254" aria-hidden="true" tabindex="-1"></a>                            <span class="at">as.factor =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb28-255"><a href="#cb28-255" aria-hidden="true" tabindex="-1"></a>                            <span class="at">as.numeric =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb28-256"><a href="#cb28-256" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb28-257"><a href="#cb28-257" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-258"><a href="#cb28-258" aria-hidden="true" tabindex="-1"></a>Again, evaluating the result.</span>
-<span id="cb28-259"><a href="#cb28-259" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-262"><a href="#cb28-262" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb28-263"><a href="#cb28-263" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: recode-car-check</span></span>
-<span id="cb28-264"><a href="#cb28-264" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
-<span id="cb28-265"><a href="#cb28-265" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-266"><a href="#cb28-266" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(exDat, <span class="fu">table</span>(msc3, msc3r2))</span>
-<span id="cb28-267"><a href="#cb28-267" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb28-268"><a href="#cb28-268" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-269"><a href="#cb28-269" aria-hidden="true" tabindex="-1"></a><span class="fu">### dplyr package</span></span>
-<span id="cb28-270"><a href="#cb28-270" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-273"><a href="#cb28-273" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb28-274"><a href="#cb28-274" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: recode-dplyr</span></span>
-<span id="cb28-275"><a href="#cb28-275" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
-<span id="cb28-276"><a href="#cb28-276" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-line-numbers: true</span></span>
-<span id="cb28-277"><a href="#cb28-277" aria-hidden="true" tabindex="-1"></a>exDat <span class="ot">&lt;-</span> exDat <span class="sc">|&gt;</span></span>
-<span id="cb28-278"><a href="#cb28-278" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(</span>
-<span id="cb28-279"><a href="#cb28-279" aria-hidden="true" tabindex="-1"></a>    <span class="at">msc3r3 =</span> dplyr<span class="sc">::</span><span class="fu">case_when</span>(</span>
-<span id="cb28-280"><a href="#cb28-280" aria-hidden="true" tabindex="-1"></a>      msc3 <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="dv">4</span>,</span>
-<span id="cb28-281"><a href="#cb28-281" aria-hidden="true" tabindex="-1"></a>      msc3 <span class="sc">==</span> <span class="dv">2</span> <span class="sc">~</span> <span class="dv">3</span>,</span>
-<span id="cb28-282"><a href="#cb28-282" aria-hidden="true" tabindex="-1"></a>      msc3 <span class="sc">==</span> <span class="dv">3</span> <span class="sc">~</span> <span class="dv">2</span>,</span>
-<span id="cb28-283"><a href="#cb28-283" aria-hidden="true" tabindex="-1"></a>      msc3 <span class="sc">==</span> <span class="dv">4</span> <span class="sc">~</span> <span class="dv">1</span></span>
-<span id="cb28-284"><a href="#cb28-284" aria-hidden="true" tabindex="-1"></a>      ))</span>
-<span id="cb28-285"><a href="#cb28-285" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb28-286"><a href="#cb28-286" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-287"><a href="#cb28-287" aria-hidden="true" tabindex="-1"></a>Evaluating the result.</span>
-<span id="cb28-288"><a href="#cb28-288" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-291"><a href="#cb28-291" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb28-292"><a href="#cb28-292" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: recode-dplyr-check</span></span>
-<span id="cb28-293"><a href="#cb28-293" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
-<span id="cb28-294"><a href="#cb28-294" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-295"><a href="#cb28-295" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(exDat, <span class="fu">table</span>(msc3, msc3r3))</span>
-<span id="cb28-296"><a href="#cb28-296" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb28-297"><a href="#cb28-297" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-298"><a href="#cb28-298" aria-hidden="true" tabindex="-1"></a>::: {.callout-note collapse="false" appearance="simple" }</span>
-<span id="cb28-299"><a href="#cb28-299" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-300"><a href="#cb28-300" aria-hidden="true" tabindex="-1"></a>(copied from the <span class="in">`?dplyr::recode`</span> function description)</span>
-<span id="cb28-301"><a href="#cb28-301" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-302"><a href="#cb28-302" aria-hidden="true" tabindex="-1"></a><span class="in">`dplyr::recode`</span> is superseded in favor of <span class="in">`dplyr::case_match`</span>, which handles the most important cases of <span class="in">`dplyr::recode`</span> with a more elegant interface. <span class="in">`dplyr::recode_factor`</span> is also superseded, however, its direct replacement is not currently available but will eventually live in <span class="in">`forcats`</span>. For creating new variables based on logical <span class="in">`vectors`</span>, use <span class="in">`dplyr::if_else()`</span>. For even more complicated criteria, use <span class="in">`dplyr::case_match`</span>.</span>
-<span id="cb28-303"><a href="#cb28-303" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-304"><a href="#cb28-304" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-305"><a href="#cb28-305" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb28-306"><a href="#cb28-306" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-307"><a href="#cb28-307" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb28-308"><a href="#cb28-308" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-309"><a href="#cb28-309" aria-hidden="true" tabindex="-1"></a><span class="fu">## Working with strings/characters</span></span>
-<span id="cb28-310"><a href="#cb28-310" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-311"><a href="#cb28-311" aria-hidden="true" tabindex="-1"></a>add cleanstring function</span>
+<div class="sourceCode" id="cb54" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Data transformation</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: read-data-trans</span></span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
+<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a>exDat <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"exampleDat.RDS"</span>)</span>
+<span id="cb54-11"><a href="#cb54-11" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb54-12"><a href="#cb54-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-13"><a href="#cb54-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-16"><a href="#cb54-16" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb54-17"><a href="#cb54-17" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: load-func-trans</span></span>
+<span id="cb54-18"><a href="#cb54-18" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb54-19"><a href="#cb54-19" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
+<span id="cb54-20"><a href="#cb54-20" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"scaleManualFunctions.Rdata"</span>)</span>
+<span id="cb54-21"><a href="#cb54-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-22"><a href="#cb54-22" aria-hidden="true" tabindex="-1"></a>varOverview <span class="ot">&lt;-</span>  scaleManualFunctions<span class="sc">$</span>varOverview</span>
+<span id="cb54-23"><a href="#cb54-23" aria-hidden="true" tabindex="-1"></a>catVar <span class="ot">&lt;-</span>  scaleManualFunctions<span class="sc">$</span>catVar</span>
+<span id="cb54-24"><a href="#cb54-24" aria-hidden="true" tabindex="-1"></a>contVar <span class="ot">&lt;-</span>  scaleManualFunctions<span class="sc">$</span>contVar</span>
+<span id="cb54-25"><a href="#cb54-25" aria-hidden="true" tabindex="-1"></a>scaleScore <span class="ot">&lt;-</span>  scaleManualFunctions<span class="sc">$</span>scaleScore</span>
+<span id="cb54-26"><a href="#cb54-26" aria-hidden="true" tabindex="-1"></a>cleanStr <span class="ot">&lt;-</span> scaleManualFunctions<span class="sc">$</span>cleanStr</span>
+<span id="cb54-27"><a href="#cb54-27" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb54-28"><a href="#cb54-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-29"><a href="#cb54-29" aria-hidden="true" tabindex="-1"></a>In this part you will learn how to transform or convert variables into a usable form for analysis. The steps include:</span>
+<span id="cb54-30"><a href="#cb54-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-31"><a href="#cb54-31" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span><span class="co">[</span><span class="ot">Building new variables</span><span class="co">](#build-var)</span></span>
+<span id="cb54-32"><a href="#cb54-32" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span><span class="co">[</span><span class="ot">Recoding variables</span><span class="co">](#rec-var)</span></span>
+<span id="cb54-33"><a href="#cb54-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-34"><a href="#cb54-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-35"><a href="#cb54-35" aria-hidden="true" tabindex="-1"></a><span class="fu">## Building new variables {#build-var}</span></span>
+<span id="cb54-36"><a href="#cb54-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-37"><a href="#cb54-37" aria-hidden="true" tabindex="-1"></a>To build new variables and add them to a data set, we can use *all* functions and operators that <span class="in">`R`</span> offers.</span>
+<span id="cb54-38"><a href="#cb54-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-39"><a href="#cb54-39" aria-hidden="true" tabindex="-1"></a>::: {.callout-note collapse="true" appearance="simple" title="Create and delete objects."}</span>
+<span id="cb54-40"><a href="#cb54-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-41"><a href="#cb54-41" aria-hidden="true" tabindex="-1"></a>In <span class="in">`R`</span>, you can create objects (from existing ones) and store them as new objects using functions and operators. In the following example, we create the objects <span class="in">`x`</span> and <span class="in">`y`</span> and assign them numbers.</span>
+<span id="cb54-42"><a href="#cb54-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-45"><a href="#cb54-45" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb54-46"><a href="#cb54-46" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-build-1</span></span>
+<span id="cb54-47"><a href="#cb54-47" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
+<span id="cb54-48"><a href="#cb54-48" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb54-49"><a href="#cb54-49" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb54-50"><a href="#cb54-50" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb54-51"><a href="#cb54-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-52"><a href="#cb54-52" aria-hidden="true" tabindex="-1"></a>Then we sum them up:</span>
+<span id="cb54-53"><a href="#cb54-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-56"><a href="#cb54-56" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb54-57"><a href="#cb54-57" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-build-2</span></span>
+<span id="cb54-58"><a href="#cb54-58" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
+<span id="cb54-59"><a href="#cb54-59" aria-hidden="true" tabindex="-1"></a>xy <span class="ot">&lt;-</span> x<span class="sc">+</span>y</span>
+<span id="cb54-60"><a href="#cb54-60" aria-hidden="true" tabindex="-1"></a>xy</span>
+<span id="cb54-61"><a href="#cb54-61" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb54-62"><a href="#cb54-62" aria-hidden="true" tabindex="-1"></a>This is the same as:</span>
+<span id="cb54-63"><a href="#cb54-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-66"><a href="#cb54-66" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb54-67"><a href="#cb54-67" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-build-3</span></span>
+<span id="cb54-68"><a href="#cb54-68" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
+<span id="cb54-69"><a href="#cb54-69" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">c</span>(x,y)) <span class="sc">==</span> xy</span>
+<span id="cb54-70"><a href="#cb54-70" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb54-71"><a href="#cb54-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-72"><a href="#cb54-72" aria-hidden="true" tabindex="-1"></a>Finally, we may delete all objects using the <span class="in">`rm`</span> function.</span>
+<span id="cb54-73"><a href="#cb54-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-76"><a href="#cb54-76" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb54-77"><a href="#cb54-77" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-rm</span></span>
+<span id="cb54-78"><a href="#cb54-78" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
+<span id="cb54-79"><a href="#cb54-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-80"><a href="#cb54-80" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(x,y,xy)</span>
+<span id="cb54-81"><a href="#cb54-81" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb54-82"><a href="#cb54-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-83"><a href="#cb54-83" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb54-84"><a href="#cb54-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-85"><a href="#cb54-85" aria-hidden="true" tabindex="-1"></a>For example, we might want to sum up item indicators to a so-called scale score (for now only the first 2; for a more detailed examination see the section <span class="co">[</span><span class="ot">Descriptive statistics and item analysis</span><span class="co">](item-analy-descr.qmd)</span>) and add them as a new column to the example data set <span class="in">`exDat`</span>.</span>
+<span id="cb54-86"><a href="#cb54-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-87"><a href="#cb54-87" aria-hidden="true" tabindex="-1"></a>::: {.panel-tabset}</span>
+<span id="cb54-88"><a href="#cb54-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-89"><a href="#cb54-89" aria-hidden="true" tabindex="-1"></a><span class="fu">### Base R</span></span>
+<span id="cb54-90"><a href="#cb54-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-91"><a href="#cb54-91" aria-hidden="true" tabindex="-1"></a>There are several ways to do that, for example:</span>
+<span id="cb54-92"><a href="#cb54-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-95"><a href="#cb54-95" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb54-96"><a href="#cb54-96" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-add-var-1</span></span>
+<span id="cb54-97"><a href="#cb54-97" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
+<span id="cb54-98"><a href="#cb54-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-99"><a href="#cb54-99" aria-hidden="true" tabindex="-1"></a>exDat<span class="sc">$</span>mscSum1 <span class="ot">&lt;-</span> exDat<span class="sc">$</span>msc1<span class="sc">+</span>exDat<span class="sc">$</span>msc2</span>
+<span id="cb54-100"><a href="#cb54-100" aria-hidden="true" tabindex="-1"></a>exDat<span class="sc">$</span>mscSum2 <span class="ot">&lt;-</span> <span class="fu">with</span>(exDat, msc1 <span class="sc">+</span> msc2)</span>
+<span id="cb54-101"><a href="#cb54-101" aria-hidden="true" tabindex="-1"></a>exDat[,<span class="st">"mscSum3"</span>] <span class="ot">&lt;-</span> <span class="fu">with</span>(exDat, msc1 <span class="sc">+</span> msc2)</span>
+<span id="cb54-102"><a href="#cb54-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-103"><a href="#cb54-103" aria-hidden="true" tabindex="-1"></a>mscSum4 <span class="ot">&lt;-</span> exDat<span class="sc">$</span>msc1<span class="sc">+</span>exDat<span class="sc">$</span>msc2</span>
+<span id="cb54-104"><a href="#cb54-104" aria-hidden="true" tabindex="-1"></a>exDat <span class="ot">&lt;-</span> <span class="fu">cbind</span>(exDat, mscSum4)</span>
+<span id="cb54-105"><a href="#cb54-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-106"><a href="#cb54-106" aria-hidden="true" tabindex="-1"></a>exDat<span class="sc">$</span>mscSum5 <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(exDat[,<span class="fu">c</span>(<span class="st">"msc1"</span>,<span class="st">"msc2"</span>)], <span class="at">na.rm =</span> T)</span>
+<span id="cb54-107"><a href="#cb54-107" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb54-108"><a href="#cb54-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-109"><a href="#cb54-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-110"><a href="#cb54-110" aria-hidden="true" tabindex="-1"></a>To delete variables, you can use the <span class="in">`NULL`</span> statement.</span>
+<span id="cb54-111"><a href="#cb54-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-114"><a href="#cb54-114" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb54-115"><a href="#cb54-115" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-del-var</span></span>
+<span id="cb54-116"><a href="#cb54-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-117"><a href="#cb54-117" aria-hidden="true" tabindex="-1"></a>exDat[,<span class="fu">c</span>(<span class="fu">paste0</span>(<span class="st">"mscSum"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>))] <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb54-118"><a href="#cb54-118" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb54-119"><a href="#cb54-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-120"><a href="#cb54-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-121"><a href="#cb54-121" aria-hidden="true" tabindex="-1"></a><span class="fu">### dplyr package</span></span>
+<span id="cb54-122"><a href="#cb54-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-123"><a href="#cb54-123" aria-hidden="true" tabindex="-1"></a>To add a variable to a data set, we may use <span class="in">`mutate`</span> function from the <span class="in">`dplyr`</span> package.</span>
+<span id="cb54-124"><a href="#cb54-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-125"><a href="#cb54-125" aria-hidden="true" tabindex="-1"></a>From the function description: <span class="in">`dplyr::mutate`</span> creates new columns that are functions of existing variables. It can also modify (if the name is the same as an existing column) and delete columns (by setting their value to <span class="in">`NULL`</span>).</span>
+<span id="cb54-126"><a href="#cb54-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-127"><a href="#cb54-127" aria-hidden="true" tabindex="-1"></a>Add the new variable <span class="in">`mscSum6`</span>.</span>
+<span id="cb54-128"><a href="#cb54-128" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-131"><a href="#cb54-131" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb54-132"><a href="#cb54-132" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-add-var-dplyr</span></span>
+<span id="cb54-133"><a href="#cb54-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-134"><a href="#cb54-134" aria-hidden="true" tabindex="-1"></a>exDat <span class="ot">&lt;-</span> exDat <span class="sc">|&gt;</span></span>
+<span id="cb54-135"><a href="#cb54-135" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">mscSum6 =</span> msc1 <span class="sc">+</span> msc2)</span>
+<span id="cb54-136"><a href="#cb54-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-137"><a href="#cb54-137" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb54-138"><a href="#cb54-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-139"><a href="#cb54-139" aria-hidden="true" tabindex="-1"></a>Delete the variable <span class="in">`mscSum6`</span>.</span>
+<span id="cb54-140"><a href="#cb54-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-143"><a href="#cb54-143" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb54-144"><a href="#cb54-144" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-del-var-dplyr</span></span>
+<span id="cb54-145"><a href="#cb54-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-146"><a href="#cb54-146" aria-hidden="true" tabindex="-1"></a>exDat <span class="ot">&lt;-</span> exDat <span class="sc">|&gt;</span></span>
+<span id="cb54-147"><a href="#cb54-147" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">mscSum6 =</span> <span class="cn">NULL</span>)</span>
+<span id="cb54-148"><a href="#cb54-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-149"><a href="#cb54-149" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb54-150"><a href="#cb54-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-151"><a href="#cb54-151" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb54-152"><a href="#cb54-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-153"><a href="#cb54-153" aria-hidden="true" tabindex="-1"></a><span class="fu">## Recoding variables {#rec-var}</span></span>
+<span id="cb54-154"><a href="#cb54-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-155"><a href="#cb54-155" aria-hidden="true" tabindex="-1"></a>Recoding is the process of reassigning values (old <span class="dv">&amp;rarr;</span> new) for a variable in a dataset.</span>
+<span id="cb54-156"><a href="#cb54-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-157"><a href="#cb54-157" aria-hidden="true" tabindex="-1"></a>The old values can either be overwritten by the new values **or saved as a new variable**.</span>
+<span id="cb54-158"><a href="#cb54-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-159"><a href="#cb54-159" aria-hidden="true" tabindex="-1"></a>::: {.callout-important collapse="false" appearance="simple" title="We always create a new variable when we recode a variable!"}</span>
+<span id="cb54-160"><a href="#cb54-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-161"><a href="#cb54-161" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>old values are not lost    </span>
+<span id="cb54-162"><a href="#cb54-162" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>errors during recoding can be reproduced</span>
+<span id="cb54-163"><a href="#cb54-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-164"><a href="#cb54-164" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb54-165"><a href="#cb54-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-166"><a href="#cb54-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-167"><a href="#cb54-167" aria-hidden="true" tabindex="-1"></a>A common approach to recode variables is to use the <span class="in">`base::ifelse`</span> function. It requires 3 input arguments:</span>
+<span id="cb54-168"><a href="#cb54-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-169"><a href="#cb54-169" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`test`</span>: which is an object that can be coerced to logical mode</span>
+<span id="cb54-170"><a href="#cb54-170" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`yes`</span>: return values for true elements of test</span>
+<span id="cb54-171"><a href="#cb54-171" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`no`</span>: return values for false elements of test</span>
+<span id="cb54-172"><a href="#cb54-172" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-173"><a href="#cb54-173" aria-hidden="true" tabindex="-1"></a>The function returns a value with the same shape as <span class="in">`test`</span> which is filled with elements selected from either <span class="in">`yes`</span> or <span class="in">`no`</span> depending on whether the element of test is <span class="in">`TRUE`</span> or <span class="in">`FALSE`</span>.</span>
+<span id="cb54-174"><a href="#cb54-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-177"><a href="#cb54-177" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb54-178"><a href="#cb54-178" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-ifelse-1</span></span>
+<span id="cb54-179"><a href="#cb54-179" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-180"><a href="#cb54-180" aria-hidden="true" tabindex="-1"></a><span class="fu">ifelse</span>(<span class="dv">1</span> <span class="sc">==</span> <span class="dv">1</span>,</span>
+<span id="cb54-181"><a href="#cb54-181" aria-hidden="true" tabindex="-1"></a>       <span class="at">yes =</span> <span class="st">"That is correct!"</span>,</span>
+<span id="cb54-182"><a href="#cb54-182" aria-hidden="true" tabindex="-1"></a>       <span class="at">no =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb54-183"><a href="#cb54-183" aria-hidden="true" tabindex="-1"></a><span class="fu">ifelse</span>(<span class="dv">1</span> <span class="sc">==</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">1</span>),</span>
+<span id="cb54-184"><a href="#cb54-184" aria-hidden="true" tabindex="-1"></a>       <span class="at">yes =</span> <span class="st">"That is correct!"</span>,</span>
+<span id="cb54-185"><a href="#cb54-185" aria-hidden="true" tabindex="-1"></a>       <span class="at">no =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb54-186"><a href="#cb54-186" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb54-187"><a href="#cb54-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-188"><a href="#cb54-188" aria-hidden="true" tabindex="-1"></a>To apply the function in a more *"meaningful"* setting. Lets transform (i.e., recode) the variable <span class="in">`age`</span> to a categorical variable (here: <span class="in">`ageCat`</span>) with the categories: old and young. All units that are older than 10 are getting the value <span class="in">`"old"`</span>, otherwise they get the value <span class="in">`"young"`</span>.</span>
+<span id="cb54-189"><a href="#cb54-189" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-192"><a href="#cb54-192" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb54-193"><a href="#cb54-193" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-ifelse-2</span></span>
+<span id="cb54-194"><a href="#cb54-194" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-195"><a href="#cb54-195" aria-hidden="true" tabindex="-1"></a>exDat<span class="sc">$</span>ageCat <span class="ot">&lt;-</span> <span class="fu">ifelse</span> (exDat<span class="sc">$</span>age <span class="sc">&gt;</span> <span class="dv">10</span>, <span class="st">"old"</span>, <span class="st">"young"</span>)</span>
+<span id="cb54-196"><a href="#cb54-196" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(exDat<span class="sc">$</span>ageCat)</span>
+<span id="cb54-197"><a href="#cb54-197" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb54-198"><a href="#cb54-198" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-199"><a href="#cb54-199" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-200"><a href="#cb54-200" aria-hidden="true" tabindex="-1"></a>Psychological instruments often contain items that are designed to measure the opposite of the actual construct (e.g., "I am good at math." vs. "I am bad at math."). These items are called reverse-scored or negatively-keyed items. In the example data set <span class="in">`exDat`</span> the variables <span class="in">`msc3`</span> and <span class="in">`msc4`</span> are (simulated as) reverse-scored and thus, need to be recoded.</span>
+<span id="cb54-201"><a href="#cb54-201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-202"><a href="#cb54-202" aria-hidden="true" tabindex="-1"></a>The first step is to check the response categories.</span>
+<span id="cb54-203"><a href="#cb54-203" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-206"><a href="#cb54-206" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb54-207"><a href="#cb54-207" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-msc3</span></span>
+<span id="cb54-208"><a href="#cb54-208" aria-hidden="true" tabindex="-1"></a><span class="co">#| </span></span>
+<span id="cb54-209"><a href="#cb54-209" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(exDat<span class="sc">$</span>msc3, <span class="at">useNA =</span> <span class="st">"always"</span>)</span>
+<span id="cb54-210"><a href="#cb54-210" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb54-211"><a href="#cb54-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-212"><a href="#cb54-212" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-213"><a href="#cb54-213" aria-hidden="true" tabindex="-1"></a>::: {.panel-tabset}</span>
+<span id="cb54-214"><a href="#cb54-214" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-215"><a href="#cb54-215" aria-hidden="true" tabindex="-1"></a><span class="fu">### Base R</span></span>
+<span id="cb54-216"><a href="#cb54-216" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-217"><a href="#cb54-217" aria-hidden="true" tabindex="-1"></a>In this approach, we subtract the item from the sum of the maximum and minimum of the item (here is maximum = 4 minimum = 1).</span>
+<span id="cb54-218"><a href="#cb54-218" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-221"><a href="#cb54-221" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb54-222"><a href="#cb54-222" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: recode-base</span></span>
+<span id="cb54-223"><a href="#cb54-223" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
+<span id="cb54-224"><a href="#cb54-224" aria-hidden="true" tabindex="-1"></a>exDat<span class="sc">$</span>msc3r1 <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">max</span>(exDat<span class="sc">$</span>msc3,<span class="at">na.rm=</span>T),</span>
+<span id="cb54-225"><a href="#cb54-225" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">min</span>(exDat<span class="sc">$</span>msc3,<span class="at">na.rm=</span>T)) <span class="sc">-</span> exDat<span class="sc">$</span>msc3 </span>
+<span id="cb54-226"><a href="#cb54-226" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-227"><a href="#cb54-227" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb54-228"><a href="#cb54-228" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-229"><a href="#cb54-229" aria-hidden="true" tabindex="-1"></a>::: {.callout-note collapse="false" appearance="simple" }</span>
+<span id="cb54-230"><a href="#cb54-230" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-231"><a href="#cb54-231" aria-hidden="true" tabindex="-1"></a>Note that this approach is not very robust across different recoding strategies. Also, when sample size is small and the categories are not used completely. </span>
+<span id="cb54-232"><a href="#cb54-232" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-233"><a href="#cb54-233" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb54-234"><a href="#cb54-234" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-235"><a href="#cb54-235" aria-hidden="true" tabindex="-1"></a>It is important to evaluate the result.</span>
+<span id="cb54-236"><a href="#cb54-236" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-239"><a href="#cb54-239" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb54-240"><a href="#cb54-240" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: recode-base-check</span></span>
+<span id="cb54-241"><a href="#cb54-241" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
+<span id="cb54-242"><a href="#cb54-242" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-243"><a href="#cb54-243" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(exDat, <span class="fu">table</span>(msc3, msc3r1))</span>
+<span id="cb54-244"><a href="#cb54-244" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb54-245"><a href="#cb54-245" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-246"><a href="#cb54-246" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-247"><a href="#cb54-247" aria-hidden="true" tabindex="-1"></a><span class="fu">### car package</span></span>
+<span id="cb54-248"><a href="#cb54-248" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-249"><a href="#cb54-249" aria-hidden="true" tabindex="-1"></a>In this approach, we use the <span class="in">`recode`</span> function of the <span class="in">`car`</span> package <span class="co">[</span><span class="ot">@R-car</span><span class="co">]</span>. This function needs at least 2 inputs (copied from the package description):</span>
+<span id="cb54-250"><a href="#cb54-250" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-251"><a href="#cb54-251" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`var`</span>: numeric vector, character vector, or factor.</span>
+<span id="cb54-252"><a href="#cb54-252" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`recodes`</span>: character string of recode specifications</span>
+<span id="cb54-253"><a href="#cb54-253" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-254"><a href="#cb54-254" aria-hidden="true" tabindex="-1"></a>There are further additional arguments such as <span class="in">`as.factor`</span> and <span class="in">`as.numeric`</span> which direct the class of the output.</span>
+<span id="cb54-255"><a href="#cb54-255" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-258"><a href="#cb54-258" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb54-259"><a href="#cb54-259" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: recode-car</span></span>
+<span id="cb54-260"><a href="#cb54-260" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
+<span id="cb54-261"><a href="#cb54-261" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-line-numbers: true</span></span>
+<span id="cb54-262"><a href="#cb54-262" aria-hidden="true" tabindex="-1"></a>exDat<span class="sc">$</span>msc3r2 <span class="ot">&lt;-</span> car<span class="sc">::</span><span class="fu">recode</span>(<span class="at">var =</span> exDat<span class="sc">$</span>msc3,</span>
+<span id="cb54-263"><a href="#cb54-263" aria-hidden="true" tabindex="-1"></a>                            <span class="at">recodes =</span> <span class="st">"</span></span>
+<span id="cb54-264"><a href="#cb54-264" aria-hidden="true" tabindex="-1"></a><span class="st">                            1 = 4;</span></span>
+<span id="cb54-265"><a href="#cb54-265" aria-hidden="true" tabindex="-1"></a><span class="st">                            2 = 3;</span></span>
+<span id="cb54-266"><a href="#cb54-266" aria-hidden="true" tabindex="-1"></a><span class="st">                            3 = 2;</span></span>
+<span id="cb54-267"><a href="#cb54-267" aria-hidden="true" tabindex="-1"></a><span class="st">                            4 = 1;</span></span>
+<span id="cb54-268"><a href="#cb54-268" aria-hidden="true" tabindex="-1"></a><span class="st">                            NA = NA"</span>,</span>
+<span id="cb54-269"><a href="#cb54-269" aria-hidden="true" tabindex="-1"></a>                            <span class="at">as.factor =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb54-270"><a href="#cb54-270" aria-hidden="true" tabindex="-1"></a>                            <span class="at">as.numeric =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb54-271"><a href="#cb54-271" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb54-272"><a href="#cb54-272" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-273"><a href="#cb54-273" aria-hidden="true" tabindex="-1"></a>Again, evaluating the result.</span>
+<span id="cb54-274"><a href="#cb54-274" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-277"><a href="#cb54-277" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb54-278"><a href="#cb54-278" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: recode-car-check</span></span>
+<span id="cb54-279"><a href="#cb54-279" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
+<span id="cb54-280"><a href="#cb54-280" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-281"><a href="#cb54-281" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(exDat, <span class="fu">table</span>(msc3, msc3r2))</span>
+<span id="cb54-282"><a href="#cb54-282" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb54-283"><a href="#cb54-283" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-284"><a href="#cb54-284" aria-hidden="true" tabindex="-1"></a><span class="fu">### dplyr package</span></span>
+<span id="cb54-285"><a href="#cb54-285" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-288"><a href="#cb54-288" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb54-289"><a href="#cb54-289" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: recode-dplyr</span></span>
+<span id="cb54-290"><a href="#cb54-290" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
+<span id="cb54-291"><a href="#cb54-291" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-line-numbers: true</span></span>
+<span id="cb54-292"><a href="#cb54-292" aria-hidden="true" tabindex="-1"></a>exDat <span class="ot">&lt;-</span> exDat <span class="sc">|&gt;</span></span>
+<span id="cb54-293"><a href="#cb54-293" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(</span>
+<span id="cb54-294"><a href="#cb54-294" aria-hidden="true" tabindex="-1"></a>    <span class="at">msc3r3 =</span> dplyr<span class="sc">::</span><span class="fu">case_when</span>(</span>
+<span id="cb54-295"><a href="#cb54-295" aria-hidden="true" tabindex="-1"></a>      msc3 <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="dv">4</span>,</span>
+<span id="cb54-296"><a href="#cb54-296" aria-hidden="true" tabindex="-1"></a>      msc3 <span class="sc">==</span> <span class="dv">2</span> <span class="sc">~</span> <span class="dv">3</span>,</span>
+<span id="cb54-297"><a href="#cb54-297" aria-hidden="true" tabindex="-1"></a>      msc3 <span class="sc">==</span> <span class="dv">3</span> <span class="sc">~</span> <span class="dv">2</span>,</span>
+<span id="cb54-298"><a href="#cb54-298" aria-hidden="true" tabindex="-1"></a>      msc3 <span class="sc">==</span> <span class="dv">4</span> <span class="sc">~</span> <span class="dv">1</span></span>
+<span id="cb54-299"><a href="#cb54-299" aria-hidden="true" tabindex="-1"></a>      ))</span>
+<span id="cb54-300"><a href="#cb54-300" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb54-301"><a href="#cb54-301" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-302"><a href="#cb54-302" aria-hidden="true" tabindex="-1"></a>Evaluating the result.</span>
+<span id="cb54-303"><a href="#cb54-303" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-306"><a href="#cb54-306" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb54-307"><a href="#cb54-307" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: recode-dplyr-check</span></span>
+<span id="cb54-308"><a href="#cb54-308" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
+<span id="cb54-309"><a href="#cb54-309" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-310"><a href="#cb54-310" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(exDat, <span class="fu">table</span>(msc3, msc3r3))</span>
+<span id="cb54-311"><a href="#cb54-311" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb54-312"><a href="#cb54-312" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-313"><a href="#cb54-313" aria-hidden="true" tabindex="-1"></a>::: {.callout-note collapse="false" appearance="simple" }</span>
+<span id="cb54-314"><a href="#cb54-314" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-315"><a href="#cb54-315" aria-hidden="true" tabindex="-1"></a>(copied from the <span class="in">`?dplyr::recode`</span> function description)</span>
+<span id="cb54-316"><a href="#cb54-316" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-317"><a href="#cb54-317" aria-hidden="true" tabindex="-1"></a><span class="in">`dplyr::recode`</span> is superseded in favor of <span class="in">`dplyr::case_match`</span>, which handles the most important cases of <span class="in">`dplyr::recode`</span> with a more elegant interface. <span class="in">`dplyr::recode_factor`</span> is also superseded, however, its direct replacement is not currently available but will eventually live in <span class="in">`forcats`</span>. For creating new variables based on logical <span class="in">`vectors`</span>, use <span class="in">`dplyr::if_else()`</span>. For even more complicated criteria, use <span class="in">`dplyr::case_match`</span>.</span>
+<span id="cb54-318"><a href="#cb54-318" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-319"><a href="#cb54-319" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-320"><a href="#cb54-320" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb54-321"><a href="#cb54-321" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-322"><a href="#cb54-322" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb54-323"><a href="#cb54-323" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-324"><a href="#cb54-324" aria-hidden="true" tabindex="-1"></a><span class="fu">## Working with strings (character objects)</span></span>
+<span id="cb54-325"><a href="#cb54-325" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-326"><a href="#cb54-326" aria-hidden="true" tabindex="-1"></a>This section briefly introduces how to work with strings (<span class="in">`character`</span> objects). Recall, what is a <span class="in">`character`</span> (in <span class="in">`R`</span>)?</span>
+<span id="cb54-327"><a href="#cb54-327" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-330"><a href="#cb54-330" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb54-331"><a href="#cb54-331" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-char-0</span></span>
+<span id="cb54-332"><a href="#cb54-332" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-333"><a href="#cb54-333" aria-hidden="true" tabindex="-1"></a>aChr <span class="ot">&lt;-</span> <span class="st">"This is character"</span></span>
+<span id="cb54-334"><a href="#cb54-334" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(aChr)</span>
+<span id="cb54-335"><a href="#cb54-335" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(aChr)</span>
+<span id="cb54-336"><a href="#cb54-336" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb54-337"><a href="#cb54-337" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-338"><a href="#cb54-338" aria-hidden="true" tabindex="-1"></a>Everything what appears within single (<span class="in">`'`</span>) or double quotes (<span class="in">`"`</span>; double quotes are recommended) will be treated as a string (i.e., <span class="in">`character`</span> object). It is important to know that <span class="in">`character`</span> objects are space and case sensitive.</span>
+<span id="cb54-339"><a href="#cb54-339" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-342"><a href="#cb54-342" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb54-343"><a href="#cb54-343" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-char-1</span></span>
+<span id="cb54-344"><a href="#cb54-344" aria-hidden="true" tabindex="-1"></a><span class="st">" "</span> <span class="sc">==</span> <span class="st">""</span></span>
+<span id="cb54-345"><a href="#cb54-345" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-346"><a href="#cb54-346" aria-hidden="true" tabindex="-1"></a><span class="st">"hello world!"</span> <span class="sc">==</span> <span class="st">"Hello world!"</span></span>
+<span id="cb54-347"><a href="#cb54-347" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb54-348"><a href="#cb54-348" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-349"><a href="#cb54-349" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-350"><a href="#cb54-350" aria-hidden="true" tabindex="-1"></a>When it comes to survey research, strings are used to transfer the information from (mostly) open fields in a questionnaire into the data set (e.g., *"What is your first language or mother tongue? (Please specify)"*.</span>
+<span id="cb54-351"><a href="#cb54-351" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-352"><a href="#cb54-352" aria-hidden="true" tabindex="-1"></a>The variable <span class="in">`fLang`</span> in the <span class="in">`exDat`</span> data set contains the different answers on such a question.</span>
+<span id="cb54-355"><a href="#cb54-355" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb54-356"><a href="#cb54-356" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: flang-descr</span></span>
+<span id="cb54-357"><a href="#cb54-357" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-358"><a href="#cb54-358" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(exDat<span class="sc">$</span>fLang, <span class="at">useNA =</span> <span class="st">"always"</span>)</span>
+<span id="cb54-359"><a href="#cb54-359" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-360"><a href="#cb54-360" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb54-361"><a href="#cb54-361" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-362"><a href="#cb54-362" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-363"><a href="#cb54-363" aria-hidden="true" tabindex="-1"></a>To clean such a <span class="in">`character`</span> variable, <span class="in">`R`</span> offers a couple of functions (e.g., <span class="in">`base::grep`</span>, <span class="in">`base::grepl`</span>, <span class="in">`base::regexpr`</span>, <span class="in">`base::gregexpr`</span>, ...). Also, there are packages such as <span class="in">`stringr`</span> <span class="co">[</span><span class="ot">@R-stringr</span><span class="co">]</span> or <span class="in">`stringi`</span> <span class="co">[</span><span class="ot">@R-stringi</span><span class="co">]</span> that offer great functionality^<span class="co">[</span><span class="ot">A comprehensive introduction to these functions or packages is beyond the scope of this workshop. Hence, we focus on some mechanics of these functions.</span><span class="co">]</span>.</span>
+<span id="cb54-364"><a href="#cb54-364" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-365"><a href="#cb54-365" aria-hidden="true" tabindex="-1"></a>In the following example, we use <span class="in">`base::gsub`</span> function to search for matches in the value pattern <span class="in">`" "`</span> of the character vector <span class="in">`anotherChr`</span> and replace it with <span class="in">`""`</span>.</span>
+<span id="cb54-366"><a href="#cb54-366" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-369"><a href="#cb54-369" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb54-370"><a href="#cb54-370" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-char-2</span></span>
+<span id="cb54-371"><a href="#cb54-371" aria-hidden="true" tabindex="-1"></a>anotherChr <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">" "</span>, <span class="st">""</span>, <span class="st">"hello"</span>, <span class="st">" hello"</span>)</span>
+<span id="cb54-372"><a href="#cb54-372" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-373"><a href="#cb54-373" aria-hidden="true" tabindex="-1"></a><span class="fu">gsub</span>(<span class="st">" "</span>, <span class="st">""</span>, <span class="at">x =</span> anotherChr)</span>
+<span id="cb54-374"><a href="#cb54-374" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb54-375"><a href="#cb54-375" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-376"><a href="#cb54-376" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-377"><a href="#cb54-377" aria-hidden="true" tabindex="-1"></a>The <span class="in">`cleanStr`</span> function (introduced in the <span class="co">[</span><span class="ot">Functions</span><span class="co">](gen-info.qmd#functions)</span> section of the <span class="co">[</span><span class="ot">General information on data documentation</span><span class="co">](gen-info.qmd)</span> part) is designed to clean strings and has the following arguments:</span>
+<span id="cb54-378"><a href="#cb54-378" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-379"><a href="#cb54-379" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`stringToClean`</span>: This should be a character.</span>
+<span id="cb54-380"><a href="#cb54-380" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`pattern`</span>: The pattern which should be replaced. Can be character vector.</span>
+<span id="cb54-381"><a href="#cb54-381" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`replacement`</span>: The replacement. A character with length = 1.</span>
+<span id="cb54-382"><a href="#cb54-382" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`replaceNA`</span>: logical. Should <span class="in">`NA`</span>s be replaced? Default is <span class="in">`TRUE`</span>.</span>
+<span id="cb54-383"><a href="#cb54-383" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`replaceNAval`</span>: If <span class="in">`replaceNA`</span> == <span class="in">`TRUE`</span>. The replacement of <span class="in">`NA`</span> values. Default is: <span class="in">`"Unknown"`</span> </span>
+<span id="cb54-384"><a href="#cb54-384" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`as.fac`</span>: logical. Output of the function (<span class="in">`character`</span> or <span class="in">`factor`</span>). Default is <span class="in">`FALSE`</span>.</span>
+<span id="cb54-385"><a href="#cb54-385" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`print`</span>: logical. Default is <span class="in">`TRUE`</span>.</span>
+<span id="cb54-386"><a href="#cb54-386" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-389"><a href="#cb54-389" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb54-390"><a href="#cb54-390" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: demo-cleanStr</span></span>
+<span id="cb54-391"><a href="#cb54-391" aria-hidden="true" tabindex="-1"></a>exDat<span class="sc">$</span>fLangR <span class="ot">&lt;-</span> <span class="fu">cleanStr</span>(exDat<span class="sc">$</span>fLang,</span>
+<span id="cb54-392"><a href="#cb54-392" aria-hidden="true" tabindex="-1"></a>                         <span class="at">pattern =</span> <span class="fu">c</span>(<span class="st">" "</span>, <span class="st">""</span>),</span>
+<span id="cb54-393"><a href="#cb54-393" aria-hidden="true" tabindex="-1"></a>                         <span class="at">replacement =</span> <span class="st">"Unknown"</span>,</span>
+<span id="cb54-394"><a href="#cb54-394" aria-hidden="true" tabindex="-1"></a>                         <span class="at">replaceNA =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb54-395"><a href="#cb54-395" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb54-396"><a href="#cb54-396" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-397"><a href="#cb54-397" aria-hidden="true" tabindex="-1"></a>::: {.callout-caution collapse="true"}</span>
+<span id="cb54-398"><a href="#cb54-398" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise: Clean the spelling mistakes and abbreviation.</span></span>
+<span id="cb54-399"><a href="#cb54-399" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-400"><a href="#cb54-400" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Use the <span class="in">`cleanStr`</span> function and use the <span class="in">`pattern`</span> and <span class="in">`replacement`</span> arguments. </span>
+<span id="cb54-403"><a href="#cb54-403" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb54-404"><a href="#cb54-404" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: ex-cleanStr</span></span>
+<span id="cb54-405"><a href="#cb54-405" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb54-406"><a href="#cb54-406" aria-hidden="true" tabindex="-1"></a>exDat<span class="sc">$</span>fLangR <span class="ot">&lt;-</span> <span class="fu">cleanStr</span>(exDat<span class="sc">$</span>fLangR,</span>
+<span id="cb54-407"><a href="#cb54-407" aria-hidden="true" tabindex="-1"></a>                         <span class="at">pattern =</span> <span class="fu">c</span>(<span class="st">"ger"</span>, <span class="st">"germn"</span>),</span>
+<span id="cb54-408"><a href="#cb54-408" aria-hidden="true" tabindex="-1"></a>                         <span class="at">replacement =</span> <span class="st">"german"</span>,</span>
+<span id="cb54-409"><a href="#cb54-409" aria-hidden="true" tabindex="-1"></a>                         <span class="at">replaceNA =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb54-410"><a href="#cb54-410" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb54-411"><a href="#cb54-411" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-412"><a href="#cb54-412" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-413"><a href="#cb54-413" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb54-414"><a href="#cb54-414" aria-hidden="true" tabindex="-1"></a></span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
