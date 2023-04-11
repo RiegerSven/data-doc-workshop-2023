@@ -1,4 +1,4 @@
-# Import and merge data
+# Import, merge & reshape data
 
 ```{r}
 #| label: read-data-imp
@@ -7,9 +7,14 @@
 
 exDat <- readRDS("exampleDat.RDS")
 
+mscItems <- list("msc1" = c("Ich bin gut in Mathematik."),
+                 "msc2" = c("Ich war in Mathematik immer gut."),
+                 "msc3" = c("Ich habe Verständnisschwierigkeiten bei allem, für das man Mathematik braucht."),
+                 "msc4" = c("Ich bin bei Aufgaben, die mathematisches Denken
+erfordern, nie gut."))
 ```
 
-This part provides an introduction to import data sets into `R` and merge them. 
+This part provides an introduction to import, merge and reshape data sets with `R`. 
 
 ```{css, echo=FALSE}
 .vScrollbar {
@@ -56,8 +61,7 @@ exDatImpforeign <- foreign::read.spss("path-to-file.sav-file",
 
 ```
 
-::: {.callout-note collapse="true" appearance="simple"}
-## Exporting dataframes
+::: {.callout-note collapse="true" appearance="simple" title="Exporting dataframes"}
 
 To export data to a file, you can use the `base::write` function(s):
 
@@ -144,18 +148,18 @@ Note that the `read_sav` returns a `tibble`, `data.frame` variant (with nice def
 
 For more see <https://tibble.tidyverse.org/> and [Chapter 10](https://r4ds.had.co.nz/tibbles.html) of [R for Data Science](https://r4ds.had.co.nz/).
 
-## Merge data sets
+## Merge data sets {#merge-data}
 
 Merging data sets is necessary, because we often work with different data sources. By merging, we combine the information from multiple data sets to create one (complete) data set.
 
 
 
-::: {.callout-note collapse="false" appearance="simple" title="Before we merge, we need another data set. Execute the following code to simulate one!"}
+::: {#exDatGSC .callout-note collapse="false" appearance="simple" title="Before we merge, we need another data set. Execute the following code to simulate one!"}
 
 ```{r}
 #| label: sim-merge
 #| code-fold: false
-PopModMerge <- "
+PopModGSC <- "
 eta2 =~ .8*gsc1 + .8*gsc2 + .8*gsc3 + .8*gsc4
 eta2 ~~ 1*eta2
 eta2 ~ 0*1
@@ -167,10 +171,10 @@ gsc4 | 1.5*t1 + 0*t2 + -1.5*t3
 
 "
 
-exDatMerge <- lavaan::simulateData(model = PopModMerge,
-                                   sample.nobs = 700,
-                                   seed = 999)
-exDatMerge$id <- 1:nrow(exDatMerge)
+exDatGSC <- lavaan::simulateData(model = PopModGSC,
+                                 sample.nobs = 700,
+                                 seed = 999)
+exDatGSC$id <- 1:nrow(exDatGSC)
 ```
 
 :::
@@ -194,11 +198,13 @@ The `merge` function is designed to merge two data frames by common columns or r
 
 ```{r}
 #| label: demo-merge
-exDatComb <- merge(exDat, exDatMerge,
+exDatComb <- merge(exDat, exDatGSC,
                    by = "id",
                    all.x = TRUE)
 head(exDatComb)
 ```
+
+
 
 ### dplyr package
 
@@ -217,8 +223,192 @@ It is recommended to use the `by` argument to specify the column(s) that are use
 ```{r}
 #| label: demo-left-join-dplyr
 exDat |>
-  dplyr::left_join(exDatMerge, by = "id") |>
+  dplyr::left_join(exDatGSC, by = "id") |>
   head()
+```
+
+:::
+
+If you need to quickly save an object (e.g., a data set like `exDatComb`), you may use the `base::saveRDS` function.
+
+```{r}
+#| label: save-exDatComb
+
+#getwd()
+saveRDS(exDatComb,
+        "exDatComb.RDS")
+
+```
+
+
+## Reshape data
+
+Reshaping data refers to the process of transforming the structure of data. Two popular ways of structuring data sets are the so-called wide and long data format. In @tbl-data-wide-long an example longitudinal data set is depicted in the wide and long format.
+
+
+::: {#tbl-data-wide-long layout-ncol=2}
+
+| PID      | $Y_1$ | $Y_2$ | $\dots$ | $Y_t$ |
+| :-:      | :---  | :---  | :---    | :---  |
+| 1        | 3     | 4     |         |       |
+| 2        | 2     | 2     |         |       |
+| 3        | 1     | 4     |         |       |
+| 4        | 4     | 1     |         |       |
+| $\vdots$ |       |       |         |       |
+| N        |       |       |         |       |
+
+: ...wide format {#tbl-data-wide}
+
+
+
+| PID      | $Y$   | Time |
+| :-:      | :--:  | :--: |
+| 1        | 3     | 0    |
+| 1        | 4     | 1    |
+| 2        | 2     | 0    |
+| 2        | 2     | 1    |
+| $\vdots$ |       |      |
+| 4        | 4     | 0    | 
+| 4        | 1     | 1    | 
+| $\vdots$ |       | $\vdots$     |
+| N        |       | t     |
+
+: ...long format {#tbl-data-long}
+
+Example (longitudinal) data set in the...
+:::
+
+
+- Wide data format 
+    - rows = repeated measurements of 1 unit in separate columns  
+    - columns = (time-point-)specific variables (i.e., $Y_{1}$, $Y_{2}$, $\dots$, $Y_{t}$)
+
+- Long data format 
+    - rows = one (time-point-)specific measurement per unit
+    - columns = multiple variables collapsed into a single column (i.e., $Y$)
+
+
+Another data scenario in which you may want to reshape your data is when the goal is to examine or visualize (see [below](#viz-mult-items)) multiple items of a scale. This is the working example.
+
+
+::: {.panel-tabset}
+
+### base R
+
+The `reshape` function from base `R` is designed to transform data sets between wide and long format. The following arguments are recommended to use:
+
+- `data`: a data frame
+- `varying`: names of sets of variables in the wide format that correspond to single variables in long format (‘time-varying’). This is canonically a list of vectors of variable names, but it can optionally be a matrix of names, or a single vector of names. In each case, when `direction` = `"long"`, the names can be replaced by indices which are interpreted as referring to `names(data)`. See ‘Details’ for more details and options.
+- `v.names`: names of variables in the long format that correspond to multiple variables in the wide format. See ‘Details’.
+- `timevar`: the variable in long format that differentiates multiple records from the same group or individual. If more than one record matches, the first will be taken (with a warning).
+- `times`: the values to use for a newly created timevar variable in long format. See ‘Details’.
+- `direction`: character string, partially matched to either `"wide"` to reshape to wide format, or `"long"` to reshape to long format.
+
+
+Now we transform the example data set `exDat` to the long format...
+
+```{r}
+#| label: base-r-reshape
+exDatLong <- reshape(exDat,
+                     varying = names(mscItems),
+                     v.names = "value",
+                     timevar = "Item",
+                     times = names(mscItems),
+                     idvar = "id",
+                     direction = "long")
+
+head(exDatLong[sort(exDatLong$id),], 10)
+```
+
+
+... and back to to the wide format.
+
+```{r}
+#| label: base-r-reshape-wide
+exDatWide <- reshape(exDatLong,
+                     varying = names(mscItems),
+                     v.names = "value",
+                     timevar = "Item",
+                     idvar = "id",
+                     direction = "wide")
+head(exDatWide, 10)
+#exDatWide[,paste0("msc",1:4)] == exDat[,paste0("msc",1:4)]
+```
+
+
+### tidyr package
+
+Within the `tidyverse` the `tidyr` package [@R-tidyr] offers two functions that are designed to transform the data to wide (`pivot_longer`) or long (`pivot_wider`) format.
+
+`tidyr::pivot_longer` "lengthens" data, increasing the number of rows and decreasing the number of columns. The function requires only the `cols` statement, although the `names_to` and `values_to` arguments are recommended).  
+
+```{r}
+#| label: tidyr-reshape-long
+exDatLong2 <- exDat |>
+  tidyr::pivot_longer(cols = names(mscItems),
+                      names_to = "Item",
+                      values_to = "value")
+
+head(exDatLong2, 10)
+```
+
+
+`tidyr::pivot_wider` "widens" data, increasing the number of columns and decreasing the number of rows. The function requires the `value_from` and `names_from` arguments (`id_cols` statement is recommended).
+
+```{r}
+#| label: tidyr-reshape-wide
+exDatWide2 <- exDatLong2 |>
+  tidyr::pivot_wider(values_from = "value",
+                     names_from = "Item",
+                     id_cols = "id")
+head(exDatWide2, 10)
+```
+
+
+:::
+
+::: {#viz-mult-items .callout-tip collapse="true" appearance="simple" title="Why reshaping to the long format? A visualization of likert scale data."}
+
+0. Load `ggplot2`
+
+```{r}
+#| label: load-ggplot2
+library(ggplot2)
+```
+
+1. Calculate frequencies with the `base::table` function (per Item) and store them in a new data set (here: `mscPlot`).
+
+```{r}
+#| label: calc-freq-msc-items
+mscPlot <- as.data.frame( with(exDatLong, table(Item, value)) )
+```
+
+2. Visualize the frequencies using `ggplot2`.
+
+```{r}
+#| label: viz-freq-msc-items
+ggplot(data = mscPlot,
+       aes(x = factor(Item,
+                      labels = stringr::str_wrap(mscItems, 35)), # break lines after 35 chr
+           y = Freq,
+           fill = value)) +
+  geom_col(position="fill") + # bar chart
+  scale_fill_brewer(palette = "Set2" # cosmetics start here
+                    ,labels = c("1 = trifft überhaupt nicht zu",
+                                "2 = trifft eher nicht zu",
+                                "3 = trifft eher zu",
+                                "4 = trifft völlig zu")
+                    ) +
+  scale_y_continuous("Frequencies",
+                     labels = scales::percent_format(scale = 100)) + # scales package for %
+  scale_x_discrete("") +
+  coord_flip() +
+  theme_classic() +
+  theme(legend.position = "top",
+        legend.title = element_blank()) +
+  guides(fill=guide_legend(nrow=2,byrow=TRUE))
+
+
 ```
 
 :::
