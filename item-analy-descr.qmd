@@ -275,76 +275,6 @@ where $p$ is the number of items on the scale, $\sigma_j^2$ ($j=1,...,p$) is the
 
 Now lets calculate Cronbachs $\alpha$. We use the variables `msc1`,`msc2`,`msc3r`, & `msc4r` from the example data set (`exDat`).
 
-::: {.callout-important collapse="true"}
-## Missing values and Cronbachs $\alpha$
-
-There are many different packages which implemented the calculation of Cronbachs $\alpha$. For example:
-
-- `alpha` function from the `psych` package [@R-psych]
-
-- `itemstats` function from the `mirt` package [@R-mirt] 
-
-- `cronbach` function from the `psy` package [@R-psy]
-
-- `cronbach.alpha` function from the `ltm` package [@R-ltm]
-
-Interestingly, these package implemented different approaches (and options) in how they deal with missing values which (may) lead to (slightly) different results.
-
-```{r}
-#| label: add-more-miss
-#| code-fold: true
-
-exDatmiss <- exDat
-
-# add some more missing data, this adds up when calculating the sum score
-
-exDatmiss$msc3r <- ifelse (
-  rbinom(
-    nrow(exDatmiss),
-    size = 1,
-    .25) == 1,
-  NA,
-  exDatmiss$msc3r
-  )
-
-exDatmiss$msc1 <- ifelse (
-  rbinom(
-    nrow(exDatmiss),
-    size = 1,
-    .15) == 1,
-  NA,
-  exDatmiss$msc1
-  )
-```
-
-
-```{r}
-#| label: tbl-alpha-over
-#| tbl-cap: Overview of different Cronbach $\alpha$ calculations
-#| code-fold: true
-
-alphaOver <- data.frame(
-  "alpha" = rbind(
-    psych::alpha(exDatmiss[,names(mscItems)])$total$raw_alpha,
-    psy::cronbach(exDatmiss[,names(mscItems)])$alpha,
-    mirt::itemstats(exDatmiss[,names(mscItems)])$overall$alpha,
-    ltm::cronbach.alpha(exDatmiss[,names(mscItems)], na.rm = T)$alpha
-    )
-  )
-    
-alphaOver$Package <- c("psych", "psy", "mirt", "ltm")
-
-kableExtra::kbl(alphaOver[,c("Package", "alpha")],
-                col.names = c("Package", "Cronbachs $\\alpha$"),
-                digits = 5,
-                centering = TRUE) |>
-  kableExtra::kable_styling(full_width = FALSE,
-                            bootstrap_options = c("hover", "responsive"))
-```
-
-
-:::
-
 ::: {.panel-tabset}
 
 ### Cronbachs $\alpha$ and item statistics with base R
@@ -558,23 +488,41 @@ exDat$Row.names <- NULL
 
 ### Calculating many scale scores
 
-<!-- add -->
+Because we need more than 1 scale for this section, you need to load the `exDatComb` data set (it is generated and merged [here](imp-data.qmd#merge-data)). 
+
+```{r}
+#| label: read-exDatComb
+exDatComb <- readRDS("exDatComb.RDS")
+```
+
+The first step is to create a (nested) list that contain all the scales with the respective items. Note that in this example, we assume that the reversed items were already recoded.
 
 ```{r}
 #| label: nam-list-scalescore-1
 
-#names(scaleList)
+scaleList <- list(msc = list("msc1" = c("Ich bin gut in Mathematik."),
+                             "msc2" = c("Ich war in Mathematik immer gut."),
+                             "msc3" = c("..."),
+                             "msc4" = c("...")
+                             ),
+                  gsc = list("gsc1" = c("Ich bin gut in Deutsch"),
+                             "gsc2" = c("Ich war in Deutsch immer gut."),
+                             "gsc3" = c("..."),
+                             "gsc4" = c("...")
+                             )
+                  )
 
 ```
 
-Then using the `sapply` function to iterate through the list elements and applying the `rowSums` function. Note we calculate average scores, because we divide through the total score through the number of items.
+Then using the `sapply` function to iterate through the list elements and applying the `rowSums` function to the items within the second list (accessing item names that are the columns in the data set with the `names` function). Note we calculate average scores, because we divide through the total score through the number of items.
 
 ```{r}
 #| label: calc-many-scale-scores
-#| eval: false
-exDat[,names(scaleList)] <- sapply(scaleList,
-                                     function(s) rowSums(x = exDat[,s],
-                                                         na.rm = FALSE)/length(s),
-                                     simplify = FALSE)
+#| eval: true
+exDatComb[,paste0(names(scaleList), "Score")] <- sapply(1:length(scaleList),
+                                                        function(s) rowSums(x = exDatComb[,names(scaleList[[s]])],
+                                                                            na.rm = FALSE)/length(scaleList[[s]]),
+                                                        simplify = FALSE)
 
+head(exDatComb[,c("id", paste0(names(scaleList), "Score"))])
 ```
