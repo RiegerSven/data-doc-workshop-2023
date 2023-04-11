@@ -486,7 +486,8 @@ exDat$Row.names <- NULL
 
 :::
 
-### Calculating many scale scores
+
+::: {.callout-tip collapse="true" appearance="simple" title="Calculating many scale scores" }
 
 Because we need more than 1 scale for this section, you need to load the `exDatComb` data set (it is generated and merged [here](imp-data.qmd#merge-data)). 
 
@@ -519,10 +520,12 @@ Then using the `sapply` function to iterate through the list elements and applyi
 ```{r}
 #| label: calc-many-scale-scores
 #| eval: true
-exDatComb[,paste0(names(scaleList), "Score")] <- sapply(1:length(scaleList),
-                                                        function(s) rowSums(x = exDatComb[,names(scaleList[[s]])],
-                                                                            na.rm = FALSE)/length(scaleList[[s]]),
-                                                        simplify = FALSE)
+exDatComb[,paste0(names(scaleList),
+                  "Score")] <- sapply(1:length(scaleList),
+                                      function(s) rowSums(x = exDatComb[,names(scaleList[[s]])],
+                                                          na.rm = FALSE)/length(scaleList[[s]]),
+                                      simplify = FALSE)
 
 head(exDatComb[,c("id", paste0(names(scaleList), "Score"))])
 ```
+:::
