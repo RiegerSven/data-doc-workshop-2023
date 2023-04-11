@@ -1,5 +1,7 @@
 # Welcome to the workshop 
 
+
+
 ### Welcome {.unnumbered}
 
 - Who are we?
@@ -19,6 +21,20 @@
 
 - Exercises
   
+  
+::: {.callout-note appearance="simple" title="Learning Goals"}
+
+- Knowledge about the relevance of data documentation
+
+- Introduction to the software programs `R` and `Quarto` 
+
+- First insights in how to work with `R` and `Quarto`.  
+
+
+&rarr; high information density! Do not expect to remember everything. The book will be online and serves as (quick) reference guide.
+
+::: 
+
 ### Agenda {.unnumbered}
 
 - see on the left, and thereafter, on the right!
