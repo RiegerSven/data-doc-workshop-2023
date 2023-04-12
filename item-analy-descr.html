@@ -273,12 +273,7 @@ div.csl-indent {
   <ul>
 <li><a href="#descriptive-statistics" id="toc-descriptive-statistics" class="nav-link active" data-scroll-target="#descriptive-statistics"><span class="header-section-number">9.1</span> Descriptive statistics</a></li>
   <li><a href="#cronbachs-alpha-and-item-statistics" id="toc-cronbachs-alpha-and-item-statistics" class="nav-link" data-scroll-target="#cronbachs-alpha-and-item-statistics"><span class="header-section-number">9.2</span> Cronbachs <span class="math inline">\(\alpha\)</span> and item statistics</a></li>
-  <li>
-<a href="#calculating-scale-scores" id="toc-calculating-scale-scores" class="nav-link" data-scroll-target="#calculating-scale-scores"><span class="header-section-number">9.3</span> Calculating scale scores</a>
-  <ul>
-<li><a href="#calculating-many-scale-scores" id="toc-calculating-many-scale-scores" class="nav-link" data-scroll-target="#calculating-many-scale-scores"><span class="header-section-number">9.3.1</span> Calculating many scale scores</a></li>
-  </ul>
-</li>
+  <li><a href="#calculating-scale-scores" id="toc-calculating-scale-scores" class="nav-link" data-scroll-target="#calculating-scale-scores"><span class="header-section-number">9.3</span> Calculating scale scores</a></li>
   </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/RiegerSven/data-doc-workshop-2023/edit/main/item-analy-descr.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/RiegerSven/data-doc-workshop-2023/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
@@ -1006,8 +1001,18 @@ Scale scores
 </div>
 </div>
 </div>
-<section id="calculating-many-scale-scores" class="level3" data-number="9.3.1"><h3 data-number="9.3.1" class="anchored" data-anchor-id="calculating-many-scale-scores">
-<span class="header-section-number">9.3.1</span> Calculating many scale scores</h3>
+<div class="callout callout-style-simple callout-tip callout-titled" title="Calculating many scale scores">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Calculating many scale scores
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <p>Because we need more than 1 scale for this section, you need to load the <code>exDatComb</code> data set (it is generated and merged <a href="./imp-data.html#merge-data">here</a>).</p>
 <div class="cell">
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">exDatComb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span><span class="op">(</span><span class="st">"exDatComb.RDS"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1028,10 +1033,11 @@ Scale scores
 </div>
 <p>Then using the <code>sapply</code> function to iterate through the list elements and applying the <code>rowSums</code> function to the items within the second list (accessing item names that are the columns in the data set with the <code>names</code> function). Note we calculate average scores, because we divide through the total score through the number of items.</p>
 <div class="cell">
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">exDatComb</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">scaleList</span><span class="op">)</span>, <span class="st">"Score"</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">scaleList</span><span class="op">)</span>,</span>
-<span>                                                        <span class="kw">function</span><span class="op">(</span><span class="va">s</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html">rowSums</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">exDatComb</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">scaleList</span><span class="op">[[</span><span class="va">s</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">]</span>,</span>
-<span>                                                                            na.rm <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">scaleList</span><span class="op">[[</span><span class="va">s</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>,</span>
-<span>                                                        simplify <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">exDatComb</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">scaleList</span><span class="op">)</span>,</span>
+<span>                  <span class="st">"Score"</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">scaleList</span><span class="op">)</span>,</span>
+<span>                                      <span class="kw">function</span><span class="op">(</span><span class="va">s</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html">rowSums</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">exDatComb</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">scaleList</span><span class="op">[[</span><span class="va">s</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">]</span>,</span>
+<span>                                                          na.rm <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">scaleList</span><span class="op">[[</span><span class="va">s</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>                                      simplify <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">exDatComb</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"id"</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">scaleList</span><span class="op">)</span>, <span class="st">"Score"</span><span class="op">)</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1042,6 +1048,9 @@ Scale scores
 4  4     2.25     2.50
 5  5     2.25     2.75
 6  6     2.75     2.75</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 
@@ -1086,7 +1095,7 @@ Widaman, K. F., &amp; Revelle, W. (2022). Thinking thrice about sum scores, and 
 Zhu, H. (2021). <em>kableExtra: Construct complex table with kable and pipe syntax</em>. <a href="https://CRAN.R-project.org/package=kableExtra">https://CRAN.R-project.org/package=kableExtra</a>
 </div>
 </div>
-</section></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
+</section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
 <ol>
 <li id="fn1"><p>That is actually a three-step approach.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2"><p>It is also possible to write a function in advance and use them in this argument. A short introduction how to write function can be found <a href="https://riegersven.github.io/method-website/data-proc-func-loops.html#writing-functions">here</a>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
@@ -1887,46 +1896,49 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb40-533"><a href="#cb40-533" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb40-534"><a href="#cb40-534" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb40-535"><a href="#cb40-535" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-536"><a href="#cb40-536" aria-hidden="true" tabindex="-1"></a><span class="fu">### Calculating many scale scores</span></span>
-<span id="cb40-537"><a href="#cb40-537" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-538"><a href="#cb40-538" aria-hidden="true" tabindex="-1"></a>Because we need more than 1 scale for this section, you need to load the <span class="in">`exDatComb`</span> data set (it is generated and merged <span class="co">[</span><span class="ot">here</span><span class="co">](imp-data.qmd#merge-data)</span>). </span>
-<span id="cb40-539"><a href="#cb40-539" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-542"><a href="#cb40-542" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb40-543"><a href="#cb40-543" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: read-exDatComb</span></span>
-<span id="cb40-544"><a href="#cb40-544" aria-hidden="true" tabindex="-1"></a>exDatComb <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"exDatComb.RDS"</span>)</span>
-<span id="cb40-545"><a href="#cb40-545" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb40-546"><a href="#cb40-546" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-547"><a href="#cb40-547" aria-hidden="true" tabindex="-1"></a>The first step is to create a (nested) list that contain all the scales with the respective items. Note that in this example, we assume that the reversed items were already recoded.</span>
-<span id="cb40-548"><a href="#cb40-548" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-551"><a href="#cb40-551" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb40-552"><a href="#cb40-552" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: nam-list-scalescore-1</span></span>
-<span id="cb40-553"><a href="#cb40-553" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-554"><a href="#cb40-554" aria-hidden="true" tabindex="-1"></a>scaleList <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">msc =</span> <span class="fu">list</span>(<span class="st">"msc1"</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"Ich bin gut in Mathematik."</span>),</span>
-<span id="cb40-555"><a href="#cb40-555" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"msc2"</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"Ich war in Mathematik immer gut."</span>),</span>
-<span id="cb40-556"><a href="#cb40-556" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"msc3"</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"..."</span>),</span>
-<span id="cb40-557"><a href="#cb40-557" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"msc4"</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"..."</span>)</span>
-<span id="cb40-558"><a href="#cb40-558" aria-hidden="true" tabindex="-1"></a>                             ),</span>
-<span id="cb40-559"><a href="#cb40-559" aria-hidden="true" tabindex="-1"></a>                  <span class="at">gsc =</span> <span class="fu">list</span>(<span class="st">"gsc1"</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"Ich bin gut in Deutsch"</span>),</span>
-<span id="cb40-560"><a href="#cb40-560" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"gsc2"</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"Ich war in Deutsch immer gut."</span>),</span>
-<span id="cb40-561"><a href="#cb40-561" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"gsc3"</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"..."</span>),</span>
-<span id="cb40-562"><a href="#cb40-562" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"gsc4"</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"..."</span>)</span>
-<span id="cb40-563"><a href="#cb40-563" aria-hidden="true" tabindex="-1"></a>                             )</span>
-<span id="cb40-564"><a href="#cb40-564" aria-hidden="true" tabindex="-1"></a>                  )</span>
-<span id="cb40-565"><a href="#cb40-565" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-566"><a href="#cb40-566" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb40-567"><a href="#cb40-567" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-568"><a href="#cb40-568" aria-hidden="true" tabindex="-1"></a>Then using the <span class="in">`sapply`</span> function to iterate through the list elements and applying the <span class="in">`rowSums`</span> function to the items within the second list (accessing item names that are the columns in the data set with the <span class="in">`names`</span> function). Note we calculate average scores, because we divide through the total score through the number of items.</span>
-<span id="cb40-569"><a href="#cb40-569" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-572"><a href="#cb40-572" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb40-573"><a href="#cb40-573" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: calc-many-scale-scores</span></span>
-<span id="cb40-574"><a href="#cb40-574" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: true</span></span>
-<span id="cb40-575"><a href="#cb40-575" aria-hidden="true" tabindex="-1"></a>exDatComb[,<span class="fu">paste0</span>(<span class="fu">names</span>(scaleList), <span class="st">"Score"</span>)] <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(scaleList),</span>
-<span id="cb40-576"><a href="#cb40-576" aria-hidden="true" tabindex="-1"></a>                                                        <span class="cf">function</span>(s) <span class="fu">rowSums</span>(<span class="at">x =</span> exDatComb[,<span class="fu">names</span>(scaleList[[s]])],</span>
-<span id="cb40-577"><a href="#cb40-577" aria-hidden="true" tabindex="-1"></a>                                                                            <span class="at">na.rm =</span> <span class="cn">FALSE</span>)<span class="sc">/</span><span class="fu">length</span>(scaleList[[s]]),</span>
-<span id="cb40-578"><a href="#cb40-578" aria-hidden="true" tabindex="-1"></a>                                                        <span class="at">simplify =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb40-579"><a href="#cb40-579" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-580"><a href="#cb40-580" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(exDatComb[,<span class="fu">c</span>(<span class="st">"id"</span>, <span class="fu">paste0</span>(<span class="fu">names</span>(scaleList), <span class="st">"Score"</span>))])</span>
-<span id="cb40-581"><a href="#cb40-581" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-536"><a href="#cb40-536" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-537"><a href="#cb40-537" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip collapse="true" appearance="simple" title="Calculating many scale scores" }</span>
+<span id="cb40-538"><a href="#cb40-538" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-539"><a href="#cb40-539" aria-hidden="true" tabindex="-1"></a>Because we need more than 1 scale for this section, you need to load the <span class="in">`exDatComb`</span> data set (it is generated and merged <span class="co">[</span><span class="ot">here</span><span class="co">](imp-data.qmd#merge-data)</span>). </span>
+<span id="cb40-540"><a href="#cb40-540" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-543"><a href="#cb40-543" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-544"><a href="#cb40-544" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: read-exDatComb</span></span>
+<span id="cb40-545"><a href="#cb40-545" aria-hidden="true" tabindex="-1"></a>exDatComb <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"exDatComb.RDS"</span>)</span>
+<span id="cb40-546"><a href="#cb40-546" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-547"><a href="#cb40-547" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-548"><a href="#cb40-548" aria-hidden="true" tabindex="-1"></a>The first step is to create a (nested) list that contain all the scales with the respective items. Note that in this example, we assume that the reversed items were already recoded.</span>
+<span id="cb40-549"><a href="#cb40-549" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-552"><a href="#cb40-552" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-553"><a href="#cb40-553" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: nam-list-scalescore-1</span></span>
+<span id="cb40-554"><a href="#cb40-554" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-555"><a href="#cb40-555" aria-hidden="true" tabindex="-1"></a>scaleList <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">msc =</span> <span class="fu">list</span>(<span class="st">"msc1"</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"Ich bin gut in Mathematik."</span>),</span>
+<span id="cb40-556"><a href="#cb40-556" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"msc2"</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"Ich war in Mathematik immer gut."</span>),</span>
+<span id="cb40-557"><a href="#cb40-557" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"msc3"</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"..."</span>),</span>
+<span id="cb40-558"><a href="#cb40-558" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"msc4"</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"..."</span>)</span>
+<span id="cb40-559"><a href="#cb40-559" aria-hidden="true" tabindex="-1"></a>                             ),</span>
+<span id="cb40-560"><a href="#cb40-560" aria-hidden="true" tabindex="-1"></a>                  <span class="at">gsc =</span> <span class="fu">list</span>(<span class="st">"gsc1"</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"Ich bin gut in Deutsch"</span>),</span>
+<span id="cb40-561"><a href="#cb40-561" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"gsc2"</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"Ich war in Deutsch immer gut."</span>),</span>
+<span id="cb40-562"><a href="#cb40-562" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"gsc3"</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"..."</span>),</span>
+<span id="cb40-563"><a href="#cb40-563" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"gsc4"</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"..."</span>)</span>
+<span id="cb40-564"><a href="#cb40-564" aria-hidden="true" tabindex="-1"></a>                             )</span>
+<span id="cb40-565"><a href="#cb40-565" aria-hidden="true" tabindex="-1"></a>                  )</span>
+<span id="cb40-566"><a href="#cb40-566" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-567"><a href="#cb40-567" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-568"><a href="#cb40-568" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-569"><a href="#cb40-569" aria-hidden="true" tabindex="-1"></a>Then using the <span class="in">`sapply`</span> function to iterate through the list elements and applying the <span class="in">`rowSums`</span> function to the items within the second list (accessing item names that are the columns in the data set with the <span class="in">`names`</span> function). Note we calculate average scores, because we divide through the total score through the number of items.</span>
+<span id="cb40-570"><a href="#cb40-570" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-573"><a href="#cb40-573" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-574"><a href="#cb40-574" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: calc-many-scale-scores</span></span>
+<span id="cb40-575"><a href="#cb40-575" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: true</span></span>
+<span id="cb40-576"><a href="#cb40-576" aria-hidden="true" tabindex="-1"></a>exDatComb[,<span class="fu">paste0</span>(<span class="fu">names</span>(scaleList),</span>
+<span id="cb40-577"><a href="#cb40-577" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"Score"</span>)] <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(scaleList),</span>
+<span id="cb40-578"><a href="#cb40-578" aria-hidden="true" tabindex="-1"></a>                                      <span class="cf">function</span>(s) <span class="fu">rowSums</span>(<span class="at">x =</span> exDatComb[,<span class="fu">names</span>(scaleList[[s]])],</span>
+<span id="cb40-579"><a href="#cb40-579" aria-hidden="true" tabindex="-1"></a>                                                          <span class="at">na.rm =</span> <span class="cn">FALSE</span>)<span class="sc">/</span><span class="fu">length</span>(scaleList[[s]]),</span>
+<span id="cb40-580"><a href="#cb40-580" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">simplify =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb40-581"><a href="#cb40-581" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-582"><a href="#cb40-582" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(exDatComb[,<span class="fu">c</span>(<span class="st">"id"</span>, <span class="fu">paste0</span>(<span class="fu">names</span>(scaleList), <span class="st">"Score"</span>))])</span>
+<span id="cb40-583"><a href="#cb40-583" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-584"><a href="#cb40-584" aria-hidden="true" tabindex="-1"></a>:::</span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
