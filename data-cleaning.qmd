@@ -67,20 +67,20 @@ Because it is also crucial to document the data cleaning process (i.e., to recon
 
 ## Remove duplicate observations {#rem-duplicate}
 
-Duplicate observations are identified via the `id` and `variable` values (i.e., response patterns). In @tbl-dup-obs there are 3 different scenarios depicted that are problematic. 
+Duplicate observations are identified via the `id` and `variable values` (i.e., response patterns). In @tbl-dup-obs there are 3 different scenarios depicted that are problematic. 
 
 +----+-----------------------------------------+--------+-----------------------------------+
 |    | Scenario                                |        | Action                            |
 +====+=========================================+========+===================================+
 | 1. | Same `id` variable value, and same      | &rarr; | delete one observation            |
-|    | variable values (response pattern)      |        |                                   |
+|    | `variable values` (response pattern)    |        |                                   |
 +----+-----------------------------------------+--------+-----------------------------------+
 | 2. | Same `id` variable value, but different | &rarr; | check data (i.e., questionnaires) |
-|    | variable values (response pattern)      |        |                                   |
+|    | `variable values` (response pattern)    |        |                                   |
 +----+-----------------------------------------+--------+-----------------------------------+
 | 3. | Different `id` variable values, but     | &rarr; | complicated, it is possible, but  |
-|    | same variable values (response pattern) |        | check data (i.e., questionnaires, |
-|    |                                         |        | especially open fields)           |
+|    | same `variable values`                  |        | check data (i.e., questionnaires, |
+|    | (response pattern)                      |        | especially open fields)           |
 +----+-----------------------------------------+--------+-----------------------------------+
 
 : Overview of duplicate observations scenarios {#tbl-dup-obs}
@@ -119,20 +119,25 @@ The procedure is as follows:
 
 **!! Do not do this with real data !! !! Do not do this with real data !! !! Do not do this with real data !!**
 
-The example data set `exDat` does not contain any duplicate observations. Hence, we have to create them. This is done with the `rbind` function (i.e., adding the first five rows `[1:5]` of the `exDat` data set to the `exDat` data set).
+The example data set `exDat` does not contain any duplicate observations. Hence, we have to create them. This is done with the `base::rbind` function (i.e., adding the first five rows of the  example data set (i.e., `exDat[1:5]`) to the same data set).
 
 ```{r}
 #| label: add-dup-obs
-#| code-fold: false
+#| code-fold: show
 #| code-line-numbers: true
 
 
-exDatID <- tibble::as_tibble( rbind(exDat,exDat[1:5,]) )
+exDatID <- rbind(exDat,exDat[1:5,])
 exDatID[c(751, 752),"id"] <- c(751, 752)
 exDatID[6,"id"] <- 7
-#exDatID$comment <- c("Hi", "Hello", "apple", "avocado", "bye",
-  #                   rep("no", 745),
- #                    "Hi", "Hello", "apple", "avocado", "bye")
+set.seed(999)
+exDatID$comment <- c("Hi, i like playing video games.",
+                     "Hello, I am strong like Hulk.",
+                     "i like apples!", "i like avocados!", "bye...",
+                     sample(c("no", "nope", "nopeee", "no!", "no...", "..."), 745, replace = TRUE),
+                     "Hi, i like playing video games.",
+                     "Hello, I am strong like Hulk.",
+                     "i like apples!", "i like avocados!", "bye...")
 
 nrow(exDatID)
 ```
@@ -143,6 +148,7 @@ For the exercise [below](#ex-rem-dup), write the `exDatID` data set to your proj
 
 ```{r}
 #| label: write-exDatID
+#| code-fold: show
 #| eval: false
 
 getwd()
@@ -167,9 +173,9 @@ How to find and remove duplicate observations via the `id` and `variable` values
 ```{r}
 #| label: read-exDatID
 #| eval: false
-#| code-fold: false
+#| code-fold: true
 exDatID <- read.csv2(file = "exDatID.csv",
-          header = TRUE)
+                     header = TRUE)
 ```
 
 
@@ -180,10 +186,10 @@ exDatID <- read.csv2(file = "exDatID.csv",
 ```{r}
 #| label: write-exDatID-clean
 #| eval: false
-#| code-fold: false
+#| code-fold: true
 getwd()
-write.csv2(x = exDatCleanID,
-           file = "exDat-cleaned-ID.csv",
+write.csv2(x = exDatIDclean,
+           file = "studyname-01-01-data-cleaned-remDup.csv",
            row.names = FALSE)
 ```
 
@@ -200,8 +206,8 @@ write.csv2(x = exDatCleanID,
 #| code-fold: false
 #| code-line-numbers: false
 #| 
-exDatID$dupID <- ifelse ( duplicated(exDatID$id), "dup"," ")
-#table(exDatID$dupID)
+exDatID$dupID <- duplicated(exDatID$id)
+table(exDatID$dupID)
 ```
 
 2. Identify with the `which` function which `id` values are duplicated.
@@ -211,19 +217,20 @@ exDatID$dupID <- ifelse ( duplicated(exDatID$id), "dup"," ")
 #| code-fold: false
 #| code-line-numbers: false
 #| 
-whichID <- exDatID[which(exDatID$dupID == "dup"), "id"]
+whichID <- exDatID[which(exDatID$dupID == TRUE), "id"]
 whichID
 ```
 
 
-3. Select only the the rows with duplicated `id` values (`unlist` the `tbl_df` object: `whichID` is necessary).
+3. Select only the the rows with duplicated `id` values (`unlist` the `whichID` object).
 
 ```{r}
 #| label: show-dup-3
 #| code-fold: false
 #| code-line-numbers: false
 #| 
-dupIDs <- exDatID[exDatID$id %in% unlist(whichID),]
+dupIDs <- tibble::as_tibble( exDatID[exDatID$id %in% unlist(whichID),] )
+
 ```
 
 4. Show the (ordered) data set.
@@ -237,95 +244,179 @@ dupIDs[order(dupIDs$id),]
 ```
 
 
-What do we see? 4 duplicated `id` values: 3, 4, 5, 7 were identified, but only 3, 4, and 5 are real duplicate observations. In a real data set, this would be probably a input error during data entry. Hence, it would be necessary to check the questionnaires. We know that it was a mistake, because we created the error (see above). Thus, we can reverse it without further ado. But be careful that you select the right observation.
+What do we see? 4 duplicated `id` values: 3, 4, 5, 7 were identified, but only 3, 4, and 5 are *"real"* duplicate observations. In a real data set, this would be probably a input error during data entry. Hence, it would be necessary to check the questionnaires. We know that it was a mistake, because we created the error (see above). Thus, we can reverse it without further ado. But be careful that you select the right observation.
 
 ```{r}
-#| label: exDatID-fix-id
-#| code-fold: show
-#| code-line-numbers: false
-exDatID[exDatID$id == 7 & exDatID$dupID != "dup","id"] <- 6
-exDatID[exDatID$id == 7,"dupID"] <- " "
+#| label: gen-exDatIDclean
+exDatIDclean <- exDatID
+exDatIDclean[exDatIDclean$id == 7 & exDatIDclean$comment == "nopeee","id"] <- 6
+exDatIDclean[exDatIDclean$id == 7,"dupID"] <- " "
 ```
 
 
 The observations with the `id` values 3, 4, and 5 can be deleted. Therefore, we can use the `subset` function that requires the input `x` which can be `matrices`, `data frames` or `vectors` (including `lists`). In the `subset`argument you can state logical expression indicating elements or rows to keep (here: `!= dup`).
 
 ```{r}
-#| label: demo-subset-dup
+#| label: demo-subset-dup-1
 #| code-fold: false
-exDatID <- subset(x = exDatID,
-                  subset = dupID != "dup")
-nrow(exDatID)
+exDatIDclean <- subset(x = exDatIDclean,
+                       subset = dupID != TRUE)
+
+nrow(exDatIDclean)
 ```
 
-Note that there are still 2 duplicate observations left. Nevertheless, we can delete the variable `dupID` and clean our environment with the `rm` function:
+
+```{r}
+#| label: demo-subset-dup-2
+#| code-fold: false
+#| class-output: vScrollbar
+exDatIDclean
+```
+
+
+Note that there are still 2 duplicate observations left. Nevertheless, we can delete the variable `dupID` and clean our environment with the `base::rm` function:
 
 ```{r}
 #| label: del-dupID
 #| code-fold: false
-exDatID$dupID <- NULL
+exDatIDclean$dupID <- NULL
 rm(whichID, dupIDs)
 ```
 
-What to do with the other 2 duplicate observation? We need to repeat the procedure. This time we do not examine the `id` values (i.e., actually we exclude this variable), but the response pattern.
+```{r}
+#| label: del-dupID-exDatID
+#| echo: false
+exDatID$dupID <- NULL
+
+```
+
+What to do with the other 2 duplicate observation? We need to repeat the procedure. This time we do not examine the `id` values (i.e., actually we need to exclude this variable), but the response pattern. This is done as follows: 
 
 ```{r}
+#| label: demo-double-dup
+dupResp <- exDatIDclean[duplicated(exDatIDclean[, -which(names(exDatIDclean) == "id")]) |
+                        duplicated(exDatIDclean[, -which(names(exDatIDclean) == "id")],
+                                   fromLast = TRUE), ]
 
-uniqueRows <- exDatID[duplicated(exDatID[, -which(names(exDatID) == "id")]),"id"]
+dupResp
 
-exDatID[exDatID$id %in% unlist(uniqueRows),]
+```
+
+Recall, the real duplicates are the observations with the `id` values 751 and 752, but we identified 4 more observations with non-unique patters...this needs careful investigation.
+
+
+You may also want to check the `base::unique` function.
+
+```{r}
+#| label: demo-unique-1
+
+nrow(
+  unique(exDatIDclean[, -which(names(exDatIDclean) == "id")])
+  )
 
 ```
 
 
-<!--
-
-
-
 ```{r}
-#| label: show-dup-resp
-#| code-fold: false
-#| code-line-numbers: true
+#| label: demo-unique-2
+#| class-output: vScrollbar
 
-
-exDatID$dupResp <- ifelse(duplicated( exDatID[, -which(names(exDatID) == "id")],),
-                          "dup",
-                          " ")
-#table(exDatID$dupResp)
-whichresp <- exDatID[which(exDatID$dupResp == "dup"), "id"]
-dupResps <- exDatID[exDatID$id %in% unlist(whichresp),]
-dupResps[order(dupResps$id),]
+unique(exDatIDclean[, -which(names(exDatIDclean) == "id")])
 ```
 
 
--->
 
+::: {.callout-important collapse="false" appearance="simple"}
+
+The `base::unique` function eliminated 2 additional observations that are no real duplicates...Hence, it is important to carefully applying the `base::unique` function and checking that it does not eliminate different observations with the same response pattern (only real duplicates)!
+
+:::
+
+```{r}
+#| label: del-exDatIDclean
+#| echo: false
+rm(exDatIDclean)
+```
 
 
 ### dplyr package
 
-Filtering can be done using the `dplyr::filter()` function in combination with `duplicated()`.
+<!-- add more information here -->
+
+In the first step, we identify the duplicated `id` values with the `base::duplicated` function and adding a new column (`dupID`) using the `dplyr::mutate` function to the data set. Then we filter (using the `dplyr::filter()`) observations based on the returned `TRUE` values of the `base::duplicated` function Lastly, we select the `id` column (using `dplyr::select`) and `base::unlist` and `base::unname` it.
 
 ```{r}
-exDatID |> 
-  dplyr::mutate(dupID = ifelse(duplicated(id), "dup", " ")) |>
-  dplyr::filter(dupID == "dup")
-    
-  
+#| label: show-dup-dplyr-1
+whichIDdplyr <- exDatID |> 
+  dplyr::mutate(dupID = duplicated(id)) |>
+  dplyr::filter(dupID == TRUE) |>
+  dplyr::select(id) |>
+  unlist() |>
+  unname()
+
+whichIDdplyr
 ```
 
-However, `dplyr` provides a function `dplyr::distinct()` which can be used to keep only unique rows.
+
+3. Select only the the rows with duplicated `id` values (`dplyr::filter`) and show the (ordered, `dplyr::arrange`) data set.
 
 ```{r}
+#| label: show-dup-dplyr-2
+exDatID |>
+  dplyr::filter(id %in% whichIDdplyr) |>
+  dplyr::arrange(id)
+```
+
+
+```{r}
+#| label: fix-id-dplyr-1
+#| eval: true
+
+exDatIDclean <- exDatID |>
+  dplyr::mutate(dupID = duplicated(id)) |>
+  dplyr::mutate(id = ifelse(id == 7 & comment == "nopeee", 6, id)) |>
+  dplyr::mutate(dupID = ifelse(id == 7, FALSE, dupID)) |>
+  dplyr::filter(dupID == FALSE) |>
+  dplyr::mutate(dupID = NULL)
+
+nrow(exDatIDclean)
+```
+
+
+```{r}
+#| label: fix-id-dplyr-2
+#| eval: true
 #| class-output: vScrollbar
-dplyr::distinct(exDatID)
+exDatIDclean
 ```
+
+
+Similar to the `base::unique` function, the `dplyr` package provides a function `dplyr::distinct()` which can be used to keep only unique rows.
+
+```{r}
+#| label: demo-dplyr-distinct-1
+
+nrow(
+  dplyr::distinct(exDatIDclean[, -which(names(exDatIDclean) == "id")]) 
+)
+
+```
+
+
+```{r}
+#| label: demo-dplyr-distinct-2
+#| class-output: vScrollbar
+
+dplyr::distinct(exDatIDclean[, -which(names(exDatIDclean) == "id")]) 
+```
+
+::: {.callout-important collapse="false" appearance="simple"}
+
+The `dplyr::distinct` function eliminated 2 additional observations that are no real duplicates...Hence, it is important to carefully applying the `dplyr::distinct` function and checking that it does not eliminate different observations with the same response pattern (only real duplicates)!
 
 :::
 
-
-
-
+:::
 
 ## Handling missing data {#handle-missing}
 
@@ -342,7 +433,7 @@ The procedure encompasses ~~3~~ 2 steps:
 
 In other statistical software programs (e.g., SPSS) or in study planning, missing values are often defined as numeric values (e.g., `-9`, `-88` or `-99`)^[Note that this is also recommended when designing a codebook, see here: <https://datawizkb.leibniz-psychology.org>] or as empty characters/strings (i.e., `""` or `" "`). In `R`, missing values are represented by the symbol `NA` (not available). This means, the first step is to ensure that all missing values are declared as `NA` in the data set.
 
-::: {.callout-warning collapse="false" appearance="simple" title="Assign -99 values"}
+::: {.callout-warning collapse="false" appearance="simple" title="Assign -99 & -88 values"}
 
 **!! Do not do this with real data !! !! Do not do this with real data !! !! Do not do this with real data !!**
 
